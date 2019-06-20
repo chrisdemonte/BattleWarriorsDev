@@ -22,6 +22,7 @@ public class BattleStats {
 	int actionTime;
 	int daze;
 	int haste;
+	int damageSpike;
 	
 	double crit;
 	double accuracy;
@@ -48,7 +49,7 @@ public class BattleStats {
 	boolean canRun;
 	int canRunCounter;
 	
-	//if charmed is true, chance to take no actions vs. intelligence + resistance
+	//if charmed is true, chance to take no actions vs. resistance
 	boolean charmed;
 	int charmCounter;
 	
@@ -60,7 +61,7 @@ public class BattleStats {
 	boolean confused;
 	int confusionCounter;
 	
-	//if vulnerable is true, enemy attacks ignore avoidance, blocking, barriers and shields, protection, counter, immunity, and reflecting 
+	//if vulnerable is true, enemy attacks ignore avoidance, blocking, barriers and shields, counter, and reflecting (protection and immunity still apply)
 	boolean vulnerable;
 	int vulnerableCounter;
 	
@@ -74,6 +75,26 @@ public class BattleStats {
 	double reflecting;
 	int reflectingCounter;
 	
+	boolean freecasting;
+	int freecastingCounter;
+	boolean exhausted;
+	int exhaustedCounter;
+	
+	//if locked is true, your character is locked into using it's last attack
+	boolean locked;
+	int lockedCounter;
+	
+	//if mindControled is true, your character has a chance of hurting itself, doing no actions, or doing its normal actions vs. resistance 
+	boolean mindControlled;
+	int mindControlledCounter;
+	
+	public BattleStats (BaseStats base) {
+		this.level = base.getLevel();
+		this.stamina = base.getStamina();
+		this.strength = base.getStrength();
+		this.defense = base.getDefense();
+		this.magic = base.getMagic();
+	}
 	
 
 }
