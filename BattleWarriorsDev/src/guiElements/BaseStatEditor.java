@@ -79,25 +79,27 @@ public class BaseStatEditor {
 		speedLabel= new Label("Speed : " + this.stats.getSpeed());
 		skillLabel= new Label("Skill : " + this.stats.getSkill());
 		
-		Button staminaMinus= new Button(" - ");
-		Button strengthMinus= new Button(" - ");
-		Button defenseMinus= new Button(" - ");
-		Button magicMinus= new Button(" - ");
-		Button resistanceMinus= new Button(" - ");
-		Button cunningMinus= new Button(" - ");
-		Button intelligenceMinus= new Button(" - ");
-		Button speedMinus= new Button(" - ");
-		Button skillMinus= new Button(" - ");
+		staminaMinus= new Button(" - ");
+		strengthMinus= new Button(" - ");
+		defenseMinus= new Button(" - ");
+		magicMinus= new Button(" - ");
+		resistanceMinus= new Button(" - ");
+		cunningMinus= new Button(" - ");
+		intelligenceMinus= new Button(" - ");
+		speedMinus= new Button(" - ");
+		skillMinus= new Button(" - ");
 		
-		Button staminaPlus= new Button(" + ");
-		Button strengthPlus= new Button(" + ");
-		Button defensePlus= new Button(" + ");
-		Button magicPlus= new Button(" + ");
-		Button resistancePlus= new Button(" + ");
-		Button cunningPlus= new Button(" + ");
-		Button intelligencePlus= new Button(" + ");
-		Button speedPlus= new Button(" + ");
-		Button skillPlus= new Button(" + ");
+		staminaPlus= new Button(" + ");
+		strengthPlus= new Button(" + ");
+		defensePlus= new Button(" + ");
+		magicPlus= new Button(" + ");
+		resistancePlus= new Button(" + ");
+		cunningPlus= new Button(" + ");
+		intelligencePlus= new Button(" + ");
+		speedPlus= new Button(" + ");
+		skillPlus= new Button(" + ");
+		
+		submit = new Button("Submit");
 		
 		levelLine .getChildren().addAll(levelLabel);
 		pointsLine.getChildren().addAll(pointsLabel);
@@ -117,6 +119,14 @@ public class BaseStatEditor {
 		
 		
 		}
+
+	public VBox getContainer() {
+		return container;
+	}
+
+	public void setContainer(VBox container) {
+		this.container = container;
+	}
 	
 
 }
