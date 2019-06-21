@@ -14,7 +14,7 @@ public class Armor extends Item implements Equipable{
 	}
 	
 	Armor(String slot){
-		super("Empty", "Have no armor in this slot", "0");
+		super("Empty", "No armor in this slot", "0");
 		this.stats = new BattleStats();
 		this.requirements = new BaseStats();
 		this.slot = slot;
