@@ -11,6 +11,7 @@ public class Runner extends Application {
 
 	@Override
 	public void start(Stage mainStage) throws Exception {
+		
 		Pane root = new Pane();
 		root.setMinSize(600, 400);
 		BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 10);
