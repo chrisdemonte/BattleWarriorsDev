@@ -4,14 +4,23 @@ public class BattleStats {
 	
 	double level;
 	double stamina;
+	double staminaMod;
 	double strength;
+	double strengthMod;
 	double defense;
+	double defenseMod;
 	double magic;
+	double magicMod;
 	double resistance;
+	double resistanceMod;
 	double cunning;
+	double cunningMod;
 	double intelligence;
+	double intelligenceMod;
 	double speed;
+	double speedMod;
 	double skill;
+	double skillMod;
 	
 	int maxHealth;
 	int currentHealth;
@@ -25,20 +34,25 @@ public class BattleStats {
 	int damageSpike;
 	
 	double crit;
+	double critMod;
 	double accuracy;
+	double accuracyMod;
 	double avoidance;
+	double avoidanceMod;
 	double blocking;
+	double blockingMod;
 	double penetration; 
+	double penetrationMod;
 	
 	double barrier;
+	int barrierCounter;
 	double physicalShield;
+	int physicalShieldCounter;
 	double magicShield;
+	int magicShieldCounter;
 	
-	//if afraid is true, chance to take no actions vs. skill + resistance
 	double fear;
 	double intimidation;
-	boolean afraid;
-	int afraidCounter;
 	
 	boolean canAttack;
 	int canAttackCounter;
@@ -48,22 +62,6 @@ public class BattleStats {
 	int canSkipTurnCounter;
 	boolean canRun;
 	int canRunCounter;
-	
-	//if charmed is true, chance to take no actions vs. resistance
-	boolean charmed;
-	int charmCounter;
-	
-	//if attracted is true, chance to take no actions vs. intelligence
-	boolean attracted;
-	int attractedCounter;
-	
-	//if confused is true, chance to take no actions vs. skill
-	boolean confused;
-	int confusionCounter;
-	
-	//if vulnerable is true, enemy attacks ignore avoidance, blocking, barriers and shields, counter, and reflecting (protection and immunity still apply)
-	boolean vulnerable;
-	int vulnerableCounter;
 	
 	double protection;
 	int protectionCounter;
@@ -80,35 +78,37 @@ public class BattleStats {
 	boolean exhausted;
 	int exhaustedCounter;
 	
-	//if locked is true, your character is locked into using it's last attack
 	boolean locked;
 	int lockedCounter;
 	
-	//if mindControled is true, your character has a chance of hurting itself, doing no actions, or doing its normal actions vs. resistance 
-	boolean mindControlled;
-	int mindControlledCounter;
 	
-	public BattleStats (BaseStats base) {
-		this.level = base.getLevel();
-		this.stamina = base.getStamina();
-		this.strength = base.getStrength();
-		this.defense = base.getDefense();
-		this.magic = base.getMagic();
-		this.resistance = base.getResistance();
+	public BattleStats (Character character) {
+		this();
+		this.setBattleStats(character);
+		
 	}
 
 	public BattleStats() {
 		super();
 		this.level = 0.0;
 		this.stamina = 0.0;
+		this.staminaMod = 0.0;
 		this.strength = 0.0;
+		this.strengthMod = 0.0;
 		this.defense = 0.0;
+		this.defenseMod = 0.0;
 		this.magic = 0.0;
+		this.magicMod = 0.0;
 		this.resistance = 0.0;
+		this.resistanceMod = 0.0;
 		this.cunning = 0.0;
+		this.cunningMod = 0.0;
 		this.intelligence = 0.0;
+		this.intelligenceMod = 0.0;
 		this.speed = 0.0;
+		this.speedMod = 0.0;
 		this.skill = 0.0;
+		this.skillMod = 0.0;
 		this.maxHealth = 0;
 		this.currentHealth = 0;
 		this.maxEnergy = 0;
@@ -120,17 +120,23 @@ public class BattleStats {
 		this.haste = 0;
 		this.damageSpike = 0;
 		this.crit = 0.0;
+		this.critMod = 0.0;
 		this.accuracy = 0.0;
+		this.accuracyMod = 0.0;
 		this.avoidance = 0.0;
+		this.avoidanceMod = 0.0;
 		this.blocking = 0.0;
+		this.blockingMod = 0.0;
 		this.penetration = 0.0;
+		this.penetrationMod = 0.0;
 		this.barrier = 0.0;
+		this.barrierCounter = 0;
 		this.physicalShield = 0.0;
+		this.physicalShieldCounter = 0;
 		this.magicShield = 0.0;
+		this.magicShieldCounter = 0;
 		this.fear = 0.0;
 		this.intimidation = 0.0;
-		this.afraid = false;
-		this.afraidCounter = 0;
 		this.canAttack = true;
 		this.canAttackCounter = 0;
 		this.canUseItems = true;
@@ -139,14 +145,6 @@ public class BattleStats {
 		this.canSkipTurnCounter = 0;
 		this.canRun = true;
 		this.canRunCounter = 0;
-		this.charmed = false;
-		this.charmCounter = 0;
-		this.attracted = false;
-		this.attractedCounter = 0;
-		this.confused = false;
-		this.confusionCounter = 0;
-		this.vulnerable = false;
-		this.vulnerableCounter = 0;
 		this.protection = 0.0;
 		this.protectionCounter = 0;
 		this.countering = 0.0;
@@ -161,10 +159,132 @@ public class BattleStats {
 		this.exhaustedCounter = 0;
 		this.locked = false;
 		this.lockedCounter = 0;
-		this.mindControlled = false;
-		this.mindControlledCounter = 0;
+		
+	}
+	public void addBattleStats(BattleStats other) {
+		
+		this.stamina += other.getStamina();
+		this.staminaMod += other.getStaminaMod();
+		this.strength += other.getStrength();
+		this.strengthMod += other.getStrengthMod();
+		this.defense += other.getDefense();
+		this.defenseMod += other.getDefenseMod();
+		this.magic += other.getMagic();
+		this.magicMod += other.getMagicMod();
+		this.resistance += other.getResistance();
+		this.resistanceMod += other.getResistanceMod();
+		this.cunning += other.getCunning();
+		this.cunningMod += other.getCunningMod();
+		this.intelligence += other.getIntelligence();
+		this.intelligenceMod += other.getIntelligenceMod();
+		this.speed += other.getSpeed();
+		this.speedMod += other.getSpeedMod();
+		this.skill += other.getSkill();
+		this.skillMod += other.getSkillMod();
+		this.maxHealth += other.getMaxHealth();
+		this.currentHealth += other.getCurrentHealth();
+		this.maxEnergy += other.getMaxEnergy();
+		this.currentEnergy += other.getCurrentEnergy();
+		this.maxComboPoints += other.getMaxComboPoints();
+		this.currentComboPoints += other.getCurrentComboPoints();
+		this.actionTime += other.getActionTime();
+		this.daze += other.getDaze();
+		this.haste += other.getHaste();
+		this.damageSpike += other.getDamageSpike();
+		this.crit += other.getCrit();
+		this.critMod += other.getCritMod();
+		this.accuracy += other.getAccuracy();
+		this.accuracyMod += other.getAccuracyMod();
+		this.avoidance += other.getAvoidance();
+		this.avoidanceMod += other.getAvoidanceMod();
+		this.blocking += other.getBlocking();
+		this.blockingMod += other.getBlockingMod();
+		this.penetration += other.getPenetration();
+		this.penetrationMod += other.getPenetrationMod();
+		this.barrier += other.getBarrier();
+		this.barrierCounter += other.getBarrierCounter();
+		this.physicalShield += other.getPhysicalShield();
+		this.physicalShieldCounter += other.getPhysicalShieldCounter();
+		this.magicShield += other.getMagicShield();
+		this.magicShieldCounter += other.getMagicShieldCounter();
+		this.fear += other.getFear();
+		this.intimidation += other.getIntimidation();
+		if (!other.isCanAttack()) {
+			this.canAttack = false;
+			if (other.getCanAttackCounter() > this.canAttackCounter) {
+				this.canAttackCounter = other.getCanAttackCounter();
+			}
+		}
+		if (!other.isCanUseItems()) {
+			this.canUseItems = false;
+			if (other.getCanUseItemsCounter() > this.getCanUseItemsCounter()) {
+				this.canUseItemsCounter = other.getCanUseItemsCounter();
+			}
+		}
+		if (!other.isCanSkipTurn()) {
+			this.canSkipTurn = false;
+			if (other.getCanSkipTurnCounter() > this.canSkipTurnCounter) {
+				this.canSkipTurnCounter = other.getCanSkipTurnCounter();
+			}
+		}
+		if (!other.isCanRun()) {
+			this.canRun = false;
+			if (other.getCanRunCounter() > this.canRunCounter) {
+				this.canRunCounter = other.getCanRunCounter();
+			}
+		}
+		this.protection += other.getProtection();
+		if (other.getPhysicalShieldCounter() > this.protectionCounter) {
+			this.protectionCounter = other.getProtectionCounter();
+		}
+		this.countering += other.getCountering();
+		if (other.getCounteringCounter() > this.counteringCounter) {
+			this.counteringCounter = other.getCounteringCounter();
+		}
+		this.immunity += other.getImmunity();
+		if (other.getImmunityCounter() > this.immunityCounter) {
+			this.immunityCounter = other.getImmunityCounter();
+		}
+		this.reflecting += other.getReflecting();
+		if (other.getReflectingCounter() > this.reflectingCounter) {
+			this.reflectingCounter = other.getReflectingCounter();
+		}
+		if (other.isFreecasting()) {
+			this.freecasting = true;
+			if (other.getFreecastingCounter() > this.freecastingCounter) {
+				this.freecastingCounter = other.getFreecastingCounter();
+			}
+		}
+		if (other.isExhausted()) {
+			this.exhausted = true;
+			if (other.getExhaustedCounter() > this.exhaustedCounter) {
+				this.exhaustedCounter = other.getExhaustedCounter();
+			}
+		}
+		if (other.isLocked()) {
+			this.locked = true;
+			if (other.getLockedCounter() > this.lockedCounter) {
+				this.lockedCounter = other.getLockedCounter();
+			}
+		}
+		
+		
 	}
 
+	public void setBattleStats(Character character) {
+		
+		this.level = character.getBaseStats().getLevel();
+		this.stamina = character.getBaseStats().getStamina();
+		this.strength = character.getBaseStats().getStrength();
+		this.defense = character.getBaseStats().getDefense();
+		this.magic = character.getBaseStats().getMagic();
+		this.resistance = character.getBaseStats().getResistance();
+		this.cunning = character.getBaseStats().getCunning();
+		this.intelligence = character.getBaseStats().getIntelligence();
+		this.speed = character.getBaseStats().getSpeed();
+		this.skill = character.getBaseStats().getSkill();
+		
+	}
 	public double getLevel() {
 		return level;
 	}
@@ -405,21 +525,6 @@ public class BattleStats {
 		this.intimidation = intimidation;
 	}
 
-	public boolean isAfraid() {
-		return afraid;
-	}
-
-	public void setAfraid(boolean afraid) {
-		this.afraid = afraid;
-	}
-
-	public int getAfraidCounter() {
-		return afraidCounter;
-	}
-
-	public void setAfraidCounter(int afraidCounter) {
-		this.afraidCounter = afraidCounter;
-	}
 
 	public boolean isCanAttack() {
 		return canAttack;
@@ -483,70 +588,6 @@ public class BattleStats {
 
 	public void setCanRunCounter(int canRunCounter) {
 		this.canRunCounter = canRunCounter;
-	}
-
-	public boolean isCharmed() {
-		return charmed;
-	}
-
-	public void setCharmed(boolean charmed) {
-		this.charmed = charmed;
-	}
-
-	public int getCharmCounter() {
-		return charmCounter;
-	}
-
-	public void setCharmCounter(int charmCounter) {
-		this.charmCounter = charmCounter;
-	}
-
-	public boolean isAttracted() {
-		return attracted;
-	}
-
-	public void setAttracted(boolean attracted) {
-		this.attracted = attracted;
-	}
-
-	public int getAttractedCounter() {
-		return attractedCounter;
-	}
-
-	public void setAttractedCounter(int attractedCounter) {
-		this.attractedCounter = attractedCounter;
-	}
-
-	public boolean isConfused() {
-		return confused;
-	}
-
-	public void setConfused(boolean confused) {
-		this.confused = confused;
-	}
-
-	public int getConfusionCounter() {
-		return confusionCounter;
-	}
-
-	public void setConfusionCounter(int confusionCounter) {
-		this.confusionCounter = confusionCounter;
-	}
-
-	public boolean isVulnerable() {
-		return vulnerable;
-	}
-
-	public void setVulnerable(boolean vulnerable) {
-		this.vulnerable = vulnerable;
-	}
-
-	public int getVulnerableCounter() {
-		return vulnerableCounter;
-	}
-
-	public void setVulnerableCounter(int vulnerableCounter) {
-		this.vulnerableCounter = vulnerableCounter;
 	}
 
 	public double getProtection() {
@@ -661,22 +702,140 @@ public class BattleStats {
 		this.lockedCounter = lockedCounter;
 	}
 
-	public boolean isMindControlled() {
-		return mindControlled;
+	public double getStaminaMod() {
+		return staminaMod;
 	}
 
-	public void setMindControlled(boolean mindControlled) {
-		this.mindControlled = mindControlled;
+	public void setStaminaMod(double staminaMod) {
+		this.staminaMod = staminaMod;
 	}
 
-	public int getMindControlledCounter() {
-		return mindControlledCounter;
+	public double getStrengthMod() {
+		return strengthMod;
 	}
 
-	public void setMindControlledCounter(int mindControlledCounter) {
-		this.mindControlledCounter = mindControlledCounter;
+	public void setStrengthMod(double strengthMod) {
+		this.strengthMod = strengthMod;
 	}
-	
-	
+
+	public double getDefenseMod() {
+		return defenseMod;
+	}
+
+	public void setDefenseMod(double defenseMod) {
+		this.defenseMod = defenseMod;
+	}
+
+	public double getMagicMod() {
+		return magicMod;
+	}
+
+	public void setMagicMod(double magicMod) {
+		this.magicMod = magicMod;
+	}
+
+	public double getResistanceMod() {
+		return resistanceMod;
+	}
+
+	public void setResistanceMod(double resistanceMod) {
+		this.resistanceMod = resistanceMod;
+	}
+
+	public double getCunningMod() {
+		return cunningMod;
+	}
+
+	public void setCunningMod(double cunningMod) {
+		this.cunningMod = cunningMod;
+	}
+
+	public double getIntelligenceMod() {
+		return intelligenceMod;
+	}
+
+	public void setIntelligenceMod(double intelligenceMod) {
+		this.intelligenceMod = intelligenceMod;
+	}
+
+	public double getSpeedMod() {
+		return speedMod;
+	}
+
+	public void setSpeedMod(double speedMod) {
+		this.speedMod = speedMod;
+	}
+
+	public double getSkillMod() {
+		return skillMod;
+	}
+
+	public void setSkillMod(double skillMod) {
+		this.skillMod = skillMod;
+	}
+
+	public double getCritMod() {
+		return critMod;
+	}
+
+	public void setCritMod(double critMod) {
+		this.critMod = critMod;
+	}
+
+	public double getAccuracyMod() {
+		return accuracyMod;
+	}
+
+	public void setAccuracyMod(double accuracyMod) {
+		this.accuracyMod = accuracyMod;
+	}
+
+	public double getAvoidanceMod() {
+		return avoidanceMod;
+	}
+
+	public void setAvoidanceMod(double avoidanceMod) {
+		this.avoidanceMod = avoidanceMod;
+	}
+
+	public double getBlockingMod() {
+		return blockingMod;
+	}
+
+	public void setBlockingMod(double blockingMod) {
+		this.blockingMod = blockingMod;
+	}
+
+	public double getPenetrationMod() {
+		return penetrationMod;
+	}
+
+	public void setPenetrationMod(double penetrationMod) {
+		this.penetrationMod = penetrationMod;
+	}
+
+	public int getBarrierCounter() {
+		return barrierCounter;
+	}
+
+	public void setBarrierCounter(int barrierCounter) {
+		this.barrierCounter = barrierCounter;
+	}
+
+	public int getPhysicalShieldCounter() {
+		return physicalShieldCounter;
+	}
+
+	public void setPhysicalShieldCounter(int physicalShieldCounter) {
+		this.physicalShieldCounter = physicalShieldCounter;
+	}
+
+	public int getMagicShieldCounter() {
+		return magicShieldCounter;
+	}
+
+	public void setMagicShieldCounter(int magicShieldCounter) {
+		this.magicShieldCounter = magicShieldCounter;
+	}
 
 }

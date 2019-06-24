@@ -1,15 +1,12 @@
 package models;
 
-public class Armor extends Item implements Equipable{
+public class Armor extends Equipable{
 
-	BattleStats stats;
-	BaseStats requirements;
+	
 	String slot;
 
 	public Armor(String name, String description, String id, BattleStats stats, BaseStats requirements, String slot) {
-		super(name, description, id);
-		this.stats = stats;
-		this.requirements = requirements;
+		super(name, description, id, stats, requirements);
 		this.slot = slot;
 	}
 	
@@ -21,7 +18,7 @@ public class Armor extends Item implements Equipable{
 	}
 
 	@Override
-	public void equip(Item item) {
+	public void equip(Character character) {
 		// TODO Auto-generated method stub
 	}
 

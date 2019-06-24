@@ -28,6 +28,18 @@ public class BaseStats {
 		this.speed = speed;
 		this.skill = skill;
 	}
+	public BaseStats (BaseStats other) {
+		this.level = other.level;
+		this.stamina = other.stamina;
+		this.strength = other.strength;
+		this.defense = other.defense;
+		this.magic = other.magic;
+		this.resistance = other.resistance;
+		this.cunning = other.cunning;
+		this.intelligence = other.intelligence;
+		this.speed = other.speed;
+		this.skill = other.skill;
+	}
 	
 	public BaseStats () {
 		this.level = 1;
