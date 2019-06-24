@@ -21,6 +21,7 @@ public class InvertedAttack implements Damage{
 	double crit;
 	double penetration; 
 	double time;
+	boolean rangedAttack;
 	
 	Buff intialSelf;
 	Buff intialTarget;
