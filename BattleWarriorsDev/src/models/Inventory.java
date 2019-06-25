@@ -27,4 +27,29 @@ public class Inventory {
 		coin = 0;
 	}
 
+	public Hashtable<String, Equipable> getEquipment() {
+		return equipment;
+	}
+
+	public void setEquipment(Hashtable<String, Equipable> equipment) {
+		this.equipment = equipment;
+	}
+
+	public ArrayList<Item> getBag() {
+		return bag;
+	}
+
+	public void setBag(ArrayList<Item> bag) {
+		this.bag = bag;
+	}
+
+	public int getCoin() {
+		return coin;
+	}
+
+	public void setCoin(int coin) {
+		this.coin = coin;
+	}
+	
+
 }

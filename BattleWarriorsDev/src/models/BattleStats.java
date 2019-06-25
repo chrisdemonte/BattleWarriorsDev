@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Hashtable;
+
 public class BattleStats {
 	
 	double level;
@@ -306,58 +308,56 @@ public class BattleStats {
 		this.skill = character.getBaseStats().getSkill() + adjuster;
 		this.skillMod = 1.0;
 		
-		this.maxHealth = (int)(stamina + level + (defense * 0.1)) * 10;
-		this.currentHealth = maxHealth;
-		this.maxEnergy = (int)(stamina + level + (magic * .5) + (strength * 0.1));
-		this.currentEnergy = maxEnergy;
-		this.maxComboPoints = 3 + (int)((skill + cunning + intelligence)/(level * 6));
-		this.currentComboPoints = 0;
-		this.actionTime = 2000;
-		this.daze = 0;
-		this.haste = (int)((speed + skill + cunning)/(level * 20.0));
-		this.damageSpike = 0;
-		this.crit = .01 + ((((speed * .25) + (skill * 2.0) + (cunning * 1.5) + (intelligence * .25)) - ((level + adjuster) * 4.0)) / 1000.0);
-		this.critMod = 1.0;
-		this.accuracy = .95 + ((((skill * 2.0) + (intelligence * 0.5) + (cunning * 0.5)) - ((level + adjuster) * 3.0))/ 10.0);
-		this.accuracyMod = 1.0;
-		this.avoidance = (skill + cunning)/((level + adjuster) * 10.0);
-		this.avoidanceMod = 0.0;
-		this.blocking = 0.0;
-		this.blockingMod = 0.0;
-		this.penetration = 0.0;
-		this.penetrationMod = 0.0;
-		this.barrier = 0.0;
-		this.barrierCounter = 0;
-		this.physicalShield = 0.0;
-		this.physicalShieldCounter = 0;
-		this.magicShield = 0.0;
-		this.magicShieldCounter = 0;
-		this.fear = 0.0;
-		this.intimidation = 0.0;
-		this.canAttack = true;
-		this.canAttackCounter = 0;
-		this.canUseItems = true;
-		this.canUseItemsCounter = 0;
-		this.canSkipTurn = true;
-		this.canSkipTurnCounter = 0;
-		this.canRun = true;
-		this.canRunCounter = 0;
-		this.protection = 0.0;
-		this.protectionCounter = 0;
-		this.countering = 0.0;
-		this.counteringCounter = 0;
-		this.immunity = 0.0;
-		this.immunityCounter = 0;
-		this.reflecting = 0.0;
-		this.reflectingCounter = 0;
-		this.freecasting = false;
-		this.freecastingCounter = 0;
-		this.exhausted = false;
-		this.exhaustedCounter = 0;
-		this.locked = false;
-		this.lockedCounter = 0;
+		Hashtable<String, Equipable> equipment = character.getInventory().getEquipment();
+		this.addBattleStats(equipment.get("head").getStats());
+		this.addBattleStats(equipment.get("chest").getStats());
+		this.addBattleStats(equipment.get("legs").getStats());
+		this.addBattleStats(equipment.get("hands").getStats());
+		this.addBattleStats(equipment.get("feet").getStats());
+		this.addBattleStats(equipment.get("trinket1").getStats());
+		this.addBattleStats(equipment.get("trinket2").getStats());
+		this.addBattleStats(equipment.get("2HWeapon").getStats());
+		this.addBattleStats(equipment.get("1HMain").getStats());
+		this.addBattleStats(equipment.get("1HOffHand").getStats());
 		
+		this.maxHealth += (int)(stamina + level + (defense * 0.1)) * 10;
+		this.currentHealth += maxHealth;
+		this.maxEnergy += (int)(stamina + level + (magic * .5) + (strength * 0.1));
+		this.currentEnergy += maxEnergy;
+		this.maxComboPoints += 3 + (int)((skill + cunning + intelligence)/(level * 6));
+		this.currentComboPoints += 0;
+		this.actionTime += 2000;
+		this.daze += 0;
+		this.haste += (int)((speed + skill + cunning)/(level * 20.0));
+		this.damageSpike += 0;
+		this.crit += .01 + ((((speed * .25) + (skill * 2.0) + (cunning * 1.5) + (intelligence * .25)) - ((level + adjuster) * 4.0)) / 100.0);
+		this.critMod += 1.0;
+		this.accuracy += .95 + ((((skill * 2.0) + (intelligence * 0.5) + (cunning * 0.5)) - ((level + adjuster) * 3.0))/ 100.0);
+		this.accuracyMod += 1.0;
+		this.avoidance += (skill + (cunning * 1.5) + (speed * 1.5)) - ((level + adjuster) * 4 ) / 100.0;
+		this.avoidanceMod += 1.0;
+		this.blocking += (defense - (level + adjuster) * 2) / 100.0;
+		this.blockingMod += 1.0;
+		this.penetration += (cunning - ((level + adjuster) * 2)) / 100.0;
+		this.penetrationMod += 1.0;
+		this.barrier += 0.0;
+		this.barrierCounter += 0;
+		this.physicalShield += 0.0;
+		this.physicalShieldCounter += 0;
+		this.magicShield += 0.0;
+		this.magicShieldCounter += 0;
+		this.fear += 0.0;
+		this.intimidation += (stamina * .1) + (strength * .1) + (magic * .1) + (skill * .1);
+		this.protection += 0.0;
+		this.protectionCounter += 0;
+		this.countering += 0.0;
+		this.counteringCounter += 0;
+		this.immunity += 0.0;
+		this.immunityCounter += 0;
+		this.reflecting += 0.0;
+		this.reflectingCounter += 0;
 	}
+	
 	public double getLevel() {
 		return level;
 	}

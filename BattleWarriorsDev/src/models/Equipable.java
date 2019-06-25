@@ -21,5 +21,17 @@ public class Equipable extends Item {
 	public void equip (Character character) {
 		
 	}
+	public BattleStats getStats() {
+		return stats;
+	}
+	public void setStats(BattleStats stats) {
+		this.stats = stats;
+	}
+	public BaseStats getRequirements() {
+		return requirements;
+	}
+	public void setRequirements(BaseStats requirements) {
+		this.requirements = requirements;
+	}
 
 }
