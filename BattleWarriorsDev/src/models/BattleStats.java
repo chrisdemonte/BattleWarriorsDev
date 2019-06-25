@@ -80,7 +80,10 @@ public class BattleStats {
 	
 	boolean locked;
 	int lockedCounter;
+	boolean enraged;
+	int enragedCounter;
 	
+	double adjuster = 10.0;
 	
 	public BattleStats (Character character) {
 		this();
@@ -159,6 +162,8 @@ public class BattleStats {
 		this.exhaustedCounter = 0;
 		this.locked = false;
 		this.lockedCounter = 0;
+		this.enraged = false;
+		this.enragedCounter = 0;
 		
 	}
 	public void addBattleStats(BattleStats other) {
@@ -267,6 +272,12 @@ public class BattleStats {
 				this.lockedCounter = other.getLockedCounter();
 			}
 		}
+		if (other.isEnraged()) {
+			this.enraged = true;
+			if (other.getEnragedCounter() > this.enragedCounter) {
+				this.enragedCounter = other.getEnragedCounter();
+			}
+		}
 		
 		
 	}
@@ -274,15 +285,76 @@ public class BattleStats {
 	public void setBattleStats(Character character) {
 		
 		this.level = character.getBaseStats().getLevel();
-		this.stamina = character.getBaseStats().getStamina();
-		this.strength = character.getBaseStats().getStrength();
-		this.defense = character.getBaseStats().getDefense();
-		this.magic = character.getBaseStats().getMagic();
-		this.resistance = character.getBaseStats().getResistance();
-		this.cunning = character.getBaseStats().getCunning();
-		this.intelligence = character.getBaseStats().getIntelligence();
-		this.speed = character.getBaseStats().getSpeed();
-		this.skill = character.getBaseStats().getSkill();
+		
+		this.stamina = character.getBaseStats().getStamina() + adjuster;
+		this.staminaMod = 1.0;
+		this.strength = character.getBaseStats().getStrength() + adjuster;
+		this.strengthMod = 1.0;
+		this.defense = character.getBaseStats().getDefense() + adjuster;
+		this.defenseMod = 1.0;
+		this.magic = character.getBaseStats().getMagic() + adjuster;
+		this.magicMod = 1.0;
+		this.resistance = character.getBaseStats().getResistance() + adjuster;
+		this.resistanceMod = 1.0;
+		this.cunning = character.getBaseStats().getCunning() + adjuster;
+		this.cunningMod = 1.0;
+		this.intelligence = character.getBaseStats().getIntelligence() + adjuster;
+		this.intelligenceMod = 1.0;
+		this.speed = character.getBaseStats().getSpeed() + adjuster;
+		this.speedMod = 1.0;
+		this.skill = character.getBaseStats().getSkill() + adjuster;
+		this.skillMod = 1.0;
+		
+		this.maxHealth = (int)(stamina + level + (defense * 0.1)) * 10;
+		this.currentHealth = maxHealth;
+		this.maxEnergy = (int)(stamina + level + (magic * .5) + (strength * 0.1));
+		this.currentEnergy = maxEnergy;
+		this.maxComboPoints = 3 + (int)((skill + cunning + intelligence)/(level * 6));
+		this.currentComboPoints = 0;
+		this.actionTime = 2000;
+		this.daze = 0;
+		this.haste = (int)((speed + skill + cunning)/(level * 20.0));
+		this.damageSpike = 0;
+		this.crit = .01 + ((((speed * .25) + (skill * 2.0) + (cunning * 1.5) + (intelligence * .25)) - ((level + adjuster) * 4.0)) / 1000.0);
+		this.critMod = 1.0;
+		this.accuracy = .95 + ((((skill * 2.0) + (intelligence * 0.5) + (cunning * 0.5)) - ((level + adjuster) * 3.0))/ 10.0);
+		this.accuracyMod = 1.0;
+		this.avoidance = (skill + cunning)/((level + adjuster) * 10.0);
+		this.avoidanceMod = 0.0;
+		this.blocking = 0.0;
+		this.blockingMod = 0.0;
+		this.penetration = 0.0;
+		this.penetrationMod = 0.0;
+		this.barrier = 0.0;
+		this.barrierCounter = 0;
+		this.physicalShield = 0.0;
+		this.physicalShieldCounter = 0;
+		this.magicShield = 0.0;
+		this.magicShieldCounter = 0;
+		this.fear = 0.0;
+		this.intimidation = 0.0;
+		this.canAttack = true;
+		this.canAttackCounter = 0;
+		this.canUseItems = true;
+		this.canUseItemsCounter = 0;
+		this.canSkipTurn = true;
+		this.canSkipTurnCounter = 0;
+		this.canRun = true;
+		this.canRunCounter = 0;
+		this.protection = 0.0;
+		this.protectionCounter = 0;
+		this.countering = 0.0;
+		this.counteringCounter = 0;
+		this.immunity = 0.0;
+		this.immunityCounter = 0;
+		this.reflecting = 0.0;
+		this.reflectingCounter = 0;
+		this.freecasting = false;
+		this.freecastingCounter = 0;
+		this.exhausted = false;
+		this.exhaustedCounter = 0;
+		this.locked = false;
+		this.lockedCounter = 0;
 		
 	}
 	public double getLevel() {
@@ -836,6 +908,22 @@ public class BattleStats {
 
 	public void setMagicShieldCounter(int magicShieldCounter) {
 		this.magicShieldCounter = magicShieldCounter;
+	}
+
+	public boolean isEnraged() {
+		return enraged;
+	}
+
+	public void setEnraged(boolean enraged) {
+		this.enraged = enraged;
+	}
+
+	public int getEnragedCounter() {
+		return enragedCounter;
+	}
+
+	public void setEnragedCounter(int enragedCounter) {
+		this.enragedCounter = enragedCounter;
 	}
 
 }
