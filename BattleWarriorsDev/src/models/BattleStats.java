@@ -286,7 +286,6 @@ public class BattleStats {
 
 	public void setBattleStats(Character character) {
 		
-		
 		this.level = character.getBaseStats().getLevel();
 		
 		this.stamina = character.getBaseStats().getStamina() + adjuster;

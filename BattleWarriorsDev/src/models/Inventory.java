@@ -17,9 +17,9 @@ public class Inventory {
 		equipment.put("feet", new Armor("feet"));
 		equipment.put("trinket1", new Armor("trinket1"));
 		equipment.put("trinket2", new Armor("trinket2"));
-		equipment.put("2HWeapon", new Armor("2HWeapon"));
-		equipment.put("1HMain", new Armor("1HMain"));
-		equipment.put("1HOffHand", new Armor("1HOffHand"));
+		equipment.put("2HWeapon", new Weapon("2HWeapon"));
+		equipment.put("1HMain", new Weapon("1HMain"));
+		equipment.put("1HOffHand", new Weapon("1HOffHand"));
 		
 		for (int i = 0; i < 50; i++) {
 			bag.add(null);

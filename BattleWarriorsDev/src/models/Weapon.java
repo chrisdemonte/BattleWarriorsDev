@@ -6,9 +6,12 @@ public class Weapon extends Equipable{
 	
 	public Weapon(String name, String description, String id, BattleStats stats, BaseStats requirements, String slot) {
 		super(name, description, id, stats, requirements);
-		this.stats = stats;
-		this.requirements = requirements;
-		this.slot = slot;
+		this.slot = new String(slot);
+	}
+	
+	public Weapon (String slot) {
+		super("Empty", "No armor in this slot", "0");
+		this.slot = new String(slot);
 	}
 
 	@Override

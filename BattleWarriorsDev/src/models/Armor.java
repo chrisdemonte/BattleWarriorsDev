@@ -2,7 +2,6 @@ package models;
 
 public class Armor extends Equipable{
 
-	
 	String slot;
 
 	public Armor(String name, String description, String id, BattleStats stats, BaseStats requirements, String slot) {
@@ -12,9 +11,7 @@ public class Armor extends Equipable{
 	
 	Armor(String slot){
 		super("Empty", "No armor in this slot", "0");
-		this.stats = new BattleStats();
-		this.requirements = new BaseStats();
-		this.slot = slot;
+		this.slot = new String(slot);
 	}
 
 	@Override
