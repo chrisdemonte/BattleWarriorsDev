@@ -9,5 +9,6 @@ public abstract class Buff {
 	String keyword;
 	BattleStats statModifier;
 	int duration;
+	int counter;
 
 }

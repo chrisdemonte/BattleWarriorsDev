@@ -87,6 +87,8 @@ public class BattleStats {
 	int lockedCounter;
 	boolean enraged;
 	int enragedCounter;
+	boolean selfHarm;
+	int selfHarmCounter;
 	
 	double adjuster = 10.0;
 	
@@ -173,6 +175,9 @@ public class BattleStats {
 		this.outOfReachCounter = 0;
 		this.reach = false;
 		this.reachCounter = 0;
+		this.selfHarm = false;
+		this.selfHarmCounter = 0;
+		
 		
 	}
 	public void addBattleStats(BattleStats other) {
@@ -297,6 +302,12 @@ public class BattleStats {
 			this.reach = true;
 			if (other.getReachCounter() > this.getReachCounter()) {
 				this.reachCounter = other.getReachCounter();
+			}
+		}
+		if (other.isSelfHarm()) {
+			this.selfHarm = true;
+			if (other.getSelfHarmCounter() > this.getSelfHarmCounter()) {
+				this.selfHarmCounter = other.getSelfHarmCounter();
 			}
 		}
 	}
@@ -982,6 +993,22 @@ public class BattleStats {
 
 	public void setAdjuster(double adjuster) {
 		this.adjuster = adjuster;
+	}
+
+	public boolean isSelfHarm() {
+		return selfHarm;
+	}
+
+	public void setSelfHarm(boolean selfHarm) {
+		this.selfHarm = selfHarm;
+	}
+
+	public int getSelfHarmCounter() {
+		return selfHarmCounter;
+	}
+
+	public void setSelfHarmCounter(int selfHarmCounter) {
+		this.selfHarmCounter = selfHarmCounter;
 	}
 
 }
