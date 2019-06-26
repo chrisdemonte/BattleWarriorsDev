@@ -1,26 +1,19 @@
 package attacks;
 
 import models.BaseStats;
+import models.Player;
 
-public class InvertedAttack implements Damage{
+public class InvertedAttack extends Move{
 
-	String name;
-	String description;
 	
 	double physicalPower;
 	double magicPower;
 	double bonusDamage;
-	int energyCost;
-	int uses;
-	int currentUses;
-	int comboPointGain;
-	int comboPointRequirement;
-	
+
 	double accuracy;
 	double avoidability;
 	double crit;
 	double penetration; 
-	double time;
 	boolean rangedAttack;
 	
 	Buff intialSelf;
@@ -32,9 +25,149 @@ public class InvertedAttack implements Damage{
 	
 	BaseStats requirements;
 
-	@Override
-	public void doDamage(Character self, Character target) {
-		// TODO Auto-generated method stub
-		
+	public InvertedAttack(String name, String description, int energyCost, int uses, int currentUses,
+			int comboPointGain, int comboPointRequirement, int time, double physicalPower, double magicPower,
+			double bonusDamage, double accuracy, double avoidability, double crit, double penetration,
+			boolean rangedAttack, Buff intialSelf, Buff intialTarget, Buff periodicSelf, Buff periodicTarget,
+			Buff finalSelf, Buff finalTarget, BaseStats requirements) {
+		super(name, description, energyCost, uses, currentUses, comboPointGain, comboPointRequirement, time);
+		this.physicalPower = physicalPower;
+		this.magicPower = magicPower;
+		this.bonusDamage = bonusDamage;
+		this.accuracy = accuracy;
+		this.avoidability = avoidability;
+		this.crit = crit;
+		this.penetration = penetration;
+		this.rangedAttack = rangedAttack;
+		this.intialSelf = intialSelf;
+		this.intialTarget = intialTarget;
+		this.periodicSelf = periodicSelf;
+		this.periodicTarget = periodicTarget;
+		this.finalSelf = finalSelf;
+		this.finalTarget = finalTarget;
+		this.requirements = requirements;
 	}
+
+	public double getPhysicalPower() {
+		return physicalPower;
+	}
+
+	public void setPhysicalPower(double physicalPower) {
+		this.physicalPower = physicalPower;
+	}
+
+	public double getMagicPower() {
+		return magicPower;
+	}
+
+	public void setMagicPower(double magicPower) {
+		this.magicPower = magicPower;
+	}
+
+	public double getBonusDamage() {
+		return bonusDamage;
+	}
+
+	public void setBonusDamage(double bonusDamage) {
+		this.bonusDamage = bonusDamage;
+	}
+
+	public double getAccuracy() {
+		return accuracy;
+	}
+
+	public void setAccuracy(double accuracy) {
+		this.accuracy = accuracy;
+	}
+
+	public double getAvoidability() {
+		return avoidability;
+	}
+
+	public void setAvoidability(double avoidability) {
+		this.avoidability = avoidability;
+	}
+
+	public double getCrit() {
+		return crit;
+	}
+
+	public void setCrit(double crit) {
+		this.crit = crit;
+	}
+
+	public double getPenetration() {
+		return penetration;
+	}
+
+	public void setPenetration(double penetration) {
+		this.penetration = penetration;
+	}
+
+	public boolean isRangedAttack() {
+		return rangedAttack;
+	}
+
+	public void setRangedAttack(boolean rangedAttack) {
+		this.rangedAttack = rangedAttack;
+	}
+
+	public Buff getIntialSelf() {
+		return intialSelf;
+	}
+
+	public void setIntialSelf(Buff intialSelf) {
+		this.intialSelf = intialSelf;
+	}
+
+	public Buff getIntialTarget() {
+		return intialTarget;
+	}
+
+	public void setIntialTarget(Buff intialTarget) {
+		this.intialTarget = intialTarget;
+	}
+
+	public Buff getPeriodicSelf() {
+		return periodicSelf;
+	}
+
+	public void setPeriodicSelf(Buff periodicSelf) {
+		this.periodicSelf = periodicSelf;
+	}
+
+	public Buff getPeriodicTarget() {
+		return periodicTarget;
+	}
+
+	public void setPeriodicTarget(Buff periodicTarget) {
+		this.periodicTarget = periodicTarget;
+	}
+
+	public Buff getFinalSelf() {
+		return finalSelf;
+	}
+
+	public void setFinalSelf(Buff finalSelf) {
+		this.finalSelf = finalSelf;
+	}
+
+	public Buff getFinalTarget() {
+		return finalTarget;
+	}
+
+	public void setFinalTarget(Buff finalTarget) {
+		this.finalTarget = finalTarget;
+	}
+
+	public BaseStats getRequirements() {
+		return requirements;
+	}
+
+	public void setRequirements(BaseStats requirements) {
+		this.requirements = requirements;
+	}
+
+	
+	
 }

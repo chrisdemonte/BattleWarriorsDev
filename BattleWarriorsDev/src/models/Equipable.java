@@ -18,7 +18,7 @@ public class Equipable extends Item {
 		this.requirements = new BaseStats();
 	}
 	
-	public void equip (Character character) {
+	public void equip (Player player) {
 		
 	}
 	public BattleStats getStats() {

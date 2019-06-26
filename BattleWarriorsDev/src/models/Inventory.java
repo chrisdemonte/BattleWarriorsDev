@@ -21,9 +21,8 @@ public class Inventory {
 		equipment.put("1HMain", new Weapon("1HMain"));
 		equipment.put("1HOffHand", new Weapon("1HOffHand"));
 		
-		for (int i = 0; i < 50; i++) {
-			bag.add(null);
-		}
+		bag.add(new Item ("Dust", "Grey dusty dust.", "00001"));
+		
 		coin = 0;
 	}
 

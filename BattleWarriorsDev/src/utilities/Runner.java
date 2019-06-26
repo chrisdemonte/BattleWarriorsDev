@@ -15,7 +15,7 @@ public class Runner extends Application {
 		Pane root = new Pane();
 		root.setMinSize(600, 400);
 		
-		BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 10);
+		BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
 		root.getChildren().add(editor.getContainer());
 		Scene scene = new Scene(root);
 		

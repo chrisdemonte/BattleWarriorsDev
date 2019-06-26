@@ -1,7 +1,13 @@
 package attacks;
 
-public interface Buff {
+import models.BattleStats;
+
+public abstract class Buff {
 	
-	public void doBuff (Character target);
+	String name;
+	String description;
+	String keyword;
+	BattleStats statModifier;
+	int duration;
 
 }

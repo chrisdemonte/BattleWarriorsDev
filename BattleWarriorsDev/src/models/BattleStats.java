@@ -79,7 +79,10 @@ public class BattleStats {
 	int freecastingCounter;
 	boolean exhausted;
 	int exhaustedCounter;
-	
+	boolean outOfReach;
+	int outOfReachCounter;
+	boolean reach;
+	int reachCounter;
 	boolean locked;
 	int lockedCounter;
 	boolean enraged;
@@ -87,9 +90,9 @@ public class BattleStats {
 	
 	double adjuster = 10.0;
 	
-	public BattleStats (Character character) {
+	public BattleStats (Player player) {
 		this();
-		this.setBattleStats(character);
+		this.setBattleStats(player);
 		
 	}
 
@@ -166,6 +169,10 @@ public class BattleStats {
 		this.lockedCounter = 0;
 		this.enraged = false;
 		this.enragedCounter = 0;
+		this.outOfReach = false;
+		this.outOfReachCounter = 0;
+		this.reach = false;
+		this.reachCounter = 0;
 		
 	}
 	public void addBattleStats(BattleStats other) {
@@ -280,34 +287,44 @@ public class BattleStats {
 				this.enragedCounter = other.getEnragedCounter();
 			}
 		}
-		
-		
+		if (other.isOutOfReach()) {
+			this.outOfReach = true;
+			if (other.getOutOfReachCounter() > this.outOfReachCounter) {
+				this.outOfReachCounter = other.getOutOfReachCounter();
+			}
+		}
+		if (other.isReach()) {
+			this.reach = true;
+			if (other.getReachCounter() > this.getReachCounter()) {
+				this.reachCounter = other.getReachCounter();
+			}
+		}
 	}
 
-	public void setBattleStats(Character character) {
+	public void setBattleStats(Player player) {
 		
-		this.level = character.getBaseStats().getLevel();
+		this.level = player.getBaseStats().getLevel();
 		
-		this.stamina = character.getBaseStats().getStamina() + adjuster;
+		this.stamina = player.getBaseStats().getStamina() + adjuster;
 		this.staminaMod = 1.0;
-		this.strength = character.getBaseStats().getStrength() + adjuster;
+		this.strength = player.getBaseStats().getStrength() + adjuster;
 		this.strengthMod = 1.0;
-		this.defense = character.getBaseStats().getDefense() + adjuster;
+		this.defense = player.getBaseStats().getDefense() + adjuster;
 		this.defenseMod = 1.0;
-		this.magic = character.getBaseStats().getMagic() + adjuster;
+		this.magic = player.getBaseStats().getMagic() + adjuster;
 		this.magicMod = 1.0;
-		this.resistance = character.getBaseStats().getResistance() + adjuster;
+		this.resistance = player.getBaseStats().getResistance() + adjuster;
 		this.resistanceMod = 1.0;
-		this.cunning = character.getBaseStats().getCunning() + adjuster;
+		this.cunning = player.getBaseStats().getCunning() + adjuster;
 		this.cunningMod = 1.0;
-		this.intelligence = character.getBaseStats().getIntelligence() + adjuster;
+		this.intelligence = player.getBaseStats().getIntelligence() + adjuster;
 		this.intelligenceMod = 1.0;
-		this.speed = character.getBaseStats().getSpeed() + adjuster;
+		this.speed = player.getBaseStats().getSpeed() + adjuster;
 		this.speedMod = 1.0;
-		this.skill = character.getBaseStats().getSkill() + adjuster;
+		this.skill = player.getBaseStats().getSkill() + adjuster;
 		this.skillMod = 1.0;
 		
-		Hashtable<String, Equipable> equipment = character.getInventory().getEquipment();
+		Hashtable<String, Equipable> equipment = player.getInventory().getEquipment();
 		this.addBattleStats(equipment.get("head").getStats());
 		this.addBattleStats(equipment.get("chest").getStats());
 		this.addBattleStats(equipment.get("legs").getStats());
@@ -356,6 +373,7 @@ public class BattleStats {
 		this.reflecting += 0.0;
 		this.reflectingCounter += 0;
 	}
+	
 	
 	public double getLevel() {
 		return level;
@@ -924,6 +942,46 @@ public class BattleStats {
 
 	public void setEnragedCounter(int enragedCounter) {
 		this.enragedCounter = enragedCounter;
+	}
+
+	public boolean isOutOfReach() {
+		return outOfReach;
+	}
+
+	public void setOutOfReach(boolean outOfReach) {
+		this.outOfReach = outOfReach;
+	}
+
+	public int getOutOfReachCounter() {
+		return outOfReachCounter;
+	}
+
+	public void setOutOfReachCounter(int outOfReachCounter) {
+		this.outOfReachCounter = outOfReachCounter;
+	}
+
+	public boolean isReach() {
+		return reach;
+	}
+
+	public void setReach(boolean reach) {
+		this.reach = reach;
+	}
+
+	public int getReachCounter() {
+		return reachCounter;
+	}
+
+	public void setReachCounter(int reachCounter) {
+		this.reachCounter = reachCounter;
+	}
+
+	public double getAdjuster() {
+		return adjuster;
+	}
+
+	public void setAdjuster(double adjuster) {
+		this.adjuster = adjuster;
 	}
 
 }

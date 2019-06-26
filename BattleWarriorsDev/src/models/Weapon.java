@@ -15,7 +15,7 @@ public class Weapon extends Equipable{
 	}
 
 	@Override
-	public void equip(Character character) {
+	public void equip(Player player) {
 		// TODO Auto-generated method stub
 		
 	}
