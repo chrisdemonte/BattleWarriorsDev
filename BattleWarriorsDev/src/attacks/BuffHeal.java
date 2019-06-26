@@ -8,9 +8,9 @@ public class BuffHeal extends BuffEffect{
 	double magicMod;
 	double bonusHealing;
 	
-	public BuffHeal(String name, String description, String keyword, double physicalMod,
+	public BuffHeal(String name, String description, String keyword, int chance, double physicalMod,
 			double magicMod, double bonusHealing) {
-		super(name, description, keyword);
+		super(name, description, keyword, chance);
 		this.physicalMod = physicalMod;
 		this.magicMod = magicMod;
 		this.bonusHealing = bonusHealing;

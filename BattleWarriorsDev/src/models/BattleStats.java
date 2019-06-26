@@ -94,8 +94,7 @@ public class BattleStats {
 	
 	public BattleStats (Player player) {
 		this();
-		this.setBattleStats(player);
-		
+		this.setBattleStats(player);	
 	}
 
 	public BattleStats() {
@@ -219,11 +218,17 @@ public class BattleStats {
 		this.penetration += other.getPenetration();
 		this.penetrationMod += other.getPenetrationMod();
 		this.barrier += other.getBarrier();
-		this.barrierCounter += other.getBarrierCounter();
+		if (other.barrierCounter > this.barrierCounter) {
+			this.barrierCounter = other.getBarrierCounter();
+		}
 		this.physicalShield += other.getPhysicalShield();
-		this.physicalShieldCounter += other.getPhysicalShieldCounter();
+		if (other.physicalShieldCounter > this.physicalShieldCounter) {
+			this.physicalShieldCounter = other.getPhysicalShieldCounter();
+		}
 		this.magicShield += other.getMagicShield();
-		this.magicShieldCounter += other.getMagicShieldCounter();
+		if (other.getMagicShieldCounter() > this.magicShieldCounter ) {
+			this.magicShieldCounter = other.getMagicShieldCounter();
+		}
 		this.fear += other.getFear();
 		this.intimidation += other.getIntimidation();
 		if (!other.isCanAttack()) {
@@ -309,7 +314,142 @@ public class BattleStats {
 			}
 		}
 	}
-
+	public void changeBattleStats(BattleStats other) {
+		this.stamina += other.getStamina();
+		this.changeStaminaMod(other.getStaminaMod());
+		this.strength += other.getStrength();
+		this.changeStrengthMod(other.getStrengthMod());
+		this.defense += other.getDefense();
+		this.changeDefenseMod(other.getDefenseMod());
+		this.magic += other.getMagic();
+		this.changeMagicMod(other.getMagicMod());
+		this.resistance += other.getResistance();
+		this.changeResistanceMod(other.getResistanceMod());
+		this.cunning += other.getCunning();
+		this.changeCunningMod(other.getCunningMod());
+		this.intelligence += other.getIntelligence();
+		this.changeIntelligenceMod(other.getIntelligenceMod());
+		this.speed += other.getSpeed();
+		this.changeSpeedMod(other.getSpeedMod());
+		this.skill += other.getSkill();
+		this.changeSkillMod(other.getSkillMod());
+		this.maxHealth += other.getMaxHealth();
+		this.currentHealth += other.getCurrentHealth();
+		this.maxEnergy += other.getMaxEnergy();
+		this.currentEnergy += other.getCurrentEnergy();
+		this.maxComboPoints += other.getMaxComboPoints();
+		this.currentComboPoints += other.getCurrentComboPoints();
+		this.actionTime += other.getActionTime();
+		this.daze += other.getDaze();
+		this.haste += other.getHaste();
+		this.damageSpike += other.getDamageSpike();
+		this.crit += other.getCrit();
+		this.changeCritMod(other.getCritMod());
+		this.accuracy += other.getAccuracy();
+		this.changeAccuracyMod(other.getAccuracyMod());
+		this.avoidance += other.getAvoidance();
+		this.changeAvoidanceMod(other.getAvoidanceMod());
+		this.blocking += other.getBlocking();
+		this.changeBlockingMod(other.getBlockingMod());
+		this.penetration += other.getPenetration();
+		this.changePenetrationMod(other.getPenetrationMod());
+		this.changeBarrier(other.getBarrier());
+		if (other.barrierCounter > this.barrierCounter) {
+			this.barrierCounter = other.getBarrierCounter();
+		}
+		this.changePhysicalShield(other.getPhysicalShield());
+		if (other.physicalShieldCounter > this.physicalShieldCounter) {
+			this.physicalShieldCounter = other.getPhysicalShieldCounter();
+		}
+		this.changeMagicShield(other.getMagicShield());
+		if (other.getMagicShieldCounter() > this.magicShieldCounter ) {
+			this.magicShieldCounter = other.getMagicShieldCounter();
+		}
+		this.fear += other.getFear();
+		this.intimidation += other.getIntimidation();
+		if (!other.isCanAttack()) {
+			this.canAttack = false;
+			if (other.getCanAttackCounter() > this.canAttackCounter) {
+				this.canAttackCounter = other.getCanAttackCounter();
+			}
+		}
+		if (!other.isCanUseItems()) {
+			this.canUseItems = false;
+			if (other.getCanUseItemsCounter() > this.getCanUseItemsCounter()) {
+				this.canUseItemsCounter = other.getCanUseItemsCounter();
+			}
+		}
+		if (!other.isCanSkipTurn()) {
+			this.canSkipTurn = false;
+			if (other.getCanSkipTurnCounter() > this.canSkipTurnCounter) {
+				this.canSkipTurnCounter = other.getCanSkipTurnCounter();
+			}
+		}
+		if (!other.isCanRun()) {
+			this.canRun = false;
+			if (other.getCanRunCounter() > this.canRunCounter) {
+				this.canRunCounter = other.getCanRunCounter();
+			}
+		}
+		this.changeProtection(other.getProtection());
+		if (other.getPhysicalShieldCounter() > this.protectionCounter) {
+			this.protectionCounter = other.getProtectionCounter();
+		}
+		this.changeCountering(other.getCountering());
+		if (other.getCounteringCounter() > this.counteringCounter) {
+			this.counteringCounter = other.getCounteringCounter();
+		}
+		this.changeImmunity(other.getImmunity());
+		if (other.getImmunityCounter() > this.immunityCounter) {
+			this.immunityCounter = other.getImmunityCounter();
+		}
+		this.changeReflecting(other.getReflecting());
+		if (other.getReflectingCounter() > this.reflectingCounter) {
+			this.reflectingCounter = other.getReflectingCounter();
+		}
+		if (other.isFreecasting()) {
+			this.freecasting = true;
+			if (other.getFreecastingCounter() > this.freecastingCounter) {
+				this.freecastingCounter = other.getFreecastingCounter();
+			}
+		}
+		if (other.isExhausted()) {
+			this.exhausted = true;
+			if (other.getExhaustedCounter() > this.exhaustedCounter) {
+				this.exhaustedCounter = other.getExhaustedCounter();
+			}
+		}
+		if (other.isLocked()) {
+			this.locked = true;
+			if (other.getLockedCounter() > this.lockedCounter) {
+				this.lockedCounter = other.getLockedCounter();
+			}
+		}
+		if (other.isEnraged()) {
+			this.enraged = true;
+			if (other.getEnragedCounter() > this.enragedCounter) {
+				this.enragedCounter = other.getEnragedCounter();
+			}
+		}
+		if (other.isOutOfReach()) {
+			this.outOfReach = true;
+			if (other.getOutOfReachCounter() > this.outOfReachCounter) {
+				this.outOfReachCounter = other.getOutOfReachCounter();
+			}
+		}
+		if (other.isReach()) {
+			this.reach = true;
+			if (other.getReachCounter() > this.getReachCounter()) {
+				this.reachCounter = other.getReachCounter();
+			}
+		}
+		if (other.isSelfHarm()) {
+			this.selfHarm = true;
+			if (other.getSelfHarmCounter() > this.getSelfHarmCounter()) {
+				this.selfHarmCounter = other.getSelfHarmCounter();
+			}
+		}
+	}
 	public void setBattleStats(Player player) {
 		
 		this.level = player.getBaseStats().getLevel();
@@ -477,7 +617,6 @@ public class BattleStats {
 		this.enragedCounter = enragedCounter;
 		this.selfHarm = selfHarm;
 		this.selfHarmCounter = selfHarmCounter;
-		this.adjuster = adjuster;
 	}
 
 	public double getLevel() {
@@ -687,6 +826,12 @@ public class BattleStats {
 	public void setBarrier(double barrier) {
 		this.barrier = barrier;
 	}
+	public void changeBarrier(double barrier) {
+		this.barrier += barrier;
+		if (this.barrier < 0.0) {
+			barrier = 0.0;
+		}
+	}
 
 	public double getPhysicalShield() {
 		return physicalShield;
@@ -695,6 +840,12 @@ public class BattleStats {
 	public void setPhysicalShield(double physicalShield) {
 		this.physicalShield = physicalShield;
 	}
+	public void changePhysicalShield(double physicalShield) {
+		this.physicalShield += physicalShield;
+		if (this.physicalShield < 0.0) {
+			physicalShield = 0.0;
+		}
+	}
 
 	public double getMagicShield() {
 		return magicShield;
@@ -702,6 +853,12 @@ public class BattleStats {
 
 	public void setMagicShield(double magicShield) {
 		this.magicShield = magicShield;
+	}
+	public void changeMagicShield(double magicShield) {
+		this.magicShield += magicShield;
+		if (this.magicShield < 0.0) {
+			magicShield = 0.0;
+		}
 	}
 
 	public double getFear() {
@@ -719,7 +876,6 @@ public class BattleStats {
 	public void setIntimidation(double intimidation) {
 		this.intimidation = intimidation;
 	}
-
 
 	public boolean isCanAttack() {
 		return canAttack;
@@ -792,6 +948,15 @@ public class BattleStats {
 	public void setProtection(double protection) {
 		this.protection = protection;
 	}
+	public void changeProtection(double protectionMod) {
+		this.protection += protectionMod;
+		if (this.protection < 0.0) {
+			this.protection = 0.0;
+		}
+		if (this.protection > 100.0) {
+			this.protection = 100.0;
+		}
+	}
 
 	public int getProtectionCounter() {
 		return protectionCounter;
@@ -807,6 +972,15 @@ public class BattleStats {
 
 	public void setCountering(double countering) {
 		this.countering = countering;
+	}
+	public void changeCountering(double counteringMod) {
+		this.countering += counteringMod;
+		if (this.countering < 0.0) {
+			this.countering = 0.0;
+		}
+		if (this.countering > 200.0) {
+			this.countering = 200.0;
+		}
 	}
 
 	public int getCounteringCounter() {
@@ -824,6 +998,15 @@ public class BattleStats {
 	public void setImmunity(double immunity) {
 		this.immunity = immunity;
 	}
+	public void changeImmunity(double immunityMod) {
+		this.immunity += immunityMod;
+		if (this.immunity < 0.0) {
+			this.immunity = 0.0;
+		}
+		if (this.immunity > 100.0) {
+			this.immunity = 100.0;
+		}
+	}
 
 	public int getImmunityCounter() {
 		return immunityCounter;
@@ -839,6 +1022,15 @@ public class BattleStats {
 
 	public void setReflecting(double reflecting) {
 		this.reflecting = reflecting;
+	}
+	public void changeReflecting(double reflectingMod) {
+		this.reflecting += reflectingMod;
+		if (this.reflecting < 0.0) {
+			this.reflecting = 0.0;
+		}
+		if (this.reflecting > 200.0) {
+			this.reflecting = 200.0;
+		}
 	}
 
 	public int getReflectingCounter() {
@@ -904,6 +1096,19 @@ public class BattleStats {
 	public void setStaminaMod(double staminaMod) {
 		this.staminaMod = staminaMod;
 	}
+	public void changeStaminaMod(double staminaMod) {
+		double mod = 1.0;
+		if (this.staminaMod > 1.0) {
+			mod = 2.0;
+		}
+		this.staminaMod += (staminaMod * mod);
+		if (this.staminaMod > 3.1) {
+			staminaMod = 3.1;
+		}
+		if (this.staminaMod < .1) {
+			this.staminaMod = .1;
+		}
+	}
 
 	public double getStrengthMod() {
 		return strengthMod;
@@ -911,6 +1116,19 @@ public class BattleStats {
 
 	public void setStrengthMod(double strengthMod) {
 		this.strengthMod = strengthMod;
+	}
+	public void changeStrengthMod(double strengthMod) {
+		double mod = 1.0;
+		if (this.strengthMod > 1.0) {
+			mod = 2.0;
+		}
+		this.strengthMod += (strengthMod * mod);
+		if (this.strengthMod > 3.1) {
+			strengthMod = 3.1;
+		}
+		if (this.strengthMod < .1) {
+			this.strengthMod = .1;
+		}
 	}
 
 	public double getDefenseMod() {
@@ -920,6 +1138,19 @@ public class BattleStats {
 	public void setDefenseMod(double defenseMod) {
 		this.defenseMod = defenseMod;
 	}
+	public void changeDefenseMod(double defenseMod) {
+		double mod = 1.0;
+		if (this.defenseMod > 1.0) {
+			mod = 2.0;
+		}
+		this.defenseMod += (defenseMod * mod);
+		if (this.defenseMod > 3.1) {
+			defenseMod = 3.1;
+		}
+		if (this.defenseMod < .1) {
+			this.defenseMod = .1;
+		}
+	}
 
 	public double getMagicMod() {
 		return magicMod;
@@ -927,6 +1158,19 @@ public class BattleStats {
 
 	public void setMagicMod(double magicMod) {
 		this.magicMod = magicMod;
+	}
+	public void changeMagicMod(double magicMod) {
+		double mod = 1.0;
+		if (this.magicMod > 1.0) {
+			mod = 2.0;
+		}
+		this.magicMod += (magicMod * mod);
+		if (this.magicMod > 3.1) {
+			magicMod = 3.1;
+		}
+		if (this.magicMod < .1) {
+			this.magicMod = .1;
+		}
 	}
 
 	public double getResistanceMod() {
@@ -936,6 +1180,19 @@ public class BattleStats {
 	public void setResistanceMod(double resistanceMod) {
 		this.resistanceMod = resistanceMod;
 	}
+	public void changeResistanceMod(double resistanceMod) {
+		double mod = 1.0;
+		if (this.resistanceMod > 1.0) {
+			mod = 2.0;
+		}
+		this.resistanceMod += (resistanceMod * mod);
+		if (this.resistanceMod > 3.1) {
+			resistanceMod = 3.1;
+		}
+		if (this.resistanceMod < .1) {
+			this.resistanceMod = .1;
+		}
+	}
 
 	public double getCunningMod() {
 		return cunningMod;
@@ -943,6 +1200,19 @@ public class BattleStats {
 
 	public void setCunningMod(double cunningMod) {
 		this.cunningMod = cunningMod;
+	}
+	public void changeCunningMod(double cunningMod) {
+		double mod = 1.0;
+		if (this.cunningMod > 1.0) {
+			mod = 2.0;
+		}
+		this.cunningMod += (cunningMod * mod);
+		if (this.cunningMod > 3.1) {
+			cunningMod = 3.1;
+		}
+		if (this.cunningMod < .1) {
+			this.cunningMod = .1;
+		}
 	}
 
 	public double getIntelligenceMod() {
@@ -952,6 +1222,19 @@ public class BattleStats {
 	public void setIntelligenceMod(double intelligenceMod) {
 		this.intelligenceMod = intelligenceMod;
 	}
+	public void changeIntelligenceMod(double intelligenceMod) {
+		double mod = 1.0;
+		if (this.intelligenceMod > 1.0) {
+			mod = 2.0;
+		}
+		this.intelligenceMod += (intelligenceMod * mod);
+		if (this.intelligenceMod > 3.1) {
+			intelligenceMod = 3.1;
+		}
+		if (this.intelligenceMod < .1) {
+			this.intelligenceMod = .1;
+		}
+	}
 
 	public double getSpeedMod() {
 		return speedMod;
@@ -959,6 +1242,19 @@ public class BattleStats {
 
 	public void setSpeedMod(double speedMod) {
 		this.speedMod = speedMod;
+	}
+	public void changeSpeedMod(double speedMod) {
+		double mod = 1.0;
+		if (this.speedMod > 1.0) {
+			mod = 2.0;
+		}
+		this.speedMod += (speedMod * mod);
+		if (this.speedMod > 3.1) {
+			speedMod = 3.1;
+		}
+		if (this.speedMod < .1) {
+			this.speedMod = .1;
+		}
 	}
 
 	public double getSkillMod() {
@@ -968,6 +1264,19 @@ public class BattleStats {
 	public void setSkillMod(double skillMod) {
 		this.skillMod = skillMod;
 	}
+	public void changeSkillMod(double skillMod) {
+		double mod = 1.0;
+		if (this.skillMod > 1.0) {
+			mod = 2.0;
+		}
+		this.skillMod += (skillMod * mod);
+		if (this.skillMod > 3.1) {
+			skillMod = 3.1;
+		}
+		if (this.skillMod < .1) {
+			this.skillMod = .1;
+		}
+	}
 
 	public double getCritMod() {
 		return critMod;
@@ -975,6 +1284,19 @@ public class BattleStats {
 
 	public void setCritMod(double critMod) {
 		this.critMod = critMod;
+	}
+	public void changeCritMod(double critMod) {
+		double mod = 1.0;
+		if (this.critMod > 1.0) {
+			mod = 2.0;
+		}
+		this.critMod += (critMod * mod);
+		if (this.critMod > 3.1) {
+			critMod = 3.1;
+		}
+		if (this.critMod < .1) {
+			this.critMod = .1;
+		}
 	}
 
 	public double getAccuracyMod() {
@@ -984,6 +1306,19 @@ public class BattleStats {
 	public void setAccuracyMod(double accuracyMod) {
 		this.accuracyMod = accuracyMod;
 	}
+	public void changeAccuracyMod(double accuracyMod) {
+		double mod = 1.0;
+		if (this.accuracyMod > 1.0) {
+			mod = 2.0;
+		}
+		this.accuracyMod += (accuracyMod * mod);
+		if (this.accuracyMod > 3.1) {
+			accuracyMod = 3.1;
+		}
+		if (this.accuracyMod < .1) {
+			this.accuracyMod = .1;
+		}
+	}
 
 	public double getAvoidanceMod() {
 		return avoidanceMod;
@@ -991,6 +1326,19 @@ public class BattleStats {
 
 	public void setAvoidanceMod(double avoidanceMod) {
 		this.avoidanceMod = avoidanceMod;
+	}
+	public void changeAvoidanceMod(double avoidanceMod) {
+		double mod = 1.0;
+		if (this.avoidanceMod > 1.0) {
+			mod = 2.0;
+		}
+		this.avoidanceMod += (avoidanceMod * mod);
+		if (this.avoidanceMod > 3.1) {
+			avoidanceMod = 3.1;
+		}
+		if (this.avoidanceMod < .1) {
+			this.avoidanceMod = .1;
+		}
 	}
 
 	public double getBlockingMod() {
@@ -1000,6 +1348,19 @@ public class BattleStats {
 	public void setBlockingMod(double blockingMod) {
 		this.blockingMod = blockingMod;
 	}
+	public void changeBlockingMod(double blockingMod) {
+		double mod = 1.0;
+		if (this.blockingMod > 1.0) {
+			mod = 2.0;
+		}
+		this.blockingMod += (blockingMod * mod);
+		if (this.blockingMod > 3.1) {
+			blockingMod = 3.1;
+		}
+		if (this.blockingMod < .1) {
+			this.blockingMod = .1;
+		}
+	}
 
 	public double getPenetrationMod() {
 		return penetrationMod;
@@ -1007,6 +1368,19 @@ public class BattleStats {
 
 	public void setPenetrationMod(double penetrationMod) {
 		this.penetrationMod = penetrationMod;
+	}
+	public void changePenetrationMod(double penetrationMod) {
+		double mod = 1.0;
+		if (this.penetrationMod > 1.0) {
+			mod = 2.0;
+		}
+		this.penetrationMod += (penetrationMod * mod);
+		if (this.penetrationMod > 3.1) {
+			penetrationMod = 3.1;
+		}
+		if (this.penetrationMod < .1) {
+			this.penetrationMod = .1;
+		}
 	}
 
 	public int getBarrierCounter() {
