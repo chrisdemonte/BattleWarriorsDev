@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import models.BaseStats;
+
 
 public class Runner extends Application {
 
