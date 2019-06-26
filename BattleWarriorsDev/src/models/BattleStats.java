@@ -177,8 +177,6 @@ public class BattleStats {
 		this.reachCounter = 0;
 		this.selfHarm = false;
 		this.selfHarmCounter = 0;
-		
-		
 	}
 	public void addBattleStats(BattleStats other) {
 		
@@ -386,6 +384,102 @@ public class BattleStats {
 	}
 	
 	
+	public BattleStats(double level, double stamina, double staminaMod, double strength, double strengthMod,
+			double defense, double defenseMod, double magic, double magicMod, double resistance, double resistanceMod,
+			double cunning, double cunningMod, double intelligence, double intelligenceMod, double speed,
+			double speedMod, double skill, double skillMod, int maxHealth, int currentHealth, int maxEnergy,
+			int currentEnergy, int maxComboPoints, int currentComboPoints, int actionTime, int daze, int haste,
+			int damageSpike, double crit, double critMod, double accuracy, double accuracyMod, double avoidance,
+			double avoidanceMod, double blocking, double blockingMod, double penetration, double penetrationMod,
+			double barrier, int barrierCounter, double physicalShield, int physicalShieldCounter, double magicShield,
+			int magicShieldCounter, double fear, double intimidation, boolean canAttack, int canAttackCounter,
+			boolean canUseItems, int canUseItemsCounter, boolean canSkipTurn, int canSkipTurnCounter, boolean canRun,
+			int canRunCounter, double protection, int protectionCounter, double countering, int counteringCounter,
+			double immunity, int immunityCounter, double reflecting, int reflectingCounter, boolean freecasting,
+			int freecastingCounter, boolean exhausted, int exhaustedCounter, boolean outOfReach, int outOfReachCounter,
+			boolean reach, int reachCounter, boolean locked, int lockedCounter, boolean enraged, int enragedCounter,
+			boolean selfHarm, int selfHarmCounter) {
+		super();
+		this.level = level;
+		this.stamina = stamina;
+		this.staminaMod = staminaMod;
+		this.strength = strength;
+		this.strengthMod = strengthMod;
+		this.defense = defense;
+		this.defenseMod = defenseMod;
+		this.magic = magic;
+		this.magicMod = magicMod;
+		this.resistance = resistance;
+		this.resistanceMod = resistanceMod;
+		this.cunning = cunning;
+		this.cunningMod = cunningMod;
+		this.intelligence = intelligence;
+		this.intelligenceMod = intelligenceMod;
+		this.speed = speed;
+		this.speedMod = speedMod;
+		this.skill = skill;
+		this.skillMod = skillMod;
+		this.maxHealth = maxHealth;
+		this.currentHealth = currentHealth;
+		this.maxEnergy = maxEnergy;
+		this.currentEnergy = currentEnergy;
+		this.maxComboPoints = maxComboPoints;
+		this.currentComboPoints = currentComboPoints;
+		this.actionTime = actionTime;
+		this.daze = daze;
+		this.haste = haste;
+		this.damageSpike = damageSpike;
+		this.crit = crit;
+		this.critMod = critMod;
+		this.accuracy = accuracy;
+		this.accuracyMod = accuracyMod;
+		this.avoidance = avoidance;
+		this.avoidanceMod = avoidanceMod;
+		this.blocking = blocking;
+		this.blockingMod = blockingMod;
+		this.penetration = penetration;
+		this.penetrationMod = penetrationMod;
+		this.barrier = barrier;
+		this.barrierCounter = barrierCounter;
+		this.physicalShield = physicalShield;
+		this.physicalShieldCounter = physicalShieldCounter;
+		this.magicShield = magicShield;
+		this.magicShieldCounter = magicShieldCounter;
+		this.fear = fear;
+		this.intimidation = intimidation;
+		this.canAttack = canAttack;
+		this.canAttackCounter = canAttackCounter;
+		this.canUseItems = canUseItems;
+		this.canUseItemsCounter = canUseItemsCounter;
+		this.canSkipTurn = canSkipTurn;
+		this.canSkipTurnCounter = canSkipTurnCounter;
+		this.canRun = canRun;
+		this.canRunCounter = canRunCounter;
+		this.protection = protection;
+		this.protectionCounter = protectionCounter;
+		this.countering = countering;
+		this.counteringCounter = counteringCounter;
+		this.immunity = immunity;
+		this.immunityCounter = immunityCounter;
+		this.reflecting = reflecting;
+		this.reflectingCounter = reflectingCounter;
+		this.freecasting = freecasting;
+		this.freecastingCounter = freecastingCounter;
+		this.exhausted = exhausted;
+		this.exhaustedCounter = exhaustedCounter;
+		this.outOfReach = outOfReach;
+		this.outOfReachCounter = outOfReachCounter;
+		this.reach = reach;
+		this.reachCounter = reachCounter;
+		this.locked = locked;
+		this.lockedCounter = lockedCounter;
+		this.enraged = enraged;
+		this.enragedCounter = enragedCounter;
+		this.selfHarm = selfHarm;
+		this.selfHarmCounter = selfHarmCounter;
+		this.adjuster = adjuster;
+	}
+
 	public double getLevel() {
 		return level;
 	}

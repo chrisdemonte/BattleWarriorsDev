@@ -24,13 +24,16 @@ public class FullAttack extends Move{
 	
 	BaseStats requirements;
 	
+
+
 	public FullAttack(String name, String description, int energyCost, int uses, int currentUses, int comboPointGain,
-			int comboPointRequirement, int time, double physicalPower, double magicPower, double bonusDamage,
-			double accuracy, double avoidability, double crit, double penetration, boolean rangedAttack,
-			boolean priority, Buff intialSelf, Buff intialTarget, Buff periodicSelf, Buff periodicTarget,
-			Buff finalSelf, Buff finalTarget, BaseStats requirements) {
-		
-		super(name, description, energyCost, uses, currentUses, comboPointGain, comboPointRequirement, time);
+			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
+			BaseStats requirements, double physicalPower, double magicPower, double bonusDamage, double accuracy,
+			double avoidability, double crit, double penetration, boolean rangedAttack, boolean priority,
+			Buff intialSelf, Buff intialTarget, Buff periodicSelf, Buff periodicTarget, Buff finalSelf,
+			Buff finalTarget, BaseStats requirements2) {
+		super(name, description, energyCost, uses, currentUses, comboPointGain, comboPointRequirement, time, cooldown,
+				cooldownCounter, self, target, requirements);
 		this.physicalPower = physicalPower;
 		this.magicPower = magicPower;
 		this.bonusDamage = bonusDamage;
@@ -46,11 +49,11 @@ public class FullAttack extends Move{
 		this.periodicTarget = periodicTarget;
 		this.finalSelf = finalSelf;
 		this.finalTarget = finalTarget;
-		this.requirements = requirements;
+		requirements = requirements2;
 	}
 
 	public FullAttack () {
-		super("Sample Attack", "You strike a foe on the body and/or head", 1, 50, 50, 0, 0, 1000);
+		super("Sample Attack", "You strike a foe on the body and/or head", 1, 50, 50, 0, 0, 1000, 0, 0, null, null, null);
 		this.physicalPower = 1.0;
 		this.magicPower = 1.0;
 		this.bonusDamage = 5;
@@ -60,13 +63,6 @@ public class FullAttack extends Move{
 		this.penetration = 0.0;
 		this.rangedAttack = false;
 		this.priority = false;
-		this.intialSelf = null;
-		this.intialTarget = null;
-		this.periodicSelf = null;
-		this.periodicTarget = null;
-		this.finalSelf = null;
-		this.finalTarget = null;
-		this.requirements = new BaseStats();
 	}
 
 	public double getPhysicalPower() {

@@ -488,18 +488,337 @@ public class BattleStatCreator {
 		selfHarmLabel.setAlignment(Pos.BASELINE_RIGHT);
 		selfHarmCounterLabel.setAlignment(Pos.BASELINE_RIGHT);
 		
-		container.getChildren().addAll(levelLine,staminaLine,staminaModLine,strengthLine,
-		strengthModLine, defenseLine, defenseModLine, magicLine, magicModLine,resistanceLine, resistanceModLine,
-		cunningLine,cunningModLine,intelligenceLine,intelligenceModLine,speedLine,speedModLine,	skillLine,
-		skillModLine,maxHealthLine,	currentHealthLine,maxEnergyLine,currentEnergyLine,	maxComboPointsLine,
-		currentComboPointsLine,	actionTimeLine,	dazeLine,hasteLine,damageSpikeLine,	critLine,critModLine,accuracyLine,
-		accuracyModLine,avoidanceLine,	avoidanceModLine,blockingLine,blockingModLine,penetrationLine,penetrationModLine,
-		barrierLine,barrierCounterLine,	physicalShieldLine,physicalShieldCounterLine,magicShieldLine,magicShieldCounterLine,
-		fearLine,intimidationLine,canAttackLine,canAttackCounterLine,canUseItemsLine,canUseItemsCounterLine,canSkipTurnLine,
-		canSkipTurnCounterLine,canRunLine,canRunCounterLine,protectionLine,	protectionCounterLine,counteringLine,counteringCounterLine,
-		immunityLine,immunityCounterLine,reflectingLine,reflectingCounterLine,freecastingLine,freecastingCounterLine,exhaustedLine,
-		exhaustedCounterLine,lockedLine,lockedCounterLine ,enragedLine,enragedCounterLine,outOfReachLine,outOfReachCounterLine,
-		reachLine,reachCounterLine,selfHarmLine,selfHarmCounterLine);
+		levelTextField.setMaxWidth(60);
+		staminaTextField.setMaxWidth(60);
+		staminaModTextField.setMaxWidth(60);
+		strengthTextField.setMaxWidth(60);
+		strengthModTextField.setMaxWidth(60);
+		defenseTextField.setMaxWidth(60);
+		defenseModTextField.setMaxWidth(60);
+		magicTextField.setMaxWidth(60);
+		magicModTextField.setMaxWidth(60);
+		resistanceTextField.setMaxWidth(60);
+		resistanceModTextField.setMaxWidth(60);
+		cunningTextField.setMaxWidth(60);
+		cunningModTextField.setMaxWidth(60);
+		intelligenceTextField.setMaxWidth(60);
+		intelligenceModTextField.setMaxWidth(60);
+		speedTextField.setMaxWidth(60);
+		speedModTextField.setMaxWidth(60);
+		skillTextField.setMaxWidth(60);
+		skillModTextField.setMaxWidth(60);
+		maxHealthTextField.setMaxWidth(60);
+		currentHealthTextField.setMaxWidth(60);
+		maxEnergyTextField.setMaxWidth(60);
+		currentEnergyTextField.setMaxWidth(60);
+		maxComboPointsTextField.setMaxWidth(60);
+		currentComboPointsTextField.setMaxWidth(60);
+		actionTimeTextField.setMaxWidth(60);
+		dazeTextField.setMaxWidth(60);
+		hasteTextField.setMaxWidth(60);
+		damageSpikeTextField.setMaxWidth(60);
+		critTextField.setMaxWidth(60);
+		critModTextField.setMaxWidth(60);
+		accuracyTextField.setMaxWidth(60);
+		accuracyModTextField.setMaxWidth(60);
+		avoidanceTextField.setMaxWidth(60);
+		avoidanceModTextField.setMaxWidth(60);
+		blockingTextField.setMaxWidth(60);
+		blockingModTextField.setMaxWidth(60);
+		penetrationTextField.setMaxWidth(60);
+		penetrationModTextField.setMaxWidth(60);
+		barrierTextField.setMaxWidth(60);
+		barrierCounterTextField.setMaxWidth(60);
+		physicalShieldTextField.setMaxWidth(60);
+		physicalShieldCounterTextField.setMaxWidth(60);
+		magicShieldTextField.setMaxWidth(60);
+		magicShieldCounterTextField.setMaxWidth(60);
+		fearTextField.setMaxWidth(60);
+		intimidationTextField.setMaxWidth(60);
+		canAttackCounterTextField.setMaxWidth(60);
+		canUseItemsCounterTextField.setMaxWidth(60);
+		canSkipTurnCounterTextField.setMaxWidth(60);
+		canRunCounterTextField.setMaxWidth(60);
+		protectionTextField.setMaxWidth(60);
+		protectionCounterTextField.setMaxWidth(60);
+		counteringTextField.setMaxWidth(60);
+		counteringCounterTextField.setMaxWidth(60);
+		immunityTextField.setMaxWidth(60);
+		immunityCounterTextField.setMaxWidth(60);
+		reflectingTextField.setMaxWidth(60);
+		reflectingCounterTextField.setMaxWidth(60);
+		freecastingCounterTextField.setMaxWidth(60);
+		exhaustedCounterTextField.setMaxWidth(60);
+		lockedCounterTextField.setMaxWidth(60);
+		enragedCounterTextField.setMaxWidth(60);
+		outOfReachCounterTextField.setMaxWidth(60);
+		reachCounterTextField.setMaxWidth(60);
+		selfHarmCounterTextField.setMaxWidth(60);
+		
+		canAttackCheckBox.setSelected(true);
+		canUseItemsCheckBox.setSelected(true);
+		canSkipTurnCheckBox.setSelected(true);
+		canRunCheckBox.setSelected(true);
+		
+		container.getChildren().addAll(levelLine,staminaLine,staminaModLine,strengthLine,strengthModLine, defenseLine, defenseModLine,  
+		magicLine, magicModLine,resistanceLine, resistanceModLine,cunningLine,cunningModLine,intelligenceLine,intelligenceModLine,speedLine,
+		speedModLine,skillLine,skillModLine,maxHealthLine,currentHealthLine,maxEnergyLine,currentEnergyLine,maxComboPointsLine,currentComboPointsLine,
+		actionTimeLine,dazeLine,hasteLine,damageSpikeLine,critLine,critModLine,accuracyLine,accuracyModLine,avoidanceLine,avoidanceModLine,blockingLine,
+		blockingModLine,penetrationLine,penetrationModLine,barrierLine,barrierCounterLine,physicalShieldLine,physicalShieldCounterLine,magicShieldLine,
+		magicShieldCounterLine,fearLine,intimidationLine,canAttackLine,canAttackCounterLine,canUseItemsLine,canUseItemsCounterLine,canSkipTurnLine,
+		canSkipTurnCounterLine,canRunLine,canRunCounterLine,protectionLine,	protectionCounterLine,counteringLine,counteringCounterLine,immunityLine,
+		immunityCounterLine,reflectingLine,reflectingCounterLine,freecastingLine,freecastingCounterLine,exhaustedLine,exhaustedCounterLine,lockedLine,
+		lockedCounterLine ,enragedLine,enragedCounterLine,outOfReachLine,outOfReachCounterLine,reachLine,reachCounterLine,selfHarmLine,selfHarmCounterLine);
+	}
+	
+	public BattleStats getStats() {
+		try {
+			this.stats = new BattleStats(Double.parseDouble(levelTextField.getText()),
+					Double.parseDouble(staminaTextField.getText()),
+					Double.parseDouble(staminaModTextField.getText()),
+					Double.parseDouble(strengthTextField.getText()),
+					Double.parseDouble(strengthModTextField.getText()),
+					Double.parseDouble(defenseTextField.getText()),
+					Double.parseDouble(defenseModTextField.getText()),
+					Double.parseDouble(magicTextField.getText()),
+					Double.parseDouble(magicModTextField.getText()),
+					Double.parseDouble(resistanceTextField.getText()),
+					Double.parseDouble(resistanceModTextField.getText()),
+					Double.parseDouble(cunningTextField.getText()),
+					Double.parseDouble(cunningModTextField.getText()),
+					Double.parseDouble(intelligenceTextField.getText()),
+					Double.parseDouble(intelligenceModTextField.getText()),
+					Double.parseDouble(speedTextField.getText()),
+					Double.parseDouble(speedModTextField.getText()),
+					Double.parseDouble(skillTextField.getText()),
+					Double.parseDouble(skillModTextField.getText()),
+					Integer.parseInt(maxHealthTextField.getText()),
+					Integer.parseInt(currentHealthTextField.getText()),
+					Integer.parseInt(maxEnergyTextField.getText()),
+					Integer.parseInt(currentEnergyTextField.getText()),
+					Integer.parseInt(maxComboPointsTextField.getText()),
+					Integer.parseInt(currentComboPointsTextField.getText()),
+					Integer.parseInt(actionTimeTextField.getText()),
+					Integer.parseInt(dazeTextField.getText()),
+					Integer.parseInt(hasteTextField.getText()),
+					Integer.parseInt(damageSpikeTextField.getText()),
+					Double.parseDouble(critTextField.getText()),
+					Double.parseDouble(critModTextField.getText()),
+					Double.parseDouble(accuracyTextField.getText()),
+					Double.parseDouble(accuracyModTextField.getText()),
+					Double.parseDouble(avoidanceTextField.getText()),
+					Double.parseDouble(avoidanceModTextField.getText()),
+					Double.parseDouble(blockingTextField.getText()),
+					Double.parseDouble(blockingModTextField.getText()),
+					Double.parseDouble(penetrationTextField.getText()),
+					Double.parseDouble(penetrationModTextField.getText()),
+					Double.parseDouble(barrierTextField.getText()),
+					Integer.parseInt(barrierCounterTextField.getText()),
+					Double.parseDouble(physicalShieldTextField.getText()),
+					Integer.parseInt(physicalShieldCounterTextField.getText()),
+					Double.parseDouble(magicShieldTextField.getText()),
+					Integer.parseInt(magicShieldCounterTextField.getText()),
+					Double.parseDouble(fearTextField.getText()),
+					Double.parseDouble(intimidationTextField.getText()),
+					canAttackCheckBox.isSelected(),
+					Integer.parseInt(canAttackCounterTextField.getText()),
+					canUseItemsCheckBox.isSelected(),
+					Integer.parseInt(canUseItemsCounterTextField.getText()),
+					canSkipTurnCheckBox.isSelected(),
+					Integer.parseInt(canSkipTurnCounterTextField.getText()),
+					canRunCheckBox.isSelected(),
+					Integer.parseInt(canRunCounterTextField.getText()),
+					Double.parseDouble(protectionTextField.getText()),
+					Integer.parseInt(protectionCounterTextField.getText()),
+					Double.parseDouble(counteringTextField.getText()),
+					Integer.parseInt(counteringCounterTextField.getText()),
+					Double.parseDouble(immunityTextField.getText()),
+					Integer.parseInt(immunityCounterTextField.getText()),
+					Double.parseDouble(reflectingTextField.getText()),
+					Integer.parseInt(reflectingCounterTextField.getText()),
+					freecastingCheckBox.isSelected(),
+					Integer.parseInt(freecastingCounterTextField.getText()),
+					exhaustedCheckBox.isSelected(),
+					Integer.parseInt(exhaustedCounterTextField.getText()),
+					lockedCheckBox.isSelected(),
+					Integer.parseInt(lockedCounterTextField .getText()),
+					enragedCheckBox.isSelected(),
+					Integer.parseInt(enragedCounterTextField.getText()),
+					outOfReachCheckBox.isSelected(),
+					Integer.parseInt(outOfReachCounterTextField.getText()),
+					reachCheckBox.isSelected(),
+					Integer.parseInt(reachCounterTextField.getText()),
+					selfHarmCheckBox.isSelected(),
+					Integer.parseInt(selfHarmCounterTextField.getText()));
+			
+		}
+		catch (Exception ex) {
+			this.stats = new BattleStats();
+		}
+		return this.stats;
+	}
+	public void fillInFields(BattleStats input) {
+		levelTextField.setText("" + this.stats.getLevel());
+		staminaTextField.setText("" + this.stats.getStamina());
+		staminaModTextField.setText("" + this.stats.getStaminaMod());
+		strengthTextField.setText("" + this.stats.getStrength());
+		strengthModTextField.setText("" + this.stats.getStrengthMod());
+		defenseTextField.setText("" + this.stats.getDefense());
+		defenseModTextField.setText("" + this.stats.getDefenseMod());
+		magicTextField.setText("" + this.stats.getMagic());
+		magicModTextField.setText("" + this.stats.getMagicMod());
+		resistanceTextField.setText("" + this.stats.getResistance());
+		resistanceModTextField.setText("" + this.stats.getResistanceMod());
+		cunningTextField.setText("" + this.stats.getCunning());
+		cunningModTextField.setText("" + this.stats.getCunningMod());
+		intelligenceTextField.setText("" + this.stats.getIntelligence());
+		intelligenceModTextField.setText("" + this.stats.getIntelligenceMod());
+		speedTextField.setText("" + this.stats.getSpeed());
+		speedModTextField.setText("" + this.stats.getSpeedMod());
+		skillTextField.setText("" + this.stats.getSkill());
+		skillModTextField.setText("" + this.stats.getSkillMod());
+		maxHealthTextField.setText("" + this.stats.getMaxHealth());
+		currentHealthTextField.setText("" + this.stats.getCurrentHealth());
+		maxEnergyTextField.setText("" + this.stats.getMaxEnergy());
+		currentEnergyTextField.setText("" + this.stats.getCurrentEnergy());
+		maxComboPointsTextField.setText("" + this.stats.getMaxComboPoints());
+		currentComboPointsTextField.setText("" + this.stats.getCurrentComboPoints());
+		actionTimeTextField.setText("" + this.stats.getActionTime());
+		dazeTextField.setText("" + this.stats.getDaze());
+		hasteTextField.setText("" + this.stats.getHaste());
+		damageSpikeTextField.setText("" + this.stats.getDamageSpike());
+		critTextField.setText("" + this.stats.getCrit());
+		critModTextField.setText("" + this.stats.getCritMod());
+		accuracyTextField.setText("" + this.stats.getAccuracy());
+		accuracyModTextField.setText("" + this.stats.getAccuracyMod());
+		avoidanceTextField.setText("" + this.stats.getAvoidance());
+		avoidanceModTextField.setText("" + this.stats.getAvoidanceMod());
+		blockingTextField.setText("" + this.stats.getBlocking());
+		blockingModTextField.setText("" + this.stats.getBlockingMod());
+		penetrationTextField.setText("" + this.stats.getPenetration());
+		penetrationModTextField.setText("" + this.stats.getPenetrationMod());
+		barrierTextField.setText("" + this.stats.getBarrier());
+		barrierCounterTextField.setText("" + this.stats.getBarrierCounter());
+		physicalShieldTextField.setText("" + this.stats.getPhysicalShield());
+		physicalShieldCounterTextField.setText("" + this.stats.getPhysicalShieldCounter());
+		magicShieldTextField.setText("" + this.stats.getMagicShield());
+		magicShieldCounterTextField.setText("" + this.stats.getMagicShieldCounter());
+		fearTextField.setText("" + this.stats.getFear());
+		intimidationTextField.setText("" + this.stats.getIntimidation());
+		canAttackCheckBox.setSelected(this.stats.isCanAttack());
+		canAttackCounterTextField.setText("" + this.stats.getCanAttackCounter());
+		canUseItemsCheckBox.setSelected(this.stats.isCanUseItems());
+		canUseItemsCounterTextField.setText("" + this.stats.getCanUseItemsCounter());
+		canSkipTurnCheckBox.setSelected(this.stats.isCanSkipTurn());
+		canSkipTurnCounterTextField.setText("" + this.stats.getCanSkipTurnCounter());
+		canRunCheckBox.setSelected(this.stats.isCanRun());
+		canRunCounterTextField.setText("" + this.stats.getCanRunCounter());
+		protectionTextField.setText("" + this.stats.getProtection());
+		protectionCounterTextField.setText("" + this.stats.getProtectionCounter());
+		counteringTextField.setText("" + this.stats.getCountering());
+		counteringCounterTextField.setText("" + this.stats.getCounteringCounter());
+		immunityTextField.setText("" + this.stats.getImmunity());
+		immunityCounterTextField.setText("" + this.stats.getImmunityCounter());
+		reflectingTextField.setText("" + this.stats.getReflecting());
+		reflectingCounterTextField.setText("" + this.stats.getReflectingCounter());
+		freecastingCheckBox.setSelected(this.stats.isFreecasting());
+		freecastingCounterTextField.setText("" + this.stats.getFreecastingCounter());
+		exhaustedCheckBox.setSelected(this.stats.isExhausted());
+		exhaustedCounterTextField.setText("" + this.stats.getExhaustedCounter());
+		lockedCheckBox.setSelected(this.stats.isLocked());
+		lockedCounterTextField.setText("" + this.stats.getLockedCounter());
+		enragedCheckBox.setSelected(this.stats.isEnraged());
+		enragedCounterTextField.setText("" + this.stats.getEnragedCounter());
+		outOfReachCheckBox.setSelected(this.stats.isOutOfReach());
+		outOfReachCounterTextField.setText("" + this.stats.getOutOfReachCounter());
+		reachCheckBox.setSelected(this.stats.isReach());
+		reachCounterTextField.setText("" + this.stats.getReachCounter());
+		selfHarmCheckBox.setSelected(this.stats.isSelfHarm());
+		selfHarmCounterTextField.setText("" + this.stats.getSelfHarmCounter());
+	}
+	public void resetFields() {
+		levelTextField.setText("0");
+		staminaTextField.setText("0");
+		staminaModTextField.setText("0");
+		strengthTextField.setText("0");
+		strengthModTextField.setText("0");
+		defenseTextField.setText("0");
+		defenseModTextField.setText("0");
+		magicTextField.setText("0");
+		magicModTextField.setText("0");
+		resistanceTextField.setText("0");
+		resistanceModTextField.setText("0");
+		cunningTextField.setText("0");
+		cunningModTextField.setText("0");
+		intelligenceTextField.setText("0");
+		intelligenceModTextField.setText("0");
+		speedTextField.setText("0");
+		speedModTextField.setText("0");
+		skillTextField.setText("0");
+		skillModTextField.setText("0");
+		maxHealthTextField.setText("0");
+		currentHealthTextField.setText("0");
+		maxEnergyTextField.setText("0");
+		currentEnergyTextField.setText("0");
+		maxComboPointsTextField.setText("0");
+		currentComboPointsTextField.setText("0");
+		actionTimeTextField.setText("0");
+		dazeTextField.setText("0");
+		hasteTextField.setText("0");
+		damageSpikeTextField.setText("0");
+		critTextField.setText("0");
+		critModTextField.setText("0");
+		accuracyTextField.setText("0");
+		accuracyModTextField.setText("0");
+		avoidanceTextField.setText("0");
+		avoidanceModTextField.setText("0");
+		blockingTextField.setText("0");
+		blockingModTextField.setText("0");
+		penetrationTextField.setText("0");
+		penetrationModTextField.setText("0");
+		barrierTextField.setText("0");
+		barrierCounterTextField.setText("0");
+		physicalShieldTextField.setText("0");
+		physicalShieldCounterTextField.setText("0");
+		magicShieldTextField.setText("0");
+		magicShieldCounterTextField.setText("0");
+		fearTextField.setText("0");
+		intimidationTextField.setText("0");
+		canAttackCheckBox = new CheckBox ();
+		canAttackCounterTextField.setText("0");
+		canUseItemsCheckBox = new CheckBox ();
+		canUseItemsCounterTextField.setText("0");
+		canSkipTurnCheckBox = new CheckBox ();
+		canSkipTurnCounterTextField.setText("0");
+		canRunCheckBox = new CheckBox();
+		canRunCounterTextField.setText("0");
+		protectionTextField.setText("0");
+		protectionCounterTextField.setText("0");
+		counteringTextField.setText("0");
+		counteringCounterTextField.setText("0");
+		immunityTextField.setText("0");
+		immunityCounterTextField.setText("0");
+		reflectingTextField.setText("0");
+		reflectingCounterTextField.setText("0");
+		freecastingCheckBox = new CheckBox ();
+		freecastingCounterTextField.setText("0");
+		exhaustedCheckBox = new CheckBox ();
+		exhaustedCounterTextField.setText("0");
+		lockedCheckBox = new CheckBox ();
+		lockedCounterTextField.setText("0");
+		enragedCheckBox = new CheckBox ();
+		enragedCounterTextField.setText("0");
+		outOfReachCheckBox = new CheckBox ();
+		outOfReachCounterTextField.setText("0");
+		reachCheckBox = new CheckBox ();
+		reachCounterTextField.setText("0");
+		selfHarmCheckBox = new CheckBox();
+		selfHarmCounterTextField.setText("0");
+		
+		canAttackCheckBox.setSelected(true);
+		canUseItemsCheckBox.setSelected(true);
+		canSkipTurnCheckBox.setSelected(true);
+		canRunCheckBox.setSelected(true);
 	}
 	public VBox getContainer() {
 		return container;

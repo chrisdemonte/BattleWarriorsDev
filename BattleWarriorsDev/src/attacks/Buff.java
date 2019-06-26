@@ -7,7 +7,10 @@ public abstract class Buff {
 	String name;
 	String description;
 	String keyword;
-	BattleStats statModifier;
+	
+	BattleStats intial;
+	BattleStats periodic;
+	BattleStats end;
 	int duration;
 	int counter;
 

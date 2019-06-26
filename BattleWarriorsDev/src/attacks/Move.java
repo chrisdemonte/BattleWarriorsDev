@@ -1,5 +1,7 @@
 package attacks;
 
+import models.BaseStats;
+
 public abstract class Move {
 	
 	String name;
@@ -10,9 +12,17 @@ public abstract class Move {
 	int comboPointGain;
 	int comboPointRequirement;
 	int time;
+	int cooldown;
+	int cooldownCounter;
+	
+	Buff self;
+	Buff target;
+	BaseStats requirements;
+	
 	
 	public Move(String name, String description, int energyCost, int uses, int currentUses, int comboPointGain,
-			int comboPointRequirement, int time) {
+			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
+			BaseStats requirements) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -22,8 +32,13 @@ public abstract class Move {
 		this.comboPointGain = comboPointGain;
 		this.comboPointRequirement = comboPointRequirement;
 		this.time = time;
+		this.cooldown = cooldown;
+		this.cooldownCounter = cooldownCounter;
+		this.self = self;
+		this.target = target;
+		this.requirements = requirements;
 	}
-	
+
 	public void resetUses() {
 		this.currentUses = this.uses;
 	}
@@ -90,6 +105,30 @@ public abstract class Move {
 
 	public void setTime(int time) {
 		this.time = time;
+	}
+
+	public Buff getSelf() {
+		return self;
+	}
+
+	public void setSelf(Buff self) {
+		this.self = self;
+	}
+
+	public Buff getTarget() {
+		return target;
+	}
+
+	public void setTarget(Buff target) {
+		this.target = target;
+	}
+
+	public BaseStats getRequirements() {
+		return requirements;
+	}
+
+	public void setRequirements(BaseStats requirements) {
+		this.requirements = requirements;
 	}
 	
 	
