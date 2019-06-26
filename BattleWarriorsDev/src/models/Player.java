@@ -7,14 +7,12 @@ public class Player extends Entity{
 	BaseStats baseStats;
 	BattleStats battleStats;
 	Inventory inventory;
-	BattleLog log;
 
 	public Player(String name, String description) {
 		super(name, description);
 		this.inventory = new Inventory();
 		this.baseStats = new BaseStats();
 		this.battleStats = new BattleStats(this);
-		this.log = new BattleLog();
 	}
 
 	public BaseStats getBaseStats() {
