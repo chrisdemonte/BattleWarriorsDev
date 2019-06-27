@@ -848,9 +848,6 @@ public class BattleStats {
 	}
 	public void changeBarrier(double barrier) {
 		this.barrier += barrier;
-		if (this.barrier < 0.0) {
-			barrier = 0.0;
-		}
 	}
 
 	public double getPhysicalShield() {
@@ -862,9 +859,6 @@ public class BattleStats {
 	}
 	public void changePhysicalShield(double physicalShield) {
 		this.physicalShield += physicalShield;
-		if (this.physicalShield < 0.0) {
-			physicalShield = 0.0;
-		}
 	}
 
 	public double getMagicShield() {
@@ -876,9 +870,6 @@ public class BattleStats {
 	}
 	public void changeMagicShield(double magicShield) {
 		this.magicShield += magicShield;
-		if (this.magicShield < 0.0) {
-			magicShield = 0.0;
-		}
 	}
 
 	public double getFear() {
