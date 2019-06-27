@@ -14,6 +14,7 @@ public class CunningAttack extends Move{
 	double crit;
 	double penetration; 
 	boolean rangedAttack;
+	
 	public CunningAttack(String name, String description, int energyCost, int uses, int currentUses, int comboPointGain,
 			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
 			BaseStats requirements, double physicalPower, double magicPower, double bonusDamage, double accuracy,

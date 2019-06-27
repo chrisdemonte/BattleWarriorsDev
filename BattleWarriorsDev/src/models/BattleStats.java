@@ -89,8 +89,11 @@ public class BattleStats {
 	int enragedCounter;
 	boolean selfHarm;
 	int selfHarmCounter;
+	boolean vulnerable;
+	int vulnerableCounter;
 	
-	double adjuster = 10.0;
+	
+	double adjuster = 9.0;
 	
 	public BattleStats (Player player) {
 		this();
@@ -176,6 +179,8 @@ public class BattleStats {
 		this.reachCounter = 0;
 		this.selfHarm = false;
 		this.selfHarmCounter = 0;
+		this.vulnerable = false;
+		this.vulnerableCounter = 0;
 	}
 	public void addBattleStats(BattleStats other) {
 		
@@ -313,6 +318,13 @@ public class BattleStats {
 				this.selfHarmCounter = other.getSelfHarmCounter();
 			}
 		}
+		if (other.isVulnerable()) {
+			this.vulnerable = true;
+			if (other.getVulnerableCounter() > this.getVulnerableCounter()) {
+				this.vulnerableCounter = other.getVulnerableCounter();
+			}
+		}
+
 	}
 	public void changeBattleStats(BattleStats other) {
 		this.stamina += other.getStamina();
@@ -449,11 +461,17 @@ public class BattleStats {
 				this.selfHarmCounter = other.getSelfHarmCounter();
 			}
 		}
+		if (other.isVulnerable()) {
+			this.vulnerable = true;
+			if (other.getVulnerableCounter() > this.getVulnerableCounter()) {
+				this.vulnerableCounter = other.getVulnerableCounter();
+			}
+		}
 	}
 	public void setBattleStats(Player player) {
 		
 		this.level = player.getBaseStats().getLevel();
-		
+		this.adjuster += player.getBaseStats().getLevel();
 		this.stamina = player.getBaseStats().getStamina() + adjuster;
 		this.staminaMod = 1.0;
 		this.strength = player.getBaseStats().getStrength() + adjuster;
@@ -538,7 +556,7 @@ public class BattleStats {
 			double immunity, int immunityCounter, double reflecting, int reflectingCounter, boolean freecasting,
 			int freecastingCounter, boolean exhausted, int exhaustedCounter, boolean outOfReach, int outOfReachCounter,
 			boolean reach, int reachCounter, boolean locked, int lockedCounter, boolean enraged, int enragedCounter,
-			boolean selfHarm, int selfHarmCounter) {
+			boolean selfHarm, int selfHarmCounter, boolean vulnerable, int vulnerableCounter) {
 		super();
 		this.level = level;
 		this.stamina = stamina;
@@ -617,6 +635,8 @@ public class BattleStats {
 		this.enragedCounter = enragedCounter;
 		this.selfHarm = selfHarm;
 		this.selfHarmCounter = selfHarmCounter;
+		this.vulnerable = vulnerable;
+		this.vulnerableCounter = vulnerableCounter;
 	}
 
 	public double getLevel() {
@@ -1478,5 +1498,22 @@ public class BattleStats {
 	public void setSelfHarmCounter(int selfHarmCounter) {
 		this.selfHarmCounter = selfHarmCounter;
 	}
+
+	public boolean isVulnerable() {
+		return vulnerable;
+	}
+
+	public void setVulnerable(boolean vulnerable) {
+		this.vulnerable = vulnerable;
+	}
+
+	public int getVulnerableCounter() {
+		return vulnerableCounter;
+	}
+
+	public void setVulnerableCounter(int vulnerableCounter) {
+		this.vulnerableCounter = vulnerableCounter;
+	}
+	
 
 }

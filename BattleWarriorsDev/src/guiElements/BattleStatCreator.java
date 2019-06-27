@@ -91,6 +91,8 @@ public class BattleStatCreator {
 	HBox reachCounterLine = new HBox(3);
 	HBox selfHarmLine = new HBox(3);
 	HBox selfHarmCounterLine = new HBox(3);
+	HBox vulnerableLine = new HBox(3);
+	HBox vulnerableCounterLine = new HBox(3);
 	
 	Label levelLabel = new Label ("Level :");
 	Label staminaLabel = new Label("Stamina :");
@@ -169,6 +171,8 @@ public class BattleStatCreator {
 	Label reachCounterLabel = new Label ("Reach Counter :");
 	Label selfHarmLabel = new Label("Self Harm :");
 	Label selfHarmCounterLabel= new Label("Self Harm Counter :");
+	Label vulnerableLabel = new Label("Vulnerable :");
+	Label vulnerableCounterLabel= new Label("Vulnerable Counter :");
 	
 	TextField levelTextField = new TextField ("0");
 	TextField staminaTextField = new TextField("0");
@@ -247,6 +251,8 @@ public class BattleStatCreator {
 	TextField reachCounterTextField = new TextField ("0");
 	CheckBox selfHarmCheckBox = new CheckBox();
 	TextField selfHarmCounterTextField = new TextField("0");
+	CheckBox vulnerableCheckBox = new CheckBox();
+	TextField vulnerableCounterTextField = new TextField("0");
 	
 	public BattleStatCreator () {
 		this.stats = new BattleStats();
@@ -331,6 +337,8 @@ public class BattleStatCreator {
 		reachCounterLine .getChildren().addAll(reachCounterLabel, reachCounterTextField);
 		selfHarmLine.getChildren().addAll(selfHarmLabel, selfHarmCheckBox);
 		selfHarmCounterLine.getChildren().addAll(selfHarmCounterLabel, selfHarmCounterTextField);
+		vulnerableLine.getChildren().addAll(vulnerableLabel, vulnerableCheckBox);
+		vulnerableCounterLine.getChildren().addAll(vulnerableCounterLabel, vulnerableCounterTextField);
 		
 		levelLabel.setMinSize(140, 20);
 		staminaLabel.setMinSize(140, 20);
@@ -409,6 +417,8 @@ public class BattleStatCreator {
 		reachCounterLabel.setMinSize(140, 20);
 		selfHarmLabel.setMinSize(140, 20);
 		selfHarmCounterLabel.setMinSize(140, 20);
+		vulnerableLabel.setMinSize(140, 20);
+		vulnerableCounterLabel.setMinSize(140, 20);
 		
 		levelLabel.setAlignment(Pos.BASELINE_RIGHT);
 		staminaLabel.setAlignment(Pos.BASELINE_RIGHT);
@@ -487,74 +497,77 @@ public class BattleStatCreator {
 		reachCounterLabel.setAlignment(Pos.BASELINE_RIGHT);
 		selfHarmLabel.setAlignment(Pos.BASELINE_RIGHT);
 		selfHarmCounterLabel.setAlignment(Pos.BASELINE_RIGHT);
+		vulnerableLabel.setAlignment(Pos.BASELINE_RIGHT);
+		vulnerableCounterLabel.setAlignment(Pos.BASELINE_RIGHT);
 		
-		levelTextField.setMaxWidth(60);
-		staminaTextField.setMaxWidth(60);
-		staminaModTextField.setMaxWidth(60);
-		strengthTextField.setMaxWidth(60);
-		strengthModTextField.setMaxWidth(60);
-		defenseTextField.setMaxWidth(60);
-		defenseModTextField.setMaxWidth(60);
-		magicTextField.setMaxWidth(60);
-		magicModTextField.setMaxWidth(60);
-		resistanceTextField.setMaxWidth(60);
-		resistanceModTextField.setMaxWidth(60);
-		cunningTextField.setMaxWidth(60);
-		cunningModTextField.setMaxWidth(60);
-		intelligenceTextField.setMaxWidth(60);
-		intelligenceModTextField.setMaxWidth(60);
-		speedTextField.setMaxWidth(60);
-		speedModTextField.setMaxWidth(60);
-		skillTextField.setMaxWidth(60);
-		skillModTextField.setMaxWidth(60);
-		maxHealthTextField.setMaxWidth(60);
-		currentHealthTextField.setMaxWidth(60);
-		maxEnergyTextField.setMaxWidth(60);
-		currentEnergyTextField.setMaxWidth(60);
-		maxComboPointsTextField.setMaxWidth(60);
-		currentComboPointsTextField.setMaxWidth(60);
-		actionTimeTextField.setMaxWidth(60);
-		dazeTextField.setMaxWidth(60);
-		hasteTextField.setMaxWidth(60);
-		damageSpikeTextField.setMaxWidth(60);
-		critTextField.setMaxWidth(60);
-		critModTextField.setMaxWidth(60);
-		accuracyTextField.setMaxWidth(60);
-		accuracyModTextField.setMaxWidth(60);
-		avoidanceTextField.setMaxWidth(60);
-		avoidanceModTextField.setMaxWidth(60);
-		blockingTextField.setMaxWidth(60);
-		blockingModTextField.setMaxWidth(60);
-		penetrationTextField.setMaxWidth(60);
-		penetrationModTextField.setMaxWidth(60);
-		barrierTextField.setMaxWidth(60);
-		barrierCounterTextField.setMaxWidth(60);
-		physicalShieldTextField.setMaxWidth(60);
-		physicalShieldCounterTextField.setMaxWidth(60);
-		magicShieldTextField.setMaxWidth(60);
-		magicShieldCounterTextField.setMaxWidth(60);
-		fearTextField.setMaxWidth(60);
-		intimidationTextField.setMaxWidth(60);
-		canAttackCounterTextField.setMaxWidth(60);
-		canUseItemsCounterTextField.setMaxWidth(60);
-		canSkipTurnCounterTextField.setMaxWidth(60);
-		canRunCounterTextField.setMaxWidth(60);
-		protectionTextField.setMaxWidth(60);
-		protectionCounterTextField.setMaxWidth(60);
-		counteringTextField.setMaxWidth(60);
-		counteringCounterTextField.setMaxWidth(60);
-		immunityTextField.setMaxWidth(60);
-		immunityCounterTextField.setMaxWidth(60);
-		reflectingTextField.setMaxWidth(60);
-		reflectingCounterTextField.setMaxWidth(60);
-		freecastingCounterTextField.setMaxWidth(60);
-		exhaustedCounterTextField.setMaxWidth(60);
-		lockedCounterTextField.setMaxWidth(60);
-		enragedCounterTextField.setMaxWidth(60);
-		outOfReachCounterTextField.setMaxWidth(60);
-		reachCounterTextField.setMaxWidth(60);
-		selfHarmCounterTextField.setMaxWidth(60);
-		
+		levelTextField.setMaxWidth(50);
+		staminaTextField.setMaxWidth(50);
+		staminaModTextField.setMaxWidth(50);
+		strengthTextField.setMaxWidth(50);
+		strengthModTextField.setMaxWidth(50);
+		defenseTextField.setMaxWidth(50);
+		defenseModTextField.setMaxWidth(50);
+		magicTextField.setMaxWidth(50);
+		magicModTextField.setMaxWidth(50);
+		resistanceTextField.setMaxWidth(50);
+		resistanceModTextField.setMaxWidth(50);
+		cunningTextField.setMaxWidth(50);
+		cunningModTextField.setMaxWidth(50);
+		intelligenceTextField.setMaxWidth(50);
+		intelligenceModTextField.setMaxWidth(50);
+		speedTextField.setMaxWidth(50);
+		speedModTextField.setMaxWidth(50);
+		skillTextField.setMaxWidth(50);
+		skillModTextField.setMaxWidth(50);
+		maxHealthTextField.setMaxWidth(50);
+		currentHealthTextField.setMaxWidth(50);
+		maxEnergyTextField.setMaxWidth(50);
+		currentEnergyTextField.setMaxWidth(50);
+		maxComboPointsTextField.setMaxWidth(50);
+		currentComboPointsTextField.setMaxWidth(50);
+		actionTimeTextField.setMaxWidth(50);
+		dazeTextField.setMaxWidth(50);
+		hasteTextField.setMaxWidth(50);
+		damageSpikeTextField.setMaxWidth(50);
+		critTextField.setMaxWidth(50);
+		critModTextField.setMaxWidth(50);
+		accuracyTextField.setMaxWidth(50);
+		accuracyModTextField.setMaxWidth(50);
+		avoidanceTextField.setMaxWidth(50);
+		avoidanceModTextField.setMaxWidth(50);
+		blockingTextField.setMaxWidth(50);
+		blockingModTextField.setMaxWidth(50);
+		penetrationTextField.setMaxWidth(50);
+		penetrationModTextField.setMaxWidth(50);
+		barrierTextField.setMaxWidth(50);
+		barrierCounterTextField.setMaxWidth(50);
+		physicalShieldTextField.setMaxWidth(50);
+		physicalShieldCounterTextField.setMaxWidth(50);
+		magicShieldTextField.setMaxWidth(50);
+		magicShieldCounterTextField.setMaxWidth(50);
+		fearTextField.setMaxWidth(50);
+		intimidationTextField.setMaxWidth(50);
+		canAttackCounterTextField.setMaxWidth(50);
+		canUseItemsCounterTextField.setMaxWidth(50);
+		canSkipTurnCounterTextField.setMaxWidth(50);
+		canRunCounterTextField.setMaxWidth(50);
+		protectionTextField.setMaxWidth(50);
+		protectionCounterTextField.setMaxWidth(50);
+		counteringTextField.setMaxWidth(50);
+		counteringCounterTextField.setMaxWidth(50);
+		immunityTextField.setMaxWidth(50);
+		immunityCounterTextField.setMaxWidth(50);
+		reflectingTextField.setMaxWidth(50);
+		reflectingCounterTextField.setMaxWidth(50);
+		freecastingCounterTextField.setMaxWidth(50);
+		exhaustedCounterTextField.setMaxWidth(50);
+		lockedCounterTextField.setMaxWidth(50);
+		enragedCounterTextField.setMaxWidth(50);
+		outOfReachCounterTextField.setMaxWidth(50);
+		reachCounterTextField.setMaxWidth(50);
+		selfHarmCounterTextField.setMaxWidth(50);
+		vulnerableCounterTextField.setMaxWidth(50);
+	
 		canAttackCheckBox.setSelected(true);
 		canUseItemsCheckBox.setSelected(true);
 		canSkipTurnCheckBox.setSelected(true);
@@ -568,7 +581,8 @@ public class BattleStatCreator {
 		magicShieldCounterLine,fearLine,intimidationLine,canAttackLine,canAttackCounterLine,canUseItemsLine,canUseItemsCounterLine,canSkipTurnLine,
 		canSkipTurnCounterLine,canRunLine,canRunCounterLine,protectionLine,	protectionCounterLine,counteringLine,counteringCounterLine,immunityLine,
 		immunityCounterLine,reflectingLine,reflectingCounterLine,freecastingLine,freecastingCounterLine,exhaustedLine,exhaustedCounterLine,lockedLine,
-		lockedCounterLine ,enragedLine,enragedCounterLine,outOfReachLine,outOfReachCounterLine,reachLine,reachCounterLine,selfHarmLine,selfHarmCounterLine);
+		lockedCounterLine ,enragedLine,enragedCounterLine,outOfReachLine,outOfReachCounterLine,reachLine,reachCounterLine,selfHarmLine,selfHarmCounterLine,
+		vulnerableLine, vulnerableCounterLine);
 	}
 	
 	public BattleStats getStats() {
@@ -649,7 +663,9 @@ public class BattleStatCreator {
 					reachCheckBox.isSelected(),
 					Integer.parseInt(reachCounterTextField.getText()),
 					selfHarmCheckBox.isSelected(),
-					Integer.parseInt(selfHarmCounterTextField.getText()));
+					Integer.parseInt(selfHarmCounterTextField.getText()),
+					vulnerableCheckBox.isSelected(),
+					Integer.parseInt(vulnerableCounterTextField.getText()));
 			
 		}
 		catch (Exception ex) {
@@ -735,6 +751,8 @@ public class BattleStatCreator {
 		reachCounterTextField.setText("" + this.stats.getReachCounter());
 		selfHarmCheckBox.setSelected(this.stats.isSelfHarm());
 		selfHarmCounterTextField.setText("" + this.stats.getSelfHarmCounter());
+		vulnerableCheckBox.setSelected(this.stats.isVulnerable());
+		vulnerableCounterTextField.setText("" + this.stats.getVulnerableCounter());
 	}
 	public void resetFields() {
 		levelTextField.setText("0");
@@ -814,6 +832,8 @@ public class BattleStatCreator {
 		reachCounterTextField.setText("0");
 		selfHarmCheckBox = new CheckBox();
 		selfHarmCounterTextField.setText("0");
+		vulnerableCheckBox = new CheckBox();
+		vulnerableCounterTextField.setText("0");
 		
 		canAttackCheckBox.setSelected(true);
 		canUseItemsCheckBox.setSelected(true);

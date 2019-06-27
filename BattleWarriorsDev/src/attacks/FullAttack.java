@@ -1,6 +1,11 @@
 package attacks;
 
+import java.util.Random;
+
 import models.BaseStats;
+import models.BattleStats;
+import models.Player;
+import utilities.BattleLog;
 
 public class FullAttack extends Move{
 	
@@ -15,23 +20,10 @@ public class FullAttack extends Move{
 	boolean rangedAttack;
 	boolean priority;
 	
-	Buff intialSelf;
-	Buff intialTarget;
-	Buff periodicSelf;
-	Buff periodicTarget;
-	Buff finalSelf;
-	Buff finalTarget;
-	
-	BaseStats requirements;
-	
-
-
 	public FullAttack(String name, String description, int energyCost, int uses, int currentUses, int comboPointGain,
 			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
 			BaseStats requirements, double physicalPower, double magicPower, double bonusDamage, double accuracy,
-			double avoidability, double crit, double penetration, boolean rangedAttack, boolean priority,
-			Buff intialSelf, Buff intialTarget, Buff periodicSelf, Buff periodicTarget, Buff finalSelf,
-			Buff finalTarget, BaseStats requirements2) {
+			double avoidability, double crit, double penetration, boolean rangedAttack, boolean priority ) {
 		super(name, description, energyCost, uses, currentUses, comboPointGain, comboPointRequirement, time, cooldown,
 				cooldownCounter, self, target, requirements);
 		this.physicalPower = physicalPower;
@@ -43,13 +35,7 @@ public class FullAttack extends Move{
 		this.penetration = penetration;
 		this.rangedAttack = rangedAttack;
 		this.priority = priority;
-		this.intialSelf = intialSelf;
-		this.intialTarget = intialTarget;
-		this.periodicSelf = periodicSelf;
-		this.periodicTarget = periodicTarget;
-		this.finalSelf = finalSelf;
-		this.finalTarget = finalTarget;
-		requirements = requirements2;
+	
 	}
 
 	public FullAttack () {
@@ -63,6 +49,213 @@ public class FullAttack extends Move{
 		this.penetration = 0.0;
 		this.rangedAttack = false;
 		this.priority = false;
+	}
+
+	
+	@Override
+	public void makeMove(Player self, Player target, BattleLog log) {
+		
+		BattleStats selfStats = self.getBattleStats();
+		BattleStats targetStats = target.getBattleStats();
+		Random rand = new Random();
+		
+		//damage multiplier
+		double mod = 1.0;
+		if (rand.nextInt(100) < (selfStats.getCrit() * selfStats.getCritMod())){
+			mod += .5;
+		}
+		if (selfStats.getDamageSpike() > 0) {
+			mod += .25;
+			selfStats.setDamageSpike(selfStats.getDamageSpike() - 1);
+		}
+		//energy cost and attack uses
+		
+		this.uses--;
+		int cost = this.energyCost;
+		if (selfStats.isExhausted()) {
+			cost *= 2;
+		}
+		if (selfStats.isFreecasting()) {
+			cost*= 0;
+		}
+		selfStats.setCurrentEnergy(selfStats.getCurrentEnergy() - cost);
+		//hit, miss, or enemy dodge
+		
+		boolean makeContact = true;
+		if (rand.nextInt(100) > ((selfStats.getAccuracy() * selfStats.getAccuracyMod()) + this.accuracy) && makeContact) {
+			
+			makeContact = false;
+			log.getLog().add(self.getName() + "'s " + this.getName() + " missed.");
+			log.setLogLength(log.getLogLength() + 1);
+		}
+		if (makeContact && rand.nextInt(100) < ((targetStats.getAvoidance() * targetStats.getAvoidanceMod()) - (this.avoidability + (selfStats.getSkill()/4350.0)))
+				&& !targetStats.isVulnerable()){
+			
+			makeContact = false;
+			log.getLog().add(self.getName() + "'s " + this.getName() + " was dodged.");
+			log.setLogLength(log.getLogLength() + 1);
+		}
+		//damage
+		if (makeContact) {
+			double physicalDamage = 0.0;
+			double magicDamage = 0.0;
+			double totalPhysical = 0.0;
+			double totalMagic = 0.0;
+			double multiplier = 1.0;
+			double physicalBounceBack = 0.0;
+			double magicBounceBack = 0.0;
+			double targetResist = (targetStats.getResistance() * targetStats.getResistanceMod()) * (1.0 - (selfStats.getPenetration() * selfStats.getPenetrationMod()));
+			double targetDef = (targetStats.getDefense() * targetStats.getDefenseMod()) * (1.0 - (selfStats.getPenetration() * selfStats.getPenetrationMod()));
+			String logEntry = new String(self.getName() + "'s " + this.getName() + " did ");
+			
+			if (this.physicalPower > 0.0) {
+				physicalDamage += (selfStats.getStrength() * selfStats.getStrengthMod() * mod) + this.getBonusDamage();
+				multiplier = (250 - targetDef) / 250.0;
+				if (multiplier < .05) {
+					multiplier = .05;
+				}
+				double subtraction = (physicalDamage * .5) - targetDef;
+				if (subtraction < 0) {
+					subtraction = 0;
+				}
+				double division = (physicalDamage * .5) * multiplier;
+				totalPhysical = division + subtraction;
+				
+				if (targetStats.getCountering() > 0.0) {
+					physicalBounceBack += totalPhysical * targetStats.getCountering();
+				}
+				if (!targetStats.isVulnerable() && rand.nextInt(100) < targetStats.getBlocking()) {
+					physicalDamage -= physicalDamage * targetStats.getBlocking();
+				}
+			}
+			if (this.magicPower > 0.0) {
+				magicDamage += (selfStats.getMagic() * selfStats.getMagicMod() * mod) + this.getBonusDamage();
+				multiplier = (250 - targetResist)/ 250.0;
+				if (multiplier < .05) {
+					multiplier = .05;
+				}
+				double subtraction = (magicDamage * .5) - targetResist ;
+				if (subtraction < 0) {
+					subtraction = 0;
+				}
+				double division = (magicDamage * .5) * multiplier;
+				totalMagic = division + subtraction;
+				
+				if (targetStats.getReflecting() > 0.0) {
+					magicBounceBack += totalMagic * targetStats.getReflecting(); 
+				}
+			}
+			if (targetStats.getImmunity() > 0.0) {
+				totalMagic *= (1.0 - targetStats.getImmunity());
+			}
+			if (targetStats.getProtection() > 0.0) {
+				totalPhysical *= (1.0 - targetStats.getProtection());
+			}
+			if (totalMagic > 0.0 && targetStats.getMagicShield() > 0.0 && !targetStats.isVulnerable()) {
+				if (totalMagic >= targetStats.getMagicShield()) {
+					totalMagic -= targetStats.getMagicShield();
+					targetStats.setMagicShield(0.0);
+				}
+				if (totalMagic < targetStats.getMagicShield()) {
+					targetStats.setMagicShield(targetStats.getMagicShield() - totalMagic);
+					totalMagic = 0.0;
+				}
+			}
+			if (totalPhysical > 0.0 && targetStats.getPhysicalShield() > 0.0 && !targetStats.isVulnerable()) {
+				if (totalPhysical >= targetStats.getPhysicalShield()) {
+					totalPhysical -= targetStats.getPhysicalShield();
+					targetStats.setPhysicalShield(0.0);
+				}
+				if (totalPhysical < targetStats.getPhysicalShield()) {
+					targetStats.setPhysicalShield(targetStats.getPhysicalShield() - totalPhysical);
+					totalPhysical = 0.0;
+				}
+			}
+			if (targetStats.getBarrier() > 0.0 && !targetStats.isVulnerable()) {
+				if (totalMagic >= targetStats.getBarrier()) {
+					totalMagic -= targetStats.getBarrier();
+					targetStats.setBarrier(0.0);
+				}
+				if (totalMagic < targetStats.getBarrier()) {
+					targetStats.setBarrier(targetStats.getBarrier() - totalMagic);
+					totalMagic = 0.0;
+				}
+				if (totalPhysical >= targetStats.getBarrier()) {
+					totalPhysical -= targetStats.getBarrier();
+					targetStats.setBarrier(0.0);
+				}
+				if (totalPhysical < targetStats.getBarrier()) {
+					targetStats.setBarrier(targetStats.getBarrier() - totalPhysical);
+					totalPhysical = 0.0;
+				}
+				
+			}
+			targetStats.setCurrentHealth(targetStats.getCurrentHealth() - (int)physicalDamage - (int)magicDamage);
+			if (this.physicalPower > 0.0) {
+				logEntry += (int)physicalDamage + " physical damage";
+				if (this.bonusDamage <= 0.0 ) {
+					logEntry += ".";
+				}
+			}
+			if (this.magicPower > 0.0) {
+				if (this.physicalPower > 0.0) {
+					logEntry += " and ";
+				}
+				logEntry += (int)magicDamage + " magic damage.";
+				log.getLog().add(logEntry);
+			}
+			if (physicalBounceBack != 0.0 || magicBounceBack != 0.0) {
+				if (selfStats.getImmunity() > 0.0) {
+					magicBounceBack *= (1.0 - selfStats.getImmunity());
+				}
+				if (selfStats.getProtection() > 0.0) {
+					physicalBounceBack *= (1.0 - selfStats.getProtection());
+				}
+				if (magicBounceBack > 0.0 && selfStats.getMagicShield() > 0.0 && !selfStats.isVulnerable()) {
+					if (magicBounceBack >= selfStats.getMagicShield()) {
+						magicBounceBack -= selfStats.getMagicShield();
+						selfStats.setMagicShield(0.0);
+					}
+					if (magicBounceBack < selfStats.getMagicShield()) {
+						selfStats.setMagicShield(selfStats.getMagicShield() - magicBounceBack);
+						magicBounceBack = 0.0;
+					}
+				}
+				if (physicalBounceBack > 0.0 && selfStats.getPhysicalShield() > 0.0 && !selfStats.isVulnerable()) {
+					if (physicalBounceBack >= selfStats.getPhysicalShield()) {
+						physicalBounceBack -= selfStats.getPhysicalShield();
+						selfStats.setPhysicalShield(0.0);
+					}
+					if (physicalBounceBack < selfStats.getPhysicalShield()) {
+						selfStats.setPhysicalShield(selfStats.getPhysicalShield() - physicalBounceBack);
+						physicalBounceBack = 0.0;
+					}
+				}
+				if (selfStats.getBarrier() > 0.0 && !selfStats.isVulnerable()) {
+					if (magicBounceBack >= selfStats.getBarrier()) {
+						magicBounceBack -= selfStats.getBarrier();
+						selfStats.setBarrier(0.0);
+					}
+					if (magicBounceBack < selfStats.getBarrier()) {
+						selfStats.setBarrier(selfStats.getBarrier() - magicBounceBack);
+						magicBounceBack = 0.0;
+					}
+					if (physicalBounceBack >= selfStats.getBarrier()) {
+						physicalBounceBack -= selfStats.getBarrier();
+						selfStats.setBarrier(0.0);
+					}
+					if (physicalBounceBack < selfStats.getBarrier()) {
+						selfStats.setBarrier(selfStats.getBarrier() - physicalBounceBack);
+						physicalBounceBack = 0.0;
+					}
+					
+				}
+				selfStats.setCurrentHealth(selfStats.getCurrentHealth() - (int)physicalBounceBack - (int)magicBounceBack);
+				log.getLog().add(self.getName() + " recieved " + (physicalBounceBack + magicBounceBack) + " bounce back damage.");
+			}
+		
+		}
+		
 	}
 
 	public double getPhysicalPower() {
@@ -119,42 +312,7 @@ public class FullAttack extends Move{
 	public void setPriority(boolean priority) {
 		this.priority = priority;
 	}
-	public Buff getIntialSelf() {
-		return intialSelf;
-	}
-	public void setIntialSelf(Buff intialSelf) {
-		this.intialSelf = intialSelf;
-	}
-	public Buff getIntialTarget() {
-		return intialTarget;
-	}
-	public void setIntialTarget(Buff intialTarget) {
-		this.intialTarget = intialTarget;
-	}
-	public Buff getPeriodicSelf() {
-		return periodicSelf;
-	}
-	public void setPeriodicSelf(Buff periodicSelf) {
-		this.periodicSelf = periodicSelf;
-	}
-	public Buff getPeriodicTarget() {
-		return periodicTarget;
-	}
-	public void setPeriodicTarget(Buff periodicTarget) {
-		this.periodicTarget = periodicTarget;
-	}
-	public Buff getFinalSelf() {
-		return finalSelf;
-	}
-	public void setFinalSelf(Buff finalSelf) {
-		this.finalSelf = finalSelf;
-	}
-	public Buff getFinalTarget() {
-		return finalTarget;
-	}
-	public void setFinalTarget(Buff finalTarget) {
-		this.finalTarget = finalTarget;
-	}
+
 	public BaseStats getRequirements() {
 		return requirements;
 	}

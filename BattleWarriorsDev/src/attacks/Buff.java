@@ -10,14 +10,18 @@ public abstract class Buff {
 	BuffEffect end;
 	int duration;
 	int counter;
+	int intialChance;
+	int periodicChance;
 	
-	public Buff(BuffEffect intial, BuffEffect periodic, BuffEffect end, int duration, int counter) {
+	public Buff(BuffEffect intial, BuffEffect periodic, BuffEffect end, int duration, int counter, int intialChance, int periodicChance) {
 		super();
 		this.intial = intial;
 		this.periodic = periodic;
 		this.end = end;
 		this.duration = duration;
 		this.counter = counter;
+		this.intialChance = intialChance;
+		this.periodicChance = periodicChance;
 	}
 
 	public void doIntialBuff(Player target, Player self) {

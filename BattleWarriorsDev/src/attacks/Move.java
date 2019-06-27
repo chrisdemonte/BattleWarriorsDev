@@ -1,6 +1,8 @@
 package attacks;
 
 import models.BaseStats;
+import models.Player;
+import utilities.BattleLog;
 
 public abstract class Move {
 	
@@ -37,6 +39,9 @@ public abstract class Move {
 		this.self = self;
 		this.target = target;
 		this.requirements = requirements;
+	}
+	public void makeMove(Player self, Player target, BattleLog log) {
+		
 	}
 
 	public void resetUses() {
@@ -129,6 +134,18 @@ public abstract class Move {
 
 	public void setRequirements(BaseStats requirements) {
 		this.requirements = requirements;
+	}
+	public int getCooldown() {
+		return cooldown;
+	}
+	public void setCooldown(int cooldown) {
+		this.cooldown = cooldown;
+	}
+	public int getCooldownCounter() {
+		return cooldownCounter;
+	}
+	public void setCooldownCounter(int cooldownCounter) {
+		this.cooldownCounter = cooldownCounter;
 	}
 	
 	
