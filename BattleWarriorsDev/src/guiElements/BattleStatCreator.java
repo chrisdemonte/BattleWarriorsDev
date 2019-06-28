@@ -584,7 +584,7 @@ public class BattleStatCreator {
 		lockedCounterLine ,enragedLine,enragedCounterLine,outOfReachLine,outOfReachCounterLine,reachLine,reachCounterLine,selfHarmLine,selfHarmCounterLine,
 		vulnerableLine, vulnerableCounterLine);
 	}
-	
+	/**
 	public BattleStats getStats() {
 		try {
 			this.stats = new BattleStats(Double.parseDouble(levelTextField.getText()),
@@ -673,6 +673,7 @@ public class BattleStatCreator {
 		}
 		return this.stats;
 	}
+	**/
 	public void fillInFields(BattleStats input) {
 		levelTextField.setText("" + this.stats.getLevel());
 		staminaTextField.setText("" + this.stats.getStamina());

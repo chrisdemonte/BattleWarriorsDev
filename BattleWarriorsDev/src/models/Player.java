@@ -1,5 +1,9 @@
 package models;
 
+import java.util.ArrayList;
+
+import attacks.Buff;
+import utilities.AttackList;
 import utilities.BattleLog;
 
 public class Player extends Entity{
@@ -7,13 +11,29 @@ public class Player extends Entity{
 	BaseStats baseStats;
 	BattleStats battleStats;
 	Inventory inventory;
+	ArrayList<Buff> battleBuffs;
+	AttackList attacks;
 
 	public Player(String name, String description) {
 		super(name, description);
 		this.inventory = new Inventory();
 		this.baseStats = new BaseStats();
 		this.battleStats = new BattleStats(this);
+		battleBuffs = new ArrayList<Buff>();
+		attacks = new AttackList();
 	}
+	
+
+	public Player(String name, String description, BaseStats baseStats, BattleStats battleStats, Inventory inventory,
+			ArrayList<Buff> battleBuffs, AttackList attacks) {
+		super(name, description);
+		this.baseStats = baseStats;
+		this.battleStats = battleStats;
+		this.inventory = inventory;
+		this.battleBuffs = battleBuffs;
+		this.attacks = attacks;
+	}
+
 
 	public BaseStats getBaseStats() {
 		return baseStats;

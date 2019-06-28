@@ -30,11 +30,12 @@ public class BattleStats {
 	int currentEnergy;
 	int maxComboPoints;
 	int currentComboPoints;
+	
 	int actionTime;
 	int daze;
 	int haste;
-	int damageSpike;
 	
+	int damageSpike;
 	double crit;
 	double critMod;
 	double accuracy;
@@ -64,14 +65,16 @@ public class BattleStats {
 	int canSkipTurnCounter;
 	boolean canRun;
 	int canRunCounter;
+	boolean locked;
+	int lockedCounter;
 	
 	double protection;
 	int protectionCounter;
-	double countering;
-	int counteringCounter;
-	
 	double immunity;
 	int immunityCounter;
+	
+	double countering;
+	int counteringCounter;
 	double reflecting;
 	int reflectingCounter;
 	
@@ -79,18 +82,26 @@ public class BattleStats {
 	int freecastingCounter;
 	boolean exhausted;
 	int exhaustedCounter;
+	
 	boolean outOfReach;
 	int outOfReachCounter;
 	boolean reach;
 	int reachCounter;
-	boolean locked;
-	int lockedCounter;
+	boolean hidden;
+	int hiddenCounter;
+	
 	boolean enraged;
 	int enragedCounter;
 	boolean selfHarm;
 	int selfHarmCounter;
 	boolean vulnerable;
 	int vulnerableCounter;
+	
+	boolean cheatingDeath;
+	int cheatingDeathCounter;
+	
+	boolean weatherProof;
+	int weatherProofCounter;
 	
 	
 	double adjuster = 9.0;
@@ -181,6 +192,12 @@ public class BattleStats {
 		this.selfHarmCounter = 0;
 		this.vulnerable = false;
 		this.vulnerableCounter = 0;
+		this.hidden = false;
+		this.hiddenCounter = 0;
+		this.cheatingDeath = false;
+		this.cheatingDeathCounter = 0;
+		this.weatherProof = false;
+		this.weatherProofCounter = 0;
 	}
 	public void addBattleStats(BattleStats other) {
 		
@@ -322,6 +339,24 @@ public class BattleStats {
 			this.vulnerable = true;
 			if (other.getVulnerableCounter() > this.getVulnerableCounter()) {
 				this.vulnerableCounter = other.getVulnerableCounter();
+			}
+		}
+		if (other.isHidden()) {
+			this.hidden = true;
+			if (other.getHiddenCounter() > this.getHiddenCounter()) {
+				this.hiddenCounter = other.getHiddenCounter();
+			}
+		}
+		if (other.isCheatingDeath()) {
+			this.cheatingDeath = true;
+			if (other.getCheatingDeathCounter() > this.getCheatingDeathCounter()) {
+				this.cheatingDeathCounter = other.getCheatingDeathCounter();
+			}
+		}
+		if (other.isWeatherProof()) {
+			this.weatherProof = true;
+			if (other.getWeatherProofCounter() > this.getWeatherProofCounter()) {
+				this.weatherProofCounter = other.getWeatherProofCounter();
 			}
 		}
 
@@ -467,11 +502,29 @@ public class BattleStats {
 				this.vulnerableCounter = other.getVulnerableCounter();
 			}
 		}
+		if (other.isHidden()) {
+			this.hidden = true;
+			if (other.getHiddenCounter() > this.getHiddenCounter()) {
+				this.hiddenCounter = other.getHiddenCounter();
+			}
+		}
+		if (other.isCheatingDeath()) {
+			this.cheatingDeath = true;
+			if (other.getCheatingDeathCounter() > this.getCheatingDeathCounter()) {
+				this.cheatingDeathCounter = other.getCheatingDeathCounter();
+			}
+		}
+		if (other.isWeatherProof()) {
+			this.weatherProof = true;
+			if (other.getWeatherProofCounter() > this.getWeatherProofCounter()) {
+				this.weatherProofCounter = other.getWeatherProofCounter();
+			}
+		}
 	}
 	public void setBattleStats(Player player) {
 		
 		this.level = player.getBaseStats().getLevel();
-		this.adjuster += player.getBaseStats().getLevel();
+		this.adjuster += (player.getBaseStats().getLevel()/ 2);
 		this.stamina = player.getBaseStats().getStamina() + adjuster;
 		this.staminaMod = 1.0;
 		this.strength = player.getBaseStats().getStrength() + adjuster;
@@ -508,11 +561,8 @@ public class BattleStats {
 		this.maxEnergy += (int)(stamina + level + (magic * .5) + (strength * 0.1));
 		this.currentEnergy += maxEnergy;
 		this.maxComboPoints += 3 + (int)((skill + cunning + intelligence)/(level * 6));
-		this.currentComboPoints += 0;
 		this.actionTime += 2000;
-		this.daze += 0;
 		this.haste += (int)((speed + skill + cunning)/(level * 20.0));
-		this.damageSpike += 0;
 		this.crit += .01 + (((speed * .25) + (skill * 1.5) + (cunning * 1.5) + (intelligence * .75))/ 2150.0);
 		this.critMod += 1.0;
 		this.accuracy += .95 + (((skill * 3.0) + (intelligence) + (cunning)) / 2150.0);
@@ -523,22 +573,8 @@ public class BattleStats {
 		this.blockingMod += 1.0;
 		this.penetration += (cunning)/ 2150.0;
 		this.penetrationMod += 1.0;
-		this.barrier += 0.0;
-		this.barrierCounter += 0;
-		this.physicalShield += 0.0;
-		this.physicalShieldCounter += 0;
-		this.magicShield += 0.0;
-		this.magicShieldCounter += 0;
-		this.fear += 0.0;
 		this.intimidation += (stamina * .1) + (strength * .1) + (magic * .1) + (skill * .1);
-		this.protection += 0.0;
-		this.protectionCounter += 0;
-		this.countering += 0.0;
-		this.counteringCounter += 0;
-		this.immunity += 0.0;
-		this.immunityCounter += 0;
-		this.reflecting += 0.0;
-		this.reflectingCounter += 0;
+	
 	}
 	
 	
@@ -556,7 +592,8 @@ public class BattleStats {
 			double immunity, int immunityCounter, double reflecting, int reflectingCounter, boolean freecasting,
 			int freecastingCounter, boolean exhausted, int exhaustedCounter, boolean outOfReach, int outOfReachCounter,
 			boolean reach, int reachCounter, boolean locked, int lockedCounter, boolean enraged, int enragedCounter,
-			boolean selfHarm, int selfHarmCounter, boolean vulnerable, int vulnerableCounter) {
+			boolean selfHarm, int selfHarmCounter, boolean vulnerable, int vulnerableCounter, boolean hidden, int hiddenCounter, 
+			boolean cheatingDeath, int cheatingDeathCounter, boolean weatherProof, int weatherProofCounter) {
 		super();
 		this.level = level;
 		this.stamina = stamina;
@@ -627,6 +664,8 @@ public class BattleStats {
 		this.exhaustedCounter = exhaustedCounter;
 		this.outOfReach = outOfReach;
 		this.outOfReachCounter = outOfReachCounter;
+		this.hidden = hidden;
+		this.hiddenCounter = hiddenCounter;
 		this.reach = reach;
 		this.reachCounter = reachCounter;
 		this.locked = locked;
@@ -637,6 +676,10 @@ public class BattleStats {
 		this.selfHarmCounter = selfHarmCounter;
 		this.vulnerable = vulnerable;
 		this.vulnerableCounter = vulnerableCounter;
+		this.cheatingDeath = cheatingDeath;
+		this.cheatingDeathCounter = cheatingDeathCounter;
+		this.weatherProof = weatherProof;
+		this.weatherProofCounter = weatherProofCounter;
 	}
 
 	public double getLevel() {
@@ -1504,6 +1547,54 @@ public class BattleStats {
 
 	public void setVulnerableCounter(int vulnerableCounter) {
 		this.vulnerableCounter = vulnerableCounter;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public int getHiddenCounter() {
+		return hiddenCounter;
+	}
+
+	public void setHiddenCounter(int hiddenCounter) {
+		this.hiddenCounter = hiddenCounter;
+	}
+
+	public boolean isCheatingDeath() {
+		return cheatingDeath;
+	}
+
+	public void setCheatingDeath(boolean cheatingDeath) {
+		this.cheatingDeath = cheatingDeath;
+	}
+
+	public int getCheatingDeathCounter() {
+		return cheatingDeathCounter;
+	}
+
+	public void setCheatingDeathCounter(int cheatingDeathCounter) {
+		this.cheatingDeathCounter = cheatingDeathCounter;
+	}
+
+	public boolean isWeatherProof() {
+		return weatherProof;
+	}
+
+	public void setWeatherProof(boolean weatherProof) {
+		this.weatherProof = weatherProof;
+	}
+
+	public int getWeatherProofCounter() {
+		return weatherProofCounter;
+	}
+
+	public void setWeatherProofCounter(int weatherProofCounter) {
+		this.weatherProofCounter = weatherProofCounter;
 	}
 	
 

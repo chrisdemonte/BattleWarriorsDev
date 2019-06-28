@@ -3,6 +3,7 @@ package attacks;
 import java.util.Random;
 
 import models.Player;
+import utilities.BattleLog;
 
 public class BuffEffect {
 	
@@ -19,7 +20,7 @@ public class BuffEffect {
 		this.chance = chance;
 	}
 	
-	public void doBuffEffect(Player target, Player self) {
+	public void doBuffEffect(Player target, Player self, BattleLog log) {
 		
 	}
 	public boolean willDoEffect() {
