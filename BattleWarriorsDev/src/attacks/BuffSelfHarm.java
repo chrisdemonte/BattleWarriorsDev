@@ -11,9 +11,9 @@ public class BuffSelfHarm extends BuffEffect{
 	boolean selfHarm;
 	int selfHarmCounter;
 	
-	public BuffSelfHarm(String name, String description, String keyword, int chance, boolean enraged,
+	public BuffSelfHarm( String keyword, int chance, boolean enraged,
 			int enragedCounter, boolean selfHarm, int selfHarmCounter) {
-		super(name, description, keyword, chance);
+		super( keyword, chance);
 		this.enraged = enraged;
 		this.enragedCounter = enragedCounter;
 		this.selfHarm = selfHarm;

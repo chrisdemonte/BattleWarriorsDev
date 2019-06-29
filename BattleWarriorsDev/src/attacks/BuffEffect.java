@@ -6,16 +6,12 @@ import models.Player;
 import utilities.BattleLog;
 
 public class BuffEffect {
-	
-	String name;
-	String description;
+
 	String keyword;
 	int chance;
 	
-	public BuffEffect(String name, String description, String keyword, int chance) {
+	public BuffEffect(String keyword, int chance) {
 		super();
-		this.name = name;
-		this.description = description;
 		this.keyword = keyword;
 		this.chance = chance;
 	}

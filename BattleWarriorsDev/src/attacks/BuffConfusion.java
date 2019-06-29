@@ -8,8 +8,8 @@ import utilities.BattleLog;
 
 public class BuffConfusion extends BuffEffect{
 
-	public BuffConfusion(String name, String description, String keyword, int chance) {
-		super(name, description, keyword, chance);
+	public BuffConfusion(String keyword, int chance) {
+		super( keyword, chance);
 	}
 
 	@Override

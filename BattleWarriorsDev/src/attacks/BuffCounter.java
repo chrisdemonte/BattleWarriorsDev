@@ -11,9 +11,9 @@ public class BuffCounter extends BuffEffect{
 	double reflecting;
 	int reflectingCounter;
 	
-	public BuffCounter(String name, String description, String keyword, int chance, double countering,
+	public BuffCounter( String keyword, int chance, double countering,
 			int counteringCounter, double reflecting, int reflectingCounter) {
-		super(name, description, keyword, chance);
+		super( keyword, chance);
 		this.countering = countering;
 		this.counteringCounter = counteringCounter;
 		this.reflecting = reflecting;

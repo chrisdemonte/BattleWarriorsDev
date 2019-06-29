@@ -9,9 +9,9 @@ public class BuffWeather extends BuffEffect{
 	boolean weatherProof;
 	int weatherProofCounter;
 	
-	public BuffWeather(String name, String description, String keyword, int chance, boolean weatherProof,
+	public BuffWeather( String keyword, int chance, boolean weatherProof,
 			int weatherProofCounter) {
-		super(name, description, keyword, chance);
+		super(keyword, chance);
 		this.weatherProof = weatherProof;
 		this.weatherProofCounter = weatherProofCounter;
 	}

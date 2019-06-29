@@ -18,10 +18,10 @@ public class BuffSecondaryStats extends BuffEffect{
 	double penetration; 
 	double penetrationMod;
 	
-	public BuffSecondaryStats(String name, String description, String keyword, int chance, int damageSpike, double crit,
+	public BuffSecondaryStats( String keyword, int chance, int damageSpike, double crit,
 			double critMod, double accuracy, double accuracyMod, double avoidance, double avoidanceMod, double blocking,
 			double blockingMod, double penetration, double penetrationMod) {
-		super(name, description, keyword, chance);
+		super(keyword, chance);
 		this.damageSpike = damageSpike;
 		this.crit = crit;
 		this.critMod = critMod;

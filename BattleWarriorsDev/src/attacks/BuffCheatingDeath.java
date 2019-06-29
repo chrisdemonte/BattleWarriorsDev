@@ -9,9 +9,8 @@ public class BuffCheatingDeath extends BuffEffect{
 	boolean cheatingDeath;
 	int cheatingDeathCounter;
 	
-	public BuffCheatingDeath(String name, String description, String keyword, int chance, boolean cheatingDeath,
-			int cheatingDeathCounter) {
-		super(name, description, keyword, chance);
+	public BuffCheatingDeath(String keyword, int chance, boolean cheatingDeath,int cheatingDeathCounter) {
+		super(keyword, chance);
 		this.cheatingDeath = cheatingDeath;
 		this.cheatingDeathCounter = cheatingDeathCounter;
 	}

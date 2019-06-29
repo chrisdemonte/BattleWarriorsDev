@@ -8,8 +8,8 @@ import utilities.BattleLog;
 
 public class BuffMindControl extends BuffEffect {
 
-	public BuffMindControl(String name, String description, String keyword, int chance) {
-		super(name, description, keyword, chance);
+	public BuffMindControl(String keyword, int chance) {
+		super( keyword, chance);
 		
 	}
 

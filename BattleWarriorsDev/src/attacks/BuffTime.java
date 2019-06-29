@@ -10,8 +10,8 @@ public class BuffTime extends BuffEffect{
 	int daze;
 	int haste;
 	
-	public BuffTime(String name, String description, String keyword, int chance, int actionTime, int daze, int haste) {
-		super(name, description, keyword, chance);
+	public BuffTime( String keyword, int chance, int actionTime, int daze, int haste) {
+		super( keyword, chance);
 		this.actionTime = actionTime;
 		this.daze = daze;
 		this.haste = haste;

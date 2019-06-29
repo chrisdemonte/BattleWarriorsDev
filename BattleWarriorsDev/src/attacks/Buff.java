@@ -8,6 +8,8 @@ import utilities.BattleLog;
 
 public abstract class Buff {
 	
+	String name;
+	String description;
 	ArrayList<BuffEffect> initial;
 	ArrayList<BuffEffect> periodic;
 	ArrayList<BuffEffect> end;
@@ -15,9 +17,12 @@ public abstract class Buff {
 	int counter;
 	int initialChance;
 	int periodicChance;
-	
-	public Buff(ArrayList<BuffEffect> initial, ArrayList<BuffEffect> periodic, ArrayList<BuffEffect> end, int duration, int counter, int initialChance, int periodicChance) {
+
+	public Buff(String name, String description, ArrayList<BuffEffect> initial, ArrayList<BuffEffect> periodic,
+			ArrayList<BuffEffect> end, int duration, int counter, int initialChance, int periodicChance) {
 		super();
+		this.name = name;
+		this.description = description;
 		this.initial = initial;
 		this.periodic = periodic;
 		this.end = end;
@@ -26,7 +31,6 @@ public abstract class Buff {
 		this.initialChance = initialChance;
 		this.periodicChance = periodicChance;
 	}
-
 	public void doIntialBuff(Player target, Player self, BattleLog log) {
 		if (this.initial != null) {
 			for (int i = 0; i < this.end.size(); i++) {
