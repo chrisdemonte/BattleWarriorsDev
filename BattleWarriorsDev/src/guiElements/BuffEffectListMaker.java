@@ -10,7 +10,7 @@ public class BuffEffectListMaker {
 	
 	String title;
 	ArrayList<BuffEffect> list;
-	String keyword;
+	String[] keywords;
 	int chance;
 	int idCounter;
 	VBox container = new VBox(3);
@@ -20,7 +20,7 @@ public class BuffEffectListMaker {
 		super();
 		this.title = title;
 		list = new ArrayList<BuffEffect>();
-		keyword = "";
+		keywords = null;
 		chance = 0;
 		idCounter = 0;
 		this.generateLayout();
@@ -48,14 +48,6 @@ public class BuffEffectListMaker {
 
 	public void setList(ArrayList<BuffEffect> list) {
 		this.list = list;
-	}
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
 	}
 
 	public int getChance() {
@@ -89,7 +81,16 @@ public class BuffEffectListMaker {
 	public void setIdCounter(int idCounter) {
 		this.idCounter = idCounter;
 	}
-	
+
+	public String[] getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String[] keywords) {
+		this.keywords = keywords;
+	}
+
+
 	
 	
 

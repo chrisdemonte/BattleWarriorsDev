@@ -1,5 +1,6 @@
 package attacks;
 
+import BattleAnimation.BattleAnimation;
 import models.BaseStats;
 import models.Player;
 import utilities.BattleLog;
@@ -8,6 +9,7 @@ public abstract class Move {
 	
 	String name;
 	String description;
+	String[] keywords;
 	int energyCost;
 	int uses;
 	int currentUses;
@@ -21,13 +23,15 @@ public abstract class Move {
 	Buff target;
 	BaseStats requirements;
 	
+	BattleAnimation animation;
 	
-	public Move(String name, String description, int energyCost, int uses, int currentUses, int comboPointGain,
+	public Move(String name, String description, String[] keywords, int energyCost, int uses, int currentUses, int comboPointGain,
 			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
 			BaseStats requirements) {
 		super();
 		this.name = name;
 		this.description = description;
+		this.keywords = keywords;
 		this.energyCost = energyCost;
 		this.uses = uses;
 		this.currentUses = currentUses;
@@ -39,6 +43,7 @@ public abstract class Move {
 		this.self = self;
 		this.target = target;
 		this.requirements = requirements;
+		this.animation = null;
 	}
 	public void makeMove(Player self, Player target, BattleLog log) {
 		

@@ -11,9 +11,9 @@ public class BuffFreecasting extends BuffEffect {
 	boolean exhausted;
 	int exhaustedCounter;
 	
-	public BuffFreecasting( String keyword, int chance, boolean freecasting,
+	public BuffFreecasting(int chance, boolean freecasting,
 			int freecastingCounter, boolean exhausted, int exhaustedCounter) {
-		super( keyword, chance);
+		super(chance);
 		this.freecasting = freecasting;
 		this.freecastingCounter = freecastingCounter;
 		this.exhausted = exhausted;

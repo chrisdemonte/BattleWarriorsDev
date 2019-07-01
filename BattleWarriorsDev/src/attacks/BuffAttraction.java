@@ -8,8 +8,8 @@ import utilities.BattleLog;
 
 public class BuffAttraction extends BuffEffect{
 
-	public BuffAttraction( String keyword, int chance) {
-		super( keyword, chance);
+	public BuffAttraction(int chance) {
+		super(chance);
 		// TODO Auto-generated constructor stub
 	}
 

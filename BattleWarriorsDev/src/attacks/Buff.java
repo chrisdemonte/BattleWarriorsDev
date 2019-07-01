@@ -17,9 +17,10 @@ public abstract class Buff {
 	int counter;
 	int initialChance;
 	int periodicChance;
+	String[] keywords;
 
 	public Buff(String name, String description, ArrayList<BuffEffect> initial, ArrayList<BuffEffect> periodic,
-			ArrayList<BuffEffect> end, int duration, int counter, int initialChance, int periodicChance) {
+			ArrayList<BuffEffect> end, int duration, int counter, int initialChance, int periodicChance, String[] keywords) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -30,6 +31,7 @@ public abstract class Buff {
 		this.counter = counter;
 		this.initialChance = initialChance;
 		this.periodicChance = periodicChance;
+		this.keywords = keywords;
 	}
 	public void doIntialBuff(Player target, Player self, BattleLog log) {
 		if (this.initial != null) {

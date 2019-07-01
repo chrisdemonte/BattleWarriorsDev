@@ -13,9 +13,9 @@ public class BuffShields extends BuffEffect{
 	double magicShield;
 	int magicShieldCounter;
 	
-	public BuffShields( String keyword, int chance, double barrier, int barrierCounter,
+	public BuffShields(int chance, double barrier, int barrierCounter,
 			double physicalShield, int physicalShieldCounter, double magicShield, int magicShieldCounter) {
-		super(keyword, chance);
+		super(chance);
 		this.barrier = barrier;
 		this.barrierCounter = barrierCounter;
 		this.physicalShield = physicalShield;

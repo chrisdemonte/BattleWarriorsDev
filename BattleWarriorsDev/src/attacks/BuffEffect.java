@@ -7,12 +7,10 @@ import utilities.BattleLog;
 
 public class BuffEffect {
 
-	String keyword;
 	int chance;
 	
-	public BuffEffect(String keyword, int chance) {
+	public BuffEffect(int chance) {
 		super();
-		this.keyword = keyword;
 		this.chance = chance;
 	}
 	

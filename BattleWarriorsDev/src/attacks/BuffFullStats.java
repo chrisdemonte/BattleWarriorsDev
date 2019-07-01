@@ -8,8 +8,8 @@ public class BuffFullStats extends BuffEffect {
 	
 BattleStats stats;
 	
-	public BuffFullStats(String keyword, int chance, BattleStats stats) {
-		super(keyword, chance);
+	public BuffFullStats(int chance, BattleStats stats) {
+		super(chance);
 		this.stats = stats;
 	}
 	

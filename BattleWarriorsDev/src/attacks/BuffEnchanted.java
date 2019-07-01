@@ -8,8 +8,8 @@ import utilities.BattleLog;
 
 public class BuffEnchanted extends BuffEffect{
 
-	public BuffEnchanted( String keyword, int chance) {
-		super(keyword, chance);
+	public BuffEnchanted(int chance) {
+		super(chance);
 		
 	}
 

@@ -9,9 +9,9 @@ public class BuffDamage extends BuffEffect{
 	double magicMod;
 	double bonusDamage;
 	
-	public BuffDamage(String keyword, int chance, double physicalMod,
+	public BuffDamage(int chance, double physicalMod,
 			double magicMod, double bonusDamage) {
-		super( keyword, chance);
+		super(chance);
 		this.physicalMod = physicalMod;
 		this.magicMod = magicMod;
 		this.bonusDamage = bonusDamage;

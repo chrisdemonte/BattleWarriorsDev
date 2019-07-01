@@ -8,8 +8,8 @@ import utilities.BattleLog;
 
 public class BuffGrab extends BuffEffect{
 
-	public BuffGrab(String keyword, int chance) {
-		super(keyword, chance);
+	public BuffGrab(int chance) {
+		super(chance);
 		
 	}
 

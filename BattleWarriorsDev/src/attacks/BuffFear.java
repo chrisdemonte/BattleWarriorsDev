@@ -9,8 +9,8 @@ public class BuffFear extends BuffEffect{
 	double fear;
 	double intimidation;
 	
-	public BuffFear(String keyword, int chance, double fear, double intimidation) {
-		super( keyword, chance);
+	public BuffFear(int chance, double fear, double intimidation) {
+		super(chance);
 		this.fear = fear;
 		this.intimidation = intimidation;
 	}

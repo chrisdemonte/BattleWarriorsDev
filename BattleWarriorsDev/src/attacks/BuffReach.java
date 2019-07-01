@@ -13,9 +13,9 @@ public class BuffReach extends BuffEffect{
 	boolean hidden;
 	int hiddenCounter;
 	
-	public BuffReach( String keyword, int chance, boolean outOfReach,
+	public BuffReach(int chance, boolean outOfReach,
 			int outOfReachCounter, boolean reach, int reachCounter, boolean hidden, int hiddenCounter) {
-		super( keyword, chance);
+		super(chance);
 		this.outOfReach = outOfReach;
 		this.outOfReachCounter = outOfReachCounter;
 		this.reach = reach;

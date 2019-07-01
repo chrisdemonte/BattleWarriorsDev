@@ -17,10 +17,10 @@ public class BuffActions extends BuffEffect{
 	boolean locked;
 	int lockedCounter;
 	
-	public BuffActions(String keyword, int chance, boolean canAttack,
+	public BuffActions(int chance, boolean canAttack,
 			int canAttackCounter, boolean canUseItems, int canUseItemsCounter, boolean canSkipTurn,
 			int canSkipTurnCounter, boolean canRun, int canRunCounter, boolean locked, int lockedCounter) {
-		super(keyword, chance);
+		super(chance);
 		this.canAttack = canAttack;
 		this.canAttackCounter = canAttackCounter;
 		this.canUseItems = canUseItems;

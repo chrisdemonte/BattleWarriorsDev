@@ -1,10 +1,14 @@
 package models;
 
+import Quest.QuestLog;
+
 public class HumanPlayer extends Player{
+	
+	QuestLog questLog;
 
 	public HumanPlayer(String name, String description) {
 		super(name, description);
-		// TODO Auto-generated constructor stub
+		this.questLog = null;
 	}
 
 }

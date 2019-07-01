@@ -13,9 +13,9 @@ public class BuffResources extends BuffEffect{
 	int maxComboPoints;
 	int currentComboPoints;
 	
-	public BuffResources( String keyword, int chance, int maxHealth, int currentHealth,
+	public BuffResources(int chance, int maxHealth, int currentHealth,
 			int maxEnergy, int currentEnergy, int maxComboPoints, int currentComboPoints) {
-		super( keyword, chance);
+		super(chance);
 		this.maxHealth = maxHealth;
 		this.currentHealth = currentHealth;
 		this.maxEnergy = maxEnergy;

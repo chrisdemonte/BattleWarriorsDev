@@ -28,11 +28,11 @@ public class BuffStatus extends BuffEffect {
 	
 	
 
-	public BuffStatus( String keyword, int chance, double level, double stamina,
+	public BuffStatus(int chance, double level, double stamina,
 			double staminaMod, double strength, double strengthMod, double defense, double defenseMod, double magic,
 			double magicMod, double resistance, double resistanceMod, double cunning, double cunningMod,
 			double intelligence, double intelligenceMod, double speed, double speedMod, double skill, double skillMod) {
-		super( keyword, chance);
+		super(chance);
 		this.level = level;
 		this.stamina = stamina;
 		this.staminaMod = staminaMod;

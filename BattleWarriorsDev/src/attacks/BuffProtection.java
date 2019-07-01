@@ -11,9 +11,9 @@ public class BuffProtection extends BuffEffect{
 	double immunity;
 	int immunityCounter;
 	
-	public BuffProtection( String keyword, int chance, double protection,
+	public BuffProtection(int chance, double protection,
 			int protectionCounter, double immunity, int immunityCounter) {
-		super( keyword, chance);
+		super(chance);
 		this.protection = protection;
 		this.protectionCounter = protectionCounter;
 		this.immunity = immunity;
