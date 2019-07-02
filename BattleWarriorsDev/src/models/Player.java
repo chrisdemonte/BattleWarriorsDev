@@ -58,4 +58,25 @@ public class Player extends Entity{
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
+
+
+	public ArrayList<Buff> getBattleBuffs() {
+		return battleBuffs;
+	}
+
+
+	public void setBattleBuffs(ArrayList<Buff> battleBuffs) {
+		this.battleBuffs = battleBuffs;
+	}
+
+
+	public AttackList getAttacks() {
+		return attacks;
+	}
+
+
+	public void setAttacks(AttackList attacks) {
+		this.attacks = attacks;
+	}
+	
 }

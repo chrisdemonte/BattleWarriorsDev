@@ -65,4 +65,65 @@ public abstract class Buff {
 			this.counter -= 1;
 		}
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public ArrayList<BuffEffect> getInitial() {
+		return initial;
+	}
+	public void setInitial(ArrayList<BuffEffect> initial) {
+		this.initial = initial;
+	}
+	public ArrayList<BuffEffect> getPeriodic() {
+		return periodic;
+	}
+	public void setPeriodic(ArrayList<BuffEffect> periodic) {
+		this.periodic = periodic;
+	}
+	public ArrayList<BuffEffect> getEnd() {
+		return end;
+	}
+	public void setEnd(ArrayList<BuffEffect> end) {
+		this.end = end;
+	}
+	public int getDuration() {
+		return duration;
+	}
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+	public int getCounter() {
+		return counter;
+	}
+	public void setCounter(int counter) {
+		this.counter = counter;
+	}
+	public int getInitialChance() {
+		return initialChance;
+	}
+	public void setInitialChance(int initialChance) {
+		this.initialChance = initialChance;
+	}
+	public int getPeriodicChance() {
+		return periodicChance;
+	}
+	public void setPeriodicChance(int periodicChance) {
+		this.periodicChance = periodicChance;
+	}
+	public String[] getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(String[] keywords) {
+		this.keywords = keywords;
+	}
+	
 }

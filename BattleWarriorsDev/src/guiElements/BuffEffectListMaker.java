@@ -3,24 +3,61 @@ package guiElements;
 import java.util.ArrayList;
 
 import attacks.BuffEffect;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
 public class BuffEffectListMaker {
 	
 	String title;
 	ArrayList<BuffEffect> list;
-	String[] keywords;
 	int chance;
 	int idCounter;
+	
 	VBox container = new VBox(3);
 	ComboBox<String> selector = new ComboBox<String>();
+	Button selectorButton = new Button("+"); 
+	ArrayList<BuffEffectNode> buffNodes;
+	
+	TextField bindChanceEntry;
+	
+	int cheatingDeathChance;
+	boolean cheatingDeath;
+	int cheatingDeathCounter;
+	
+	int confusionChance;
+	
+	int counteringChance;
+	double countering;
+	int counteringCounter;
+	double reflecting;
+	int reflectingCounter;
+	
+	int damageChance;
+	double physicalMod;
+	double magicMod;
+	double bonusDamage;
+	
+	int enchantedChance;
+	
+	int fearChance;
+	double fear;
+	double intimidation;
+	
+	int freecastingChance;
+	boolean freecasting;
+	int freecastingCounter;
+	boolean exhausted;
+	int exhaustedCounter;
+	
+	int grabChance;
 
 	public BuffEffectListMaker(String title) {
 		super();
 		this.title = title;
 		list = new ArrayList<BuffEffect>();
-		keywords = null;
 		chance = 0;
 		idCounter = 0;
 		this.generateLayout();
@@ -80,14 +117,6 @@ public class BuffEffectListMaker {
 
 	public void setIdCounter(int idCounter) {
 		this.idCounter = idCounter;
-	}
-
-	public String[] getKeywords() {
-		return keywords;
-	}
-
-	public void setKeywords(String[] keywords) {
-		this.keywords = keywords;
 	}
 
 

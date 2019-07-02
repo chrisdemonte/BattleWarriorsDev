@@ -11,5 +11,6 @@ public class BuffMaker {
 	int duration;
 	int initialChance;
 	int periodicChance;
+	String[] keywords;
 
 }
