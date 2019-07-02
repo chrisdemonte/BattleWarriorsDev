@@ -46,14 +46,15 @@ public class BuffNodeActions extends BuffEffectNode{
 	HBox lockedLine= new HBox(3);
 	HBox lockedCounterLine= new HBox(3);
 	
-	VBox container = new VBox(3);
+	VBox container = new VBox();
 	Button deleteButton = new Button("-");
 	HBox buttonLine = new HBox(3);
 	
 
 	public BuffNodeActions( BuffEffectListMaker maker) {
-		super(maker.getList().size());
+		super(maker.idCounter);
 		maker.getList().add(null);
+		maker.idCounter++;
 		this.generateLayout(maker);
 	}
 
@@ -85,13 +86,20 @@ public class BuffNodeActions extends BuffEffectNode{
 		
 		this.deleteButton.setOnAction(e->{
 			int temp = this.id;
-			if (temp < maker.idCounter - 1) {
+			if (maker.getList().size() == 1) {
+				maker.getList().remove(0);
+				maker.getContainer().getChildren().remove(1);
+				maker.idCounter--;
+				return;
+			}
+			else if (temp < maker.idCounter - 1) {
 				for (int i = temp; i < maker.idCounter; i++) {
 					maker.getBuffNodes().get(i).setId(i - 1);
 				}
 			}
 			maker.getList().remove(temp);
 			maker.getContainer().getChildren().remove(temp + 1);
+			maker.idCounter--;
 			
 		});
 		

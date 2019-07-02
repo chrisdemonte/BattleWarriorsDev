@@ -58,6 +58,31 @@ public class BuffEffectListMaker {
 					this.buffNodes.add(temp);
 					this.container.getChildren().add(temp.getContainer());
 				}
+				else if (selection.contentEquals("Damage")) {
+					BuffNodeDamage temp = new BuffNodeDamage(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Healing")) {
+					BuffNodeHeal temp = new BuffNodeHeal(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Bind")) {
+					BuffNodeBind temp = new BuffNodeBind(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Cheat Death")) {
+					BuffNodeCheatingDeath temp = new BuffNodeCheatingDeath(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Confusion")) {
+					BuffNodeConfusion temp = new BuffNodeConfusion(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
 			}
 		});
 		

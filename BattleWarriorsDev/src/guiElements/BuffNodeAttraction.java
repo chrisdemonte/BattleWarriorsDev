@@ -9,8 +9,9 @@ import javafx.scene.layout.VBox;
 
 public class BuffNodeAttraction extends BuffEffectNode {
 	
-	VBox container = new VBox(3);
+	VBox container = new VBox();
 	Button deleteButton = new Button("-");
+	HBox buttonLine = new HBox(3);
 	
 	HBox attractionLine = new HBox(3);
 	TextField attractionChanceEntry = new TextField();
@@ -18,6 +19,7 @@ public class BuffNodeAttraction extends BuffEffectNode {
 	
 	BuffNodeAttraction(BuffEffectListMaker maker) {
 		super(maker.idCounter);
+		maker.getList().add(null);
 		maker.idCounter++;
 		this.generateLayout(maker);
 	}
@@ -25,22 +27,30 @@ public class BuffNodeAttraction extends BuffEffectNode {
 	private void generateLayout(BuffEffectListMaker maker) {
 		attractionLine.getChildren().addAll(attractionLabel, attractionChanceEntry);
 		
+		buttonLine.getChildren().add(deleteButton);
 		this.setDeleteButton(maker);
 		
-		container.getChildren().addAll(deleteButton, attractionLine);
+		container.getChildren().addAll(buttonLine, attractionLine);
 		
 	}
 
 	private void setDeleteButton(BuffEffectListMaker maker) {
 		this.deleteButton.setOnAction(e->{
 			int temp = this.id;
-			if (temp < maker.idCounter - 1) {
+			if (maker.getList().size() == 1) {
+				maker.getList().remove(0);
+				maker.getContainer().getChildren().remove(1);
+				maker.idCounter--;
+				return;
+			}
+			else if (temp < maker.idCounter - 1) {
 				for (int i = temp; i < maker.idCounter; i++) {
 					maker.getBuffNodes().get(i).setId(i - 1);
 				}
 			}
 			maker.getList().remove(temp);
 			maker.getContainer().getChildren().remove(temp + 1);
+			maker.idCounter--;
 		});
 		
 	}
