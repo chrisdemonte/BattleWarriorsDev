@@ -12,8 +12,9 @@ public class BuffNodeFreecasting extends BuffEffectNode{
 	
 	TextField FreecastingChanceEntry;
 	
-	BuffNodeFreecasting(int id) {
-		super(id);
+	BuffNodeFreecasting( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

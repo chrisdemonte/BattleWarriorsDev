@@ -11,8 +11,9 @@ public class BuffNodeStatus extends BuffEffectNode{
 	
 	TextField StatusChanceEntry;
 	
-	BuffNodeStatus(int id) {
-		super(id);
+	BuffNodeStatus( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

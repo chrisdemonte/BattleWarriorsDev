@@ -33,6 +33,7 @@ public class BuffSecondaryStats extends BuffEffect{
 		this.blockingMod = blockingMod;
 		this.penetration = penetration;
 		this.penetrationMod = penetrationMod;
+		this.keyword = "secondary stats";
 	}
 
 	@Override

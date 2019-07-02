@@ -22,6 +22,7 @@ public class BuffReach extends BuffEffect{
 		this.reachCounter = reachCounter;
 		this.hidden = hidden;
 		this.hiddenCounter = hiddenCounter;
+		this.keyword = "reach";
 	}
 	@Override
 	public void doBuffEffect(Player target, Player self, BattleLog log) {

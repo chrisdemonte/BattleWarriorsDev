@@ -52,6 +52,7 @@ public class BuffStatus extends BuffEffect {
 		this.speedMod = speedMod;
 		this.skill = skill;
 		this.skillMod = skillMod;
+		this.keyword = "status";
 	}
 
 

@@ -18,6 +18,7 @@ public class BuffProtection extends BuffEffect{
 		this.protectionCounter = protectionCounter;
 		this.immunity = immunity;
 		this.immunityCounter = immunityCounter;
+		this.keyword = "protection";
 	}
 
 	@Override

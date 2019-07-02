@@ -15,6 +15,7 @@ public class BuffTime extends BuffEffect{
 		this.actionTime = actionTime;
 		this.daze = daze;
 		this.haste = haste;
+		this.keyword = "time";
 	}
 
 	@Override

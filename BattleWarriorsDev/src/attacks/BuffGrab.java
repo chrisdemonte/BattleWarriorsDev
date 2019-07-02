@@ -10,7 +10,7 @@ public class BuffGrab extends BuffEffect{
 
 	public BuffGrab(int chance) {
 		super(chance);
-		
+		this.keyword = "grab";
 	}
 
 	@Override

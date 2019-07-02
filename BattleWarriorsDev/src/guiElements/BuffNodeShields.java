@@ -12,8 +12,9 @@ public class BuffNodeShields extends BuffEffectNode{
 	
 	TextField ShieldsChanceEntry;
 	
-	BuffNodeShields(int id) {
-		super(id);
+	BuffNodeShields( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

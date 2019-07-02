@@ -11,8 +11,9 @@ public class BuffNodeGrab extends BuffEffectNode{
 	
 	TextField GrabChanceEntry;
 	
-	BuffNodeGrab(int id) {
-		super(id);
+	BuffNodeGrab(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

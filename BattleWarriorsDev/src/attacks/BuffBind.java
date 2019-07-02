@@ -10,7 +10,7 @@ public class BuffBind extends BuffEffect{
 
 	public BuffBind(int chance) {
 		super(chance);
-		// TODO Auto-generated constructor stub
+		this.keyword = "bind";
 	}
 
 	@Override

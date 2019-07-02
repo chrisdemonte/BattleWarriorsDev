@@ -11,8 +11,9 @@ public class BuffNodeReach extends BuffEffectNode{
 	
 	TextField ReachChanceEntry;
 	
-	BuffNodeReach(int id) {
-		super(id);
+	BuffNodeReach(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

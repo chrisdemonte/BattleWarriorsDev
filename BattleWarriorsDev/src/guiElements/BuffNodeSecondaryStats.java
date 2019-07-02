@@ -12,8 +12,9 @@ public class BuffNodeSecondaryStats extends BuffEffectNode{
 	
 	TextField SecondaryStatsChanceEntry;
 	
-	BuffNodeSecondaryStats(int id) {
-		super(id);
+	BuffNodeSecondaryStats( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

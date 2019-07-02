@@ -12,6 +12,7 @@ public class BuffRemoveSelfBuff extends BuffEffect{
 	public BuffRemoveSelfBuff(int chance, String[] keywords) {
 		super(chance);
 		this.keywords = keywords;
+		this.keyword = "remove self buff";
 	}
 
 	@Override

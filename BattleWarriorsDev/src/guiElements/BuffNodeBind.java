@@ -12,8 +12,9 @@ public class BuffNodeBind extends BuffEffectNode {
 	
 	TextField BindChanceEntry;
 	
-	BuffNodeBind(int id) {
-		super(id);
+	BuffNodeBind( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

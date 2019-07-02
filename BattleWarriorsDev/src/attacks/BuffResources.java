@@ -22,6 +22,7 @@ public class BuffResources extends BuffEffect{
 		this.currentEnergy = currentEnergy;
 		this.maxComboPoints = maxComboPoints;
 		this.currentComboPoints = currentComboPoints;
+		this.keyword = "resources";
 	}
 
 	@Override

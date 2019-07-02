@@ -11,8 +11,9 @@ public class BuffNodeSelfHarm extends BuffEffectNode{
 	
 	TextField SelfHarmChanceEntry;
 	
-	BuffNodeSelfHarm(int id) {
-		super(id);
+	BuffNodeSelfHarm( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

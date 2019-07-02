@@ -12,8 +12,9 @@ public class BuffNodeEnchanted extends BuffEffectNode {
 	
 	TextField enchantedChanceEntry;
 	
-	BuffNodeEnchanted(int id) {
-		super(id);
+	BuffNodeEnchanted( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

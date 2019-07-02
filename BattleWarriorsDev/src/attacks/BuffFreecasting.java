@@ -18,6 +18,7 @@ public class BuffFreecasting extends BuffEffect {
 		this.freecastingCounter = freecastingCounter;
 		this.exhausted = exhausted;
 		this.exhaustedCounter = exhaustedCounter;
+		this.keyword = "freecasting";
 	}
 
 	@Override

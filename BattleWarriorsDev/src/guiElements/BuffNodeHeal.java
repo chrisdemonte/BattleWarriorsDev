@@ -12,8 +12,9 @@ public class BuffNodeHeal extends BuffEffectNode{
 	
 	TextField HealChanceEntry;
 	
-	BuffNodeHeal(int id) {
-		super(id);
+	BuffNodeHeal( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

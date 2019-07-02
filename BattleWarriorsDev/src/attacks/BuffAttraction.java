@@ -10,7 +10,7 @@ public class BuffAttraction extends BuffEffect{
 
 	public BuffAttraction(int chance) {
 		super(chance);
-		// TODO Auto-generated constructor stub
+		this.keyword = "attraction";
 	}
 
 	@Override

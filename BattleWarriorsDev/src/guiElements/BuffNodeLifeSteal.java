@@ -12,10 +12,10 @@ public class BuffNodeLifeSteal extends BuffEffectNode {
 	
 	TextField LifeStealChanceEntry;
 	
-	BuffNodeLifeSteal(int id) {
-		super(id);
+	BuffNodeLifeSteal( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
-
 	@Override
 	public BuffEffect createBuffEffect() {
 		return super.createBuffEffect();

@@ -16,6 +16,7 @@ public class BuffHeal extends BuffEffect{
 		this.physicalMod = physicalMod;
 		this.magicMod = magicMod;
 		this.bonusHealing = bonusHealing;
+		this.keyword = "heal";
 	}
 
 	@Override

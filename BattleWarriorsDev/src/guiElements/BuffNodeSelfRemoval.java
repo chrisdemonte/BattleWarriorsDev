@@ -11,8 +11,9 @@ public class BuffNodeSelfRemoval extends BuffEffectNode{
 	
 	TextField SelfRemovalChanceEntry;
 	
-	BuffNodeSelfRemoval(int id) {
-		super(id);
+	BuffNodeSelfRemoval(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

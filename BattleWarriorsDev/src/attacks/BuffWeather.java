@@ -14,6 +14,7 @@ public class BuffWeather extends BuffEffect{
 		super(chance);
 		this.weatherProof = weatherProof;
 		this.weatherProofCounter = weatherProofCounter;
+		this.keyword = "weather";
 	}
 
 	@Override

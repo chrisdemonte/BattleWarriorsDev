@@ -12,8 +12,9 @@ public class BuffNodeProtection extends BuffEffectNode {
 	
 	TextField ProtectionChanceEntry;
 	
-	BuffNodeProtection(int id) {
-		super(id);
+	BuffNodeProtection( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

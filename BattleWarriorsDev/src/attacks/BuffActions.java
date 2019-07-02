@@ -16,7 +16,6 @@ public class BuffActions extends BuffEffect{
 	int canRunCounter;
 	boolean locked;
 	int lockedCounter;
-	String keyword;
 	
 	public BuffActions(int chance, boolean canAttack,
 			int canAttackCounter, boolean canUseItems, int canUseItemsCounter, boolean canSkipTurn,

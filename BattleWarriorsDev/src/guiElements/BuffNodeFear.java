@@ -12,8 +12,9 @@ public class BuffNodeFear extends BuffEffectNode{
 	
 	TextField FearChanceEntry;
 	
-	BuffNodeFear(int id) {
-		super(id);
+	BuffNodeFear(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

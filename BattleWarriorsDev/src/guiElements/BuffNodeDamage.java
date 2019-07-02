@@ -12,8 +12,9 @@ public class BuffNodeDamage extends BuffEffectNode{
 	
 	TextField DamageChanceEntry;
 	
-	BuffNodeDamage(int id) {
-		super(id);
+	BuffNodeDamage(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

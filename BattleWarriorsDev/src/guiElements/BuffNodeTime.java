@@ -11,8 +11,9 @@ public class BuffNodeTime extends BuffEffectNode{
 	
 	TextField TimeChanceEntry;
 	
-	BuffNodeTime(int id) {
-		super(id);
+	BuffNodeTime(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

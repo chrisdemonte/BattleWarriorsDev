@@ -8,6 +8,7 @@ import utilities.BattleLog;
 public class BuffEffect {
 
 	int chance;
+	String keyword = "";
 	
 	public BuffEffect(int chance) {
 		super();

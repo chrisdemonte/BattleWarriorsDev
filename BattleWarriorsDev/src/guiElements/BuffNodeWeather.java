@@ -11,8 +11,9 @@ public class BuffNodeWeather extends BuffEffectNode{
 	
 	TextField WeatherChanceEntry;
 	
-	BuffNodeWeather(int id) {
-		super(id);
+	BuffNodeWeather( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

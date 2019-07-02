@@ -12,8 +12,9 @@ public class BuffNodeTargetRemoval extends BuffEffectNode{
 	
 	TextField TargetRemovalChanceEntry;
 	
-	BuffNodeTargetRemoval(int id) {
-		super(id);
+	BuffNodeTargetRemoval(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

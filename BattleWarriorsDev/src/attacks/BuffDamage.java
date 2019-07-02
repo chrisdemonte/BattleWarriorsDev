@@ -15,6 +15,7 @@ public class BuffDamage extends BuffEffect{
 		this.physicalMod = physicalMod;
 		this.magicMod = magicMod;
 		this.bonusDamage = bonusDamage;
+		this.keyword = "damage";
 	}
 	@Override
 	public void doBuffEffect(Player target, Player self, BattleLog log) {

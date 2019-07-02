@@ -12,8 +12,9 @@ public class BuffNodeMindControl extends BuffEffectNode{
 	
 	TextField MindControlChanceEntry;
 	
-	BuffNodeMindControl(int id) {
-		super(id);
+	BuffNodeMindControl( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

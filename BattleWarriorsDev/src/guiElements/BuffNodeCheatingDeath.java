@@ -11,8 +11,9 @@ public class BuffNodeCheatingDeath extends BuffEffectNode{
 	
 	TextField CheatingDeathChanceEntry;
 	
-	BuffNodeCheatingDeath(int id) {
-		super(id);
+	BuffNodeCheatingDeath( BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

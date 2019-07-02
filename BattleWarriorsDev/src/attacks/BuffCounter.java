@@ -18,6 +18,7 @@ public class BuffCounter extends BuffEffect{
 		this.counteringCounter = counteringCounter;
 		this.reflecting = reflecting;
 		this.reflectingCounter = reflectingCounter;
+		this.keyword = "counter";
 	}
 	@Override
 	public void doBuffEffect(Player target, Player self, BattleLog log) {

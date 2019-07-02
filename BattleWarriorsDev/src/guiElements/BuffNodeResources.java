@@ -12,8 +12,9 @@ public class BuffNodeResources extends BuffEffectNode {
 	
 	TextField ResourcesChanceEntry;
 	
-	BuffNodeResources(int id) {
-		super(id);
+	BuffNodeResources(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

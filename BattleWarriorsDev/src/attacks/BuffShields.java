@@ -22,6 +22,7 @@ public class BuffShields extends BuffEffect{
 		this.physicalShieldCounter = physicalShieldCounter;
 		this.magicShield = magicShield;
 		this.magicShieldCounter = magicShieldCounter;
+		this.keyword = "shields";
 	}
 
 	@Override

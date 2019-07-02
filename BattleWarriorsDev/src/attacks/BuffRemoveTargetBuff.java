@@ -12,6 +12,7 @@ public class BuffRemoveTargetBuff extends BuffEffect{
 	public BuffRemoveTargetBuff(int chance, String[] keywords) {
 		super(chance);
 		this.keywords = keywords;
+		this.keyword = "remove target buff";
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class BuffEffectListMaker {
@@ -17,47 +18,16 @@ public class BuffEffectListMaker {
 	int idCounter;
 	
 	VBox container = new VBox(3);
+	HBox topRow = new HBox(3);
 	ComboBox<String> selector = new ComboBox<String>();
 	Button selectorButton = new Button("+"); 
 	ArrayList<BuffEffectNode> buffNodes;
-	
-	TextField bindChanceEntry;
-	
-	int cheatingDeathChance;
-	boolean cheatingDeath;
-	int cheatingDeathCounter;
-	
-	int confusionChance;
-	
-	int counteringChance;
-	double countering;
-	int counteringCounter;
-	double reflecting;
-	int reflectingCounter;
-	
-	int damageChance;
-	double physicalMod;
-	double magicMod;
-	double bonusDamage;
-	
-	int enchantedChance;
-	
-	int fearChance;
-	double fear;
-	double intimidation;
-	
-	int freecastingChance;
-	boolean freecasting;
-	int freecastingCounter;
-	boolean exhausted;
-	int exhaustedCounter;
-	
-	int grabChance;
 
 	public BuffEffectListMaker(String title) {
 		super();
 		this.title = title;
 		list = new ArrayList<BuffEffect>();
+		buffNodes = new ArrayList<BuffEffectNode>();
 		chance = 0;
 		idCounter = 0;
 		this.generateLayout();
@@ -66,8 +36,30 @@ public class BuffEffectListMaker {
 	private void generateLayout() {
 		selector.getItems().addAll("Damage", "Healing","Stats", "SecondaryStats", "Actions", "Resources", 
 				"Shields", "Protection", "Counter","Time", "Vulnerability","Self Harm", "Reach", "Attraction","Bind","Cheat Death",
-				"Confusion","Enchanted", "Fear", "Freecasting", "Grab", "Keyword", "MindControl", "Weather");
-		container.getChildren().add(selector);
+				"Confusion","Enchanted", "Fear", "Freecasting", "Grab", "Life Steal", "MindControl","Remove Self Buff", "Remove Target Buff", "Weather");
+		
+		topRow.getChildren().addAll(selector, selectorButton);
+		this.setSelectorButton();
+		container.getChildren().add(topRow);
+		
+	}
+
+	private void setSelectorButton() {
+		this.selectorButton.setOnAction(e->{
+			String selection = selector.getValue();
+			if (selection != null) {
+				if (selection.contentEquals("Actions")) {
+					BuffNodeActions temp = new BuffNodeActions(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Attraction")) {
+					BuffNodeAttraction temp = new BuffNodeAttraction(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+			}
+		});
 		
 	}
 
@@ -118,6 +110,31 @@ public class BuffEffectListMaker {
 	public void setIdCounter(int idCounter) {
 		this.idCounter = idCounter;
 	}
+
+	public HBox getTopRow() {
+		return topRow;
+	}
+
+	public void setTopRow(HBox topRow) {
+		this.topRow = topRow;
+	}
+
+	public Button getSelectorButton() {
+		return selectorButton;
+	}
+
+	public void setSelectorButton(Button selectorButton) {
+		this.selectorButton = selectorButton;
+	}
+
+	public ArrayList<BuffEffectNode> getBuffNodes() {
+		return buffNodes;
+	}
+
+	public void setBuffNodes(ArrayList<BuffEffectNode> buffNodes) {
+		this.buffNodes = buffNodes;
+	}
+
 
 
 	

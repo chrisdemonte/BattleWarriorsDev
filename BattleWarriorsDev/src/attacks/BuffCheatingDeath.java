@@ -13,6 +13,7 @@ public class BuffCheatingDeath extends BuffEffect{
 		super(chance);
 		this.cheatingDeath = cheatingDeath;
 		this.cheatingDeathCounter = cheatingDeathCounter;
+		this.keyword = "cheating death";
 	}
 
 	@Override

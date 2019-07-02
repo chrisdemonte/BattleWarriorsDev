@@ -10,7 +10,7 @@ public class BuffMindControl extends BuffEffect {
 
 	public BuffMindControl(int chance) {
 		super(chance);
-		
+		this.keyword = "mind control";
 	}
 
 	@Override

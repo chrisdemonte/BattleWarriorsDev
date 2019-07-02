@@ -13,6 +13,7 @@ public class BuffFear extends BuffEffect{
 		super(chance);
 		this.fear = fear;
 		this.intimidation = intimidation;
+		this.keyword = "fear";
 	}
 
 	@Override

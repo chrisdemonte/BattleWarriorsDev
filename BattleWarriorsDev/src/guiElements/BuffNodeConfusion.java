@@ -12,8 +12,9 @@ public class BuffNodeConfusion extends BuffEffectNode{
 	
 	TextField attractionChanceEntry;
 	
-	BuffNodeConfusion(int id) {
-		super(id);
+	BuffNodeConfusion(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override

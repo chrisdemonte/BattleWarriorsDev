@@ -10,6 +10,7 @@ public class BuffEnchanted extends BuffEffect{
 
 	public BuffEnchanted(int chance) {
 		super(chance);
+		this.keyword = "enchanted";
 		
 	}
 

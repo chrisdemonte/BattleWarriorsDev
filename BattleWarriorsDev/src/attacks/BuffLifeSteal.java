@@ -13,6 +13,7 @@ public class BuffLifeSteal extends BuffEffect{
 		super(chance);
 		this.percentTargetHealth = percentTargetHealth;
 		this.percentSelfHealth = percentSelfHealth;
+		this.keyword = "life steal";
 	}
 	@Override
 	public void doBuffEffect(Player target, Player self, BattleLog log) {

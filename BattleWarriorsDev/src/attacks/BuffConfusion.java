@@ -10,6 +10,7 @@ public class BuffConfusion extends BuffEffect{
 
 	public BuffConfusion(int chance) {
 		super(chance);
+		this.keyword = "confusion";
 	}
 
 	@Override

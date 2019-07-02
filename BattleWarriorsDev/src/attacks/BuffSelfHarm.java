@@ -18,6 +18,7 @@ public class BuffSelfHarm extends BuffEffect{
 		this.enragedCounter = enragedCounter;
 		this.selfHarm = selfHarm;
 		this.selfHarmCounter = selfHarmCounter;
+		this.keyword = "self harm";
 	}
 	@Override
 	public void doBuffEffect(Player target, Player self, BattleLog log) {

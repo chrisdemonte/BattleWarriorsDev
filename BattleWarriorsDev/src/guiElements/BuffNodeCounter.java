@@ -12,8 +12,9 @@ public class BuffNodeCounter extends BuffEffectNode{
 	
 	TextField CounterChanceEntry;
 	
-	BuffNodeCounter(int id) {
-		super(id);
+	BuffNodeCounter(BuffEffectListMaker maker) {
+		super(maker.getList().size());
+		maker.getList().add(null);
 	}
 
 	@Override
