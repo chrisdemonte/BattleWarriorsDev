@@ -34,9 +34,9 @@ public class BuffEffectListMaker {
 	}
 
 	private void generateLayout() {
-		selector.getItems().addAll("Damage", "Healing","Stats", "SecondaryStats", "Actions", "Resources", 
+		selector.getItems().addAll("Damage", "Healing","Stats", "Secondary Stats", "Actions", "Resources", 
 				"Shields", "Protection", "Counter","Time", "Vulnerability","Self Harm", "Reach", "Attraction","Bind","Cheat Death",
-				"Confusion","Enchanted", "Fear", "Freecasting", "Grab", "Life Steal", "MindControl","Remove Self Buff", "Remove Target Buff", "Weather");
+				"Confusion","Enchanted", "Fear", "Freecasting", "Grab", "Life Steal", "Mind Control","Remove Self Buff", "Remove Target Buff", "Weather");
 		
 		topRow.getChildren().addAll(selector, selectorButton);
 		this.setSelectorButton();
@@ -80,6 +80,101 @@ public class BuffEffectListMaker {
 				}
 				else if (selection.contentEquals("Confusion")) {
 					BuffNodeConfusion temp = new BuffNodeConfusion(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Counter")) {
+					BuffNodeCounter temp = new BuffNodeCounter(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Enchanted")) {
+					BuffNodeEnchanted temp = new BuffNodeEnchanted(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Fear")) {
+					BuffNodeFear temp = new BuffNodeFear(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Freecasting")) {
+					BuffNodeFreecasting temp = new BuffNodeFreecasting(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Grab")) {
+					BuffNodeGrab temp = new BuffNodeGrab(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Life Steal")) {
+					BuffNodeLifeSteal temp = new BuffNodeLifeSteal(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Mind Control")) {
+					BuffNodeMindControl temp = new BuffNodeMindControl(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Protection")) {
+					BuffNodeProtection temp = new BuffNodeProtection(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Reach")) {
+					BuffNodeReach temp = new BuffNodeReach(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Resources")) {
+					BuffNodeResources temp = new BuffNodeResources(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Secondary Stats")) {
+					BuffNodeSecondaryStats temp = new BuffNodeSecondaryStats(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Self Harm")) {
+					BuffNodeSelfHarm temp = new BuffNodeSelfHarm(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Remove Self Buff")) {
+					BuffNodeSelfRemoval temp = new BuffNodeSelfRemoval(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Shields")) {
+					BuffNodeShields temp = new BuffNodeShields(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Stats")) {
+					BuffNodeStatus temp = new BuffNodeStatus(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Remove Target Buff")) {
+					BuffNodeTargetRemoval temp = new BuffNodeTargetRemoval(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Time")) {
+					BuffNodeTime temp = new BuffNodeTime(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Vulnerability")) {
+					BuffNodeVulnerability temp = new BuffNodeVulnerability(this);
+					this.buffNodes.add(temp);
+					this.container.getChildren().add(temp.getContainer());
+				}
+				else if (selection.contentEquals("Weather")) {
+					BuffNodeWeather temp = new BuffNodeWeather(this);
 					this.buffNodes.add(temp);
 					this.container.getChildren().add(temp.getContainer());
 				}
