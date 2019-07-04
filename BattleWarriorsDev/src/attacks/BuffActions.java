@@ -83,6 +83,87 @@ public class BuffActions extends BuffEffect{
 			}
 		}
 	}
+
+	public boolean isCanAttack() {
+		return canAttack;
+	}
+
+	public void setCanAttack(boolean canAttack) {
+		this.canAttack = canAttack;
+	}
+
+	public int getCanAttackCounter() {
+		return canAttackCounter;
+	}
+
+	public void setCanAttackCounter(int canAttackCounter) {
+		this.canAttackCounter = canAttackCounter;
+	}
+
+	public boolean isCanUseItems() {
+		return canUseItems;
+	}
+
+	public void setCanUseItems(boolean canUseItems) {
+		this.canUseItems = canUseItems;
+	}
+
+	public int getCanUseItemsCounter() {
+		return canUseItemsCounter;
+	}
+
+	public void setCanUseItemsCounter(int canUseItemsCounter) {
+		this.canUseItemsCounter = canUseItemsCounter;
+	}
+
+	public boolean isCanSkipTurn() {
+		return canSkipTurn;
+	}
+
+	public void setCanSkipTurn(boolean canSkipTurn) {
+		this.canSkipTurn = canSkipTurn;
+	}
+
+	public int getCanSkipTurnCounter() {
+		return canSkipTurnCounter;
+	}
+
+	public void setCanSkipTurnCounter(int canSkipTurnCounter) {
+		this.canSkipTurnCounter = canSkipTurnCounter;
+	}
+
+	public boolean isCanRun() {
+		return canRun;
+	}
+
+	public void setCanRun(boolean canRun) {
+		this.canRun = canRun;
+	}
+
+	public int getCanRunCounter() {
+		return canRunCounter;
+	}
+
+	public void setCanRunCounter(int canRunCounter) {
+		this.canRunCounter = canRunCounter;
+	}
+
+	public boolean isLocked() {
+		return locked;
+	}
+
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
+	public int getLockedCounter() {
+		return lockedCounter;
+	}
+
+	public void setLockedCounter(int lockedCounter) {
+		this.lockedCounter = lockedCounter;
+	}
+	
 	
 	
 

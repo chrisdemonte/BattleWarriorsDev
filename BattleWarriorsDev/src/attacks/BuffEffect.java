@@ -22,6 +22,22 @@ public class BuffEffect {
 		Random rand = new Random();
 		return this.chance > rand.nextInt(100);
 	}
+
+	public int getChance() {
+		return chance;
+	}
+
+	public void setChance(int chance) {
+		this.chance = chance;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 	
 
 }

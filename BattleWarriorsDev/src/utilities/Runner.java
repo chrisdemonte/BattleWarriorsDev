@@ -1,6 +1,7 @@
 package utilities;
 
 import guiElements.BaseStatEditor;
+import guiElements.BattleScene;
 import guiElements.BattleStatCreator;
 import guiElements.BuffEffectListMaker;
 import javafx.application.Application;
@@ -16,15 +17,17 @@ public class Runner extends Application {
 	public void start(Stage mainStage) throws Exception {
 		
 		Pane root = new Pane();
-		root.setMinSize(800, 600);
+		root.setMinSize(1200, 800);
 		ScrollPane window = new ScrollPane(root);
-		window.setMinSize(800, 600);
-		window.setMaxSize(800, 600);
+		window.setMinSize(1200, 900);
+		window.setMaxSize(1200, 900);
 		
 		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
 		//BattleStatCreator editor = new BattleStatCreator();
-		BuffEffectListMaker editor = new BuffEffectListMaker("Test");
-		root.getChildren().add(editor.getContainer());
+		//BuffEffectListMaker editor = new BuffEffectListMaker("Test");
+		
+		BattleScene pane = new BattleScene(1200, 800);
+		root.getChildren().add(pane.getRoot());
 		Scene scene = new Scene(window);
 		
 		mainStage.setScene(scene);

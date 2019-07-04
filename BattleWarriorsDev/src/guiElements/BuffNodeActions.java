@@ -1,5 +1,6 @@
 package guiElements;
 
+import attacks.BuffActions;
 import attacks.BuffEffect;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -57,6 +58,12 @@ public class BuffNodeActions extends BuffEffectNode{
 		maker.idCounter++;
 		this.generateLayout(maker);
 	}
+	public BuffNodeActions (BuffEffectListMaker maker, BuffActions buff) {
+		super(maker.idCounter);
+		maker.getList().add(null);
+		maker.idCounter++;
+		this.generateContainer(maker, buff);
+	}
 
 
 
@@ -73,6 +80,46 @@ public class BuffNodeActions extends BuffEffectNode{
 		canRunCounterLine.getChildren().addAll(canRunCounterLabel, canRunCounterEntry);
 		lockedLine.getChildren().addAll(lockedLabel, lockedEntry);
 		lockedCounterLine.getChildren().addAll(lockedCounterLabel, lockedCounterEntry);
+		
+		canAttackEntry.setSelected(true);
+		canUseItemsEntry.setSelected(true);
+		canSkipTurnEntry.setSelected(true);
+		canRunEntry.setSelected(true);
+		lockedEntry.setSelected(false);
+		
+		buttonLine.getChildren().addAll(deleteButton);
+		this.setDeleteButton(maker);
+		
+		container.getChildren().addAll(buttonLine, this.actionsChanceLine, this.canAttackLine, this.canAttackCounterLine,
+				this.canUseItemsLine, this.canUseItemsCounterLine, this.canSkipTurnLine, this.canSkipTurnCounterLine,
+				this.canRunLine, this.canRunCounterLine, this.lockedLine, this.lockedCounterLine);
+		
+	}
+	public void generateContainer(BuffEffectListMaker maker, BuffActions buff) {
+		
+		actionsChanceLine.getChildren().addAll(actionsChanceLabel, actionsChanceEntry);
+		canAttackLine.getChildren().addAll(canAttackLabel, canAttackEntry);
+		canAttackCounterLine.getChildren().addAll(canAttackCounterLabel, canAttackCounterEntry);
+		canUseItemsLine.getChildren().addAll(canUseItemsLabel, canUseItemsEntry);
+		canUseItemsCounterLine.getChildren().addAll(canUseItemsCounterLabel, canUseItemsCounterEntry);
+		canSkipTurnLine.getChildren().addAll(canSkipTurnLabel, canSkipTurnEntry);
+		canSkipTurnCounterLine.getChildren().addAll(canSkipTurnCounterLabel, canSkipTurnCounterEntry);
+		canRunLine.getChildren().addAll(canRunLabel, canRunEntry);
+		canRunCounterLine.getChildren().addAll(canRunCounterLabel, canRunCounterEntry);
+		lockedLine.getChildren().addAll(lockedLabel, lockedEntry);
+		lockedCounterLine.getChildren().addAll(lockedCounterLabel, lockedCounterEntry);
+		
+		actionsChanceEntry.setText("" + buff.getChance());
+		canAttackEntry.setSelected(buff.isCanAttack());
+		canAttackCounterEntry.setText("" + buff.getCanAttackCounter());
+		canUseItemsEntry.setSelected(buff.isCanUseItems());
+		canUseItemsCounterEntry.setText("" + buff.getCanUseItemsCounter());
+		canSkipTurnEntry.setSelected(buff.isCanSkipTurn());
+		canSkipTurnCounterEntry.setText("" + buff.getCanSkipTurnCounter());
+		canRunEntry.setSelected(buff.isCanRun());
+		canRunCounterEntry.setText("" + buff.getCanRunCounter());
+		lockedEntry.setSelected(buff.isLocked());
+		lockedCounterEntry.setText("" + buff.getLockedCounter());
 		
 		buttonLine.getChildren().addAll(deleteButton);
 		this.setDeleteButton(maker);
@@ -107,7 +154,26 @@ public class BuffNodeActions extends BuffEffectNode{
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+		
+		BuffEffect effect;
+		try{
+			effect = new BuffActions(
+					Integer.parseInt(this.actionsChanceEntry.getText()), 
+					this.canAttackEntry.isSelected(), 
+					Integer.parseInt(this.canAttackCounterEntry.getText()), 
+					this.canUseItemsEntry.isSelected(),
+					Integer.parseInt(this.canUseItemsCounterEntry.getText()), 
+					this.canSkipTurnEntry.isSelected(), 
+					Integer.parseInt(this.canSkipTurnCounterEntry.getText()), 
+					this.canRunEntry.isSelected(),
+					Integer.parseInt(this.canRunEntry.getText()), 
+					this.lockedEntry.isSelected(),
+					Integer.parseInt(this.lockedCounterEntry.getText()));
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
 	}
 
 	public VBox getContainer() {
