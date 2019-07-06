@@ -1,7 +1,9 @@
 package guiElements;
 
+import attacks.BuffCheatingDeath;
 import attacks.BuffEffect;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -13,9 +15,17 @@ public class BuffNodeCheatingDeath extends BuffEffectNode{
 	
 	HBox buttonLine = new HBox(3);
 	
-	HBox cheatingDeathLine = new HBox(3);
+	HBox cheatingDeathChanceLine = new HBox(3);
 	TextField cheatingDeathChanceEntry = new TextField();
-	Label cheatingDeathLabel = new Label("Cheat Death Chance : ");
+	Label cheatingDeathChanceLabel = new Label("Cheat Death Chance : ");
+	
+	HBox cheatingDeathLine = new HBox(3);
+	CheckBox cheatingDeathEntry = new CheckBox();
+	Label cheatingDeathLabel = new Label ("Cheating Death : ");
+	
+	HBox cheatingDeathCounterLine = new HBox(3);
+	TextField cheatingDeathCounterEntry = new TextField("0");
+	Label cheatingDeathCounterLabel = new Label ("Cheating Death Counter : ");
 	
 	BuffNodeCheatingDeath(BuffEffectListMaker maker) {
 		super(maker.idCounter);
@@ -25,12 +35,14 @@ public class BuffNodeCheatingDeath extends BuffEffectNode{
 	}
 
 	private void generateLayout(BuffEffectListMaker maker) {
-		cheatingDeathLine.getChildren().addAll(cheatingDeathLabel, cheatingDeathChanceEntry);
+		cheatingDeathChanceLine.getChildren().addAll(cheatingDeathChanceLabel, cheatingDeathChanceEntry);
+		cheatingDeathLine.getChildren().addAll(cheatingDeathLabel, cheatingDeathEntry);
+		cheatingDeathCounterLine.getChildren().addAll(cheatingDeathCounterLabel, cheatingDeathCounterEntry);
 		
 		buttonLine.getChildren().add(deleteButton);
 		this.setDeleteButton(maker);
 		
-		container.getChildren().addAll(buttonLine, cheatingDeathLine);
+		container.getChildren().addAll(buttonLine, cheatingDeathChanceLine, cheatingDeathLine, cheatingDeathCounterLine);
 		
 	}
 
@@ -57,8 +69,22 @@ public class BuffNodeCheatingDeath extends BuffEffectNode{
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+		BuffEffect effect;
+		try{
+			effect = new BuffCheatingDeath(
+					Integer.parseInt(this.cheatingDeathChanceEntry.getText()),
+					this.cheatingDeathEntry.isSelected(),
+					Integer.parseInt(this.cheatingDeathCounterEntry.getText())
+					);
+		
+		
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
 	}
+	
 
 	public VBox getContainer() {
 		return container;

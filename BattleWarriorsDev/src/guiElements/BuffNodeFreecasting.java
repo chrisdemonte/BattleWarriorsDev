@@ -1,7 +1,9 @@
 package guiElements;
 
 import attacks.BuffEffect;
+import attacks.BuffFreecasting;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -15,9 +17,25 @@ public class BuffNodeFreecasting extends BuffEffectNode{
 
 	HBox buttonLine = new HBox(3);
 	
-	HBox freecastingLine = new HBox(3);
+	HBox freecastingChanceLine = new HBox(3);
 	TextField freecastingChanceEntry = new TextField();
-	Label freecastingLabel = new Label("freecasting Chance : ");
+	Label freecastingChanceLabel = new Label("Freecasting Chance : ");
+	
+	HBox freecastingLine = new HBox(3);
+	CheckBox freecastingEntry = new CheckBox();
+	Label freecastingLabel = new Label ("Freecasting : ");
+	
+	HBox freecastingCounterLine = new HBox(3);
+	TextField freecastingCounterEntry = new TextField("0");
+	Label freecastingCounterLabel = new Label ("Freecasting Counter : ");
+	
+	HBox exhaustedLine = new HBox(3);
+	CheckBox exhaustedEntry = new CheckBox();
+	Label exhaustedLabel = new Label ("Exhausted : ");
+	
+	HBox exhaustedCounterLine = new HBox(3);
+	TextField exhaustedCounterEntry = new TextField("0");
+	Label exhaustedCounterLabel = new Label ("Exhausted Counter : ");
 	
 	BuffNodeFreecasting(BuffEffectListMaker maker) {
 		super(maker.idCounter);
@@ -27,12 +45,17 @@ public class BuffNodeFreecasting extends BuffEffectNode{
 	}
 
 	private void generateLayout(BuffEffectListMaker maker) {
-		freecastingLine.getChildren().addAll(freecastingLabel, freecastingChanceEntry);
+		freecastingChanceLine.getChildren().addAll(freecastingChanceLabel, freecastingChanceEntry);
+		freecastingLine.getChildren().addAll(freecastingLabel, freecastingEntry);
+		freecastingCounterLine.getChildren().addAll(freecastingCounterLabel, freecastingCounterEntry);
+		exhaustedLine.getChildren().addAll(exhaustedLabel, exhaustedEntry);
+		exhaustedCounterLine.getChildren().addAll(exhaustedCounterLabel, exhaustedCounterEntry);
 		
 		buttonLine.getChildren().add(deleteButton);
 		this.setDeleteButton(maker);
 		
-		container.getChildren().addAll(buttonLine, freecastingLine);
+		container.getChildren().addAll(buttonLine, freecastingChanceLine, freecastingLine, freecastingCounterLine,
+				exhaustedLine, exhaustedCounterLine);
 		
 	}
 
@@ -59,7 +82,20 @@ public class BuffNodeFreecasting extends BuffEffectNode{
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+		BuffEffect effect;
+		try{
+			effect = new BuffFreecasting(
+					Integer.parseInt(this.freecastingChanceEntry.getText()),
+					this.freecastingEntry.isSelected(),
+					Integer.parseInt(this.freecastingCounterEntry.getText()),
+					this.exhaustedEntry.isSelected(),
+					Integer.parseInt(this.exhaustedCounterEntry.getText()));
+		
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
 	}
 
 	public VBox getContainer() {

@@ -1,6 +1,5 @@
 package guiElements;
 
-import attacks.BuffAttraction;
 import attacks.BuffConfusion;
 import attacks.BuffEffect;
 import javafx.scene.control.Button;

@@ -1,6 +1,7 @@
 package guiElements;
 
 import attacks.BuffEffect;
+import attacks.BuffEnchanted;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,7 +17,7 @@ public class BuffNodeEnchanted extends BuffEffectNode {
 	
 	HBox enchantedLine = new HBox(3);
 	TextField enchantedChanceEntry = new TextField();
-	Label enchantedLabel = new Label("enchanted Chance : ");
+	Label enchantedLabel = new Label("Enchanted Chance : ");
 	
 	BuffNodeEnchanted(BuffEffectListMaker maker) {
 		super(maker.idCounter);
@@ -58,7 +59,15 @@ public class BuffNodeEnchanted extends BuffEffectNode {
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+		BuffEffect effect;
+		try{
+			effect = new BuffEnchanted(Integer.parseInt(this.enchantedChanceEntry.getText()));
+		
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
 	}
 
 	public VBox getContainer() {

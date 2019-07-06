@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import attacks.BuffEffect;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -214,15 +212,6 @@ public class BuffEffectListMaker {
 	public void setContainer(VBox container) {
 		this.container = container;
 	}
-
-	public ComboBox getSelector() {
-		return selector;
-	}
-
-	public void setSelector(ComboBox selector) {
-		this.selector = selector;
-	}
-
 	public int getIdCounter() {
 		return idCounter;
 	}

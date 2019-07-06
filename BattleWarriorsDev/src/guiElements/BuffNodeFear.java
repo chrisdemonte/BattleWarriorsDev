@@ -1,8 +1,8 @@
 package guiElements;
 
 import attacks.BuffEffect;
+import attacks.BuffFear;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -71,7 +71,18 @@ public class BuffNodeFear extends BuffEffectNode{
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+		BuffEffect effect;
+		try{
+			effect = new BuffFear(
+					Integer.parseInt(this.fearChanceEntry.getText()), 
+					Integer.parseInt(this.fearEntry.getText()),
+					Integer.parseInt(this.intimidationEntry.getText())); 
+				
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
 	}
 
 	public VBox getContainer() {
