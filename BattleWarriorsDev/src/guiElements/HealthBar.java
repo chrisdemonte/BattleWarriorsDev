@@ -32,10 +32,10 @@ public class HealthBar {
 	private void generateLayout() {
 		container.getChildren().addAll(emptyBar, fullBar);
 		try {
-			empty = new ImageView(new Image(new FileInputStream("resources/images/grey_pattern.PNG")));
+			empty = new ImageView(new Image(new FileInputStream("resources/images/black_pixel_pattern.PNG")));
 			empty.setViewport(new Rectangle2D(0, 0, width, 20));
 			emptyBar.setGraphic(empty);
-			full = new ImageView(new Image(new FileInputStream("resources/images/green_pattern.PNG")));
+			full = new ImageView(new Image(new FileInputStream("resources/images/green_pixel_pattern.PNG")));
 			full.setViewport(new Rectangle2D(0,0, width/2, 20));
 			fullBar.setGraphic(full);
 			emptyBar.setMinSize(width, 20);

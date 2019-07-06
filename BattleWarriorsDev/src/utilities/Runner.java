@@ -18,7 +18,7 @@ public class Runner extends Application {
 		
 		Pane root = new Pane();
 		root.setMinSize(1200, 800);
-		ScrollPane window = new ScrollPane(root);
+		Pane window = new Pane(root);
 		window.setMinSize(1200, 900);
 		window.setMaxSize(1200, 900);
 		
