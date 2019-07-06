@@ -18,6 +18,7 @@ public abstract class Buff {
 	int initialChance;
 	int periodicChance;
 	String[] keywords;
+	String custom = new String();
 
 	public Buff(String name, String description, ArrayList<BuffEffect> initial, ArrayList<BuffEffect> periodic,
 			ArrayList<BuffEffect> end, int duration, int counter, int initialChance, int periodicChance, String[] keywords) {
@@ -124,6 +125,12 @@ public abstract class Buff {
 	}
 	public void setKeywords(String[] keywords) {
 		this.keywords = keywords;
+	}
+	public String getCustom() {
+		return custom;
+	}
+	public void setCustom(String custom) {
+		this.custom = custom;
 	}
 	
 }

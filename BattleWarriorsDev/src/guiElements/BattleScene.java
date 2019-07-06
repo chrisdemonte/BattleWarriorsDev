@@ -38,7 +38,8 @@ public class BattleScene {
 		playerBar = new HealthBar(100,100,400);
 		
 		try {
-			File file = new File ("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\battle_pane.PNG");
+			//File file = new File ("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\battle_pane.PNG");
+			File file = new File("resources/images/battle_pane.PNG");
 			frame = new  Image(new FileInputStream(file));
 			frameView.setImage(frame);
 		} catch (FileNotFoundException e) {

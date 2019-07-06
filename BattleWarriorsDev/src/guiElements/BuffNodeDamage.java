@@ -1,5 +1,7 @@
 package guiElements;
 
+import attacks.BuffActions;
+import attacks.BuffDamage;
 import attacks.BuffEffect;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -71,7 +73,20 @@ public class BuffNodeDamage extends BuffEffectNode{
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+
+		BuffEffect effect;
+		try{
+			effect = new BuffDamage(
+					Integer.parseInt(this.DamageChanceEntry.getText()), 
+					Double.parseDouble(this.physicalModEntry.getText()), 
+					Double.parseDouble(this.magicModEntry.getText()), 
+					Double.parseDouble(this.bonusDamageEntry.getText())); 
+
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
 	}
 
 	public VBox getContainer() {

@@ -2,10 +2,12 @@ package guiElements;
 
 import java.io.FileInputStream;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 public class HealthBar {
 	
@@ -30,13 +32,11 @@ public class HealthBar {
 	private void generateLayout() {
 		container.getChildren().addAll(emptyBar, fullBar);
 		try {
-			empty = new ImageView(new Image(new FileInputStream("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\grey_pattern.PNG")));
-			empty.setFitHeight(20);
-			empty.setFitWidth(width);
+			empty = new ImageView(new Image(new FileInputStream("resources/images/grey_pattern.PNG")));
+			empty.setViewport(new Rectangle2D(0, 0, width, 20));
 			emptyBar.setGraphic(empty);
-			full = new ImageView(new Image(new FileInputStream("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\green_pattern.PNG")));
-			full.setFitHeight(20);
-			full.setFitWidth(width/2);
+			full = new ImageView(new Image(new FileInputStream("resources/images/green_pattern.PNG")));
+			full.setViewport(new Rectangle2D(0,0, width/2, 20));
 			fullBar.setGraphic(full);
 			emptyBar.setMinSize(width, 20);
 			emptyBar.setMaxSize(width, 20);
@@ -52,7 +52,7 @@ public class HealthBar {
 		int temp = (currentHealth * this.width)/ this.maxHealth;
 		fullBar.setMaxSize(temp, 20);
 		fullBar.setMinSize(temp, 20);
-		full.setFitWidth(temp);
+		full.setViewport(new Rectangle2D(0,0,temp, 20));
 	}
 	
 	public Pane getContainer() {

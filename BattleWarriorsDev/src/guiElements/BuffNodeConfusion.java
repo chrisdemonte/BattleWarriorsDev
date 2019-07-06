@@ -1,5 +1,7 @@
 package guiElements;
 
+import attacks.BuffAttraction;
+import attacks.BuffConfusion;
 import attacks.BuffEffect;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -58,8 +60,17 @@ public class BuffNodeConfusion extends BuffEffectNode{
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+		BuffEffect effect;
+		try{
+			effect = new BuffConfusion(Integer.parseInt(this.confusionChanceEntry.getText()));
+		
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
 	}
+	
 
 	public VBox getContainer() {
 		return container;
