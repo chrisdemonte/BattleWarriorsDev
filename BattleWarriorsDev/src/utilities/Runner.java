@@ -4,6 +4,7 @@ import guiElements.BaseStatEditor;
 import guiElements.BattleScene;
 import guiElements.BattleStatCreator;
 import guiElements.BuffEffectListMaker;
+import guiElements.BuffMaker;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -25,9 +26,9 @@ public class Runner extends Application {
 		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
 		//BattleStatCreator editor = new BattleStatCreator();
 		//BuffEffectListMaker editor = new BuffEffectListMaker("Test");
-		
-		BattleScene pane = new BattleScene(1200, 800);
-		root.getChildren().add(pane.getRoot());
+		BuffMaker editor = new BuffMaker();
+		//BattleScene pane = new BattleScene(1200, 800);
+		root.getChildren().add(editor.getContainer());
 		Scene scene = new Scene(window);
 		
 		mainStage.setScene(scene);

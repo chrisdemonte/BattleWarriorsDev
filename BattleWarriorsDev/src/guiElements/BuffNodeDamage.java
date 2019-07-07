@@ -53,7 +53,7 @@ public class BuffNodeDamage extends BuffEffectNode{
 			int temp = this.id;
 			if (maker.getList().size() == 1) {
 				maker.getList().remove(0);
-				maker.getContainer().getChildren().remove(1);
+				maker.getContainer().getChildren().remove(2);
 				maker.idCounter--;
 				return;
 			}
@@ -61,9 +61,10 @@ public class BuffNodeDamage extends BuffEffectNode{
 				for (int i = temp; i < maker.idCounter; i++) {
 					maker.getBuffNodes().get(i).setId(i - 1);
 				}
+			
 			}
 			maker.getList().remove(temp);
-			maker.getContainer().getChildren().remove(temp + 1);
+			maker.getContainer().getChildren().remove(temp + 2);
 			maker.idCounter--;
 			
 		});

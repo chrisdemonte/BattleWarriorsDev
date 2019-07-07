@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import attacks.BuffEffect;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -38,7 +39,7 @@ public class BuffEffectListMaker {
 		
 		topRow.getChildren().addAll(selector, selectorButton);
 		this.setSelectorButton();
-		container.getChildren().add(topRow);
+		container.getChildren().addAll(new Label(this.title), topRow);
 		
 	}
 
@@ -190,6 +191,10 @@ public class BuffEffectListMaker {
 	}
 
 	public ArrayList<BuffEffect> getList() {
+		list.clear();
+		for (int i = 0; i < buffNodes.size(); i++) {
+			list.add(buffNodes.get(i).createBuffEffect());
+		}
 		return list;
 	}
 
