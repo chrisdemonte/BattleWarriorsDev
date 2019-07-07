@@ -1,6 +1,8 @@
 package guiElements;
 
 import attacks.BuffEffect;
+import attacks.BuffGrab;
+import attacks.BuffMindControl;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -59,7 +61,15 @@ public class BuffNodeMindControl extends BuffEffectNode{
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+		BuffEffect effect;
+		try{
+			effect = new BuffMindControl(Integer.parseInt(this.mindControlChanceEntry.getText()));
+		
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
 	}
 
 	public VBox getContainer() {
