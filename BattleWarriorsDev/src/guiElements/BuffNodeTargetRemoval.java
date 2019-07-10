@@ -1,8 +1,12 @@
 package guiElements;
 
 import attacks.BuffEffect;
+import attacks.BuffRemoveSelfBuff;
+import attacks.BuffRemoveTargetBuff;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class BuffNodeTargetRemoval extends BuffEffectNode{
@@ -10,15 +14,77 @@ public class BuffNodeTargetRemoval extends BuffEffectNode{
 	VBox container = new VBox(3);
 	Button deleteButton = new Button("-");
 	
-	TextField TargetRemovalChanceEntry;
+
+	HBox buttonLine = new HBox(3);
+	
+	HBox targetRemovalLine = new HBox(3);
+	TextField targetRemovalChanceEntry = new TextField();
+	Label targetRemovalLabel = new Label("targetRemoval Chance : ");
+	HBox keywordsLine = new HBox(3);
+	TextField keywordsEntry = new TextField();
+	Label keywordsLabel = new Label("Keywords : ");
 	
 	BuffNodeTargetRemoval(BuffEffectListMaker maker) {
-		super(maker.getList().size());
+		super(maker.idCounter);
 		maker.getList().add(null);
+		maker.idCounter++;
+		this.generateLayout(maker);
+	}
+
+	private void generateLayout(BuffEffectListMaker maker) {
+		targetRemovalLine.getChildren().addAll(targetRemovalLabel, targetRemovalChanceEntry);
+		keywordsLine.getChildren().addAll(keywordsLabel, keywordsEntry);
+		
+		buttonLine.getChildren().add(deleteButton);
+		this.setDeleteButton(maker);
+		
+		container.getChildren().addAll(buttonLine, targetRemovalLine, keywordsLine);
+		
+	}
+
+	private void setDeleteButton(BuffEffectListMaker maker) {
+		this.deleteButton.setOnAction(e->{
+			int temp = this.id;
+			if (maker.getList().size() == 1) {
+				maker.getList().remove(0);
+				maker.getContainer().getChildren().remove(2);
+				maker.idCounter--;
+				return;
+			}
+			else if (temp < maker.idCounter - 1) {
+				for (int i = temp; i < maker.idCounter; i++) {
+					maker.getBuffNodes().get(i).setId(i-1);
+				}
+			
+			}
+			maker.getList().remove(temp);
+			maker.getContainer().getChildren().remove(temp + 2);
+			maker.idCounter--;
+			
+		});
+		
 	}
 
 	@Override
 	public BuffEffect createBuffEffect() {
-		return super.createBuffEffect();
+		BuffEffect effect;
+		try{
+			effect = new BuffRemoveTargetBuff(
+					Integer.parseInt(this.targetRemovalChanceEntry.getText()),
+					this.keywordsEntry.getText().split(", "));
+		
+		}
+		catch (Exception ex) {
+			effect = null;
+		}
+		return effect;
+	}
+
+	public VBox getContainer() {
+		return container;
+	}
+
+	public void setContainer(VBox container) {
+		this.container = container;
 	}
 }

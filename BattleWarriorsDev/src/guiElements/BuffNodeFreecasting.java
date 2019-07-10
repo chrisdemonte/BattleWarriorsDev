@@ -70,7 +70,7 @@ public class BuffNodeFreecasting extends BuffEffectNode{
 			}
 			else if (temp < maker.idCounter - 1) {
 				for (int i = temp; i < maker.idCounter; i++) {
-					maker.getBuffNodes().get(i).setId(i - 1);
+					maker.getBuffNodes().get(i).setId(i-1);
 				}
 			
 			}
