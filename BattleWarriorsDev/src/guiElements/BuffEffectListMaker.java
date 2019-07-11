@@ -35,7 +35,7 @@ public class BuffEffectListMaker {
 	private void generateLayout() {
 		selector.getItems().addAll("Damage", "Healing","Stats", "Secondary Stats", "Actions", "Resources", 
 				"Shields", "Protection", "Counter","Time", "Vulnerability","Self Harm", "Reach", "Attraction","Bind","Cheat Death",
-				"Confusion","Enchanted", "Fear", "Freecasting", "Grab", "Life Steal", "Mind Control","Remove Self Buff", "Remove Target Buff", "Weather");
+				"Confusion","Enchanted", "Fear", "Freecasting", "Grab", "Life Steal", "Mind Control","Remove Self Buff", "Remove Target Buff");
 		
 		topRow.getChildren().addAll(selector, selectorButton);
 		this.setSelectorButton();

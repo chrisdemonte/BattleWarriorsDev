@@ -1,5 +1,6 @@
 package utilities;
 
+import guiElements.AttackMaker;
 import guiElements.BaseStatEditor;
 import guiElements.BattleScene;
 import guiElements.BattleStatCreator;
@@ -26,7 +27,7 @@ public class Runner extends Application {
 		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
 		//BattleStatCreator editor = new BattleStatCreator();
 		//BuffEffectListMaker editor = new BuffEffectListMaker("Test");
-		BuffMaker editor = new BuffMaker();
+		AttackMaker editor = new AttackMaker();
 		//BattleScene pane = new BattleScene(1200, 800);
 		root.getChildren().add(editor.getContainer());
 		Scene scene = new Scene(window);
