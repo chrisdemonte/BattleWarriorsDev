@@ -9,6 +9,7 @@ public abstract class Move {
 	
 	String name;
 	String description;
+	String customText;
 	String[] keywords;
 	int energyCost;
 	int uses;
@@ -25,12 +26,13 @@ public abstract class Move {
 	
 	BattleAnimation animation;
 	
-	public Move(String name, String description, String[] keywords, int energyCost, int uses, int currentUses, int comboPointGain,
+	public Move(String name, String description, String customText, String[] keywords, int energyCost, int uses, int currentUses, int comboPointGain,
 			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
 			BaseStats requirements) {
 		super();
 		this.name = name;
 		this.description = description;
+		this.customText = customText;
 		this.keywords = keywords;
 		this.energyCost = energyCost;
 		this.uses = uses;
