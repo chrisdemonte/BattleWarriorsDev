@@ -104,7 +104,7 @@ public class BattleStats {
 	int weatherProofCounter;
 	
 	
-	double adjuster = 9.0;
+	double adjuster = 9.0 + (level / 2);
 	
 	public BattleStats (Player player) {
 		this();
@@ -524,7 +524,7 @@ public class BattleStats {
 	public void setBattleStats(Player player) {
 		
 		this.level = player.getBaseStats().getLevel();
-		this.adjuster += (player.getBaseStats().getLevel()/ 2);
+		this.adjuster = 9 + (player.getBaseStats().getLevel()/ 2);
 		this.stamina = player.getBaseStats().getStamina() + adjuster;
 		this.staminaMod = 1.0;
 		this.strength = player.getBaseStats().getStrength() + adjuster;
