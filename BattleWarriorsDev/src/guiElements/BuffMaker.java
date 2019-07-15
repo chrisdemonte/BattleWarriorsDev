@@ -1,5 +1,6 @@
 package guiElements;
 
+import attacks.Buff;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -64,6 +65,30 @@ public class BuffMaker {
 		container.getChildren().addAll(nameLine, descriptionLine, durationLine, intialChanceLine, periodicChanceLine,
 				buffEffectMakerContainer);
 		
+	}
+	
+	public Buff getBuff () {
+		Buff theBuff = null;
+		try {
+			theBuff = new Buff(
+					this.nameEntry.getText(),
+					this.descriptionEntry.getText(),
+					this.initialBuffMaker.getList(),
+					this.periodicBuffMaker.getList(),
+					this.endBuffMaker.getList(),
+					Integer.parseInt(this.durationEntry.getText()),
+					Integer.parseInt(this.durationEntry.getText()),
+					Integer.parseInt(this.intialChanceEntry.getText()),
+					Integer.parseInt(this.periodicChanceEntry.getText()),
+					this.keywordsEntry.getText().split(", "));
+		}
+		catch (Exception ex) {
+			theBuff = null;
+		}
+		if (this.nameEntry.getText().contentEquals("")) {
+			theBuff = null;
+		}
+		return theBuff;
 	}
 
 	public VBox getContainer() {

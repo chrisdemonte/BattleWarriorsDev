@@ -193,7 +193,12 @@ public class BuffEffectListMaker {
 	public ArrayList<BuffEffect> getList() {
 		list.clear();
 		for (int i = 0; i < buffNodes.size(); i++) {
-			list.add(buffNodes.get(i).createBuffEffect());
+			if (buffNodes.get(i).createBuffEffect() != null) {
+				list.add(buffNodes.get(i).createBuffEffect());
+			}
+		}
+		if (list.size() == 0) {
+			return null;
 		}
 		return list;
 	}

@@ -10,6 +10,7 @@ public class AttackMaker {
 	Tab selfBuff = new Tab();
 	Tab targetBuff = new Tab();
 	
+	AttackMakerMovePane moveMaker = new AttackMakerMovePane();
 	BuffMaker selfBuffMaker = new BuffMaker();
 	BuffMaker targetBuffMaker = new BuffMaker();
 	
@@ -22,6 +23,7 @@ public class AttackMaker {
 		selfBuff.setText("Self Buff");
 		targetBuff.setText("Target Buff");
 		
+		attackMain.setContent(moveMaker.getContainer());
 		selfBuff.setContent(this.selfBuffMaker.getContainer());
 		targetBuff.setContent(this.targetBuffMaker.getContainer());
 		

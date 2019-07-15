@@ -6,7 +6,7 @@ import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
 
-public abstract class Buff {
+public class Buff {
 	
 	String name;
 	String description;
