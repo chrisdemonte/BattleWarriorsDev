@@ -80,4 +80,16 @@ public class BuffStatus extends BuffEffect {
 		stats.changeSkillMod(this.skillMod);
 	}
 
+
+
+	@Override
+	public String toString() {
+		return "BuffStatus [level=" + level + "\nstamina=" + stamina + "\nstaminaMod=" + staminaMod + "\nstrength="
+				+ strength + "\nstrengthMod=" + strengthMod + "\ndefense=" + defense + "\ndefenseMod=" + defenseMod
+				+ "\nmagic=" + magic + "\nmagicMod=" + magicMod + "\nresistance=" + resistance + "\nresistanceMod="
+				+ resistanceMod + "\ncunning=" + cunning + "\ncunningMod=" + cunningMod + "\nintelligence="
+				+ intelligence + "\nintelligenceMod=" + intelligenceMod + "\nspeed=" + speed + "\nspeedMod=" + speedMod
+				+ "\nskill=" + skill + "\nskillMod=" + skillMod + "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
+
 }

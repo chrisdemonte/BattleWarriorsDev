@@ -34,6 +34,11 @@ public class BuffMindControl extends BuffEffect {
 			
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffMindControl [chance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 
 }

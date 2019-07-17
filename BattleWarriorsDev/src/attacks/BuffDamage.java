@@ -98,6 +98,11 @@ public class BuffDamage extends BuffEffect{
 			target.getBattleStats().setCurrentHealth(target.getBattleStats().getCurrentHealth() - totalDamage);
 		}
 	}
+	@Override
+	public String toString() {
+		return "BuffDamage [physicalMod=" + physicalMod + "\nmagicMod=" + magicMod + "\nbonusDamage=" + bonusDamage
+				+ "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 }

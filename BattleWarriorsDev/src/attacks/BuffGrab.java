@@ -32,6 +32,11 @@ public class BuffGrab extends BuffEffect{
 			
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffGrab [chance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 

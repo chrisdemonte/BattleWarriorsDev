@@ -1,5 +1,6 @@
 package attacks;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import models.BaseStats;
@@ -261,6 +262,19 @@ public class FullAttack extends Move{
 		
 		}
 		
+	}
+
+	@Override
+	public String toString() {
+		return "FullAttack [physicalPower=" + physicalPower + "\nmagicPower=" + magicPower + "\nbonusDamage="
+				+ bonusDamage + "\naccuracy=" + accuracy + "\navoidability=" + avoidability + "\ncrit=" + crit
+				+ "\npenetration=" + penetration + "\nrangedAttack=" + rangedAttack + "\npriority=" + priority
+				+ "\nname=" + name + "\ndescription=" + description + "\ncustomText=" + customText + "\nkeywords="
+				+ Arrays.toString(keywords) + "\nenergyCost=" + energyCost + "\nuses=" + uses + "\ncurrentUses="
+				+ currentUses + "\ncomboPointGain=" + comboPointGain + "\ncomboPointRequirement="
+				+ comboPointRequirement + "\ntime=" + time + "\ncooldown=" + cooldown + "\ncooldownCounter="
+				+ cooldownCounter + "\nself=" + self.toString() + "\ntarget=" + target.toString() + "\nrequirements= null"
+				+ "\nanimation=" + animation + "]";
 	}
 
 	public double getPhysicalPower() {

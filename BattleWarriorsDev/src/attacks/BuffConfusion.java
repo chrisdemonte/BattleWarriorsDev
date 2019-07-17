@@ -28,6 +28,11 @@ public class BuffConfusion extends BuffEffect{
 			
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffConfusion [chance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 
 }

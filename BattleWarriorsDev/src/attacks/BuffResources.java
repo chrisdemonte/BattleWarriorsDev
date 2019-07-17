@@ -54,6 +54,13 @@ public class BuffResources extends BuffEffect{
 			stats.setCurrentComboPoints(stats.getMaxComboPoints());
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffResources [maxHealth=" + maxHealth + "\ncurrentHealth=" + currentHealth + "\nmaxEnergy=" + maxEnergy
+				+ "\ncurrentEnergy=" + currentEnergy + "\nmaxComboPoints=" + maxComboPoints + "\ncurrentComboPoints="
+				+ currentComboPoints + "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 }

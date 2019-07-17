@@ -1,5 +1,7 @@
 package guiElements;
 
+import attacks.FullAttack;
+import attacks.Move;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -39,6 +41,9 @@ public class AttackMakerFullAttack extends AttackMakerMoveNode{
 	HBox cooldownLine = new HBox();
 	Label cooldownLabel = new Label("cooldown : ");
 	TextField cooldownEntry = new TextField();
+	HBox cooldownCounterLine = new HBox();
+	Label cooldownCounterLabel = new Label("Cooldown Counter : ");
+	TextField cooldownCounterEntry = new TextField();
 	
 	HBox physicalPowerLine = new HBox();
 	Label physicalPowerLabel = new Label("Physical Power : ");
@@ -88,6 +93,7 @@ public class AttackMakerFullAttack extends AttackMakerMoveNode{
 		this.comboPointRequirementLine.getChildren().addAll(this.comboPointRequirementLabel, this.comboPointRequirementEntry);
 		this.timeLine.getChildren().addAll(this.timeLabel, this.timeEntry);
 		this.cooldownLine.getChildren().addAll(this.cooldownLabel, this.cooldownEntry);
+		this.cooldownCounterLine.getChildren().addAll(this.cooldownCounterLabel, this.cooldownCounterEntry);
 		this.physicalPowerLine.getChildren().addAll(this.physicalPowerLabel, this.physicalPowerEntry);
 		this.magicalPowerLine.getChildren().addAll(this.magicalPowerLabel, this.magicalPowerEntry);
 		this.bonusDamageLine.getChildren().addAll(this.bonusDamageLabel, this.bonusDamageEntry);
@@ -100,8 +106,44 @@ public class AttackMakerFullAttack extends AttackMakerMoveNode{
 		
 		this.container.getChildren().addAll(nameLine, descriptionLine, customTextLine, keywordsLine, energyCostLine,
 				usesLine, comboPointGainLine, comboPointRequirementLine, timeLine, cooldownLine, 
-				physicalPowerLine, magicalPowerLine, bonusDamageLine, accuracyLine,
+				cooldownCounterLine, physicalPowerLine, magicalPowerLine, bonusDamageLine, accuracyLine,
 				avoidabilityLine, critLine, penetrationLine, rangedAttackLine, priorityLine, this.submitButton);
+	}
+
+	@Override
+	public Move generateAttack() {
+		Move temp = null;
+		try {
+			temp = new FullAttack(
+					this.nameEntry.getText(),
+					this.descriptionEntry.getText(),
+					this.customTextEntry.getText(),
+					this.keywordsEntry.getText().split(", "),
+					Integer.parseInt(this.energyCostEntry.getText()),
+					Integer.parseInt(this.usesEntry.getText()),
+					Integer.parseInt(this.usesEntry.getText()),
+					Integer.parseInt(this.comboPointGainEntry.getText()),
+					Integer.parseInt(this.comboPointRequirementEntry.getText()),
+					Integer.parseInt(this.timeEntry.getText()),
+					Integer.parseInt(this.cooldownEntry.getText()),
+					Integer.parseInt(this.cooldownCounterEntry.getText()),
+					this.self.getBuff(),
+					this.target.getBuff(),
+					null,
+					Double.parseDouble(this.physicalPowerEntry.getText()),
+					Double.parseDouble(this.magicalPowerEntry.getText()),
+					Double.parseDouble(this.bonusDamageEntry.getText()),
+					Double.parseDouble(this.accuracyEntry.getText()),
+					Double.parseDouble(this.avoidabilityEntry.getText()),
+					Double.parseDouble(this.critEntry.getText()),
+					Double.parseDouble(this.penetrationEntry.getText()),
+					this.rangedAttackEntry.isSelected(),
+					this.priorityEntry.isSelected());
+		}
+		catch (Exception ex) {
+			temp = null;
+		}
+		return temp;
 	}
 
 	public VBox getContainer() {

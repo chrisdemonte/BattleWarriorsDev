@@ -31,6 +31,12 @@ public class BuffFear extends BuffEffect{
 
 
 	}
+
+	@Override
+	public String toString() {
+		return "BuffFear [fear=" + fear + "\nintimidation=" + intimidation + "\nchance=" + chance + "\nkeyword="
+				+ keyword + "]";
+	}
 	
 
 }

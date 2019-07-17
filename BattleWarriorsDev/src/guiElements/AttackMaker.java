@@ -1,5 +1,6 @@
 package guiElements;
 
+import attacks.Move;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -30,6 +31,10 @@ public class AttackMaker {
 		
 		container.getTabs().addAll(attackMain, selfBuff, targetBuff);
 		
+	}
+	
+	public Move createMove() {
+		return moveMaker.getMoveNode().generateAttack();
 	}
 
 	public TabPane getContainer() {

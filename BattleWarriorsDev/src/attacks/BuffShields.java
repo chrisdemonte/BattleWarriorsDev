@@ -72,6 +72,13 @@ public class BuffShields extends BuffEffect{
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffShields [barrier=" + barrier + "\nbarrierCounter=" + barrierCounter + "\nphysicalShield="
+				+ physicalShield + "\nphysicalShieldCounter=" + physicalShieldCounter + "\nmagicShield=" + magicShield
+				+ "\nmagicShieldCounter=" + magicShieldCounter + "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 }

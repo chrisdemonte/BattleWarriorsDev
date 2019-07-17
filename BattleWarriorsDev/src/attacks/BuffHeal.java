@@ -101,5 +101,11 @@ public class BuffHeal extends BuffEffect{
 			stats.setCurrentHealth(stats.getMaxHealth());
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffHeal [physicalMod=" + physicalMod + "\nmagicMod=" + magicMod + "\nbonusHealing=" + bonusHealing
+				+ "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 }

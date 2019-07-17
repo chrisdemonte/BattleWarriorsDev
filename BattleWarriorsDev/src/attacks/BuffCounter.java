@@ -53,6 +53,12 @@ public class BuffCounter extends BuffEffect{
 			
 		}
 	}
+	@Override
+	public String toString() {
+		return "BuffCounter [countering=" + countering + "\ncounteringCounter=" + counteringCounter + "\nreflecting="
+				+ reflecting + "\nreflectingCounter=" + reflectingCounter + "\nchance=" + chance + "\nkeyword="
+				+ keyword + "]";
+	}
 	
 	
 

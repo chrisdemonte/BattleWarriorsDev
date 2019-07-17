@@ -27,6 +27,13 @@ public class BuffKeyword extends BuffEffect{
 		// TODO Auto-generated method stub
 		super.doBuffEffect(target, self, log);
 	}
+
+	@Override
+	public String toString() {
+		return "BuffKeyword [selfKeyword=" + selfKeyword + "\nselfKeywordCounter=" + selfKeywordCounter
+				+ "\ntargetKeyword=" + targetKeyword + "\ntargetKeywordCounter=" + targetKeywordCounter + "\nchance="
+				+ chance + "\nkeyword=" + keyword + "]";
+	}
 	
 
 }

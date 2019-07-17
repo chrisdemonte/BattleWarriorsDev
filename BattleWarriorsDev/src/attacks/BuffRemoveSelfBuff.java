@@ -1,6 +1,7 @@
 package attacks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import models.Player;
 import utilities.BattleLog;
@@ -29,6 +30,12 @@ public class BuffRemoveSelfBuff extends BuffEffect{
 				}
 			}
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "BuffRemoveSelfBuff [keywords=" + Arrays.toString(keywords) + "\nchance=" + chance + "\nkeyword="
+				+ keyword + "]";
 	}
 	
 	

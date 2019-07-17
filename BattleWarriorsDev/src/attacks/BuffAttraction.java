@@ -28,6 +28,11 @@ public class BuffAttraction extends BuffEffect{
 			
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffBind [chance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 	

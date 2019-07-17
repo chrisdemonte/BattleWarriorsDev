@@ -48,5 +48,13 @@ public class AttackMakerMovePane {
 		this.container = container;
 	}
 
+	public AttackMakerMoveNode getMoveNode() {
+		return moveNode;
+	}
+
+	public void setMoveNode(AttackMakerMoveNode moveNode) {
+		this.moveNode = moveNode;
+	}
+
 	
 }

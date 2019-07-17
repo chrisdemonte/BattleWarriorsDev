@@ -31,6 +31,12 @@ public class BuffWeather extends BuffEffect{
 		}
 		
 	}
+
+	@Override
+	public String toString() {
+		return "BuffWeather [weatherProof=" + weatherProof + "\nweatherProofCounter=" + weatherProofCounter
+				+ "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 }

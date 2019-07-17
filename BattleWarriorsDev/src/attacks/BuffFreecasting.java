@@ -44,6 +44,13 @@ public class BuffFreecasting extends BuffEffect {
 		}
 	
 	}
+
+	@Override
+	public String toString() {
+		return "BuffFreecasting [freecasting=" + freecasting + "\nfreecastingCounter=" + freecastingCounter
+				+ "\nexhausted=" + exhausted + "\nexhaustedCounter=" + exhaustedCounter + "\nchance=" + chance
+				+ "\nkeyword=" + keyword + "]";
+	}
 	
 	
 }

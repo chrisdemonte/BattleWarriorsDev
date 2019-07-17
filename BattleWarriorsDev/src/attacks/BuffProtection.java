@@ -53,6 +53,13 @@ public class BuffProtection extends BuffEffect{
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffProtection [protection=" + protection + "\nprotectionCounter=" + protectionCounter + "\nimmunity="
+				+ immunity + "\nimmunityCounter=" + immunityCounter + "\nchance=" + chance + "\nkeyword=" + keyword
+				+ "]";
+	}
 	
 	
 

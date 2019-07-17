@@ -32,6 +32,11 @@ public class BuffEnchanted extends BuffEffect{
 			
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffEnchanted [chance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 
 }

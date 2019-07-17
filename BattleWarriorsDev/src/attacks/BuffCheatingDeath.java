@@ -29,6 +29,12 @@ public class BuffCheatingDeath extends BuffEffect{
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "BuffCheatingDeath [cheatingDeath=" + cheatingDeath + "\ncheatingDeathCounter=" + cheatingDeathCounter
+				+ "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 

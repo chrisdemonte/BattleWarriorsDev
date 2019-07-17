@@ -42,6 +42,11 @@ public class BuffSelfHarm extends BuffEffect{
 			}
 		}
 	}
+	@Override
+	public String toString() {
+		return "BuffSelfHarm [enraged=" + enraged + "\nenragedCounter=" + enragedCounter + "\nselfHarm=" + selfHarm
+				+ "\nselfHarmCounter=" + selfHarmCounter + "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 }

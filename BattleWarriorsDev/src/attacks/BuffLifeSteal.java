@@ -29,6 +29,11 @@ public class BuffLifeSteal extends BuffEffect{
 			tStats.setCurrentHealth(tStats.getMaxHealth());
 		}
 	}
+	@Override
+	public String toString() {
+		return "BuffLifeSteal [percentTargetHealth=" + percentTargetHealth + "\npercentSelfHealth=" + percentSelfHealth
+				+ "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 }

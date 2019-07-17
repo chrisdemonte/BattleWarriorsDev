@@ -140,6 +140,15 @@ public class BuffSecondaryStats extends BuffEffect{
 		 }
 		
 	}
+
+	@Override
+	public String toString() {
+		return "BuffSecondaryStats [damageSpike=" + damageSpike + "\ncrit=" + crit + "\ncritMod=" + critMod
+				+ "\naccuracy=" + accuracy + "\naccuracyMod=" + accuracyMod + "\navoidance=" + avoidance
+				+ "\navoidanceMod=" + avoidanceMod + "\nblocking=" + blocking + "\nblockingMod=" + blockingMod
+				+ "\npenetration=" + penetration + "\npenetrationMod=" + penetrationMod + "\nchance=" + chance
+				+ "\nkeyword=" + keyword + "]";
+	}
 	
 	
 	

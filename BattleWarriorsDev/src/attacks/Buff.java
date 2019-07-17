@@ -1,6 +1,7 @@
 package attacks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import models.BattleStats;
 import models.Player;
@@ -65,6 +66,41 @@ public class Buff {
 		else {
 			this.counter -= 1;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		String temp = "\nBuff [name=" + name + "\ndescription=" + description + "\ninitial="; 
+		
+		if (this.initial != null) {
+			for (int i = 0; i < this.initial.size(); i++) {
+				temp += "\n" + initial.get(i);
+			}
+		}
+		else {
+			temp += "null";
+		}
+		temp += "\nperiodic="; 
+		if (this.periodic!= null) {
+			for (int i = 0; i < periodic.size(); i++) {
+				temp+= "\n" + periodic.get(i);
+			}
+		}
+		else {
+			temp += "null";
+		}
+		if (this.end!= null) {
+			for (int i = 0; i < end.size(); i++) {
+				temp+= "\n" + end.get(i);
+			}
+		}
+		else {
+			temp += "null";
+		}
+		temp += "\nduration=" + duration + "\ncounter=" + counter + "\ninitialChance="
+				+ initialChance + "\nperiodicChance=" + periodicChance + "\nkeywords=" + Arrays.toString(keywords)
+				+ "\ncustom=" + custom + "]";
+		return temp;
 	}
 	public String getName() {
 		return name;

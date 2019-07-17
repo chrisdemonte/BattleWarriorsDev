@@ -163,6 +163,14 @@ public class BuffActions extends BuffEffect{
 	public void setLockedCounter(int lockedCounter) {
 		this.lockedCounter = lockedCounter;
 	}
+
+	@Override
+	public String toString() {
+		return "BuffActions \ncanAttack=" + canAttack + "\ncanAttackCounter=" + canAttackCounter + "\ncanUseItems="
+				+ canUseItems + "\ncanUseItemsCounter=" + canUseItemsCounter + "\ncanSkipTurn=" + canSkipTurn
+				+ "\ncanSkipTurnCounter=" + canSkipTurnCounter + "\ncanRun=" + canRun + "\ncanRunCounter="
+				+ canRunCounter + "\nlocked=" + locked + "\nlockedCounter=" + lockedCounter + "]";
+	}
 	
 	
 	

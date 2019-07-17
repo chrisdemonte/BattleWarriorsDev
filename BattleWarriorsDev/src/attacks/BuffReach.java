@@ -55,6 +55,12 @@ public class BuffReach extends BuffEffect{
 			}
 		}
 	}
+	@Override
+	public String toString() {
+		return "BuffReach [outOfReach=" + outOfReach + "\noutOfReachCounter=" + outOfReachCounter + "\nreach=" + reach
+				+ "\nreachCounter=" + reachCounter + "\nhidden=" + hidden + "\nhiddenCounter=" + hiddenCounter
+				+ "\nchance=" + chance + "\nkeyword=" + keyword + "]";
+	}
 	
 	
 

@@ -42,5 +42,11 @@ public class BuffTime extends BuffEffect{
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "BuffTime [actionTime=" + actionTime + "\ndaze=" + daze + "\nhaste=" + haste + "\nchance=" + chance
+				+ "\nkeyword=" + keyword + "]";
+	}
+
 	
 }
