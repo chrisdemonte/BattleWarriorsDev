@@ -10,7 +10,7 @@ public class AttackMakerFullAttack extends AttackMakerMoveNode{
 
 	
 	HBox nameLine = new HBox();
-	Label nameLabel = new Label("name : ");
+	Label nameLabel = new Label("Name : ");
 	TextField nameEntry = new TextField();
 	HBox descriptionLine = new HBox();
 	Label descriptionLabel = new Label("Description : ");
@@ -68,8 +68,13 @@ public class AttackMakerFullAttack extends AttackMakerMoveNode{
 	Label priorityLabel = new Label("priority : ");
 	CheckBox priorityEntry = new CheckBox();
 	
-	public AttackMakerFullAttack () {
+	BuffMaker self;
+	BuffMaker target;
+	
+	public AttackMakerFullAttack (BuffMaker self, BuffMaker target) {
 		this.generateLayout();
+		this.self = self;
+		this.target = target;
 	}
 
 	private void generateLayout() {

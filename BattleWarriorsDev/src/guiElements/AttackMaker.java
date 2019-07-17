@@ -10,11 +10,12 @@ public class AttackMaker {
 	Tab selfBuff = new Tab();
 	Tab targetBuff = new Tab();
 	
-	AttackMakerMovePane moveMaker = new AttackMakerMovePane();
+	AttackMakerMovePane moveMaker;
 	BuffMaker selfBuffMaker = new BuffMaker();
 	BuffMaker targetBuffMaker = new BuffMaker();
 	
 	public AttackMaker () {
+		this.moveMaker = new AttackMakerMovePane(selfBuffMaker, targetBuffMaker);
 		this.generateLayout();
 	}
 

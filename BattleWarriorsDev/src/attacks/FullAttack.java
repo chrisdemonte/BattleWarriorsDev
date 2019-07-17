@@ -20,11 +20,11 @@ public class FullAttack extends Move{
 	boolean rangedAttack;
 	boolean priority;
 	
-	public FullAttack(String name, String description, String[] keywords,int energyCost, int uses, int currentUses, int comboPointGain,
+	public FullAttack(String name, String description, String customText, String[] keywords,int energyCost, int uses, int currentUses, int comboPointGain,
 			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
 			BaseStats requirements, double physicalPower, double magicPower, double bonusDamage, double accuracy,
 			double avoidability, double crit, double penetration, boolean rangedAttack, boolean priority ) {
-		super(name, description, keywords, energyCost, uses, currentUses, comboPointGain, comboPointRequirement, time, cooldown,
+		super(name, description, customText, keywords, energyCost, uses, currentUses, comboPointGain, comboPointRequirement, time, cooldown,
 				cooldownCounter, self, target, requirements);
 		this.physicalPower = physicalPower;
 		this.magicPower = magicPower;
@@ -39,7 +39,7 @@ public class FullAttack extends Move{
 	}
 
 	public FullAttack () {
-		super("Sample Attack", "You strike a foe on the body and/or head", null, 1, 50, 50, 0, 0, 1000, 0, 0, null, null, null);
+		super("Sample Attack", "You strike a foe on the body and/or head", "",null, 1, 50, 50, 0, 0, 1000, 0, 0, null, null, null);
 		this.physicalPower = 1.0;
 		this.magicPower = 1.0;
 		this.bonusDamage = 5;
@@ -82,7 +82,12 @@ public class FullAttack extends Move{
 		//hit, miss, or enemy dodge
 		
 		boolean makeContact = true;
-		if (rand.nextInt(100) > ((selfStats.getAccuracy() * selfStats.getAccuracyMod()) + this.accuracy) && makeContact) {
+		if (targetStats.isOutOfReach() && !selfStats.isReach() && !this.rangedAttack) {
+			makeContact = false;
+			log.getLog().add(self.getName() + "'s " + this.getName() + " missed.");
+			log.setLogLength(log.getLogLength() + 1);
+		}
+		if (makeContact && rand.nextInt(100) > ((selfStats.getAccuracy() * selfStats.getAccuracyMod()) + this.accuracy)) {
 			
 			makeContact = false;
 			log.getLog().add(self.getName() + "'s " + this.getName() + " missed.");
