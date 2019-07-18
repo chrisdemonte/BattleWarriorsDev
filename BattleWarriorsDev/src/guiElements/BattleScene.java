@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import models.Player;
 
 public class BattleScene {
 	
@@ -48,6 +49,9 @@ public class BattleScene {
 	public BattleScene(int width, int height){
 		
 		this.generateLayout(width, height);
+	}
+	public BattleScene(Player self, Player enemy) {
+		this.generateLayout(1400, 900);
 	}
 
 	private void generateLayout(int width, int height) {

@@ -3,6 +3,7 @@ package utilities;
 import guiElements.AttackMaker;
 import guiElements.BaseStatEditor;
 import guiElements.BattleScene;
+import guiElements.BattleSelectionTab;
 import guiElements.BattleStatCreator;
 import guiElements.BuffEffectListMaker;
 import guiElements.BuffMaker;
@@ -27,9 +28,10 @@ public class Runner extends Application {
 		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
 		//BattleStatCreator editor = new BattleStatCreator();
 		//BuffEffectListMaker editor = new BuffEffectListMaker("Test");
-		AttackMaker editor = new AttackMaker();
+	//	AttackMaker editor = new AttackMaker();
+		BattleSelectionTab tab = new BattleSelectionTab();
 		//BattleScene pane = new BattleScene(1200, 800);
-		root.getChildren().add(editor.getContainer());
+		root.getChildren().add(tab.getContainer());
 		Scene scene = new Scene(window);
 		
 		mainStage.setScene(scene);

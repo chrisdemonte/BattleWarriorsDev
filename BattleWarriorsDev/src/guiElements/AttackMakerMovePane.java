@@ -23,6 +23,7 @@ public class AttackMakerMovePane {
 		selector.getSelectionModel().selectFirst();
 		this.setSelectorAction(self, target);
 		moveNode = new AttackMakerFullAttack(self, target);
+		
 		container.getChildren().addAll(selector, moveNode.getContainer());
 		
 	}
