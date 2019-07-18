@@ -190,7 +190,10 @@ public class BuffEffectListMaker {
 		this.title = title;
 	}
 
-	public ArrayList<BuffEffect> getList() {
+	public ArrayList<BuffEffect> getList(){
+		return this.list;
+	}
+	public ArrayList<BuffEffect> generateList() {
 		list.clear();
 		for (int i = 0; i < buffNodes.size(); i++) {
 			if (buffNodes.get(i).createBuffEffect() != null) {

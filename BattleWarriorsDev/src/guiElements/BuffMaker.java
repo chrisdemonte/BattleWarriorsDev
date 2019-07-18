@@ -73,9 +73,9 @@ public class BuffMaker {
 			theBuff = new Buff(
 					this.nameEntry.getText(),
 					this.descriptionEntry.getText(),
-					this.initialBuffMaker.getList(),
-					this.periodicBuffMaker.getList(),
-					this.endBuffMaker.getList(),
+					this.initialBuffMaker.generateList(),
+					this.periodicBuffMaker.generateList(),
+					this.endBuffMaker.generateList(),
 					Integer.parseInt(this.durationEntry.getText()),
 					Integer.parseInt(this.durationEntry.getText()),
 					Integer.parseInt(this.intialChanceEntry.getText()),
