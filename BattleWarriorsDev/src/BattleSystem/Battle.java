@@ -12,16 +12,16 @@ public class Battle {
 	Player self;
 	Player enemy;
 	
-	ArrayList<Move> selfPriorityAttacks = new ArrayList<Move>();
-	ArrayList<Move> selfAttacks = new ArrayList<Move>();
-	int selfTimeCounter;
-	boolean selfTryingToRun;
-	boolean selfSkippingTurn;
-	ArrayList<Move> enemyPriorityAttacks = new ArrayList<Move>();
-	ArrayList<Move> enemyAttacks = new ArrayList<Move>();
-	int enemyTimeCounter;
-	boolean enemyTryingToRun;
-	boolean enemySkippingTurn;
+	ArrayList<Move> fasterPriorityAttacks = new ArrayList<Move>();
+	ArrayList<Move> fasterAttacks = new ArrayList<Move>();
+	int fasterTimeCounter;
+	boolean fasterTryingToRun;
+	boolean fasterSkippingTurn;
+	ArrayList<Move> slowerPriorityAttacks = new ArrayList<Move>();
+	ArrayList<Move> slowerAttacks = new ArrayList<Move>();
+	int slowerTimeCounter;
+	boolean slowerTryingToRun;
+	boolean slowerSkippingTurn;
 	
 	BattleScene arena;
 	
@@ -41,6 +41,19 @@ public class Battle {
 		else {
 			faster = enemy;
 			slower = self;
+		}
+		//************set the faster and slower attack selections
+		for (int i = 0; i < fasterPriorityAttacks.size(); i++) {
+			fasterPriorityAttacks.get(i).makeMove(faster, slower, arena.getBattleLog());
+		}
+		for (int i = 0; i < slowerPriorityAttacks.size(); i++) {
+			slowerPriorityAttacks.get(i).makeMove(slower, slower, arena.getBattleLog());
+		}
+		for (int i = 0; i < fasterAttacks.size(); i++) {
+			fasterPriorityAttacks.get(i).makeMove(faster, slower, arena.getBattleLog());
+		}
+		for (int i = 0; i < slowerAttacks.size(); i++) {
+			slowerPriorityAttacks.get(i).makeMove(slower, slower, arena.getBattleLog());
 		}
 	}
 

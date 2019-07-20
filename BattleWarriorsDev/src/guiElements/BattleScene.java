@@ -23,6 +23,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import models.Player;
+import utilities.BattleLog;
 
 public class BattleScene {
 	
@@ -40,6 +41,8 @@ public class BattleScene {
 	
 	HealthBar playerBar;
 	HealthBar enemyBar;
+	
+	BattleLog battleLog = new BattleLog();
 	
 	Pane battleWindow = new Pane();
 	Pane actionPane = new Pane();
@@ -121,6 +124,12 @@ public class BattleScene {
 
 	public void setRoot(Pane root) {
 		this.root = root;
+	}
+	public BattleLog getBattleLog() {
+		return battleLog;
+	}
+	public void setBattleLog(BattleLog battleLog) {
+		this.battleLog = battleLog;
 	}
 	
 	
