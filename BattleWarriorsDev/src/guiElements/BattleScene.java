@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import BattleSystem.Battle;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,12 +50,15 @@ public class BattleScene {
 	Pane attackPane = new Pane();
 	Pane logPane = new Pane();
 	
+	Battle battle;
+	
 	public BattleScene(int width, int height){
 		
 		this.generateLayout(width, height);
 	}
 	public BattleScene(Player self, Player enemy) {
 		this.generateLayout(1400, 900);
+		//this.battle = new Battle(self, enemy);
 	}
 
 	private void generateLayout(int width, int height) {

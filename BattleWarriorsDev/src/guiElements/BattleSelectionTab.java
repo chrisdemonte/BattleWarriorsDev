@@ -17,6 +17,8 @@ public class BattleSelectionTab {
 	Label infoLabel = new Label();
 	Tooltip toolTip = new Tooltip();
 	
+	Move attack = null;
+	
 	public BattleSelectionTab() {
 		nameLabel.setText("Name");
 		nameLabel.setTooltip(toolTip);
@@ -32,6 +34,7 @@ public class BattleSelectionTab {
 		container.getChildren().addAll(row1, row2);
 	}
 	public BattleSelectionTab(Move attack, BattleScene arena) {
+		this.attack = attack;
 		nameLabel.setText(attack.getName());
 		nameLabel.setTooltip(toolTip);
 		nameLabel.setMinSize(120, 20);
@@ -66,6 +69,12 @@ public class BattleSelectionTab {
 
 	public void setNameLabel(Label nameLabel) {
 		this.nameLabel = nameLabel;
+	}
+	public Move getAttack() {
+		return attack;
+	}
+	public void setAttack(Move attack) {
+		this.attack = attack;
 	}
 	
 	

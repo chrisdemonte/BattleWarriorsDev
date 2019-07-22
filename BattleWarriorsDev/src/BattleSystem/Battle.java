@@ -17,6 +17,7 @@ public class Battle {
 	int fasterTimeCounter;
 	boolean fasterTryingToRun;
 	boolean fasterSkippingTurn;
+	
 	ArrayList<Move> slowerPriorityAttacks = new ArrayList<Move>();
 	ArrayList<Move> slowerAttacks = new ArrayList<Move>();
 	int slowerTimeCounter;
@@ -48,6 +49,15 @@ public class Battle {
 		}
 		for (int i = 0; i < slowerPriorityAttacks.size(); i++) {
 			slowerPriorityAttacks.get(i).makeMove(slower, slower, arena.getBattleLog());
+		}
+		result = this.whosFasfter();
+		if (result == 0) {
+			faster = self;
+			slower = enemy;
+		}
+		else {
+			faster = enemy;
+			slower = self;
 		}
 		for (int i = 0; i < fasterAttacks.size(); i++) {
 			fasterPriorityAttacks.get(i).makeMove(faster, slower, arena.getBattleLog());
