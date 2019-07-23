@@ -13,7 +13,9 @@ public class BattleSelectionPane {
 	
 	ArrayList<Move> priorityAttacks;
 	ArrayList<Move> attacks;
+	
 	ArrayList<Move> attackList;
+	ArrayList<Move> unusableAttacks;
 	
 	ArrayList<BattleSelectionTab> choice = new ArrayList<BattleSelectionTab>();
 	
@@ -25,15 +27,29 @@ public class BattleSelectionPane {
 	Button clearButton; 
 	Button submitButton;
 	
-	BattleScene arena;
+	BattleScene arena = null;
+	Player player = null;
 	
 	public BattleSelectionPane (){
 		
 	}
 	public BattleSelectionPane (BattleScene arena, Player player) {
 		this.arena = arena;
+		this.player = player;
 		this.attackList = player.getAttacks().getMoveList();
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
+		this.timeCounter = player.getBattleStats().getActionTime();
+	}
+	public void resetList () {
+		int counter = 0;
+		while (counter < attackList.size()) {
+			Move attack = attackList.get(counter);
+			if (attack.getCooldownCounter() == 0 && 
+					(this.player.getBattleStats().getCurrentComboPoints() >= attack.getComboPointRequirement()) &&
+					(this.player.getBattleStats().getCurrentEnergy() >= attack.getEnergyCost()) &&
+					attack.getUses() > 0)
+			counter++;
+		}
 	}
 
 }
