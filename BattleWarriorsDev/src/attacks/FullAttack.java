@@ -19,14 +19,14 @@ public class FullAttack extends Move{
 	double crit;
 	double penetration; 
 	boolean rangedAttack;
-	boolean priority;
+	
 	
 	public FullAttack(String name, String description, String customText, String[] keywords,int energyCost, int uses, int currentUses, int comboPointGain,
 			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
 			BaseStats requirements, double physicalPower, double magicPower, double bonusDamage, double accuracy,
 			double avoidability, double crit, double penetration, boolean rangedAttack, boolean priority ) {
 		super(name, description, customText, keywords, energyCost, uses, currentUses, comboPointGain, comboPointRequirement, time, cooldown,
-				cooldownCounter, self, target, requirements);
+				cooldownCounter, priority, self, target, requirements);
 		this.physicalPower = physicalPower;
 		this.magicPower = magicPower;
 		this.bonusDamage = bonusDamage;
@@ -35,12 +35,12 @@ public class FullAttack extends Move{
 		this.crit = crit;
 		this.penetration = penetration;
 		this.rangedAttack = rangedAttack;
-		this.priority = priority;
+		
 	
 	}
 
 	public FullAttack () {
-		super("Sample Attack", "You strike a foe on the body and/or head", "",null, 1, 50, 50, 0, 0, 1000, 0, 0, null, null, null);
+		super("Sample Attack", "You strike a foe on the body and/or head", "",null, 1, 50, 50, 0, 0, 1000, 0, 0, false, null, null, null);
 		this.physicalPower = 1.0;
 		this.magicPower = 1.0;
 		this.bonusDamage = 5;

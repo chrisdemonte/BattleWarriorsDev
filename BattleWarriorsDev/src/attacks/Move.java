@@ -19,6 +19,7 @@ public abstract class Move {
 	int time;
 	int cooldown;
 	int cooldownCounter;
+	boolean priority;
 	
 	Buff self;
 	Buff target;
@@ -27,7 +28,7 @@ public abstract class Move {
 	BattleAnimation animation;
 	
 	public Move(String name, String description, String customText, String[] keywords, int energyCost, int uses, int currentUses, int comboPointGain,
-			int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self, Buff target,
+			int comboPointRequirement, int time, int cooldown, int cooldownCounter, boolean priority, Buff self, Buff target,
 			BaseStats requirements) {
 		super();
 		this.name = name;
@@ -42,6 +43,7 @@ public abstract class Move {
 		this.time = time;
 		this.cooldown = cooldown;
 		this.cooldownCounter = cooldownCounter;
+		this.priority = priority;
 		this.self = self;
 		this.target = target;
 		this.requirements = requirements;
@@ -153,6 +155,24 @@ public abstract class Move {
 	}
 	public void setCooldownCounter(int cooldownCounter) {
 		this.cooldownCounter = cooldownCounter;
+	}
+	public String getCustomText() {
+		return customText;
+	}
+	public void setCustomText(String customText) {
+		this.customText = customText;
+	}
+	public String[] getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(String[] keywords) {
+		this.keywords = keywords;
+	}
+	public boolean isPriority() {
+		return priority;
+	}
+	public void setPriority(boolean priority) {
+		this.priority = priority;
 	}
 	
 	
