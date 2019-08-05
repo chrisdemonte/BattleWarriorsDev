@@ -1,10 +1,13 @@
 package attacks;
 
+import java.io.Serializable;
+
 import models.Player;
 import utilities.BattleLog;
 
-public class BuffDamage extends BuffEffect{
+public class BuffDamage extends BuffEffect {
 
+	private static final long serialVersionUID = -8860292748788196122L;
 	double physicalMod;
 	double magicMod;
 	double bonusDamage;

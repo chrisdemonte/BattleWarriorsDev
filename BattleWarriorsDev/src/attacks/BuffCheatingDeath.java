@@ -1,11 +1,14 @@
 package attacks;
 
+import java.io.Serializable;
+
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
 
-public class BuffCheatingDeath extends BuffEffect{
-	
+public class BuffCheatingDeath extends BuffEffect {
+
+	private static final long serialVersionUID = -1150038531174901584L;
 	boolean cheatingDeath;
 	int cheatingDeathCounter;
 	

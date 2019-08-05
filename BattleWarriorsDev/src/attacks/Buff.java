@@ -1,5 +1,6 @@
 package attacks;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,8 +8,9 @@ import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
 
-public class Buff {
+public class Buff implements Serializable{
 	
+	private static final long serialVersionUID = 1954235966522599290L;
 	String name;
 	String description;
 	ArrayList<BuffEffect> initial;

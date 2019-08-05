@@ -1,12 +1,16 @@
 package attacks;
 
+import java.io.Serializable;
+
 import BattleAnimation.BattleAnimation;
 import models.BaseStats;
 import models.Player;
 import utilities.BattleLog;
 
-public abstract class Move {
+public abstract class Move implements Serializable{
 	
+
+	private static final long serialVersionUID = 8651754386121982630L;
 	String name;
 	String description;
 	String customText;

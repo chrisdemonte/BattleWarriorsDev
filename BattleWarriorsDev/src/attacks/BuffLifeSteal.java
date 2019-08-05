@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffLifeSteal extends BuffEffect{
 
+	private static final long serialVersionUID = 4630284988556034384L;
 	double percentTargetHealth;
 	double percentSelfHealth;
 	

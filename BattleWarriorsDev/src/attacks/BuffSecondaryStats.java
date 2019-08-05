@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffSecondaryStats extends BuffEffect{
 	
+	private static final long serialVersionUID = -437182298682238203L;
 	int damageSpike;
 	double crit;
 	double critMod;

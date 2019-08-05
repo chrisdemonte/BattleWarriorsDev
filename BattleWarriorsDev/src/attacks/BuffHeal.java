@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffHeal extends BuffEffect{
 
+	private static final long serialVersionUID = 5875006199984219207L;
 	double physicalMod;
 	double magicMod;
 	double bonusHealing;

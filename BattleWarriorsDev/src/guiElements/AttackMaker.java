@@ -3,6 +3,7 @@ package guiElements;
 import attacks.Move;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import utilities.FileManager;
 
 public class AttackMaker {
 	
@@ -14,6 +15,8 @@ public class AttackMaker {
 	AttackMakerMovePane moveMaker;
 	BuffMaker selfBuffMaker = new BuffMaker();
 	BuffMaker targetBuffMaker = new BuffMaker();
+	
+	FileManager manager = new FileManager();
 	
 	public AttackMaker () {
 		this.moveMaker = new AttackMakerMovePane(selfBuffMaker, targetBuffMaker);
@@ -35,6 +38,9 @@ public class AttackMaker {
 	
 	public Move createMove() {
 		return moveMaker.getMoveNode().generateAttack();
+	}
+	public void saveMove() {
+		this.manager.saveMove(this.moveMaker.getMoveNode().generateAttack());
 	}
 
 	public TabPane getContainer() {

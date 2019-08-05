@@ -1,12 +1,16 @@
 package attacks;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
 
-public class BuffConfusion extends BuffEffect{
+public class BuffConfusion extends BuffEffect {
+
+
+	private static final long serialVersionUID = -7409751857552047965L;
 
 	public BuffConfusion(int chance) {
 		super(chance);

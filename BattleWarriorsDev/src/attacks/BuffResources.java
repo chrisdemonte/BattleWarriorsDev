@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffResources extends BuffEffect{
 
+	private static final long serialVersionUID = 385608579548839044L;
 	int maxHealth;
 	int currentHealth;
 	int maxEnergy;

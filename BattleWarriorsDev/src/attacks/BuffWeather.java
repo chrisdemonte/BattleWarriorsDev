@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffWeather extends BuffEffect{
 
+	private static final long serialVersionUID = 2610919093428759592L;
 	boolean weatherProof;
 	int weatherProofCounter;
 	

@@ -8,6 +8,8 @@ import utilities.BattleLog;
 
 public class BuffGrab extends BuffEffect{
 
+	private static final long serialVersionUID = 1L;
+
 	public BuffGrab(int chance) {
 		super(chance);
 		this.keyword = "grab";

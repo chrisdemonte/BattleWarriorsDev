@@ -8,6 +8,7 @@ import utilities.BattleLog;
 
 public class BuffRemoveTargetBuff extends BuffEffect{
 
+	private static final long serialVersionUID = 7374374552711529129L;
 	String[] keywords;
 
 	public BuffRemoveTargetBuff(int chance, String[] keywords) {

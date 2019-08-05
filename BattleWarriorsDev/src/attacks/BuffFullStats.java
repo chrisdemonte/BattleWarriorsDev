@@ -6,7 +6,9 @@ import utilities.BattleLog;
 
 public class BuffFullStats extends BuffEffect {
 	
-BattleStats stats;
+
+	private static final long serialVersionUID = -146531633100552495L;
+	BattleStats stats;
 	
 	public BuffFullStats(int chance, BattleStats stats) {
 		super(chance);

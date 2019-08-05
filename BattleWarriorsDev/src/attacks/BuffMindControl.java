@@ -8,6 +8,8 @@ import utilities.BattleLog;
 
 public class BuffMindControl extends BuffEffect {
 
+	private static final long serialVersionUID = 1531599876635484104L;
+
 	public BuffMindControl(int chance) {
 		super(chance);
 		this.keyword = "mind control";

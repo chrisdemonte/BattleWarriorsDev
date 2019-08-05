@@ -1,12 +1,14 @@
 package attacks;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import models.Player;
 import utilities.BattleLog;
 
-public class BuffEffect {
+public class BuffEffect implements Serializable {
 
+	private static final long serialVersionUID = -2073938376105187425L;
 	int chance;
 	String keyword = "";
 	

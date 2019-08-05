@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffSelfHarm extends BuffEffect{
 
+	private static final long serialVersionUID = 2054899987872560988L;
 	boolean enraged;
 	int enragedCounter;
 	boolean selfHarm;

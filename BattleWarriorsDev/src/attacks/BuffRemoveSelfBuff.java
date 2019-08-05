@@ -8,6 +8,7 @@ import utilities.BattleLog;
 
 public class BuffRemoveSelfBuff extends BuffEffect{
 
+	private static final long serialVersionUID = 6426178069472703496L;
 	String[] keywords;
 
 	public BuffRemoveSelfBuff(int chance, String[] keywords) {

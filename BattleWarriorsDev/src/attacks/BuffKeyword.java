@@ -5,14 +5,12 @@ import utilities.BattleLog;
 
 public class BuffKeyword extends BuffEffect{
 
+	private static final long serialVersionUID = 4092877885619224334L;
 	String selfKeyword;
 	int selfKeywordCounter;
 	String targetKeyword;
 	int targetKeywordCounter;
 	
-	
-	
-
 	public BuffKeyword(int chance, String selfKeyword, int selfKeywordCounter, String targetKeyword,
 			int targetKeywordCounter) {
 		super(chance);

@@ -10,6 +10,8 @@ import utilities.BattleLog;
 
 public class FullAttack extends Move{
 	
+
+	private static final long serialVersionUID = 3317491816116719451L;
 	double physicalPower;
 	double magicPower;
 	double bonusDamage;
@@ -40,7 +42,7 @@ public class FullAttack extends Move{
 	}
 
 	public FullAttack () {
-		super("Sample Attack", "You strike a foe on the body and/or head", "",null, 1, 50, 50, 0, 0, 1000, 0, 0, false, null, null, null);
+		super("Sample Attack", "You strike a foe on the body and/or head", "",null, 1, 50, 50, 0, 0, 600, 0, 0, false, null, null, null);
 		this.physicalPower = 1.0;
 		this.magicPower = 1.0;
 		this.bonusDamage = 5;

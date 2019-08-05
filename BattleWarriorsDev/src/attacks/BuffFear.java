@@ -1,11 +1,14 @@
 package attacks;
 
+import java.io.Serializable;
+
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
 
-public class BuffFear extends BuffEffect{
-	
+public class BuffFear extends BuffEffect {
+
+	private static final long serialVersionUID = -4130928895872766847L;
 	double fear;
 	double intimidation;
 	

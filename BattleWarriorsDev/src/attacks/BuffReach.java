@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffReach extends BuffEffect{
 	
+	private static final long serialVersionUID = 5543866616502880753L;
 	boolean outOfReach;
 	int outOfReachCounter;
 	boolean reach;

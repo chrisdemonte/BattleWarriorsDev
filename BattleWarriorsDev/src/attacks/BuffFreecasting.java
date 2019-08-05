@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffFreecasting extends BuffEffect {
 
+	private static final long serialVersionUID = -3769242791222441616L;
 	boolean freecasting;
 	int freecastingCounter;
 	boolean exhausted;

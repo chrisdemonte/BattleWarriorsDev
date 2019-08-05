@@ -1,12 +1,16 @@
 package attacks;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
 
-public class BuffAttraction extends BuffEffect{
+public class BuffAttraction extends BuffEffect {
+
+
+	private static final long serialVersionUID = -8317796610613304586L;
 
 	public BuffAttraction(int chance) {
 		super(chance);

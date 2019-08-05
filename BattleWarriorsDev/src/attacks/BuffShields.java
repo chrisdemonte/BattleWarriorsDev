@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffShields extends BuffEffect{
 
+	private static final long serialVersionUID = 8623389116914215395L;
 	double barrier;
 	int barrierCounter;
 	double physicalShield;

@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffTime extends BuffEffect{
 	
+	private static final long serialVersionUID = -3408289504989445140L;
 	int actionTime;
 	int daze;
 	int haste;

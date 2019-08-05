@@ -135,6 +135,12 @@ public class BattleScene {
 	public void setBattleLog(BattleLog battleLog) {
 		this.battleLog = battleLog;
 	}
+	public Battle getBattle() {
+		return battle;
+	}
+	public void setBattle(Battle battle) {
+		this.battle = battle;
+	}
 	
 	
 

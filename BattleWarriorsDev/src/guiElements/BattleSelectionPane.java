@@ -2,9 +2,11 @@ package guiElements;
 
 import java.util.ArrayList;
 
+import BattleSystem.Battle;
 import attacks.FullAttack;
 import attacks.Move;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,13 +25,14 @@ public class BattleSelectionPane {
 	int timeCounter;
 	int maxTime;
 	
-	VBox container = new VBox(3);
+	VBox container = new VBox(5);
 	ScrollPane scrollPane = new ScrollPane();
-	VBox attackRows = new VBox(3);
+	VBox attackRows = new VBox(5);
 	HBox[] rows;
-	HBox rowOne = new HBox(3);
-	Button clearButton; 
-	Button submitButton;
+	HBox rowOne = new HBox(5);
+	Label timeLeft = new Label();
+	Button clearButton = new Button("Clear"); 
+	Button submitButton = new Button ("Attack!");
 	
 	BattleScene arena = null;
 	Player player = null;
@@ -42,9 +45,10 @@ public class BattleSelectionPane {
 		attackList.add(new FullAttack());
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
 		for (int i = 0; i < rows.length; i++) {
-			rows[i] = new HBox(3);
+			rows[i] = new HBox(5);
 		}
 		player = new Player("Sample", "A Man");
+		player.getBattleStats().setBattleStats(player);
 		this.maxTime = 2000;
 		this.timeCounter = 0;
 		this.resetList();
@@ -64,7 +68,17 @@ public class BattleSelectionPane {
 		this.setLayout();
 	}
 	private void setLayout() {
-		container.getChildren().add(scrollPane);
+		for (int i = 0; i < rows.length; i++) {
+			attackRows.getChildren().add(rows[i]);
+		}
+		scrollPane.setContent(attackRows);
+		scrollPane.setMinSize(374, 900 - 550);
+		scrollPane.setMaxSize(374, 900 - 550);
+		this.setButtons();
+		timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+		
+		rowOne.getChildren().addAll(submitButton, clearButton);
+		container.getChildren().addAll(rowOne, timeLeft, scrollPane);
 		
 	}
 	public void resetList () {
@@ -81,28 +95,20 @@ public class BattleSelectionPane {
 				theTab.getContainer().setOnMouseClicked(e->{
 					if (attack.isPriority()) {
 						this.priorityAttacks.add(attack);
-						this.applyUse(attack);
-						this.timeCounter += attack.getTime();
-						this.resetList();
-						
+						this.applyUse(attack);		
 					}
 					else {
 						this.attacks.add(attack);
 						this.applyUse(attack);
-						this.timeCounter += attack.getTime();
-						this.resetList();
 					}
+					timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+					this.resetList();
 				});
 				rows[counter/3].getChildren().add(choices.get(counter).getContainer());
 			}
 			counter++;
 		}
-		for (int i = 0; i < rows.length; i++) {
-			attackRows.getChildren().add(rows[i]);
-		}
-		scrollPane.setContent(attackRows);
-		scrollPane.setMinSize(1400 / 4, 900 - 550);
-		scrollPane.setMaxSize(1400 / 4, 900 - 550);
+		
 	}
 	public boolean isAttackUsable (Move attack) {
 		boolean usable = false;
@@ -150,7 +156,45 @@ public class BattleSelectionPane {
 		}
 		player.getBattleStats().setCurrentEnergy(player.getBattleStats().getCurrentEnergy() + energyCost);
 		player.getBattleStats().setCurrentComboPoints(player.getBattleStats().getCurrentComboPoints() - attack.getComboPointGain());
-		this.timeCounter -= attack.getTime() + this.player.getBattleStats().getHaste();
+		this.timeCounter -= attack.getTime() - this.player.getBattleStats().getHaste();
+	}
+	public void resetActions() {
+		for (int i = 0; i < this.priorityAttacks.size(); i++) {
+			this.undoUse(this.priorityAttacks.get(i));
+		}
+		this.priorityAttacks.clear();
+		for (int i = 0; i < this.attacks.size(); i++) {
+			this.undoUse(attacks.get(i));
+		}
+		this.attacks.clear();
+		
+	}
+	public void submitAction() {
+		Battle battle = this.arena.getBattle();
+		for (int i = 0; i < this.priorityAttacks.size(); i++) {
+			this.undoUse(this.priorityAttacks.get(i));
+		}
+		for (int i = 0; i < this.attacks.size(); i++) {
+			this.undoUse(attacks.get(i));
+		}
+		battle.setPlayerPriorityChoice(this.priorityAttacks);
+		battle.setPlayerChoice(this.attacks);
+		this.priorityAttacks.clear();
+		this.attacks.clear();
+		battle.doTurn();
+		
+	}
+	public void setButtons () {
+		this.submitButton.setOnAction(e->{
+			this.submitAction();
+			timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+			this.resetList();
+		});
+		this.clearButton.setOnAction(e->{
+			this.resetActions();
+			timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+			this.resetList();
+		});
 	}
 	public VBox getContainer() {
 		return container;
@@ -158,5 +202,5 @@ public class BattleSelectionPane {
 	public void setContainer(VBox container) {
 		this.container = container;
 	}
-
+	
 }

@@ -6,6 +6,8 @@ import utilities.BattleLog;
 
 public class BuffStatus extends BuffEffect {
 	
+
+	private static final long serialVersionUID = -2030340221380872407L;
 	double level;
 	double stamina;
 	double staminaMod;

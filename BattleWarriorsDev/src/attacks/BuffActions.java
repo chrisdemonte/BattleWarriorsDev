@@ -1,11 +1,15 @@
 package attacks;
 
+import java.io.Serializable;
+
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
 
-public class BuffActions extends BuffEffect{
-	
+public class BuffActions extends BuffEffect {
+
+
+	private static final long serialVersionUID = -5340333908832456536L;
 	boolean canAttack;
 	int canAttackCounter;
 	boolean canUseItems;

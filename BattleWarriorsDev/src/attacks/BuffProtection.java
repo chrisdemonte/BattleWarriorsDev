@@ -6,6 +6,7 @@ import utilities.BattleLog;
 
 public class BuffProtection extends BuffEffect{
 	
+	private static final long serialVersionUID = 2400305706008634042L;
 	double protection;
 	int protectionCounter;
 	double immunity;
