@@ -29,11 +29,11 @@ public class Runner extends Application {
 		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
 		//BattleStatCreator editor = new BattleStatCreator();
 		//BuffEffectListMaker editor = new BuffEffectListMaker("Test");
-	//	AttackMaker editor = new AttackMaker();
+		//AttackMaker pane = new AttackMaker();
 		//BattleSelectionTab tab = new BattleSelectionTab();
-		//BattleScene pane = new BattleScene(1200, 800);
-		BattleSelectionPane pane = new BattleSelectionPane();
-		root.getChildren().add(pane.getContainer());
+		BattleScene pane = new BattleScene(1200, 800);
+		//BattleSelectionPane pane = new BattleSelectionPane();
+		root.getChildren().add(pane.getRoot());
 		Scene scene = new Scene(window);
 		
 		mainStage.setScene(scene);

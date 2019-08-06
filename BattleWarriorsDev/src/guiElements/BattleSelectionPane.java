@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.Player;
+import utilities.FileManager;
 
 public class BattleSelectionPane {
 	
@@ -38,11 +39,11 @@ public class BattleSelectionPane {
 	Player player = null;
 	
 	public BattleSelectionPane (){
-		attackList.add(new FullAttack());
-		attackList.add(new FullAttack());
-		attackList.add(new FullAttack());
-		attackList.add(new FullAttack());
-		attackList.add(new FullAttack());
+		FileManager manager = new FileManager();
+		attackList.add(manager.loadMove("Punch"));
+		attackList.add(manager.loadMove("Kick"));
+		attackList.add(manager.loadMove("Spit"));
+		
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
 		for (int i = 0; i < rows.length; i++) {
 			rows[i] = new HBox(5);
@@ -72,10 +73,11 @@ public class BattleSelectionPane {
 			attackRows.getChildren().add(rows[i]);
 		}
 		scrollPane.setContent(attackRows);
-		scrollPane.setMinSize(374, 900 - 550);
-		scrollPane.setMaxSize(374, 900 - 550);
+		scrollPane.setMinSize(350, 184);
+		scrollPane.setMaxSize(350, 184);
 		this.setButtons();
 		timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+		timeLeft.setStyle("-fx-text-fill: WHITE;");
 		
 		rowOne.getChildren().addAll(submitButton, clearButton);
 		container.getChildren().addAll(rowOne, timeLeft, scrollPane);

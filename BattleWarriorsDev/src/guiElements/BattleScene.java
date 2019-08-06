@@ -44,6 +44,8 @@ public class BattleScene {
 	HealthBar enemyBar;
 	
 	BattleLog battleLog = new BattleLog();
+	BattleSelectionPane selectionPane = new BattleSelectionPane();
+	BattleActionButtonPane actionButtons = new BattleActionButtonPane(this);
 	
 	Pane battleWindow = new Pane();
 	Pane actionPane = new Pane();
@@ -75,11 +77,14 @@ public class BattleScene {
 		actionPane.setMinSize((width / 4) - 40, height - 550);
 		actionPane.setTranslateX((width / 3) + 70);
 		actionPane.setTranslateY(height - 200);
+		actionPane.getChildren().addAll(actionButtons.getContainer());
+		
 		
 		attackPane.setMaxSize((width / 3) - 50, height - 550);
 		attackPane.setMinSize((width / 3) - 50, height - 550);
 		attackPane.setTranslateX(50);
 		attackPane.setTranslateY(height - 200);
+		
 		
 		logPane.setMaxSize((width / 3) - 50, height - 550);
 		logPane.setMinSize((width / 3) - 50, height - 550);
@@ -140,6 +145,84 @@ public class BattleScene {
 	}
 	public void setBattle(Battle battle) {
 		this.battle = battle;
+	}
+	public HBox getHealthBarLine() {
+		return healthBarLine;
+	}
+	public void setHealthBarLine(HBox healthBarLine) {
+		this.healthBarLine = healthBarLine;
+	}
+	public VBox getPlayerBuffContainer() {
+		return playerBuffContainer;
+	}
+	public void setPlayerBuffContainer(VBox playerBuffContainer) {
+		this.playerBuffContainer = playerBuffContainer;
+	}
+	public VBox getPlayerHealthBarContainer() {
+		return playerHealthBarContainer;
+	}
+	public void setPlayerHealthBarContainer(VBox playerHealthBarContainer) {
+		this.playerHealthBarContainer = playerHealthBarContainer;
+	}
+	public VBox getHealthBarCenter() {
+		return healthBarCenter;
+	}
+	public void setHealthBarCenter(VBox healthBarCenter) {
+		this.healthBarCenter = healthBarCenter;
+	}
+	public VBox getEnemyHealthContainer() {
+		return enemyHealthContainer;
+	}
+	public void setEnemyHealthContainer(VBox enemyHealthContainer) {
+		this.enemyHealthContainer = enemyHealthContainer;
+	}
+	public VBox getEnemyBuffContainer() {
+		return enemyBuffContainer;
+	}
+	public void setEnemyBuffContainer(VBox enemyBuffContainer) {
+		this.enemyBuffContainer = enemyBuffContainer;
+	}
+	public HealthBar getPlayerBar() {
+		return playerBar;
+	}
+	public void setPlayerBar(HealthBar playerBar) {
+		this.playerBar = playerBar;
+	}
+	public HealthBar getEnemyBar() {
+		return enemyBar;
+	}
+	public void setEnemyBar(HealthBar enemyBar) {
+		this.enemyBar = enemyBar;
+	}
+	public BattleSelectionPane getSelectionPane() {
+		return selectionPane;
+	}
+	public void setSelectionPane(BattleSelectionPane selectionPane) {
+		this.selectionPane = selectionPane;
+	}
+	public Pane getBattleWindow() {
+		return battleWindow;
+	}
+	public void setBattleWindow(Pane battleWindow) {
+		this.battleWindow = battleWindow;
+	}
+	public Pane getActionPane() {
+		return actionPane;
+	}
+	public void setActionPane(Pane actionPane) {
+		this.actionPane = actionPane;
+	}
+	public Pane getAttackPane() {
+		return attackPane;
+	}
+	public void setAttackPane(Pane attackPane) {
+		this.attackPane = attackPane;
+	}
+	public Pane getLogPane() {
+		return logPane;
+	}
+	public void setLogPane(Pane logPane) {
+		this.logPane = logPane;
 	}
 	
 	

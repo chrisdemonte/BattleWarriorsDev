@@ -107,7 +107,7 @@ public class AttackMakerFullAttack extends AttackMakerMoveNode{
 		this.container.getChildren().addAll(nameLine, descriptionLine, customTextLine, keywordsLine, energyCostLine,
 				usesLine, comboPointGainLine, comboPointRequirementLine, timeLine, cooldownLine, 
 				cooldownCounterLine, physicalPowerLine, magicalPowerLine, bonusDamageLine, accuracyLine,
-				avoidabilityLine, critLine, penetrationLine, rangedAttackLine, priorityLine, this.submitButton);
+				avoidabilityLine, critLine, penetrationLine, rangedAttackLine, priorityLine);
 	}
 
 	@Override

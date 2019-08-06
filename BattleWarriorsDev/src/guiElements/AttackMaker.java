@@ -1,6 +1,8 @@
 package guiElements;
 
 import attacks.Move;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import utilities.FileManager;
@@ -16,7 +18,11 @@ public class AttackMaker {
 	BuffMaker selfBuffMaker = new BuffMaker();
 	BuffMaker targetBuffMaker = new BuffMaker();
 	
+	Button submitButton = new Button ("Create Attack");
+	
 	FileManager manager = new FileManager();
+	
+	Label debugTester = new Label("");
 	
 	public AttackMaker () {
 		this.moveMaker = new AttackMakerMovePane(selfBuffMaker, targetBuffMaker);
@@ -32,6 +38,8 @@ public class AttackMaker {
 		selfBuff.setContent(this.selfBuffMaker.getContainer());
 		targetBuff.setContent(this.targetBuffMaker.getContainer());
 		
+		moveMaker.getContainer().getChildren().addAll(this.submitButton, this.debugTester);
+		this.setButtonAction();
 		container.getTabs().addAll(attackMain, selfBuff, targetBuff);
 		
 	}
@@ -41,6 +49,15 @@ public class AttackMaker {
 	}
 	public void saveMove() {
 		this.manager.saveMove(this.moveMaker.getMoveNode().generateAttack());
+	}
+	public void setButtonAction () {
+		this.submitButton.setOnAction(e->{
+			this.saveMove();
+		});
+	}
+	public void useDebugger () {
+		Move move = this.manager.loadMove("Punch");
+		this.debugTester.setText(move.getName() + "\n" + move.getDescription());
 	}
 
 	public TabPane getContainer() {

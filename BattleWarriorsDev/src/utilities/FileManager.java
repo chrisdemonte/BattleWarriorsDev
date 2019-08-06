@@ -15,6 +15,7 @@ public class FileManager {
 	}
 	
 	public void saveMove (Move move) {
+		Move output = move;
 		ObjectOutputStream oos = null;
 		File file = new File("resources\\data\\attacks\\" + move.getName() + ".data");
 		
@@ -23,7 +24,7 @@ public class FileManager {
 				file.createNewFile();
 			}
 			oos = new ObjectOutputStream(new FileOutputStream(file));
-			oos.writeObject(move);
+			oos.writeObject(output);
 			oos.close();
 		}
 		catch (Exception e) {

@@ -42,10 +42,12 @@ public class BattleSelectionTab {
 		nameLabel.setTooltip(toolTip);
 		nameLabel.setMinSize(120, 40);
 		nameLabel.setAlignment(Pos.TOP_LEFT);
+		nameLabel.setStyle("-fx-text-fill: BLACK;");
 		infoLabel.setText("Info\tInfo");
 		infoLabel.setTooltip(toolTip);
 		infoLabel.setMinSize(120, 40);
 		infoLabel.setAlignment(Pos.BOTTOM_RIGHT);
+		infoLabel.setStyle("-fx-text-fill: BLACK;");
 		toolTip.setText("Description");
 		row1.getChildren().addAll(nameLabel);
 		row2.getChildren().addAll(infoLabel);
@@ -53,11 +55,12 @@ public class BattleSelectionTab {
 		container.getChildren().addAll(row1, row2);
 	}
 	public BattleSelectionTab(Move attack, BattleScene arena) {
-		container.setMinSize(120, 40);
+		container.setMinSize(110, 40);
 		this.attack = attack;
 		nameLabel.setText(attack.getName());
+		nameLabel.setStyle("-fx-text-fill: BLACK;");
 		nameLabel.setTooltip(toolTip);
-		nameLabel.setMinSize(120, 40);
+		nameLabel.setMinSize(110, 40);
 		nameLabel.setAlignment(Pos.TOP_LEFT);
 		if (attack.getCooldownCounter() > 0) {
 			infoLabel.setText("Cooldown:\t" + attack.getCooldownCounter() + " turns\tUses\t" + attack.getCurrentUses() + "/" + attack.getUses());
@@ -66,8 +69,9 @@ public class BattleSelectionTab {
 			infoLabel.setText("Uses:\t" + attack.getCurrentUses() + "/" + attack.getUses());
 		}
 		infoLabel.setTooltip(toolTip);
-		infoLabel.setMinSize(120, 40);
+		infoLabel.setMinSize(110, 40);
 		infoLabel.setAlignment(Pos.BOTTOM_RIGHT);
+		infoLabel.setStyle("-fx-text-fill: BLACK;");
 		row1.getChildren().addAll(nameLabel);
 		row2.getChildren().addAll(infoLabel);
 		toolTip.setText(attack.getDescription());
