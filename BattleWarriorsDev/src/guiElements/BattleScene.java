@@ -29,44 +29,48 @@ import utilities.BattleLog;
 public class BattleScene {
 	
 	Pane root = new Pane();
+	
 	Image frame;
 	ImageView frameView = new ImageView();	
 	Image border;
 	
 	HBox healthBarLine = new HBox();
-	VBox playerBuffContainer = new VBox(1);
-	VBox playerHealthBarContainer = new VBox(1);
-	VBox healthBarCenter = new VBox(1);
-	VBox enemyHealthContainer = new VBox(1);
-	VBox enemyBuffContainer = new VBox(1);
+		VBox playerBuffContainer = new VBox(1);
+		VBox playerHealthBarContainer = new VBox(1);
+		VBox healthBarCenter = new VBox(1);
+		VBox enemyHealthContainer = new VBox(1);
+		VBox enemyBuffContainer = new VBox(1);
 	
-	HealthBar playerBar;
-	HealthBar enemyBar;
+		HealthBar playerBar;
+		HealthBar enemyBar;
 	
 	BattleLog battleLog = new BattleLog();
-	BattleSelectionPane selectionPane = new BattleSelectionPane();
-	BattleActionButtonPane actionButtons = new BattleActionButtonPane(this);
+	BattleSelectionPane selectionPane;
+	BattleActionButtonPane actionButtons;
+	BattleActionTimeDisplay actionTime;
 	
 	Pane battleWindow = new Pane();
 	Pane actionPane = new Pane();
 	Pane attackPane = new Pane();
 	Pane logPane = new Pane();
+	Pane timeDisplayPane = new Pane();
 	
 	Battle battle;
 	
-	public BattleScene(int width, int height){
-		
-		this.generateLayout(width, height);
-	}
+
 	public BattleScene(Player self, Player enemy) {
-		this.generateLayout(1400, 900);
+		this.generateLayout(1200, 800, self);
+		this.battle = new Battle(self, enemy, this);
 		//this.battle = new Battle(self, enemy);
 	}
 
-	private void generateLayout(int width, int height) {
+	private void generateLayout(int width, int height, Player self) {
 		root.setMaxSize(width, height);
 		root.setMinSize(width, height);
 		
+		this.selectionPane = new BattleSelectionPane(this, self);
+		this.actionButtons = new BattleActionButtonPane(this);
+		this.actionTime = new BattleActionTimeDisplay();
 		battleWindow.setMaxSize(width - 100, height - 300);
 		battleWindow.setMinSize(width - 100, height - 300);
 		battleWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
@@ -85,6 +89,9 @@ public class BattleScene {
 		attackPane.setTranslateX(50);
 		attackPane.setTranslateY(height - 200);
 		
+		timeDisplayPane.setTranslateX(100);
+		timeDisplayPane.setTranslateY(475);
+		timeDisplayPane.getChildren().addAll(this.actionTime.getContainer());
 		
 		logPane.setMaxSize((width / 3) - 50, height - 550);
 		logPane.setMinSize((width / 3) - 50, height - 550);
@@ -121,7 +128,7 @@ public class BattleScene {
 		battleWindow.setBorder(new Border(new BorderImage(border, new BorderWidths(10.0), new Insets(0.0), new BorderWidths(10.0),
 				false, BorderRepeat.REPEAT, BorderRepeat.REPEAT)));
 		
-		root.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), attackPane, actionPane, logPane);
+		root.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), attackPane, timeDisplayPane, actionPane, logPane);
 		
 		
 		
@@ -223,6 +230,18 @@ public class BattleScene {
 	}
 	public void setLogPane(Pane logPane) {
 		this.logPane = logPane;
+	}
+	public BattleActionButtonPane getActionButtons() {
+		return actionButtons;
+	}
+	public void setActionButtons(BattleActionButtonPane actionButtons) {
+		this.actionButtons = actionButtons;
+	}
+	public BattleActionTimeDisplay getActionTime() {
+		return actionTime;
+	}
+	public void setActionTime(BattleActionTimeDisplay actionTime) {
+		this.actionTime = actionTime;
 	}
 	
 	

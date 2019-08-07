@@ -17,20 +17,22 @@ public class Battle {
 	
 	ArrayList<Move> fasterPriorityAttacks = new ArrayList<Move>();
 	ArrayList<Move> fasterAttacks = new ArrayList<Move>();
-	int fasterTimeCounter;
-	boolean fasterTryingToRun;
-	boolean fasterSkippingTurn;
+	int fasterTimeCounter = 2000;
+	boolean fasterTryingToRun = false;
+	boolean fasterSkippingTurn = false;
 	
 	ArrayList<Move> slowerPriorityAttacks = new ArrayList<Move>();
 	ArrayList<Move> slowerAttacks = new ArrayList<Move>();
-	int slowerTimeCounter;
-	boolean slowerTryingToRun;
-	boolean slowerSkippingTurn;
+	int slowerTimeCounter = 2000;
+	boolean slowerTryingToRun = false;
+	boolean slowerSkippingTurn = false;
 	
 	BattleScene arena;
 	
-	public Battle (Player self, Player enemy) {
-		arena = new BattleScene(self, enemy);
+	public Battle (Player self, Player enemy, BattleScene arena) {
+		this.self = self;
+		this.enemy = enemy;
+		this.arena = arena;
 	}
 	
 	public void doTurn() {

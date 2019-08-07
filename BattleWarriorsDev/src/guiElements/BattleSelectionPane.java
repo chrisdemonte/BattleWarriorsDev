@@ -58,7 +58,12 @@ public class BattleSelectionPane {
 	public BattleSelectionPane (BattleScene arena, Player player) {
 		this.arena = arena;
 		this.player = player;
-		this.attackList = player.getAttacks().getMoveList();
+		//this.attackList = player.getAttacks().getMoveList();
+		FileManager manager = new FileManager();
+		attackList.add(manager.loadMove("Punch"));
+		attackList.add(manager.loadMove("Kick"));
+		attackList.add(manager.loadMove("Spit"));
+		//*****************************************************
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
 		for (int i = 0; i < rows.length; i++) {
 			rows[i] = new HBox(3);
@@ -76,7 +81,7 @@ public class BattleSelectionPane {
 		scrollPane.setMinSize(350, 184);
 		scrollPane.setMaxSize(350, 184);
 		this.setButtons();
-		timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+		timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 		timeLeft.setStyle("-fx-text-fill: WHITE;");
 		
 		rowOne.getChildren().addAll(submitButton, clearButton);
@@ -92,15 +97,19 @@ public class BattleSelectionPane {
 		while (counter < attackList.size()) {
 			Move attack = this.attackList.get(counter);
 			if (this.isAttackUsable(attack)) {
-				BattleSelectionTab theTab = new BattleSelectionTab(attack, arena);
+				BattleSelectionTab theTab = new BattleSelectionTab(attack, arena, counter);
 				choices.add(theTab);
 				theTab.getContainer().setOnMouseClicked(e->{
 					if (attack.isPriority()) {
 						this.priorityAttacks.add(attack);
+						BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
+						this.arena.getActionTime().getPriorityTabs().getChildren().add(tab.getContainer());
 						this.applyUse(attack);		
 					}
 					else {
 						this.attacks.add(attack);
+						BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
+						this.arena.getActionTime().getNormalTabs().getChildren().add(tab.getContainer());
 						this.applyUse(attack);
 					}
 					timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
@@ -168,6 +177,7 @@ public class BattleSelectionPane {
 		for (int i = 0; i < this.attacks.size(); i++) {
 			this.undoUse(attacks.get(i));
 		}
+		this.arena.getActionTime().clearTabs();
 		this.attacks.clear();
 		
 	}
@@ -189,7 +199,7 @@ public class BattleSelectionPane {
 	public void setButtons () {
 		this.submitButton.setOnAction(e->{
 			this.submitAction();
-			timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+			timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 			this.resetList();
 		});
 		this.clearButton.setOnAction(e->{

@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import models.Player;
 
 
 public class Runner extends Application {
@@ -31,7 +32,9 @@ public class Runner extends Application {
 		//BuffEffectListMaker editor = new BuffEffectListMaker("Test");
 		//AttackMaker pane = new AttackMaker();
 		//BattleSelectionTab tab = new BattleSelectionTab();
-		BattleScene pane = new BattleScene(1200, 800);
+		Player user = new Player("Chris", "Developer");
+		Player enemy = new Player("Test Dummy", "Test Dummy");
+		BattleScene pane = new BattleScene(user, enemy);
 		//BattleSelectionPane pane = new BattleSelectionPane();
 		root.getChildren().add(pane.getRoot());
 		Scene scene = new Scene(window);
