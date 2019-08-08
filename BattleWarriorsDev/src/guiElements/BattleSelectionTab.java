@@ -39,11 +39,11 @@ public class BattleSelectionTab {
 	Move attack = null;
 	
 	public BattleSelectionTab() {
-		container.setMinSize(120, 40);
+		container.setMinSize(110, 40);
 		nameLabel.setText("Name");
 		nameLabel.setTooltip(toolTip);
 		nameLabel.setMinSize(120, 40);
-		nameLabel.setAlignment(Pos.TOP_LEFT);
+		nameLabel.setAlignment(Pos.CENTER);
 		nameLabel.setStyle("-fx-text-fill: BLACK;");
 		infoLabel.setText("Info\tInfo");
 		infoLabel.setTooltip(toolTip);
@@ -57,27 +57,32 @@ public class BattleSelectionTab {
 		container.getChildren().addAll(row1, row2);
 	}
 	public BattleSelectionTab(Move attack, BattleScene arena, int index) {
-		container.setMinSize(110, 40);
+		container.setMinSize(110, 60);
 		this.attack = attack;
 		this.index = index;
 		nameLabel.setText(attack.getName());
-		nameLabel.setStyle("-fx-text-fill: BLACK;");
+		nameLabel.setStyle("-fx-text-fill: BLACK; -fx-font-size: 16;");
 		nameLabel.setTooltip(toolTip);
-		nameLabel.setMinSize(110, 40);
-		nameLabel.setAlignment(Pos.TOP_LEFT);
+		nameLabel.setMinSize(110, 60);
+		nameLabel.setMaxSize(110, 60);
+		nameLabel.setAlignment(Pos.TOP_CENTER);
 		if (attack.getCooldownCounter() > 0) {
 			infoLabel.setText("Cooldown:\t" + attack.getCooldownCounter() + " turns\tUses\t" + attack.getCurrentUses() + "/" + attack.getUses());
 		}
 		else {
-			infoLabel.setText("Uses:\t" + attack.getCurrentUses() + "/" + attack.getUses());
+			infoLabel.setText("Time: " + attack.getTime() + "\nUses:" + attack.getCurrentUses() + "/" + attack.getUses());
 		}
 		infoLabel.setTooltip(toolTip);
-		infoLabel.setMinSize(110, 40);
-		infoLabel.setAlignment(Pos.BOTTOM_RIGHT);
+		infoLabel.setMinSize(110, 60);
+		infoLabel.setAlignment(Pos.BOTTOM_CENTER);
 		infoLabel.setStyle("-fx-text-fill: BLACK;");
 		row1.getChildren().addAll(nameLabel);
 		row2.getChildren().addAll(infoLabel);
-		toolTip.setText(attack.getDescription());
+		toolTip.setText(attack.getName() + ": " + attack.getDescription() + "\n\tEnergy Cost : " + attack.getEnergyCost()
+				+ "\n\tUses : " + attack.getCurrentUses() + "/" + attack.getUses() +
+				"\n\tCooldown : " + attack.getCooldown() + " turns" +
+				"\n\tCombo Point Requirement : " + attack.getComboPointRequirement() +
+				"\n\tCombo Point Gain/Loss : " + attack.getComboPointGain());
 		this.setBackground();
 		container.getChildren().addAll(row1, row2);
 	}

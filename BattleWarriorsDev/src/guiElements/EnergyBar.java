@@ -5,21 +5,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import models.Player;
 
-public class HealthBar {
-	
+public class EnergyBar {
 	Pane container = new Pane();
 	Pane emptyBar = new Pane();
 	Image empty;
@@ -31,7 +27,7 @@ public class HealthBar {
 	
 	Player player;
 
-	public HealthBar(Player player, int width ) {
+	public EnergyBar(Player player, int width ) {
 		super();
 		this.player = player;
 		this.width = width;
@@ -39,27 +35,27 @@ public class HealthBar {
 	}
 	private void generateLayout() {
 		this.setBackground();
-		this.text.setText("Health : " + player.getBattleStats().getCurrentHealth() + "/" + player.getBattleStats().getMaxHealth());
+		this.text.setText("Energy : " + player.getBattleStats().getCurrentEnergy() + "/" + player.getBattleStats().getMaxEnergy());
 		emptyBar.setMinSize(width, 20);
 		emptyBar.setMaxSize(width, 20);
 		text.setMinSize(width, 20);
 		text.setMaxSize(width, 20);
-		text.setStyle("-fx-text-fill: WHITE; -fx-font-size: 14;");
 		text.setAlignment(Pos.BASELINE_CENTER);
-		this.changeHealthBar();
+		text.setStyle("-fx-text-fill: BLACK; -fx-font-size: 14;");
+		this.changeEnergyBar();
 		container.getChildren().addAll(emptyBar, fullBar, text);
 		
 	}
-	public void changeHealthBar () {
-		int temp = (player.getBattleStats().getCurrentHealth()  * this.width)/ player.getBattleStats().getMaxHealth();
+	public void changeEnergyBar () {
+		int temp = (player.getBattleStats().getCurrentEnergy()  * this.width)/ player.getBattleStats().getMaxEnergy();
 		fullBar.setMaxSize(temp, 20);
 		fullBar.setMinSize(temp, 20);
-		this.text.setText("Health : " + player.getBattleStats().getCurrentHealth() + "/" + player.getBattleStats().getMaxHealth());
+		this.text.setText("Energy : " + player.getBattleStats().getCurrentEnergy() + "/" + player.getBattleStats().getMaxEnergy());
 		
 	}
 	public void setBackground() {
 		try {
-			File fullFile = new File("resources/images/green_pixel_pattern.PNG");
+			File fullFile = new File("resources/images/yellow_pixel_pattern.PNG");
 			File emptyFile = new File("resources/images/black_pixel_pattern.PNG");
 			empty = new Image(new FileInputStream(emptyFile));	
 			full = new Image(new FileInputStream(fullFile));	
@@ -83,7 +79,4 @@ public class HealthBar {
 		this.container = container;
 	}
 	
-
-
-
 }

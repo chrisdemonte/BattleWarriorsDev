@@ -43,6 +43,9 @@ public class BattleSelectionPane {
 		attackList.add(manager.loadMove("Punch"));
 		attackList.add(manager.loadMove("Kick"));
 		attackList.add(manager.loadMove("Spit"));
+		attackList.add(manager.loadMove("Jab"));
+		attackList.add(manager.loadMove("Cross Punch"));
+		attackList.add(manager.loadMove("Double Tiger Strike"));
 		
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
 		for (int i = 0; i < rows.length; i++) {
@@ -58,12 +61,7 @@ public class BattleSelectionPane {
 	public BattleSelectionPane (BattleScene arena, Player player) {
 		this.arena = arena;
 		this.player = player;
-		//this.attackList = player.getAttacks().getMoveList();
-		FileManager manager = new FileManager();
-		attackList.add(manager.loadMove("Punch"));
-		attackList.add(manager.loadMove("Kick"));
-		attackList.add(manager.loadMove("Spit"));
-		//*****************************************************
+		this.attackList = player.getAttacks().getMoveList();
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
 		for (int i = 0; i < rows.length; i++) {
 			rows[i] = new HBox(3);
@@ -112,11 +110,15 @@ public class BattleSelectionPane {
 						this.arena.getActionTime().getNormalTabs().getChildren().add(tab.getContainer());
 						this.applyUse(attack);
 					}
-					timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+					timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 					this.resetList();
 				});
-				rows[counter/3].getChildren().add(choices.get(counter).getContainer());
 			}
+			counter++;
+		}
+		counter = 0;
+		while ((counter/3) < rows.length && counter < choices.size()) {
+			rows[counter/3].getChildren().add(choices.get(counter).getContainer());
 			counter++;
 		}
 		
@@ -204,7 +206,7 @@ public class BattleSelectionPane {
 		});
 		this.clearButton.setOnAction(e->{
 			this.resetActions();
-			timeLeft.setText("Time: " + timeCounter + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
+			timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 			this.resetList();
 		});
 	}

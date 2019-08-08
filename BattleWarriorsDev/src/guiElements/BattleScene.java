@@ -43,6 +43,9 @@ public class BattleScene {
 	
 		HealthBar playerBar;
 		HealthBar enemyBar;
+		
+		EnergyBar playerEnergy;
+		EnergyBar enemyEnergy;
 	
 	BattleLog battleLog = new BattleLog();
 	BattleSelectionPane selectionPane;
@@ -98,9 +101,13 @@ public class BattleScene {
 		logPane.setTranslateX((width / 3) + (width/4) + 100);
 		logPane.setTranslateY(height - 200);
 		
-		playerBar = new HealthBar(100,100,400);
+		playerBar = new HealthBar(self, 400);
 		playerBar.getContainer().setTranslateX(100);
 		playerBar.getContainer().setTranslateY(100);
+		
+		playerEnergy = new EnergyBar(self, 400);
+		playerEnergy.getContainer().setTranslateX(100);
+		playerEnergy.getContainer().setTranslateY(130);
 		
 		try {
 			//File file = new File ("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\battle_pane.PNG");
@@ -128,7 +135,7 @@ public class BattleScene {
 		battleWindow.setBorder(new Border(new BorderImage(border, new BorderWidths(10.0), new Insets(0.0), new BorderWidths(10.0),
 				false, BorderRepeat.REPEAT, BorderRepeat.REPEAT)));
 		
-		root.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), attackPane, timeDisplayPane, actionPane, logPane);
+		root.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), attackPane, timeDisplayPane, actionPane, logPane);
 		
 		
 		
