@@ -73,7 +73,7 @@ public class FullAttack extends Move{
 		}
 		//energy cost and attack uses
 		
-		this.uses--;
+		this.currentUses--;
 		int cost = this.energyCost;
 		if (selfStats.isExhausted()) {
 			cost *= 2;
@@ -85,18 +85,18 @@ public class FullAttack extends Move{
 		//hit, miss, or enemy dodge
 		
 		boolean makeContact = true;
-		if (targetStats.isOutOfReach() && !selfStats.isReach() && !this.rangedAttack) {
+		if (targetStats.isOutOfReach() && (!selfStats.isReach() && !this.rangedAttack)) {
 			makeContact = false;
 			log.getLog().add(self.getName() + "'s " + this.getName() + " missed.");
 			log.setLogLength(log.getLogLength() + 1);
 		}
-		if (makeContact && rand.nextInt(100) > ((selfStats.getAccuracy() * selfStats.getAccuracyMod()) + this.accuracy)) {
+		if (makeContact && (rand.nextInt(100) > ((selfStats.getAccuracy() * selfStats.getAccuracyMod() * 100) + this.accuracy))) {
 			
 			makeContact = false;
 			log.getLog().add(self.getName() + "'s " + this.getName() + " missed.");
 			log.setLogLength(log.getLogLength() + 1);
 		}
-		if (makeContact && rand.nextInt(100) < ((targetStats.getAvoidance() * targetStats.getAvoidanceMod()) - (this.avoidability + (selfStats.getSkill()/4350.0)))
+		if (makeContact && (rand.nextInt(100) < ((targetStats.getAvoidance() * targetStats.getAvoidanceMod() * 100) - (this.avoidability + (selfStats.getSkill()/4350.0))))
 				&& !targetStats.isVulnerable()){
 			
 			makeContact = false;
@@ -117,16 +117,17 @@ public class FullAttack extends Move{
 			String logEntry = new String(self.getName() + "'s " + this.getName() + " did ");
 			
 			if (this.physicalPower > 0.0) {
-				physicalDamage += (selfStats.getStrength() * selfStats.getStrengthMod() * mod) + this.getBonusDamage();
+				physicalDamage += (selfStats.getStrength() * selfStats.getStrengthMod() * mod * this.physicalPower) + this.getBonusDamage();
 				multiplier = (250 - targetDef) / 250.0;
-				if (multiplier < .05) {
-					multiplier = .05;
+				if (multiplier < .1) {
+					multiplier = .1;
 				}
 				double subtraction = (physicalDamage * .5) - targetDef;
 				if (subtraction < 0) {
 					subtraction = 0;
 				}
 				double division = (physicalDamage * .5) * multiplier;
+				
 				totalPhysical = division + subtraction;
 				
 				if (targetStats.getCountering() > 0.0) {
@@ -198,7 +199,10 @@ public class FullAttack extends Move{
 				}
 				
 			}
-			targetStats.setCurrentHealth(targetStats.getCurrentHealth() - (int)physicalDamage - (int)magicDamage);
+			//**
+			//targetStats.setCurrentHealth(targetStats.getCurrentHealth() - 5);
+			//*************
+			targetStats.setCurrentHealth(targetStats.getCurrentHealth() - ((int)physicalDamage + (int)magicDamage));
 			if (this.physicalPower > 0.0) {
 				logEntry += (int)physicalDamage + " physical damage";
 				if (this.bonusDamage <= 0.0 ) {
@@ -266,6 +270,10 @@ public class FullAttack extends Move{
 		
 	}
 
+	public void randomAI() {
+		Random r = new Random();
+		
+	}
 	@Override
 	public String toString() {
 		return "FullAttack [physicalPower=" + physicalPower + "\nmagicPower=" + magicPower + "\nbonusDamage="

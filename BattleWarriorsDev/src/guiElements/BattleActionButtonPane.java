@@ -1,7 +1,9 @@
 package guiElements;
 
+import BattleSystem.Battle;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import models.Player;
 
 public class BattleActionButtonPane {
 	
@@ -13,21 +15,38 @@ public class BattleActionButtonPane {
 	Button runButton = new Button ("Run");
 	
 	int previousSelection = 0;
+	boolean attackTabsOpen = false;
 	
 	BattleScene scene;
+	Player player;
 	
-	public BattleActionButtonPane ( BattleScene scene) {
+	public BattleActionButtonPane ( BattleScene scene, Player player) {
 		this.scene = scene;
+		this.player = player;
 		this.generateLayout(scene);
 	}
 
 	private void generateLayout(BattleScene scene2) {
 		attackButton.setOnAction(e->{
-			if (previousSelection != 1) {
+			if (!attackTabsOpen) {
 				scene.attackPane.getChildren().clear();
+				scene.selectionPane = new BattleSelectionPane(scene, player);
 				scene.attackPane.getChildren().add(scene.getSelectionPane().getContainer());
-				previousSelection = 1;
+				attackTabsOpen = true;
 			}
+		});
+		skipTurnButton.setOnAction(e->{
+			if (previousSelection == 1) {
+				Battle battle = scene.getBattle();
+				battle.getPlayerChoice().clear();
+				battle.getPlayerPriorityChoice().clear();
+				scene.getSelectionPane().resetActions();
+				attackTabsOpen = false;
+				scene.getSelectionPane().getContainer().getChildren().clear();
+				player.getBattleStats().setCurrentEnergy(player.getBattleStats().getCurrentEnergy() + (player.getBattleStats().getMaxEnergy()/ 5));
+				battle.doTurn();
+			}
+			previousSelection = 1;
 		});
 		container.getChildren().addAll(attackButton, itemButton, skipTurnButton, runButton);
 		
@@ -47,6 +66,14 @@ public class BattleActionButtonPane {
 
 	public void setPreviousSelection(int previousSelection) {
 		this.previousSelection = previousSelection;
+	}
+
+	public boolean isAttackTabsOpen() {
+		return attackTabsOpen;
+	}
+
+	public void setAttackTabsOpen(boolean attackTabsOpen) {
+		this.attackTabsOpen = attackTabsOpen;
 	}
 
 }

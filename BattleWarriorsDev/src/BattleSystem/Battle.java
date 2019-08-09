@@ -5,6 +5,7 @@ import java.util.Random;
 
 import attacks.Move;
 import guiElements.BattleScene;
+import javafx.scene.control.Label;
 import models.Player;
 
 public class Battle {
@@ -14,6 +15,8 @@ public class Battle {
 	
 	ArrayList<Move> playerChoice = new ArrayList<Move>();
 	ArrayList<Move> playerPriorityChoice = new ArrayList<Move>();
+	ArrayList<Move> enemyChoice = new ArrayList<Move>();
+	ArrayList<Move> enemyPriorityChoice = new ArrayList<Move>();
 	
 	ArrayList<Move> fasterPriorityAttacks = new ArrayList<Move>();
 	ArrayList<Move> fasterAttacks = new ArrayList<Move>();
@@ -37,39 +40,75 @@ public class Battle {
 	
 	public void doTurn() {
 		this.doBuffs();
+		this.randomAI();
 		Player faster;
 		Player slower;
 		int result = this.whosFasfter();
 		if (result == 0) {
 			faster = self;
+			fasterPriorityAttacks = playerPriorityChoice;
 			slower = enemy;
+			slowerPriorityAttacks = enemyPriorityChoice;
 		}
 		else {
 			faster = enemy;
+			fasterPriorityAttacks = enemyPriorityChoice;
 			slower = self;
+			slowerPriorityAttacks = playerPriorityChoice;
+	
 		}
 		//************set the faster and slower attack selections
-		for (int i = 0; i < fasterPriorityAttacks.size(); i++) {
-			fasterPriorityAttacks.get(i).makeMove(faster, slower, arena.getBattleLog());
+		for (int z = 0; z < fasterPriorityAttacks.size(); z++) {
+			fasterPriorityAttacks.get(z).makeMove(faster, slower, arena.getBattleLog());
+			arena.getPlayerBar().changeHealthBar();
+			arena.getPlayerEnergy().changeEnergyBar();
+			arena.getEnemyBar().changeHealthBar();
+		
 		}
-		for (int i = 0; i < slowerPriorityAttacks.size(); i++) {
-			slowerPriorityAttacks.get(i).makeMove(slower, slower, arena.getBattleLog());
+		for (int y = 0; y < slowerPriorityAttacks.size(); y++) {
+			slowerPriorityAttacks.get(y).makeMove(slower, faster, arena.getBattleLog());
+			arena.getPlayerBar().changeHealthBar();
+			arena.getPlayerEnergy().changeEnergyBar();
+			arena.getEnemyBar().changeHealthBar();
 		}
 		result = this.whosFasfter();
 		if (result == 0) {
 			faster = self;
+			fasterAttacks = playerChoice;
 			slower = enemy;
+			slowerAttacks = enemyChoice;
 		}
 		else {
 			faster = enemy;
+			fasterAttacks = enemyChoice;
 			slower = self;
+			slowerAttacks = playerChoice;
 		}
-		for (int i = 0; i < fasterAttacks.size(); i++) {
-			fasterPriorityAttacks.get(i).makeMove(faster, slower, arena.getBattleLog());
+		for (int x = 0; x < fasterAttacks.size(); x++) {
+			fasterAttacks.get(x).makeMove(faster, slower, arena.getBattleLog());
+			arena.getPlayerBar().changeHealthBar();
+			arena.getPlayerEnergy().changeEnergyBar();
+			arena.getEnemyBar().changeHealthBar();
+			arena.getEnemyBar().getContainer().getChildren().add(new Label("" + slower.getBattleStats().getCurrentHealth()));
 		}
-		for (int i = 0; i < slowerAttacks.size(); i++) {
-			slowerPriorityAttacks.get(i).makeMove(slower, slower, arena.getBattleLog());
+		for (int w = 0; w < slowerAttacks.size(); w++) {
+			slowerAttacks.get(w).makeMove(slower, faster, arena.getBattleLog());
+			arena.getPlayerBar().changeHealthBar();
+			arena.getPlayerEnergy().changeEnergyBar();
+			arena.getEnemyBar().changeHealthBar();
+			
 		}
+
+		arena.getActionButtons().setPreviousSelection(0);
+		arena.getSelectionPane().resetActions();
+		arena.getAttackPane().getChildren().clear();
+		this.playerChoice.clear();
+		this.playerPriorityChoice.clear();
+		this.enemyChoice.clear();
+		this.enemyPriorityChoice.clear();
+		arena.getPlayerBar().changeHealthBar();
+		arena.getPlayerEnergy().changeEnergyBar();
+		arena.getEnemyBar().changeHealthBar();
 	}
 
 	private int whosFasfter() {
@@ -94,6 +133,32 @@ public class Battle {
 
 	private void doBuffs() {
 		// TODO Auto-generated method stub
+		
+	}
+	public void randomAI() {
+		Random r = new Random();
+		int num = r.nextInt(5);
+		if (enemy.getBattleStats().getCurrentEnergy() > 5) {
+			if (num == 0) {
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(0));
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(1));
+			}
+			if (num == 1) {
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(0));
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(0));
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(0));
+			}
+			if (num == 2) {
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(2));
+			}
+			if (num == 3) {
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(1));
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(1));
+			}
+			if (num == 4) {
+				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(3));
+			}
+		}
 		
 	}
 

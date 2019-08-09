@@ -5,34 +5,29 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import models.Player;
 
-public class HealthBar {
-	
+public class EnemyHealthBar {
 	Pane container = new Pane();
 	Pane emptyBar = new Pane();
 	Image empty;
 	Pane fullBar = new Pane();
 	Image full;
 	Label text = new Label();
-	Tooltip tooltip = new Tooltip();
+	
 	int width; 
 	
 	Player player;
 
-	public HealthBar(Player player, int width ) {
+	public EnemyHealthBar(Player player, int width ) {
 		super();
 		this.player = player;
 		this.width = width;
@@ -41,14 +36,12 @@ public class HealthBar {
 	private void generateLayout() {
 		this.setBackground();
 		this.text.setText("Health : " + player.getBattleStats().getCurrentHealth() + "/" + player.getBattleStats().getMaxHealth());
-		tooltip.setText(player.getBattleStats().toString());
 		emptyBar.setMinSize(width, 20);
 		emptyBar.setMaxSize(width, 20);
 		text.setMinSize(width, 20);
 		text.setMaxSize(width, 20);
 		text.setStyle("-fx-text-fill: WHITE; -fx-font-size: 14;");
 		text.setAlignment(Pos.BASELINE_CENTER);
-		text.setTooltip(tooltip);
 		int temp = (player.getBattleStats().getCurrentHealth()  * this.width)/ player.getBattleStats().getMaxHealth();
 		fullBar.setMaxSize(temp, 20);
 		fullBar.setMinSize(temp, 20);
@@ -68,7 +61,6 @@ public class HealthBar {
 		text.setMaxSize(width, 20);
 		text.setStyle("-fx-text-fill: WHITE; -fx-font-size: 14;");
 		text.setAlignment(Pos.BASELINE_CENTER);
-		text.setTooltip(tooltip);
 		int temp = (player.getBattleStats().getCurrentHealth()  * this.width)/ player.getBattleStats().getMaxHealth();
 		if (temp < 0) {
 			temp = 0;
@@ -105,7 +97,6 @@ public class HealthBar {
 		this.container = container;
 	}
 	
-
 
 
 }

@@ -28,7 +28,7 @@ import utilities.BattleLog;
 
 public class BattleScene {
 	
-	Pane root = new Pane();
+	Pane container = new Pane();
 	
 	Image frame;
 	ImageView frameView = new ImageView();	
@@ -62,17 +62,17 @@ public class BattleScene {
 	
 
 	public BattleScene(Player self, Player enemy) {
-		this.generateLayout(1200, 800, self);
+		this.generateLayout(1200, 800, self, enemy);
 		this.battle = new Battle(self, enemy, this);
 		//this.battle = new Battle(self, enemy);
 	}
 
-	private void generateLayout(int width, int height, Player self) {
-		root.setMaxSize(width, height);
-		root.setMinSize(width, height);
+	private void generateLayout(int width, int height, Player self, Player enemy) {
+		container.setMaxSize(width, height);
+		container.setMinSize(width, height);
 		
 		this.selectionPane = new BattleSelectionPane(this, self);
-		this.actionButtons = new BattleActionButtonPane(this);
+		this.actionButtons = new BattleActionButtonPane(this, self);
 		this.actionTime = new BattleActionTimeDisplay();
 		battleWindow.setMaxSize(width - 100, height - 300);
 		battleWindow.setMinSize(width - 100, height - 300);
@@ -109,6 +109,10 @@ public class BattleScene {
 		playerEnergy.getContainer().setTranslateX(100);
 		playerEnergy.getContainer().setTranslateY(130);
 		
+		enemyBar = new HealthBar(enemy, 400);
+		enemyBar.getContainer().setTranslateX(700);
+		enemyBar.getContainer().setTranslateY(100);
+		
 		try {
 			//File file = new File ("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\battle_pane.PNG");
 			File file = new File("resources/images/red_pixel_background.PNG");
@@ -128,25 +132,23 @@ public class BattleScene {
 			          BackgroundSize.DEFAULT)));
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		battleWindow.setBorder(new Border(new BorderImage(border, new BorderWidths(10.0), new Insets(0.0), new BorderWidths(10.0),
 				false, BorderRepeat.REPEAT, BorderRepeat.REPEAT)));
 		
-		root.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), attackPane, timeDisplayPane, actionPane, logPane);
-		
+		container.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), enemyBar.getContainer(),attackPane, timeDisplayPane, actionPane, logPane);
 		
 		
 	}
 
-	public Pane getRoot() {
-		return root;
+	public Pane getContainer() {
+		return container;
 	}
 
-	public void setRoot(Pane root) {
-		this.root = root;
+	public void setContainer(Pane container) {
+		this.container = container;
 	}
 	public BattleLog getBattleLog() {
 		return battleLog;
@@ -249,6 +251,30 @@ public class BattleScene {
 	}
 	public void setActionTime(BattleActionTimeDisplay actionTime) {
 		this.actionTime = actionTime;
+	}
+
+	public EnergyBar getPlayerEnergy() {
+		return playerEnergy;
+	}
+
+	public void setPlayerEnergy(EnergyBar playerEnergy) {
+		this.playerEnergy = playerEnergy;
+	}
+
+	public EnergyBar getEnemyEnergy() {
+		return enemyEnergy;
+	}
+
+	public void setEnemyEnergy(EnergyBar enemyEnergy) {
+		this.enemyEnergy = enemyEnergy;
+	}
+
+	public Pane getTimeDisplayPane() {
+		return timeDisplayPane;
+	}
+
+	public void setTimeDisplayPane(Pane timeDisplayPane) {
+		this.timeDisplayPane = timeDisplayPane;
 	}
 	
 	

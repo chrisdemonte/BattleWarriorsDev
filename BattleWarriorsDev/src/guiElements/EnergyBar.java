@@ -43,15 +43,15 @@ public class EnergyBar {
 		text.setAlignment(Pos.BASELINE_CENTER);
 		text.setStyle("-fx-text-fill: BLACK; -fx-font-size: 14;");
 		this.changeEnergyBar();
-		container.getChildren().addAll(emptyBar, fullBar, text);
 		
 	}
 	public void changeEnergyBar () {
+		container.getChildren().clear();
 		int temp = (player.getBattleStats().getCurrentEnergy()  * this.width)/ player.getBattleStats().getMaxEnergy();
 		fullBar.setMaxSize(temp, 20);
 		fullBar.setMinSize(temp, 20);
 		this.text.setText("Energy : " + player.getBattleStats().getCurrentEnergy() + "/" + player.getBattleStats().getMaxEnergy());
-		
+		container.getChildren().addAll(emptyBar, fullBar, text);
 	}
 	public void setBackground() {
 		try {

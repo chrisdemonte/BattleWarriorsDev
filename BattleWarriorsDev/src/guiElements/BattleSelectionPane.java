@@ -181,34 +181,31 @@ public class BattleSelectionPane {
 		}
 		this.arena.getActionTime().clearTabs();
 		this.attacks.clear();
+		this.priorityAttacks.clear();
 		
 	}
 	public void submitAction() {
 		Battle battle = this.arena.getBattle();
-		for (int i = 0; i < this.priorityAttacks.size(); i++) {
-			this.undoUse(this.priorityAttacks.get(i));
-		}
-		for (int i = 0; i < this.attacks.size(); i++) {
-			this.undoUse(attacks.get(i));
-		}
 		battle.setPlayerPriorityChoice(this.priorityAttacks);
 		battle.setPlayerChoice(this.attacks);
-		this.priorityAttacks.clear();
-		this.attacks.clear();
+		arena.getActionButtons().setAttackTabsOpen(false);
 		battle.doTurn();
 		
 	}
 	public void setButtons () {
 		this.submitButton.setOnAction(e->{
 			this.submitAction();
-			timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
-			this.resetList();
 		});
 		this.clearButton.setOnAction(e->{
 			this.resetActions();
 			timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 			this.resetList();
 		});
+	}
+	public void resetAttackChoices() {
+		this.priorityAttacks.clear();
+		this.attacks.clear();
+		this.arena.getActionTime().clearTabs();
 	}
 	public VBox getContainer() {
 		return container;

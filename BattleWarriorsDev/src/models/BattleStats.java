@@ -558,7 +558,7 @@ public class BattleStats {
 		
 		this.maxHealth += (int)(stamina + level + (defense * 0.1)) * 10;
 		this.currentHealth += maxHealth;
-		this.maxEnergy += (int)(stamina + level + (magic * .5) + (strength * 0.1));
+		this.maxEnergy += (int)((2.0 * stamina) + level + (magic * 0.5) + (strength * 0.5) + (cunning * 0.5) );
 		this.currentEnergy += maxEnergy;
 		this.maxComboPoints += 3 + (int)((skill + cunning + intelligence)/(level * 6));
 		this.actionTime += 2000;
@@ -680,6 +680,39 @@ public class BattleStats {
 		this.cheatingDeathCounter = cheatingDeathCounter;
 		this.weatherProof = weatherProof;
 		this.weatherProofCounter = weatherProofCounter;
+	}
+
+	@Override
+	public String toString() {
+		return "BattleStats [stamina=" + stamina + "\n staminaMod=" + staminaMod + "\n strength=" + strength
+				+ "\n strengthMod=" + strengthMod + "\n defense=" + defense + "\n defenseMod=" + defenseMod + "\n magic="
+				+ magic + "\n magicMod=" + magicMod + "\n resistance=" + resistance + "\n resistanceMod=" + resistanceMod
+				+ "\n cunning=" + cunning + "\n cunningMod=" + cunningMod + "\n intelligence=" + intelligence
+				+ "\n intelligenceMod=" + intelligenceMod + "\n speed=" + speed + "\n speedMod=" + speedMod + "\n skill="
+				+ skill + "\n skillMod=" + skillMod + "\n maxHealth=" + maxHealth + "\n currentHealth=" + currentHealth
+				+ "\n maxEnergy=" + maxEnergy + "\n currentEnergy=" + currentEnergy + "\n maxComboPoints=" + maxComboPoints
+				+ "\n currentComboPoints=" + currentComboPoints + "\n actionTime=" + actionTime + "\n daze=" + daze
+				+ "\n haste=" + haste + "\n damageSpike=" + damageSpike + "\n crit=" + crit + "\n critMod=" + critMod
+				+ "\n accuracy=" + accuracy + "\n accuracyMod=" + accuracyMod + "\n avoidance=" + avoidance
+				+ "\n avoidanceMod=" + avoidanceMod + "\n blocking=" + blocking + "\n blockingMod=" + blockingMod
+				+ "\n penetration=" + penetration + "\n penetrationMod=" + penetrationMod + "\n barrier=" + barrier
+				+ "\n barrierCounter=" + barrierCounter + "\n physicalShield=" + physicalShield
+				+ "\n physicalShieldCounter=" + physicalShieldCounter + "\n magicShield=" + magicShield
+				+ "\n magicShieldCounter=" + magicShieldCounter + "\n fear=" + fear + "\n intimidation=" + intimidation
+				+ "\n canAttack=" + canAttack + "\n canAttackCounter=" + canAttackCounter + "\n canUseItems=" + canUseItems
+				+ "\n canUseItemsCounter=" + canUseItemsCounter + "\n canSkipTurn=" + canSkipTurn
+				+ "\n canSkipTurnCounter=" + canSkipTurnCounter + "\n canRun=" + canRun + "\n canRunCounter="
+				+ canRunCounter + "\n locked=" + locked + "\n lockedCounter=" + lockedCounter + "\n protection="
+				+ protection + "\n protectionCounter=" + protectionCounter + "\n immunity=" + immunity
+				+ "\n immunityCounter=" + immunityCounter + "\n countering=" + countering + "\n counteringCounter="
+				+ counteringCounter + "\n reflecting=" + reflecting + "\n reflectingCounter=" + reflectingCounter
+				+ "\n freecasting=" + freecasting + "\n freecastingCounter=" + freecastingCounter + "\n exhausted="
+				+ exhausted + "\n exhaustedCounter=" + exhaustedCounter + "\n outOfReach=" + outOfReach
+				+ "\n outOfReachCounter=" + outOfReachCounter + "\n reach=" + reach + "\n reachCounter=" + reachCounter
+				+ "\n hidden=" + hidden + "\n hiddenCounter=" + hiddenCounter + "\n enraged=" + enraged
+				+ "\n enragedCounter=" + enragedCounter + "\n selfHarm=" + selfHarm + "\n selfHarmCounter="
+				+ selfHarmCounter + "\n vulnerable=" + vulnerable + "\n vulnerableCounter=" + vulnerableCounter
+				+ "\n cheatingDeath=" + cheatingDeath + "\n cheatingDeathCounter=" + cheatingDeathCounter + "]";
 	}
 
 	public double getLevel() {

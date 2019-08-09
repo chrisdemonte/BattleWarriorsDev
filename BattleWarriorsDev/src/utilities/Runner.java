@@ -27,11 +27,8 @@ public class Runner extends Application {
 		window.setMinSize(1200, 900);
 		window.setMaxSize(1200, 900);
 		
-		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
-		//BattleStatCreator editor = new BattleStatCreator();
-		//BuffEffectListMaker editor = new BuffEffectListMaker("Test");
-		//AttackMaker pane = new AttackMaker();
-		//BattleSelectionTab tab = new BattleSelectionTab();
+		
+		
 		FileManager manager = new FileManager();
 		Player user = new Player("Chris", "Developer");
 		user.getAttacks().getMoveList().add(manager.loadMove("Punch"));
@@ -40,13 +37,20 @@ public class Runner extends Application {
 		user.getAttacks().getMoveList().add(manager.loadMove("Jab"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Cross Punch"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Double Tiger Strike"));
+		user.getAttacks().getMoveList().add(manager.loadMove("Quick Attack"));
+		user.getAttacks().getMoveList().add(manager.loadMove("Wild Attack"));
+		
 		Player enemy = new Player("Slime", "Slime");
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble"));
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble Burst"));
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble Bomb"));
+		enemy.getAttacks().getMoveList().add(manager.loadMove("Spit"));
+		
+		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
+		//AttackMaker pane = new AttackMaker();
 		BattleScene pane = new BattleScene(user, enemy);
-		//BattleSelectionPane pane = new BattleSelectionPane();
-		root.getChildren().add(pane.getRoot());
+		
+		root.getChildren().add(pane.getContainer());
 		Scene scene = new Scene(window);
 		
 		mainStage.setScene(scene);
