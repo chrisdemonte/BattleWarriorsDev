@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import BattleSystem.Battle;
 import attacks.FullAttack;
 import attacks.Move;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -28,9 +29,9 @@ public class BattleSelectionPane {
 	
 	VBox container = new VBox(5);
 	ScrollPane scrollPane = new ScrollPane();
-	VBox attackRows = new VBox(5);
+	VBox attackRows = new VBox(10);
 	HBox[] rows;
-	HBox rowOne = new HBox(5);
+	HBox rowOne = new HBox(20);
 	Label timeLeft = new Label();
 	Button clearButton = new Button("Clear"); 
 	Button submitButton = new Button ("Attack!");
@@ -49,7 +50,8 @@ public class BattleSelectionPane {
 		
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
 		for (int i = 0; i < rows.length; i++) {
-			rows[i] = new HBox(5);
+			rows[i] = new HBox(10);
+			rows[i].setPadding(new Insets(0,0,0,10));
 		}
 		player = new Player("Sample", "A Man");
 		player.getBattleStats().setBattleStats(player);
@@ -64,9 +66,10 @@ public class BattleSelectionPane {
 		this.attackList = player.getAttacks().getMoveList();
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
 		for (int i = 0; i < rows.length; i++) {
-			rows[i] = new HBox(3);
+			rows[i] = new HBox(10);
+			rows[i].setPadding(new Insets(0,0,0,5));
 		}
-		this.maxTime = player.getBattleStats().getActionTime();
+		this.maxTime = player.getBattleStats().getActionTime() - player.getBattleStats().getDaze();
 		this.timeCounter = 0;
 		this.resetList();
 		this.setLayout();
@@ -75,15 +78,19 @@ public class BattleSelectionPane {
 		for (int i = 0; i < rows.length; i++) {
 			attackRows.getChildren().add(rows[i]);
 		}
+		this.submitButton.setMinSize(190, 30);
+		this.clearButton.setMinSize(190, 30);
+		this.rowOne.setPadding(new Insets(10, 0,0,0));
 		scrollPane.setContent(attackRows);
-		scrollPane.setMinSize(350, 184);
-		scrollPane.setMaxSize(350, 184);
+		scrollPane.setMinSize(400, 172);
+		scrollPane.setMaxSize(400, 172);
 		this.setButtons();
 		timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 		timeLeft.setStyle("-fx-text-fill: WHITE;");
 		
 		rowOne.getChildren().addAll(submitButton, clearButton);
 		container.getChildren().addAll(rowOne, timeLeft, scrollPane);
+		container.setPadding(new Insets(0,0,0,10));
 		
 	}
 	public void resetList () {

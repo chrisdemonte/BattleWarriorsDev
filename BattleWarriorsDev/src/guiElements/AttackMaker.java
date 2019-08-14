@@ -37,7 +37,7 @@ public class AttackMaker {
 		attackMain.setContent(moveMaker.getContainer());
 		selfBuff.setContent(this.selfBuffMaker.getContainer());
 		targetBuff.setContent(this.targetBuffMaker.getContainer());
-		
+		container.setMinSize(1200, 800);
 		moveMaker.getContainer().getChildren().addAll(this.submitButton, this.debugTester);
 		this.setButtonAction();
 		container.getTabs().addAll(attackMain, selfBuff, targetBuff);

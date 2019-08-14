@@ -107,18 +107,23 @@ public class FullAttack extends Move{
 		if (makeContact) {
 			double physicalDamage = 0.0;
 			double magicDamage = 0.0;
+			
 			double totalPhysical = 0.0;
 			double totalMagic = 0.0;
+			
 			double multiplier = 1.0;
+			
 			double physicalBounceBack = 0.0;
 			double magicBounceBack = 0.0;
-			double targetResist = (targetStats.getResistance() * targetStats.getResistanceMod()) * (1.0 - (selfStats.getPenetration() * selfStats.getPenetrationMod()));
-			double targetDef = (targetStats.getDefense() * targetStats.getDefenseMod()) * (1.0 - (selfStats.getPenetration() * selfStats.getPenetrationMod()));
+			
+			double targetResist = (targetStats.getResistance() * targetStats.getResistanceMod()) * (1.0 - (self.getBattleStats().getPenetration() * self.getBattleStats().getPenetrationMod()));
+			double targetDef = (targetStats.getDefense() * targetStats.getDefenseMod())*(1.0 - (self.getBattleStats().getPenetration() * self.getBattleStats().getPenetrationMod()));
+			
 			String logEntry = new String(self.getName() + "'s " + this.getName() + " did ");
 			
 			if (this.physicalPower > 0.0) {
 				physicalDamage += (selfStats.getStrength() * selfStats.getStrengthMod() * mod * this.physicalPower) + this.getBonusDamage();
-				multiplier = (250 - targetDef) / 250.0;
+				multiplier = (((2 * self.getBattleStats().getLevel()) + 50.0) - targetDef) / ((2 * self.getBattleStats().getLevel()) + 50.0);
 				if (multiplier < .1) {
 					multiplier = .1;
 				}
@@ -139,7 +144,7 @@ public class FullAttack extends Move{
 			}
 			if (this.magicPower > 0.0) {
 				magicDamage += (selfStats.getMagic() * selfStats.getMagicMod() * mod) + this.getBonusDamage();
-				multiplier = (250 - targetResist)/ 250.0;
+				multiplier = (((2 * self.getBattleStats().getLevel()) + 50.0) - targetResist) / ((2 * self.getBattleStats().getLevel()) + 50.0);
 				if (multiplier < .05) {
 					multiplier = .05;
 				}
@@ -202,7 +207,7 @@ public class FullAttack extends Move{
 			//**
 			//targetStats.setCurrentHealth(targetStats.getCurrentHealth() - 5);
 			//*************
-			targetStats.setCurrentHealth(targetStats.getCurrentHealth() - ((int)physicalDamage + (int)magicDamage));
+			targetStats.setCurrentHealth(targetStats.getCurrentHealth() - ((int)totalPhysical + (int)totalMagic));
 			if (this.physicalPower > 0.0) {
 				logEntry += (int)physicalDamage + " physical damage";
 				if (this.bonusDamage <= 0.0 ) {
@@ -283,7 +288,7 @@ public class FullAttack extends Move{
 				+ Arrays.toString(keywords) + "\nenergyCost=" + energyCost + "\nuses=" + uses + "\ncurrentUses="
 				+ currentUses + "\ncomboPointGain=" + comboPointGain + "\ncomboPointRequirement="
 				+ comboPointRequirement + "\ntime=" + time + "\ncooldown=" + cooldown + "\ncooldownCounter="
-				+ cooldownCounter + "\nself=" + self.toString() + "\ntarget=" + target.toString() + "\nrequirements= null"
+				+ cooldownCounter + "\nself=" + self.toString() + "\ntarget=" + "null"+ "\nrequirements= null"
 				+ "\nanimation=" + animation + "]";
 	}
 

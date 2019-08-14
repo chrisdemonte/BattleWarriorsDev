@@ -73,7 +73,7 @@ public class BattleSelectionTab {
 			infoLabel.setText("Time: " + attack.getTime() + "\nUses:" + attack.getCurrentUses() + "/" + attack.getUses());
 		}
 		infoLabel.setTooltip(toolTip);
-		infoLabel.setMinSize(110, 60);
+		infoLabel.setMinSize(120, 60);
 		infoLabel.setAlignment(Pos.BOTTOM_CENTER);
 		infoLabel.setStyle("-fx-text-fill: BLACK;");
 		row1.getChildren().addAll(nameLabel);

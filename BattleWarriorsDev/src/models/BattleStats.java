@@ -1227,7 +1227,7 @@ public class BattleStats {
 	}
 	public void changeDefenseMod(double defenseMod) {
 		double mod = 1.0;
-		if (this.defenseMod > 1.0) {
+		if (this.defenseMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.defenseMod += (defenseMod * mod);

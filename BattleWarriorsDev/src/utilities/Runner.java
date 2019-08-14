@@ -39,11 +39,12 @@ public class Runner extends Application {
 		user.getAttacks().getMoveList().add(manager.loadMove("Double Tiger Strike"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Quick Attack"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Wild Attack"));
+		user.getAttacks().getMoveList().add(manager.loadMove("Raise Defense"));
 		
 		Player enemy = new Player("Slime", "Slime");
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble"));
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble Burst"));
-		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble Bomb"));
+		enemy.getAttacks().getMoveList().add(manager.loadMove("Kick"));
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Spit"));
 		
 		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
@@ -57,6 +58,7 @@ public class Runner extends Application {
 		mainStage.setTitle("Battle Warriors Dev 1.1");
 		mainStage.show();
 
+		System.out.println(user.getAttacks().getMoveList().get(8).toString());
 	}
 
 	public static void main(String[] args) {

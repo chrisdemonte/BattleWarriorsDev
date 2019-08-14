@@ -59,10 +59,32 @@ public class Battle {
 		}
 		//************set the faster and slower attack selections
 		for (int z = 0; z < fasterPriorityAttacks.size(); z++) {
-			fasterPriorityAttacks.get(z).makeMove(faster, slower, arena.getBattleLog());
+			Move attack = fasterPriorityAttacks.get(z);
+			attack.makeMove(faster, slower, arena.getBattleLog());
 			arena.getPlayerBar().changeHealthBar();
 			arena.getPlayerEnergy().changeEnergyBar();
 			arena.getEnemyBar().changeHealthBar();
+			if (attack.getSelf() != null) {
+				if (attack.getSelf().getInitial() != null) {
+					Random rand = new Random();
+					if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
+						for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
+							attack.getSelf().getInitial().get(index).doBuffEffect(faster, faster, arena.getBattleLog());
+						}
+					}	
+				}
+			}
+			if (attack.getTarget() != null) {
+				if (attack.getTarget().getInitial() != null) {
+					Random rand = new Random();
+					if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
+						for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
+							attack.getTarget().getInitial().get(index).doBuffEffect(slower, faster, arena.getBattleLog());
+						}
+					}	
+				}
+			}
+			//this.deathCheck();
 		
 		}
 		for (int y = 0; y < slowerPriorityAttacks.size(); y++) {
@@ -70,6 +92,27 @@ public class Battle {
 			arena.getPlayerBar().changeHealthBar();
 			arena.getPlayerEnergy().changeEnergyBar();
 			arena.getEnemyBar().changeHealthBar();
+			Move attack = slowerPriorityAttacks.get(y);
+			if (attack.getSelf() != null) {
+				if (attack.getSelf().getInitial() != null) {
+					Random rand = new Random();
+					if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
+						for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
+							attack.getSelf().getInitial().get(index).doBuffEffect(slower, slower, arena.getBattleLog());
+						}
+					}	
+				}
+			}
+			if (attack.getTarget() != null) {
+				if (attack.getTarget().getInitial() != null) {
+					Random rand = new Random();
+					if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
+						for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
+							attack.getTarget().getInitial().get(index).doBuffEffect(faster, slower, arena.getBattleLog());
+						}
+					}	
+				}
+			}
 		}
 		result = this.whosFasfter();
 		if (result == 0) {
@@ -89,14 +132,55 @@ public class Battle {
 			arena.getPlayerBar().changeHealthBar();
 			arena.getPlayerEnergy().changeEnergyBar();
 			arena.getEnemyBar().changeHealthBar();
-			arena.getEnemyBar().getContainer().getChildren().add(new Label("" + slower.getBattleStats().getCurrentHealth()));
+			Move attack = fasterAttacks.get(x);
+			if (attack.getSelf() != null) {
+				if (attack.getSelf().getInitial() != null) {
+					Random rand = new Random();
+					if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
+						for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
+							attack.getSelf().getInitial().get(index).doBuffEffect(faster, faster, arena.getBattleLog());
+						}
+					}	
+				}
+			}
+			if (attack.getTarget() != null) {
+				if (attack.getTarget().getInitial() != null) {
+					Random rand = new Random();
+					if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
+						for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
+							attack.getTarget().getInitial().get(index).doBuffEffect(slower, faster, arena.getBattleLog());
+						}
+					}	
+				}
+			}
 		}
 		for (int w = 0; w < slowerAttacks.size(); w++) {
 			slowerAttacks.get(w).makeMove(slower, faster, arena.getBattleLog());
 			arena.getPlayerBar().changeHealthBar();
 			arena.getPlayerEnergy().changeEnergyBar();
 			arena.getEnemyBar().changeHealthBar();
-			
+			Move attack = slowerAttacks.get(w);
+			if (attack.getSelf() != null) {
+				if (attack.getSelf().getInitial() != null) {
+					Random rand = new Random();
+					if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
+						for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
+							attack.getSelf().getInitial().get(index).doBuffEffect(slower, slower, arena.getBattleLog());
+						}
+					}	
+				}
+			}
+			if (attack.getTarget() != null) {
+				if (attack.getTarget().getInitial() != null) {
+					Random rand = new Random();
+					if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
+						for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
+							attack.getTarget().getInitial().get(index).doBuffEffect(faster, slower, arena.getBattleLog());
+						}
+					}	
+				}
+			}
+		
 		}
 
 		arena.getActionButtons().setPreviousSelection(0);
@@ -137,7 +221,7 @@ public class Battle {
 	}
 	public void randomAI() {
 		Random r = new Random();
-		int num = r.nextInt(5);
+		int num = 2;
 		if (enemy.getBattleStats().getCurrentEnergy() > 5) {
 			if (num == 0) {
 				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(0));
@@ -158,6 +242,9 @@ public class Battle {
 			if (num == 4) {
 				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(3));
 			}
+		}
+		else {
+			enemy.getBattleStats().setCurrentEnergy(20);
 		}
 		
 	}

@@ -80,15 +80,15 @@ public class BattleScene {
 		battleWindow.setTranslateX(50);
 		battleWindow.setTranslateY(50);
 		
-		actionPane.setMaxSize((width / 4) - 40, height - 550);
-		actionPane.setMinSize((width / 4) - 40, height - 550);
-		actionPane.setTranslateX((width / 3) + 70);
+		actionPane.setMaxSize((width / 4) - 140, height - 550);
+		actionPane.setMinSize((width / 4) - 140, height - 550);
+		actionPane.setTranslateX((width / 3) + 120);
 		actionPane.setTranslateY(height - 200);
 		actionPane.getChildren().addAll(actionButtons.getContainer());
 		
 		
-		attackPane.setMaxSize((width / 3) - 50, height - 550);
-		attackPane.setMinSize((width / 3) - 50, height - 550);
+		attackPane.setMaxSize((width / 3) + 20, height - 550);
+		attackPane.setMinSize((width / 3) + 20, height - 550);
 		attackPane.setTranslateX(50);
 		attackPane.setTranslateY(height - 200);
 		
@@ -96,9 +96,9 @@ public class BattleScene {
 		timeDisplayPane.setTranslateY(475);
 		timeDisplayPane.getChildren().addAll(this.actionTime.getContainer());
 		
-		logPane.setMaxSize((width / 3) - 50, height - 550);
-		logPane.setMinSize((width / 3) - 50, height - 550);
-		logPane.setTranslateX((width / 3) + (width/4) + 100);
+		logPane.setMaxSize((width / 3) + 20, height - 550);
+		logPane.setMinSize((width / 3) + 20, height - 550);
+		logPane.setTranslateX((width / 3) + (width/4) + 30);
 		logPane.setTranslateY(height - 200);
 		
 		playerBar = new HealthBar(self, 400);

@@ -68,6 +68,7 @@ public class HealthBar {
 		text.setMaxSize(width, 20);
 		text.setStyle("-fx-text-fill: WHITE; -fx-font-size: 14;");
 		text.setAlignment(Pos.BASELINE_CENTER);
+		tooltip.setText(player.getBattleStats().toString());
 		text.setTooltip(tooltip);
 		int temp = (player.getBattleStats().getCurrentHealth()  * this.width)/ player.getBattleStats().getMaxHealth();
 		if (temp < 0) {

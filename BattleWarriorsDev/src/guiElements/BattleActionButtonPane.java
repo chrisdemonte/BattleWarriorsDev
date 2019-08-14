@@ -1,13 +1,14 @@
 package guiElements;
 
 import BattleSystem.Battle;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import models.Player;
 
 public class BattleActionButtonPane {
 	
-	VBox container = new VBox(3);
+	VBox container = new VBox(10);
 	
 	Button attackButton = new Button("Attack");
 	Button itemButton = new Button("Items");
@@ -35,6 +36,8 @@ public class BattleActionButtonPane {
 				attackTabsOpen = true;
 			}
 		});
+		this.attackButton.setMinSize(140, 40);	
+
 		skipTurnButton.setOnAction(e->{
 			if (previousSelection == 1) {
 				Battle battle = scene.getBattle();
@@ -48,7 +51,11 @@ public class BattleActionButtonPane {
 			}
 			previousSelection = 1;
 		});
+		this.skipTurnButton.setMinSize(140, 40);	
+		this.itemButton.setMinSize(140, 40);	
+		this.runButton.setMinSize(140, 40);	
 		container.getChildren().addAll(attackButton, itemButton, skipTurnButton, runButton);
+		this.container.setPadding(new Insets(10, 0,0,10));
 		
 	}
 
