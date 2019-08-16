@@ -13,6 +13,7 @@ public class Player extends Entity{
 	Inventory inventory;
 	ArrayList<Buff> battleBuffs;
 	AttackList attacks;
+	boolean isNPC = true;
 
 	public Player(String name, String description) {
 		super(name, description);
@@ -77,6 +78,16 @@ public class Player extends Entity{
 
 	public void setAttacks(AttackList attacks) {
 		this.attacks = attacks;
+	}
+
+
+	public boolean isNPC() {
+		return isNPC;
+	}
+
+
+	public void setNPC(boolean isNPC) {
+		this.isNPC = isNPC;
 	}
 	
 }

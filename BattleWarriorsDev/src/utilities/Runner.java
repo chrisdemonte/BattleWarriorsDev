@@ -40,6 +40,7 @@ public class Runner extends Application {
 		user.getAttacks().getMoveList().add(manager.loadMove("Quick Attack"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Wild Attack"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Raise Defense"));
+		user.setNPC(false);
 		
 		Player enemy = new Player("Slime", "Slime");
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble"));
@@ -57,6 +58,8 @@ public class Runner extends Application {
 		mainStage.setScene(scene);
 		mainStage.setTitle("Battle Warriors Dev 1.1");
 		mainStage.show();
+		
+		
 
 		System.out.println(user.getAttacks().getMoveList().get(8).toString());
 	}

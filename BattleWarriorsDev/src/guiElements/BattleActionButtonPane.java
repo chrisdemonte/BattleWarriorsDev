@@ -1,5 +1,6 @@
 package guiElements;
 
+import BattleAnimation.BattleSlidingAnimation;
 import BattleSystem.Battle;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -50,6 +51,14 @@ public class BattleActionButtonPane {
 				battle.doTurn();
 			}
 			previousSelection = 1;
+		});
+		this.runButton.setOnAction(e->{
+			BattleSlidingAnimation animationTest = new BattleSlidingAnimation(player.getAttacks().getMoveList().get(0));
+			animationTest.doBattleAnimation(this.scene, this.scene.getBattle(), player, this.scene.getBattle().getEnemy(), player.getAttacks().getMoveList().get(0));
+		});
+		this.itemButton.setOnAction(e->{
+			BattleSlidingAnimation animationTest2 = new BattleSlidingAnimation(player.getAttacks().getMoveList().get(2));
+			animationTest2.doBattleAnimation(this.scene, this.scene.getBattle(), this.scene.getBattle().getEnemy(), player, player.getAttacks().getMoveList().get(2));
 		});
 		this.skipTurnButton.setMinSize(140, 40);	
 		this.itemButton.setMinSize(140, 40);	

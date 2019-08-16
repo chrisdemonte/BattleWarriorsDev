@@ -3,6 +3,7 @@ package BattleSystem;
 import java.util.ArrayList;
 import java.util.Random;
 
+import BattleAnimation.BattleAnimationManager;
 import attacks.Move;
 import guiElements.BattleScene;
 import javafx.scene.control.Label;
@@ -13,17 +14,20 @@ public class Battle {
 	Player self;
 	Player enemy;
 	
+
 	ArrayList<Move> playerChoice = new ArrayList<Move>();
 	ArrayList<Move> playerPriorityChoice = new ArrayList<Move>();
 	ArrayList<Move> enemyChoice = new ArrayList<Move>();
 	ArrayList<Move> enemyPriorityChoice = new ArrayList<Move>();
 	
+	Player faster = null;
 	ArrayList<Move> fasterPriorityAttacks = new ArrayList<Move>();
 	ArrayList<Move> fasterAttacks = new ArrayList<Move>();
 	int fasterTimeCounter = 2000;
 	boolean fasterTryingToRun = false;
 	boolean fasterSkippingTurn = false;
 	
+	Player slower = null;
 	ArrayList<Move> slowerPriorityAttacks = new ArrayList<Move>();
 	ArrayList<Move> slowerAttacks = new ArrayList<Move>();
 	int slowerTimeCounter = 2000;
@@ -32,15 +36,23 @@ public class Battle {
 	
 	BattleScene arena;
 	
+	int sequenceCounter = 0;
+	int attackCounter = 0;
+	
 	public Battle (Player self, Player enemy, BattleScene arena) {
 		this.self = self;
 		this.enemy = enemy;
 		this.arena = arena;
+		
 	}
 	
 	public void doTurn() {
 		this.doBuffs();
 		this.randomAI();
+		BattleAnimationManager animation = new BattleAnimationManager();
+		animation.doAttackSequence(this, arena);
+		
+		/**
 		Player faster;
 		Player slower;
 		int result = this.whosFasfter();
@@ -193,9 +205,10 @@ public class Battle {
 		arena.getPlayerBar().changeHealthBar();
 		arena.getPlayerEnergy().changeEnergyBar();
 		arena.getEnemyBar().changeHealthBar();
+		**/
 	}
 
-	private int whosFasfter() {
+	public int whosFasfter() {
 		if ((self.getBattleStats().getSpeed() * self.getBattleStats().getSpeedMod()) >
 		(enemy.getBattleStats().getSpeed() * enemy.getBattleStats().getSpeedMod())) {
 			return 0;
@@ -248,6 +261,7 @@ public class Battle {
 		}
 		
 	}
+
 
 	public Player getSelf() {
 		return self;
@@ -367,6 +381,54 @@ public class Battle {
 
 	public void setPlayerPriorityChoice(ArrayList<Move> playerPriorityChoice) {
 		this.playerPriorityChoice = playerPriorityChoice;
+	}
+
+	public ArrayList<Move> getEnemyChoice() {
+		return enemyChoice;
+	}
+
+	public void setEnemyChoice(ArrayList<Move> enemyChoice) {
+		this.enemyChoice = enemyChoice;
+	}
+
+	public ArrayList<Move> getEnemyPriorityChoice() {
+		return enemyPriorityChoice;
+	}
+
+	public void setEnemyPriorityChoice(ArrayList<Move> enemyPriorityChoice) {
+		this.enemyPriorityChoice = enemyPriorityChoice;
+	}
+
+	public Player getFaster() {
+		return faster;
+	}
+
+	public void setFaster(Player faster) {
+		this.faster = faster;
+	}
+
+	public Player getSlower() {
+		return slower;
+	}
+
+	public void setSlower(Player slower) {
+		this.slower = slower;
+	}
+
+	public int getSequenceCounter() {
+		return sequenceCounter;
+	}
+
+	public void setSequenceCounter(int sequenceCounter) {
+		this.sequenceCounter = sequenceCounter;
+	}
+
+	public int getAttackCounter() {
+		return attackCounter;
+	}
+
+	public void setAttackCounter(int attackCounter) {
+		this.attackCounter = attackCounter;
 	}
 
 }

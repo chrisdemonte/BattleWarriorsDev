@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 
 import BattleSystem.Battle;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -34,6 +35,11 @@ public class BattleScene {
 	ImageView frameView = new ImageView();	
 	Image border;
 	
+	HBox playerSpriteContainer = new HBox();
+	Image playerSprite;
+	HBox enemySpriteContainer = new HBox();
+	Image enemySprite;
+	
 	HBox healthBarLine = new HBox();
 		VBox playerBuffContainer = new VBox(1);
 		VBox playerHealthBarContainer = new VBox(1);
@@ -60,6 +66,8 @@ public class BattleScene {
 	
 	Battle battle;
 	
+	int width = 1200;
+	int height = 800;
 
 	public BattleScene(Player self, Player enemy) {
 		this.generateLayout(1200, 800, self, enemy);
@@ -68,6 +76,8 @@ public class BattleScene {
 	}
 
 	private void generateLayout(int width, int height, Player self, Player enemy) {
+		this.width = width;
+		this.height = height;
 		container.setMaxSize(width, height);
 		container.setMinSize(width, height);
 		
@@ -113,6 +123,14 @@ public class BattleScene {
 		enemyBar.getContainer().setTranslateX(700);
 		enemyBar.getContainer().setTranslateY(100);
 		
+		playerSpriteContainer.setMinSize(200, 200);
+		playerSpriteContainer.setTranslateX((width/3) - 140);
+		playerSpriteContainer.setTranslateY((height/2) - 180);
+		enemySpriteContainer.setMinSize(200,200);
+		enemySpriteContainer.setTranslateX(((width * 2)/3) - 60);
+		enemySpriteContainer.setTranslateY((height/2) - 180);
+		
+		
 		try {
 			//File file = new File ("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\battle_pane.PNG");
 			File file = new File("resources/images/red_pixel_background.PNG");
@@ -130,6 +148,16 @@ public class BattleScene {
 			logPane.setBackground(new Background(new BackgroundImage(border,
 			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			          BackgroundSize.DEFAULT)));
+			File playerFile = new File("resources/images/playerModels/man.PNG");
+			this.playerSprite = new Image(new FileInputStream(playerFile));
+			playerSpriteContainer.setBackground(new Background(new BackgroundImage(playerSprite,
+			        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+			          BackgroundSize.DEFAULT)));
+			File enemyFile = new File("resources/images/playerModels/demonstawberry.PNG");
+			this.enemySprite = new Image(new FileInputStream(enemyFile));
+			enemySpriteContainer.setBackground(new Background(new BackgroundImage(enemySprite,
+			        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+			          BackgroundSize.DEFAULT)));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -138,7 +166,8 @@ public class BattleScene {
 		battleWindow.setBorder(new Border(new BorderImage(border, new BorderWidths(10.0), new Insets(0.0), new BorderWidths(10.0),
 				false, BorderRepeat.REPEAT, BorderRepeat.REPEAT)));
 		
-		container.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), enemyBar.getContainer(),attackPane, timeDisplayPane, actionPane, logPane);
+		container.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), enemyBar.getContainer(),attackPane, timeDisplayPane, actionPane, logPane, 
+				playerSpriteContainer, enemySpriteContainer);
 		
 		
 	}
@@ -275,6 +304,54 @@ public class BattleScene {
 
 	public void setTimeDisplayPane(Pane timeDisplayPane) {
 		this.timeDisplayPane = timeDisplayPane;
+	}
+
+	public HBox getPlayerSpriteContainer() {
+		return playerSpriteContainer;
+	}
+
+	public void setPlayerSpriteContainer(HBox playerSpriteContainer) {
+		this.playerSpriteContainer = playerSpriteContainer;
+	}
+
+	public Image getPlayerSprite() {
+		return playerSprite;
+	}
+
+	public void setPlayerSprite(Image playerSprite) {
+		this.playerSprite = playerSprite;
+	}
+
+	public HBox getEnemySpriteContainer() {
+		return enemySpriteContainer;
+	}
+
+	public void setEnemySpriteContainer(HBox enemySpriteContainer) {
+		this.enemySpriteContainer = enemySpriteContainer;
+	}
+
+	public Image getEnemySprite() {
+		return enemySprite;
+	}
+
+	public void setEnemySprite(Image enemySprite) {
+		this.enemySprite = enemySprite;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 	
 	
