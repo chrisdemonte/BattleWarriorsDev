@@ -14,27 +14,27 @@ public class AttackMakerMovePane {
 	ComboBox<String> selector = new ComboBox<String>();
 	AttackMakerMoveNode moveNode;
 	
-	public AttackMakerMovePane (BuffMaker self, BuffMaker target) {
-		this.generateLayout(self, target);
+	public AttackMakerMovePane (BuffMaker self, BuffMaker target, AttackMakerAnimationMaker animations) {
+		this.generateLayout(self, target, animations);
 	}
 
-	private void generateLayout(BuffMaker self, BuffMaker target) {	
+	private void generateLayout(BuffMaker self, BuffMaker target, AttackMakerAnimationMaker animations) {	
 		selector.getItems().addAll("Basic Attack");
 		selector.getSelectionModel().selectFirst();
-		this.setSelectorAction(self, target);
-		moveNode = new AttackMakerFullAttack(self, target);
+		this.setSelectorAction(self, target, animations);
+		moveNode = new AttackMakerFullAttack(self, target, animations);
 		
 		container.getChildren().addAll(selector, moveNode.getContainer());
 		
 	}
 
-	private void setSelectorAction(BuffMaker self, BuffMaker target) {
+	private void setSelectorAction(BuffMaker self, BuffMaker target,  AttackMakerAnimationMaker animations) {
 		this.selector.setOnAction(e->{
 			String selection = selector.getValue();
 			if (selection != null) {
 				this.container.getChildren().clear();
 				if (selection.contentEquals("Basic Attack")) {
-					moveNode = new AttackMakerFullAttack (self, target);
+					moveNode = new AttackMakerFullAttack (self, target, animations);
 					this.container.getChildren().addAll(selector, moveNode.getContainer());
 				}
 			}

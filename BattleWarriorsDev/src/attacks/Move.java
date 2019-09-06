@@ -178,6 +178,12 @@ public abstract class Move implements Serializable{
 	public void setPriority(boolean priority) {
 		this.priority = priority;
 	}
+	public BattleAnimation getAnimation() {
+		return animation;
+	}
+	public void setAnimation(BattleAnimation animation) {
+		this.animation = animation;
+	}
 	
 	
 

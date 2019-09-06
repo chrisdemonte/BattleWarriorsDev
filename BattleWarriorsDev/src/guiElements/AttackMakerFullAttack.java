@@ -75,11 +75,13 @@ public class AttackMakerFullAttack extends AttackMakerMoveNode{
 	
 	BuffMaker self;
 	BuffMaker target;
+	AttackMakerAnimationMaker animationMaker;
 	
-	public AttackMakerFullAttack (BuffMaker self, BuffMaker target) {
+	public AttackMakerFullAttack (BuffMaker self, BuffMaker target, AttackMakerAnimationMaker animationMaker) {
 		this.generateLayout();
 		this.self = self;
 		this.target = target;
+		this.animationMaker = animationMaker;
 	}
 
 	private void generateLayout() {
@@ -139,6 +141,7 @@ public class AttackMakerFullAttack extends AttackMakerMoveNode{
 					Double.parseDouble(this.penetrationEntry.getText()),
 					this.rangedAttackEntry.isSelected(),
 					this.priorityEntry.isSelected());
+			temp.setAnimation(animationMaker.generateAnimation(temp));
 		}
 		catch (Exception ex) {
 			temp = null;

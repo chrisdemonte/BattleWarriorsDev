@@ -19,7 +19,6 @@ public class BattleAnimationManager {
 		super();
 	}
 
-
 	public void doAttackSequence(Battle battle, BattleScene scene) {
 	
 		battle.setSequenceCounter(0);
@@ -40,7 +39,7 @@ public class BattleAnimationManager {
 				battle.setFaster(battle.getEnemy());
 				battle.setFasterPriorityAttacks((battle.getEnemyPriorityChoice()));
 				battle.setSlower(battle.getSelf());
-				battle.setFasterPriorityAttacks(battle.getPlayerPriorityChoice());
+				battle.setSlowerPriorityAttacks(battle.getPlayerPriorityChoice());
 			}
 			int delayCounter = 0;
 			Timeline timer = new Timeline();
@@ -51,10 +50,10 @@ public class BattleAnimationManager {
 				eventList.add(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent e) {
-						BattleSlidingAnimation animation = new BattleSlidingAnimation(attack);
-						animation.doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
+						attack.getAnimation().doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
 						
-					}});
+					}
+				});
 					
 				
 				timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), eventList.get(i)));
@@ -64,9 +63,8 @@ public class BattleAnimationManager {
 				Move attack = battle.getSlowerPriorityAttacks().get(i);
 				eventList.add(new EventHandler<ActionEvent>() {
 					@Override
-					public void handle(ActionEvent e) {
-						BattleSlidingAnimation animation = new BattleSlidingAnimation(attack);
-						animation.doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
+					public void handle(ActionEvent t) {
+						attack.getAnimation().doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
 						
 					}});
 					
@@ -90,8 +88,8 @@ public class BattleAnimationManager {
 						battle.setFaster(battle.getEnemy());
 						battle.setFasterAttacks((battle.getEnemyChoice()));
 						battle.setSlower(battle.getSelf());
-						battle.setFasterAttacks(battle.getPlayerChoice());
-				
+						battle.setSlowerAttacks(battle.getPlayerChoice());
+					}
 						int delayCounter = 0;
 						Timeline timer = new Timeline();
 						ArrayList<EventHandler<ActionEvent>> eventList = new ArrayList<EventHandler<ActionEvent>>();
@@ -101,8 +99,7 @@ public class BattleAnimationManager {
 							eventList.add(new EventHandler<ActionEvent>() {
 								@Override
 								public void handle(ActionEvent e) {
-									BattleSlidingAnimation animation = new BattleSlidingAnimation(attack);
-									animation.doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
+									attack.getAnimation().doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
 									
 								}});
 								
@@ -115,8 +112,7 @@ public class BattleAnimationManager {
 							eventList.add(new EventHandler<ActionEvent>() {
 								@Override
 								public void handle(ActionEvent e) {
-									BattleSlidingAnimation animation = new BattleSlidingAnimation(attack);
-									animation.doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
+									attack.getAnimation().doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
 									
 								}});
 								
@@ -129,7 +125,7 @@ public class BattleAnimationManager {
 							@Override
 							public void handle(ActionEvent e) {
 								scene.getActionButtons().setPreviousSelection(0);
-								scene.getSelectionPane().resetActions();
+								scene.getActionTime().clearTabs();
 								scene.getAttackPane().getChildren().clear();
 								battle.getPlayerChoice().clear();
 								battle.getPlayerPriorityChoice().clear();
@@ -143,7 +139,6 @@ public class BattleAnimationManager {
 						timer.play();
 					}
 					
-				}
 
 				
 			};
@@ -167,7 +162,8 @@ public class BattleAnimationManager {
 			battle.setFaster(battle.getEnemy());
 			battle.setFasterAttacks((battle.getEnemyChoice()));
 			battle.setSlower(battle.getSelf());
-			battle.setFasterAttacks(battle.getPlayerChoice());
+			battle.setSlowerAttacks(battle.getPlayerChoice());
+		}
 	
 			int delayCounter = 0;
 			Timeline timer = new Timeline();
@@ -178,8 +174,7 @@ public class BattleAnimationManager {
 				eventList.add(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent e) {
-						BattleSlidingAnimation animation = new BattleSlidingAnimation(attack);
-						animation.doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
+						attack.getAnimation().doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
 						
 					}});
 					
@@ -192,8 +187,7 @@ public class BattleAnimationManager {
 				eventList.add(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent e) {
-						BattleSlidingAnimation animation = new BattleSlidingAnimation(attack);
-						animation.doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
+						attack.getAnimation().doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
 						
 					}});
 					
@@ -206,7 +200,7 @@ public class BattleAnimationManager {
 				@Override
 				public void handle(ActionEvent e) {
 					scene.getActionButtons().setPreviousSelection(0);
-					scene.getSelectionPane().resetActions();
+					scene.getActionTime().clearTabs();
 					scene.getAttackPane().getChildren().clear();
 					battle.getPlayerChoice().clear();
 					battle.getPlayerPriorityChoice().clear();
@@ -219,7 +213,7 @@ public class BattleAnimationManager {
 			timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), finalHandler));
 			timer.play();
 		}
-	}
+	
 	
 
 }

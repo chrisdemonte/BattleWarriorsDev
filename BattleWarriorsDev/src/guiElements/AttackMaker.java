@@ -13,10 +13,12 @@ public class AttackMaker {
 	Tab attackMain = new Tab();
 	Tab selfBuff = new Tab();
 	Tab targetBuff = new Tab();
+	Tab animationTab = new Tab();
 	
 	AttackMakerMovePane moveMaker;
 	BuffMaker selfBuffMaker = new BuffMaker();
 	BuffMaker targetBuffMaker = new BuffMaker();
+	AttackMakerAnimationMaker animationMaker = new AttackMakerAnimationMaker();
 	
 	Button submitButton = new Button ("Create Attack");
 	
@@ -25,7 +27,7 @@ public class AttackMaker {
 	Label debugTester = new Label("");
 	
 	public AttackMaker () {
-		this.moveMaker = new AttackMakerMovePane(selfBuffMaker, targetBuffMaker);
+		this.moveMaker = new AttackMakerMovePane(selfBuffMaker, targetBuffMaker, animationMaker);
 		this.generateLayout();
 	}
 
@@ -33,14 +35,16 @@ public class AttackMaker {
 		attackMain.setText("Main");
 		selfBuff.setText("Self Buff");
 		targetBuff.setText("Target Buff");
+		animationTab.setText("Animations");
 		
 		attackMain.setContent(moveMaker.getContainer());
 		selfBuff.setContent(this.selfBuffMaker.getContainer());
 		targetBuff.setContent(this.targetBuffMaker.getContainer());
+		animationTab.setContent(this.animationMaker.getContainer());
 		container.setMinSize(1200, 800);
 		moveMaker.getContainer().getChildren().addAll(this.submitButton, this.debugTester);
 		this.setButtonAction();
-		container.getTabs().addAll(attackMain, selfBuff, targetBuff);
+		container.getTabs().addAll(attackMain, selfBuff, targetBuff, animationTab);
 		
 	}
 	

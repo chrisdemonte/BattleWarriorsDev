@@ -186,9 +186,7 @@ public class BattleSelectionPane {
 		for (int i = 0; i < this.attacks.size(); i++) {
 			this.undoUse(attacks.get(i));
 		}
-		this.arena.getActionTime().clearTabs();
-		this.attacks.clear();
-		this.priorityAttacks.clear();
+		
 		
 	}
 	public void submitAction() {
@@ -196,15 +194,19 @@ public class BattleSelectionPane {
 		battle.setPlayerPriorityChoice(this.priorityAttacks);
 		battle.setPlayerChoice(this.attacks);
 		arena.getActionButtons().setAttackTabsOpen(false);
+		this.resetActions();
+		this.arena.getSelectionPane().getContainer().setVisible(false);
 		battle.doTurn();
 		
 	}
+	
 	public void setButtons () {
 		this.submitButton.setOnAction(e->{
 			this.submitAction();
 		});
 		this.clearButton.setOnAction(e->{
 			this.resetActions();
+			this.resetAttackChoices();
 			timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 			this.resetList();
 		});
