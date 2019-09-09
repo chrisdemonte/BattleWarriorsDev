@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 
+import BattleSystem.BattleBuffHolder;
 import attacks.Buff;
 import utilities.AttackList;
 import utilities.BattleLog;
@@ -11,7 +12,8 @@ public class Player extends Entity{
 	BaseStats baseStats;
 	BattleStats battleStats;
 	Inventory inventory;
-	ArrayList<Buff> battleBuffs;
+	ArrayList<BattleBuffHolder> battleBuffs;
+	ArrayList<BattleBuffHolder> battleDebuffs;
 	AttackList attacks;
 	boolean isNPC = true;
 
@@ -20,13 +22,13 @@ public class Player extends Entity{
 		this.inventory = new Inventory();
 		this.baseStats = new BaseStats();
 		this.battleStats = new BattleStats(this);
-		battleBuffs = new ArrayList<Buff>();
+		this.battleBuffs = new ArrayList<BattleBuffHolder>();
+		this.battleDebuffs = new ArrayList<BattleBuffHolder>();
 		attacks = new AttackList();
 	}
 	
-
 	public Player(String name, String description, BaseStats baseStats, BattleStats battleStats, Inventory inventory,
-			ArrayList<Buff> battleBuffs, AttackList attacks) {
+			ArrayList<BattleBuffHolder> battleBuffs, AttackList attacks) {
 		super(name, description);
 		this.baseStats = baseStats;
 		this.battleStats = battleStats;
@@ -34,60 +36,49 @@ public class Player extends Entity{
 		this.battleBuffs = battleBuffs;
 		this.attacks = attacks;
 	}
-
-
 	public BaseStats getBaseStats() {
 		return baseStats;
 	}
-
 	public void setBaseStats(BaseStats baseStats) {
 		this.baseStats = baseStats;
 	}
-
 	public BattleStats getBattleStats() {
 		return battleStats;
 	}
-
 	public void setBattleStats(BattleStats battleStats) {
 		this.battleStats = battleStats;
 	}
-
 	public Inventory getInventory() {
 		return inventory;
 	}
-
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}
-
-
-	public ArrayList<Buff> getBattleBuffs() {
+	public ArrayList<BattleBuffHolder> getBattleBuffs() {
 		return battleBuffs;
 	}
-
-
-	public void setBattleBuffs(ArrayList<Buff> battleBuffs) {
+	public void setBattleBuffs(ArrayList<BattleBuffHolder> battleBuffs) {
 		this.battleBuffs = battleBuffs;
 	}
-
-
 	public AttackList getAttacks() {
 		return attacks;
 	}
-
-
 	public void setAttacks(AttackList attacks) {
 		this.attacks = attacks;
 	}
-
-
 	public boolean isNPC() {
 		return isNPC;
 	}
-
-
 	public void setNPC(boolean isNPC) {
 		this.isNPC = isNPC;
+	}
+
+	public ArrayList<BattleBuffHolder> getBattleDebuffs() {
+		return battleDebuffs;
+	}
+
+	public void setBattleDebuffs(ArrayList<BattleBuffHolder> battleDebuffs) {
+		this.battleDebuffs = battleDebuffs;
 	}
 	
 }

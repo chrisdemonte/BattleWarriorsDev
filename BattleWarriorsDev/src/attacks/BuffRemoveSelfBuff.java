@@ -3,6 +3,7 @@ package attacks;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import BattleSystem.BattleBuffHolder;
 import models.Player;
 import utilities.BattleLog;
 
@@ -19,12 +20,12 @@ public class BuffRemoveSelfBuff extends BuffEffect{
 
 	@Override
 	public void doBuffEffect(Player target, Player self, BattleLog log) {
-		ArrayList <Buff> list = self.getBattleBuffs();
+		ArrayList <BattleBuffHolder> list = self.getBattleBuffs();
 		
 		for (int i = 0; i < this.keywords.length; i++) {
 			for (int j = 0; j < list.size(); j++) {
-				for (int k = 0; k < list.get(j).getKeywords().length; k++) {
-					if (this.keywords[i].contentEquals(list.get(j).getKeywords()[k])){
+				for (int k = 0; k < list.get(j).getBuff().getKeywords().length; k++) {
+					if (this.keywords[i].contentEquals(list.get(j).getBuff().getKeywords()[k])){
 						list.remove(j);
 						return;
 					}

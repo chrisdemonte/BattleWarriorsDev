@@ -45,8 +45,9 @@ public class Runner extends Application {
 		Player enemy = new Player("Slime", "Slime");
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble"));
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Bubble Burst"));
-		enemy.getAttacks().getMoveList().add(manager.loadMove("Kick"));
+		enemy.getAttacks().getMoveList().add(manager.loadMove("Cross Punch"));
 		enemy.getAttacks().getMoveList().add(manager.loadMove("Spit"));
+		//enemy.getBattleStats().setOutOfReach(true);
 		
 		//BaseStatEditor editor = new BaseStatEditor(new BaseStats(), 9);
 		//AttackMaker pane = new AttackMaker();

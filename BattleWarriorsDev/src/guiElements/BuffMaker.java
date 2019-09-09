@@ -77,7 +77,6 @@ public class BuffMaker {
 					this.periodicBuffMaker.generateList(),
 					this.endBuffMaker.generateList(),
 					Integer.parseInt(this.durationEntry.getText()),
-					Integer.parseInt(this.durationEntry.getText()),
 					Integer.parseInt(this.intialChanceEntry.getText()),
 					Integer.parseInt(this.periodicChanceEntry.getText()),
 					this.keywordsEntry.getText().split(", "));

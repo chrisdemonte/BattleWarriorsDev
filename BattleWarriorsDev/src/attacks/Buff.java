@@ -17,14 +17,13 @@ public class Buff implements Serializable{
 	ArrayList<BuffEffect> periodic;
 	ArrayList<BuffEffect> end;
 	int duration;
-	int counter;
 	int initialChance;
 	int periodicChance;
 	String[] keywords;
 	String custom = new String();
 
 	public Buff(String name, String description, ArrayList<BuffEffect> initial, ArrayList<BuffEffect> periodic,
-			ArrayList<BuffEffect> end, int duration, int counter, int initialChance, int periodicChance, String[] keywords) {
+			ArrayList<BuffEffect> end, int duration,  int initialChance, int periodicChance, String[] keywords) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -32,41 +31,29 @@ public class Buff implements Serializable{
 		this.periodic = periodic;
 		this.end = end;
 		this.duration = duration;
-		this.counter = counter;
 		this.initialChance = initialChance;
 		this.periodicChance = periodicChance;
 		this.keywords = keywords;
 	}
 	public void doIntialBuff(Player target, Player self, BattleLog log) {
 		if (this.initial != null) {
-			for (int i = 0; i < this.end.size(); i++) {
+			for (int i = 0; i < this.initial.size(); i++) {
 				this.initial.get(i).doBuffEffect(target, self, log);
-				this.counter -= 1;
 			}
 		}
 	}
 	public void doPeriodicBuff(Player target, Player self, BattleLog log) {
-		if (this.counter == 1 && this.end != null) {
+		if (this.periodic != null) {
+			for (int i = 0; i < this.periodic.size(); i++) {
+				this.periodic.get(i).doBuffEffect(target, self, log);
+			}
+		}
+	}
+	public void doEndBuff(Player target, Player self, BattleLog log) {
+		if (this.end != null) {
 			for (int i = 0; i < this.end.size(); i++) {
 				this.end.get(i).doBuffEffect(target, self, log);
-				this.counter -= 1;
 			}
-		}
-		else if (this.counter == 1 && this.end == null && this.periodic != null) {
-			for (int i = 0; i < this.end.size(); i++) {
-				this.periodic.get(i).doBuffEffect(target, self, log);
-				this.counter -= 1;
-			}
-		
-		}
-		else if (this.counter > 1 && this.periodic != null) {
-			for (int i = 0; i < this.end.size(); i++) {
-				this.periodic.get(i).doBuffEffect(target, self, log);
-				this.counter -= 1;
-			}
-		}
-		else {
-			this.counter -= 1;
 		}
 	}
 	
@@ -99,7 +86,7 @@ public class Buff implements Serializable{
 		else {
 			temp += "null";
 		}
-		temp += "\nduration=" + duration + "\ncounter=" + counter + "\ninitialChance="
+		temp += "\nduration=" + duration + "\ninitialChance="
 				+ initialChance + "\nperiodicChance=" + periodicChance + "\nkeywords=" + Arrays.toString(keywords)
 				+ "\ncustom=" + custom + "]";
 		return temp;
@@ -139,12 +126,6 @@ public class Buff implements Serializable{
 	}
 	public void setDuration(int duration) {
 		this.duration = duration;
-	}
-	public int getCounter() {
-		return counter;
-	}
-	public void setCounter(int counter) {
-		this.counter = counter;
 	}
 	public int getInitialChance() {
 		return initialChance;

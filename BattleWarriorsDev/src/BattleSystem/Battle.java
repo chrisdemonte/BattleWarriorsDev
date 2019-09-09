@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import BattleAnimation.BattleAnimationManager;
+import BattleAnimation.BattleBuffAnimationManager;
 import attacks.Move;
 import guiElements.BattleScene;
 import javafx.scene.control.Label;
@@ -14,7 +15,6 @@ public class Battle {
 	Player self;
 	Player enemy;
 	
-
 	ArrayList<Move> playerChoice = new ArrayList<Move>();
 	ArrayList<Move> playerPriorityChoice = new ArrayList<Move>();
 	ArrayList<Move> enemyChoice = new ArrayList<Move>();
@@ -42,195 +42,55 @@ public class Battle {
 	public Battle (Player self, Player enemy, BattleScene arena) {
 		this.self = self;
 		this.enemy = enemy;
-		this.arena = arena;
-		
+		this.arena = arena;		
 	}
 	
 	public void doTurn() {
-		this.doBuffs();
 		this.randomAI();
-		BattleAnimationManager animation = new BattleAnimationManager();
-		animation.doAttackSequence(this, arena);
-		
-		/**
-		Player faster;
-		Player slower;
-		int result = this.whosFasfter();
-		if (result == 0) {
-			faster = self;
-			fasterPriorityAttacks = playerPriorityChoice;
-			slower = enemy;
-			slowerPriorityAttacks = enemyPriorityChoice;
-		}
-		else {
-			faster = enemy;
-			fasterPriorityAttacks = enemyPriorityChoice;
-			slower = self;
-			slowerPriorityAttacks = playerPriorityChoice;
-	
-		}
-		//************set the faster and slower attack selections
-		for (int z = 0; z < fasterPriorityAttacks.size(); z++) {
-			Move attack = fasterPriorityAttacks.get(z);
-			attack.makeMove(faster, slower, arena.getBattleLog());
-			arena.getPlayerBar().changeHealthBar();
-			arena.getPlayerEnergy().changeEnergyBar();
-			arena.getEnemyBar().changeHealthBar();
-			if (attack.getSelf() != null) {
-				if (attack.getSelf().getInitial() != null) {
-					Random rand = new Random();
-					if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
-						for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
-							attack.getSelf().getInitial().get(index).doBuffEffect(faster, faster, arena.getBattleLog());
-						}
-					}	
-				}
-			}
-			if (attack.getTarget() != null) {
-				if (attack.getTarget().getInitial() != null) {
-					Random rand = new Random();
-					if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
-						for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
-							attack.getTarget().getInitial().get(index).doBuffEffect(slower, faster, arena.getBattleLog());
-						}
-					}	
-				}
-			}
-			//this.deathCheck();
-		
-		}
-		for (int y = 0; y < slowerPriorityAttacks.size(); y++) {
-			slowerPriorityAttacks.get(y).makeMove(slower, faster, arena.getBattleLog());
-			arena.getPlayerBar().changeHealthBar();
-			arena.getPlayerEnergy().changeEnergyBar();
-			arena.getEnemyBar().changeHealthBar();
-			Move attack = slowerPriorityAttacks.get(y);
-			if (attack.getSelf() != null) {
-				if (attack.getSelf().getInitial() != null) {
-					Random rand = new Random();
-					if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
-						for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
-							attack.getSelf().getInitial().get(index).doBuffEffect(slower, slower, arena.getBattleLog());
-						}
-					}	
-				}
-			}
-			if (attack.getTarget() != null) {
-				if (attack.getTarget().getInitial() != null) {
-					Random rand = new Random();
-					if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
-						for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
-							attack.getTarget().getInitial().get(index).doBuffEffect(faster, slower, arena.getBattleLog());
-						}
-					}	
-				}
-			}
-		}
-		result = this.whosFasfter();
-		if (result == 0) {
-			faster = self;
-			fasterAttacks = playerChoice;
-			slower = enemy;
-			slowerAttacks = enemyChoice;
-		}
-		else {
-			faster = enemy;
-			fasterAttacks = enemyChoice;
-			slower = self;
-			slowerAttacks = playerChoice;
-		}
-		for (int x = 0; x < fasterAttacks.size(); x++) {
-			fasterAttacks.get(x).makeMove(faster, slower, arena.getBattleLog());
-			arena.getPlayerBar().changeHealthBar();
-			arena.getPlayerEnergy().changeEnergyBar();
-			arena.getEnemyBar().changeHealthBar();
-			Move attack = fasterAttacks.get(x);
-			if (attack.getSelf() != null) {
-				if (attack.getSelf().getInitial() != null) {
-					Random rand = new Random();
-					if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
-						for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
-							attack.getSelf().getInitial().get(index).doBuffEffect(faster, faster, arena.getBattleLog());
-						}
-					}	
-				}
-			}
-			if (attack.getTarget() != null) {
-				if (attack.getTarget().getInitial() != null) {
-					Random rand = new Random();
-					if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
-						for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
-							attack.getTarget().getInitial().get(index).doBuffEffect(slower, faster, arena.getBattleLog());
-						}
-					}	
-				}
-			}
-		}
-		for (int w = 0; w < slowerAttacks.size(); w++) {
-			slowerAttacks.get(w).makeMove(slower, faster, arena.getBattleLog());
-			arena.getPlayerBar().changeHealthBar();
-			arena.getPlayerEnergy().changeEnergyBar();
-			arena.getEnemyBar().changeHealthBar();
-			Move attack = slowerAttacks.get(w);
-			if (attack.getSelf() != null) {
-				if (attack.getSelf().getInitial() != null) {
-					Random rand = new Random();
-					if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
-						for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
-							attack.getSelf().getInitial().get(index).doBuffEffect(slower, slower, arena.getBattleLog());
-						}
-					}	
-				}
-			}
-			if (attack.getTarget() != null) {
-				if (attack.getTarget().getInitial() != null) {
-					Random rand = new Random();
-					if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
-						for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
-							attack.getTarget().getInitial().get(index).doBuffEffect(faster, slower, arena.getBattleLog());
-						}
-					}	
-				}
-			}
-		
-		}
-
-		arena.getActionButtons().setPreviousSelection(0);
-		arena.getSelectionPane().resetActions();
-		arena.getAttackPane().getChildren().clear();
-		this.playerChoice.clear();
-		this.playerPriorityChoice.clear();
-		this.enemyChoice.clear();
-		this.enemyPriorityChoice.clear();
-		arena.getPlayerBar().changeHealthBar();
-		arena.getPlayerEnergy().changeEnergyBar();
-		arena.getEnemyBar().changeHealthBar();
-		**/
+		this.doBuffs();
 	}
 
-	public int whosFasfter() {
+	public void whosFasfter() {
+		int result = 0;
 		if ((self.getBattleStats().getSpeed() * self.getBattleStats().getSpeedMod()) >
 		(enemy.getBattleStats().getSpeed() * enemy.getBattleStats().getSpeedMod())) {
-			return 0;
+			result = 0;
 		}
 		else if ((self.getBattleStats().getSpeed() * self.getBattleStats().getSpeedMod()) ==
 		(enemy.getBattleStats().getSpeed() * enemy.getBattleStats().getSpeedMod())) {
 			Random rand = new Random();
 			if (rand.nextInt(2) == 0) {
-				return 0;
+				result = 0;
 			}
 			else {
-				return 1;
+				result = 1;
 			}
 		}
 		else {
-			return 1;
+			result = 1;
+		}
+		if (result == 0) {
+			setFaster(getSelf());
+			setFasterAttacks(getPlayerChoice());
+			setSlower(getEnemy());
+			setSlowerAttacks(getEnemyChoice());
+		}
+		else {
+			setFaster(getEnemy());
+			setFasterAttacks((getEnemyChoice()));
+			setSlower(getSelf());
+			setSlowerAttacks(getPlayerChoice());
 		}
 	}
 
-	private void doBuffs() {
-		// TODO Auto-generated method stub
+	public void doBuffs() {
+		BattleBuffAnimationManager animation = new BattleBuffAnimationManager();
+		animation.doBuffAnimations(this, this.arena);
 		
+	}
+	public void doMoves() {
+		BattleAnimationManager animation = new BattleAnimationManager();
+		animation.doAttackSequence(this, arena);
 	}
 	public void randomAI() {
 		Random r = new Random();

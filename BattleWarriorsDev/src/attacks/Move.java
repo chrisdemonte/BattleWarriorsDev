@@ -1,8 +1,10 @@
 package attacks;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import BattleAnimation.BattleAnimation;
+import BattleSystem.BattleBuffHolder;
 import models.BaseStats;
 import models.Player;
 import utilities.BattleLog;
@@ -57,6 +59,62 @@ public abstract class Move implements Serializable{
 		
 	}
 
+	public boolean makeContact (Player self, Player target, BattleLog log ) {
+		boolean makesContact = true;
+		
+		if (!self.getBattleStats().isCanAttack()) {
+			makesContact = false;
+		}
+		if (target.getBattleStats().isOutOfReach() && !self.getBattleStats().isReach()) {
+			makesContact = false;
+		}
+		if (target.getBattleStats().isHidden()) {
+			makesContact = false;
+		}
+		/**
+		if (target.getBattleStats().getIntimidation() > 0 || self.getBattleStats().getFear() > 0) {
+			int totalFear = (int)(target.getBattleStats().getIntimidation() + self.getBattleStats().getFear());
+			Random rand = new Random();
+			if (rand.nextInt(totalFear) >  )
+		}
+		**/
+		return makesContact;
+	}
+	public void applyBuffs (Player self, Player target, Move attack, BattleLog log) {
+		if (attack.getSelf() != null) {
+			if (attack.getSelf().getInitial() != null) {
+				Random rand = new Random();
+				if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
+					for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
+						attack.getSelf().getInitial().get(index).doBuffEffect(self, self, log);
+					}
+				}	
+				
+			}
+			if (attack.getSelf().getPeriodic() != null || attack.getSelf().getEnd() != null) {
+				Random rand = new Random();
+				if (rand.nextInt(100) < attack.getSelf().getPeriodicChance()) {
+					self.getBattleBuffs().add(new BattleBuffHolder(attack.getSelf()));
+				}
+			}
+		}
+		if (attack.getTarget() != null) {
+			if (attack.getTarget().getInitial() != null) {
+				Random rand = new Random();
+				if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
+					for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
+						attack.getTarget().getInitial().get(index).doBuffEffect(target, self, log);
+					}
+				}	
+			}
+			if (attack.getTarget().getPeriodic() != null || attack.getTarget().getEnd() != null) {
+				Random rand = new Random();
+				if (rand.nextInt(100) < attack.getTarget().getPeriodicChance()) {
+					target.getBattleDebuffs().add(new BattleBuffHolder(attack.getTarget()));
+				}
+			}
+		}
+	}
 	public void resetUses() {
 		this.currentUses = this.uses;
 	}

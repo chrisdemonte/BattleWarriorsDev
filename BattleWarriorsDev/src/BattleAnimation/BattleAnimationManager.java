@@ -28,19 +28,7 @@ public class BattleAnimationManager {
 	public void doPriorityAttacks (Battle battle, BattleScene scene) {
 		
 		if (battle.getFasterPriorityAttacks().size() + battle.getSlowerPriorityAttacks().size() > 0) {
-			int result = battle.whosFasfter();
-			if (result == 0) {
-				battle.setFaster(battle.getSelf());
-				battle.setFasterPriorityAttacks(battle.getPlayerPriorityChoice());
-				battle.setSlower(battle.getEnemy());
-				battle.setSlowerPriorityAttacks(battle.getEnemyPriorityChoice());
-			}
-			else {
-				battle.setFaster(battle.getEnemy());
-				battle.setFasterPriorityAttacks((battle.getEnemyPriorityChoice()));
-				battle.setSlower(battle.getSelf());
-				battle.setSlowerPriorityAttacks(battle.getPlayerPriorityChoice());
-			}
+			battle.whosFasfter();
 			int delayCounter = 0;
 			Timeline timer = new Timeline();
 			ArrayList<EventHandler<ActionEvent>> eventList = new ArrayList<EventHandler<ActionEvent>>();
@@ -75,21 +63,8 @@ public class BattleAnimationManager {
 			EventHandler<ActionEvent> nextHandler = new EventHandler<ActionEvent>() {
 
 				@Override
-				public void handle(ActionEvent e) {
-					
-					int result = battle.whosFasfter();
-					if (result == 0) {
-						battle.setFaster(battle.getSelf());
-						battle.setFasterAttacks(battle.getPlayerChoice());
-						battle.setSlower(battle.getEnemy());
-						battle.setSlowerAttacks(battle.getEnemyChoice());
-					}
-					else {
-						battle.setFaster(battle.getEnemy());
-						battle.setFasterAttacks((battle.getEnemyChoice()));
-						battle.setSlower(battle.getSelf());
-						battle.setSlowerAttacks(battle.getPlayerChoice());
-					}
+				public void handle(ActionEvent e) {	
+					battle.whosFasfter();
 						int delayCounter = 0;
 						Timeline timer = new Timeline();
 						ArrayList<EventHandler<ActionEvent>> eventList = new ArrayList<EventHandler<ActionEvent>>();
@@ -151,19 +126,7 @@ public class BattleAnimationManager {
 	}
 	
 	public void doNormalAttacks(Battle battle, BattleScene scene) {
-		int result = battle.whosFasfter();
-		if (result == 0) {
-			battle.setFaster(battle.getSelf());
-			battle.setFasterAttacks(battle.getPlayerChoice());
-			battle.setSlower(battle.getEnemy());
-			battle.setSlowerAttacks(battle.getEnemyChoice());
-		}
-		else {
-			battle.setFaster(battle.getEnemy());
-			battle.setFasterAttacks((battle.getEnemyChoice()));
-			battle.setSlower(battle.getSelf());
-			battle.setSlowerAttacks(battle.getPlayerChoice());
-		}
+		 battle.whosFasfter();
 	
 			int delayCounter = 0;
 			Timeline timer = new Timeline();

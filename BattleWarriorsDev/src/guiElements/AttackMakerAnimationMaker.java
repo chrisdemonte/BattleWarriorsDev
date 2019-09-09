@@ -22,6 +22,7 @@ public class AttackMakerAnimationMaker {
 
 	private void generateLayout() {
 		comboBox.getItems().addAll("None", "Sliding Animation");
+		comboBox.setValue("None");
 		this.setComboBoxAction();
 		container.getChildren().addAll(comboBoxLabel, comboBox);
 		

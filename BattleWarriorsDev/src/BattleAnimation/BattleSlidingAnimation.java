@@ -42,33 +42,14 @@ public class BattleSlidingAnimation extends BattleAnimation {
 		EventHandler<ActionEvent> contactHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
-				attack.makeMove(attacker, defender, scene.getBattleLog());
+				if (attack.makeContact(attacker, defender, scene.getBattleLog())) {
+					attack.makeMove(attacker, defender, scene.getBattleLog());
+					attack.applyBuffs(attacker, defender, attack, scene.getBattleLog());
+				}
 				scene.getPlayerBar().changeHealthBar();
 				scene.getPlayerEnergy().changeEnergyBar();
 				scene.getEnemyBar().changeHealthBar();
-				if (attack.getSelf() != null) {
-					if (attack.getSelf().getInitial() != null) {
-						Random rand = new Random();
-						if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
-							for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
-								attack.getSelf().getInitial().get(index).doBuffEffect(attacker, attacker, scene.getBattleLog());
-							}
-						}	
-					}
-				}
-				if (attack.getTarget() != null) {
-					if (attack.getTarget().getInitial() != null) {
-						Random rand = new Random();
-						if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
-							for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
-								attack.getTarget().getInitial().get(index).doBuffEffect(defender, attacker, scene.getBattleLog());
-							}
-						}	
-					}
-				}
-			}
-			
+			}	
 		};
 	
 		Timeline timeline = new Timeline();
