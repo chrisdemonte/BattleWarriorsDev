@@ -1,5 +1,6 @@
 package attacks;
 
+import BattleSystem.BattleBuffHolder;
 import models.Player;
 import utilities.BattleLog;
 
@@ -21,9 +22,9 @@ public class BuffKeyword extends BuffEffect{
 	}
 
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		// TODO Auto-generated method stub
-		super.doBuffEffect(target, self, log);
+		super.doBuffEffect(target, self, bbHolder, log);
 	}
 
 	@Override

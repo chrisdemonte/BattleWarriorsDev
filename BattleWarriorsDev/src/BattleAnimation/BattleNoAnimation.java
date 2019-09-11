@@ -10,7 +10,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import models.Player;
 
@@ -32,6 +31,7 @@ public class BattleNoAnimation extends BattleAnimation{
 		int timerContact = ((time - attacker.getBattleStats().getHaste()) * this.contact)/100;
 		int timerTime = time - attacker.getBattleStats().getHaste();
 		
+		Timeline timeline = new Timeline();
 		EventHandler<ActionEvent> contactHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -44,16 +44,21 @@ public class BattleNoAnimation extends BattleAnimation{
 				scene.getEnemyBar().changeHealthBar();
 			}	
 		};
-	
-		Timeline timeline = new Timeline();
+		EventHandler<ActionEvent> finalHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				timeline.stop();
+			}	
+		};
+		
 		if (!attacker.isNPC()) {
 			timeline.getKeyFrames().addAll(
 					new KeyFrame(
 							Duration.millis(timerContact),
 							contactHandler),
 					new KeyFrame(
-							Duration.millis(timerTime))
-						
+							Duration.millis(timerTime),
+							finalHandler)	
 					);
 			timeline.play();
 			
@@ -64,8 +69,8 @@ public class BattleNoAnimation extends BattleAnimation{
 							Duration.millis(timerContact),
 							contactHandler),
 					new KeyFrame(
-							Duration.millis(timerTime))
-						
+							Duration.millis(timerTime),
+							finalHandler)	
 					);
 			timeline.play();
 			

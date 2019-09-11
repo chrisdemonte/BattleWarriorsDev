@@ -2,6 +2,7 @@ package attacks;
 
 import java.io.Serializable;
 
+import BattleSystem.BattleBuffHolder;
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
@@ -39,7 +40,7 @@ public class BuffActions extends BuffEffect {
 	}
 
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		BattleStats stats = target.getBattleStats();
 		if (this.canAttackCounter != 0) {
 			stats.setCanAttack(this.canAttack);

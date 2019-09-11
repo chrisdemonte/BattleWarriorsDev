@@ -1,5 +1,6 @@
 package attacks;
 
+import BattleSystem.BattleBuffHolder;
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
@@ -20,7 +21,7 @@ public class BuffTime extends BuffEffect{
 	}
 
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		
 		BattleStats stats = target.getBattleStats();
 		stats.setActionTime(stats.getActionTime() + this.actionTime);

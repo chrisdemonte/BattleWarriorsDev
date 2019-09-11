@@ -1,6 +1,9 @@
 package guiElements;
 
 import BattleAnimation.BattleAnimation;
+import BattleAnimation.BattleFlipAnimation;
+import BattleAnimation.BattleFlippingLeapAnimation;
+import BattleAnimation.BattleLeapingAnimation;
 import BattleAnimation.BattleNoAnimation;
 import BattleAnimation.BattleSlidingAnimation;
 import attacks.Move;
@@ -21,7 +24,7 @@ public class AttackMakerAnimationMaker {
 	}
 
 	private void generateLayout() {
-		comboBox.getItems().addAll("None", "Sliding Animation");
+		comboBox.getItems().addAll("None", "Sliding Animation", "Leaping Animation", "Flip Animation", "Flipping Leap Animation");
 		comboBox.setValue("None");
 		this.setComboBoxAction();
 		container.getChildren().addAll(comboBoxLabel, comboBox);
@@ -44,6 +47,15 @@ public class AttackMakerAnimationMaker {
 		}
 		else if (comboBox.getValue().contentEquals("Sliding Animation")) {
 			animation = new BattleSlidingAnimation(attack);
+		}
+		else if (comboBox.getValue().contentEquals("Leaping Animation")) {
+			animation = new BattleLeapingAnimation(attack);
+		}
+		else if (comboBox.getValue().contentEquals("Flip Animation")) {
+			animation = new BattleFlipAnimation(attack);
+		}
+		else if (comboBox.getValue().contentEquals("Flipping Leap Animation")) {
+			animation = new BattleFlippingLeapAnimation(attack);
 		}
 		return animation;
 	}

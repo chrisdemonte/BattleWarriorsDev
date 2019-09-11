@@ -26,50 +26,54 @@ public class BattleBuffAnimationManager {
 			BattleBuffHolder buff = battle.getSlower().getBattleBuffs().get(i);
 			eventList.add(e->{
 				if (buff.getCooldownCounter() > 0) {
-					buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getSlower(), scene.getBattleLog());
+					buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
 				}
 				else {
-					buff.getBuff().doEndBuff(battle.getSlower(), battle.getSlower(), scene.getBattleLog());
+					buff.getBuff().doEndBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
 				}
+				scene.refreshBars();
 			});
 		}
 		for (int i = 0; i < battle.getSlower().getBattleDebuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getSlower().getBattleDebuffs().get(i);
 			eventList.add(e->{
 				if (buff.getCooldownCounter() > 0) {
-					buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getSlower(), scene.getBattleLog());
+					buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
 				}
 				else {
-					buff.getBuff().doEndBuff(battle.getFaster(), battle.getSlower(), scene.getBattleLog());
+					buff.getBuff().doEndBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
 				}
+				scene.refreshBars();
 			});
 		}
 		for (int i = 0; i < battle.getFaster().getBattleBuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getFaster().getBattleBuffs().get(i);
 			eventList.add(e->{
 				if (buff.getCooldownCounter() > 0) {
-					buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getFaster(), scene.getBattleLog());
+					buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
 				}
 				else {
-					buff.getBuff().doEndBuff(battle.getFaster(), battle.getFaster(), scene.getBattleLog());
+					buff.getBuff().doEndBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
 				}
+				scene.refreshBars();
 			});
 		}
 		for (int i = 0; i < battle.getFaster().getBattleDebuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getFaster().getBattleDebuffs().get(i);
 			eventList.add(e->{
 				if (buff.getCooldownCounter() > 0) {
-					buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getFaster(), scene.getBattleLog());
+					buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
 				}
 				else {
-					buff.getBuff().doEndBuff(battle.getSlower(), battle.getFaster(), scene.getBattleLog());
+					buff.getBuff().doEndBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
 				}
+				scene.refreshBars();
 			});
 		}
 		eventList.add(e->{
 			for (int i = battle.getSelf().getBattleBuffs().size() - 1; i >= 0 ; i--) {
 				BattleBuffHolder buff = battle.getSelf().getBattleBuffs().get(i);
-				if (buff.getCooldown() <= 0) {
+				if (buff.getCooldownCounter() <= 0) {
 					battle.getSelf().getBattleBuffs().remove(i);
 				}
 				else {
@@ -78,7 +82,7 @@ public class BattleBuffAnimationManager {
 			}
 			for (int i = battle.getSelf().getBattleDebuffs().size() - 1; i >= 0 ; i--) {
 				BattleBuffHolder buff = battle.getSelf().getBattleDebuffs().get(i);
-				if (buff.getCooldown() <= 0) {
+				if (buff.getCooldownCounter() <= 0) {
 					battle.getSelf().getBattleDebuffs().remove(i);
 				}
 				else {
@@ -87,7 +91,7 @@ public class BattleBuffAnimationManager {
 			}
 			for (int i = battle.getEnemy().getBattleBuffs().size() - 1; i >= 0 ; i--) {
 				BattleBuffHolder buff = battle.getEnemy().getBattleBuffs().get(i);
-				if (buff.getCooldown() <= 0) {
+				if (buff.getCooldownCounter() <= 0) {
 					battle.getEnemy().getBattleBuffs().remove(i);
 				}
 				else {
@@ -96,7 +100,7 @@ public class BattleBuffAnimationManager {
 			}
 			for (int i = battle.getEnemy().getBattleDebuffs().size() - 1; i >= 0 ; i--) {
 				BattleBuffHolder buff = battle.getEnemy().getBattleDebuffs().get(i);
-				if (buff.getCooldown() <= 0) {
+				if (buff.getCooldownCounter() <= 0) {
 					battle.getEnemy().getBattleDebuffs().remove(i);
 				}
 				else {

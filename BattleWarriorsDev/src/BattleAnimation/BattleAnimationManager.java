@@ -165,13 +165,24 @@ public class BattleAnimationManager {
 					scene.getActionButtons().setPreviousSelection(0);
 					scene.getActionTime().clearTabs();
 					scene.getAttackPane().getChildren().clear();
+					/**
+					for (int i = 0; i < battle.getEnemy().getBattleDebuffs().size(); i++) {
+						System.out.println(battle.getEnemy().getBattleDebuffs().get(i).toString());
+					}
+					**/
 					battle.getPlayerChoice().clear();
 					battle.getPlayerPriorityChoice().clear();
 					battle.getEnemyChoice().clear();
 					battle.getEnemyPriorityChoice().clear();
+					battle.getFasterPriorityAttacks().clear();
+					battle.getFasterAttacks().clear();
+					battle.getSlowerAttacks().clear();
+					battle.getSlowerPriorityAttacks().clear();
 					scene.getPlayerBar().changeHealthBar();
 					scene.getPlayerEnergy().changeEnergyBar();
 					scene.getEnemyBar().changeHealthBar();
+					battle.setUpNextTurn();
+					timer.stop();
 				}};
 			timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), finalHandler));
 			timer.play();

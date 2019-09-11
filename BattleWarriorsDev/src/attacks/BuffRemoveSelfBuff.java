@@ -19,7 +19,7 @@ public class BuffRemoveSelfBuff extends BuffEffect{
 	}
 
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		ArrayList <BattleBuffHolder> list = self.getBattleBuffs();
 		
 		for (int i = 0; i < this.keywords.length; i++) {

@@ -1,12 +1,8 @@
 package BattleAnimation;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import BattleSystem.Battle;
 import attacks.Move;
 import guiElements.BattleScene;
-import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -16,16 +12,17 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import models.Player;
 
-public class BattleSlidingAnimation extends BattleAnimation {
+public class BattleLeapingAnimation extends BattleAnimation {
 
-	private static final long serialVersionUID = 151643291110732168L;
+	private static final long serialVersionUID = 567687115044427700L;
+	
 	int counter = 0;
 	
-	public BattleSlidingAnimation(int delay, int contact, int recovery, int time) {
+	public BattleLeapingAnimation(int delay, int contact, int recovery, int time) {
 		super(delay, contact, recovery, time);
 			
 	}
-	public BattleSlidingAnimation(Move attack) {
+	public BattleLeapingAnimation(Move attack) {
 		super( 5, 15 , 45, attack.getTime());
 	}
 	@Override
@@ -36,6 +33,7 @@ public class BattleSlidingAnimation extends BattleAnimation {
 		
 		int timerDelay = ((time - attacker.getBattleStats().getHaste()) * this.delay)/100;
 		int timerContact = ((time - attacker.getBattleStats().getHaste()) * this.contact)/100;
+		int timerPeakOfJump = timerDelay + ((timerContact - timerDelay)/2);
 		int timerRecovery = ((time - attacker.getBattleStats().getHaste()) * this.recovery)/100;
 		int timerTime = time - attacker.getBattleStats().getHaste();
 		
@@ -67,11 +65,16 @@ public class BattleSlidingAnimation extends BattleAnimation {
 							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),
 					new KeyFrame(
 							Duration.millis(timerDelay),
-							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),
+							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140),
+							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+					new KeyFrame(
+							Duration.millis(timerPeakOfJump),
+							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 240)),
 					new KeyFrame(
 							Duration.millis(timerContact),
 							contactHandler,
-							new KeyValue(playerContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 160)),
+							new KeyValue(playerContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 160),
+							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
 					new KeyFrame(
 							Duration.millis(timerContact + ((timerRecovery - timerContact)/ 4)),
 							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),		
@@ -102,11 +105,16 @@ public class BattleSlidingAnimation extends BattleAnimation {
 							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),
 					new KeyFrame(
 							Duration.millis(timerDelay),
-							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),	
+							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60),
+							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),	
+					new KeyFrame(
+							Duration.millis(timerPeakOfJump),
+							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 240)),
 					new KeyFrame(
 							Duration.millis(timerContact),
 							contactHandler,
-							new KeyValue(enemyContainer.translateXProperty(), (scene.getWidth()/3) - 40)),
+							new KeyValue(enemyContainer.translateXProperty(), (scene.getWidth()/3) - 40),
+							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
 					new KeyFrame(
 							Duration.millis(timerContact + ((timerRecovery - timerContact)/ 4)),
 							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),	
@@ -131,6 +139,4 @@ public class BattleSlidingAnimation extends BattleAnimation {
 			
 		}
 	}
-	
-	
 }

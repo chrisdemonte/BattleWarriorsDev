@@ -1,5 +1,6 @@
 package attacks;
 
+import BattleSystem.BattleBuffHolder;
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
@@ -60,26 +61,28 @@ public class BuffStatus extends BuffEffect {
 
 
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		BattleStats stats = target.getBattleStats();
-		stats.setStamina(stats.getStamina() +this.stamina);
-		stats.changeStaminaMod(this.staminaMod);
-		stats.setStrength(stats.getStrength() +this.strength);
-		stats.changeStrengthMod(this.strengthMod);
-		stats.setDefense(stats.getDefense() +this.defense);
-		stats.changeDefenseMod(this.defenseMod);
-		stats.setMagic(stats.getMagic() +this.magic);
-		stats.changeMagicMod(this.magicMod);
-		stats.setResistance(stats.getResistance() +this.resistance);
-		stats.changeResistanceMod(this.resistanceMod);
-		stats.setCunning(stats.getCunning() +this.cunning);
-		stats.changeCunningMod(this.cunningMod);
-		stats.setIntelligence(stats.getIntelligence() +this.intelligence);
-		stats.changeIntelligenceMod(this.intelligenceMod);
-		stats.setSpeed(stats.getSpeed() +this.speed);
-		stats.changeSpeedMod(this.speedMod);
-		stats.setSkill(stats.getSkill() +this.skill);
-		stats.changeSkillMod(this.skillMod);
+		if (this.willDoEffect()) {
+			stats.setStamina(stats.getStamina() +this.stamina);
+			stats.changeStaminaMod(this.staminaMod);
+			stats.setStrength(stats.getStrength() +this.strength);
+			stats.changeStrengthMod(this.strengthMod);
+			stats.setDefense(stats.getDefense() +this.defense);
+			stats.changeDefenseMod(this.defenseMod);
+			stats.setMagic(stats.getMagic() +this.magic);
+			stats.changeMagicMod(this.magicMod);
+			stats.setResistance(stats.getResistance() +this.resistance);
+			stats.changeResistanceMod(this.resistanceMod);
+			stats.setCunning(stats.getCunning() +this.cunning);
+			stats.changeCunningMod(this.cunningMod);
+			stats.setIntelligence(stats.getIntelligence() +this.intelligence);
+			stats.changeIntelligenceMod(this.intelligenceMod);
+			stats.setSpeed(stats.getSpeed() +this.speed);
+			stats.changeSpeedMod(this.speedMod);
+			stats.setSkill(stats.getSkill() +this.skill);
+			stats.changeSkillMod(this.skillMod);
+		}
 	}
 
 

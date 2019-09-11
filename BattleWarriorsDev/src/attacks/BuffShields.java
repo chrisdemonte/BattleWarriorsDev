@@ -1,5 +1,6 @@
 package attacks;
 
+import BattleSystem.BattleBuffHolder;
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
@@ -27,7 +28,7 @@ public class BuffShields extends BuffEffect{
 	}
 
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		BattleStats stats = target.getBattleStats();
 		
 		if (this.barrierCounter != 0) {

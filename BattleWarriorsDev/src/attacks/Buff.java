@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import BattleSystem.BattleBuffHolder;
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
@@ -35,24 +36,24 @@ public class Buff implements Serializable{
 		this.periodicChance = periodicChance;
 		this.keywords = keywords;
 	}
-	public void doIntialBuff(Player target, Player self, BattleLog log) {
+	public void doIntialBuff(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		if (this.initial != null) {
 			for (int i = 0; i < this.initial.size(); i++) {
-				this.initial.get(i).doBuffEffect(target, self, log);
+				this.initial.get(i).doBuffEffect(target, self, bbHolder, log);
 			}
 		}
 	}
-	public void doPeriodicBuff(Player target, Player self, BattleLog log) {
+	public void doPeriodicBuff(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		if (this.periodic != null) {
 			for (int i = 0; i < this.periodic.size(); i++) {
-				this.periodic.get(i).doBuffEffect(target, self, log);
+				this.periodic.get(i).doBuffEffect(target, self, bbHolder, log);
 			}
 		}
 	}
-	public void doEndBuff(Player target, Player self, BattleLog log) {
+	public void doEndBuff(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		if (this.end != null) {
 			for (int i = 0; i < this.end.size(); i++) {
-				this.end.get(i).doBuffEffect(target, self, log);
+				this.end.get(i).doBuffEffect(target, self, bbHolder, log);
 			}
 		}
 	}
@@ -63,7 +64,7 @@ public class Buff implements Serializable{
 		
 		if (this.initial != null) {
 			for (int i = 0; i < this.initial.size(); i++) {
-				temp += "\n" + initial.get(i);
+				temp += "\n" + initial.get(i).toString();
 			}
 		}
 		else {
@@ -72,7 +73,7 @@ public class Buff implements Serializable{
 		temp += "\nperiodic="; 
 		if (this.periodic!= null) {
 			for (int i = 0; i < periodic.size(); i++) {
-				temp+= "\n" + periodic.get(i);
+				temp+= "\n" + periodic.get(i).toString();
 			}
 		}
 		else {
@@ -80,7 +81,7 @@ public class Buff implements Serializable{
 		}
 		if (this.end!= null) {
 			for (int i = 0; i < end.size(); i++) {
-				temp+= "\n" + end.get(i);
+				temp+= "\n" + end.get(i).toString();
 			}
 		}
 		else {

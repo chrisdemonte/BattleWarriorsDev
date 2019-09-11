@@ -2,6 +2,7 @@ package attacks;
 
 import java.io.Serializable;
 
+import BattleSystem.BattleBuffHolder;
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
@@ -24,7 +25,7 @@ public class BuffCounter extends BuffEffect {
 		this.keyword = "counter";
 	}
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		
 		BattleStats stats = target.getBattleStats();
 		

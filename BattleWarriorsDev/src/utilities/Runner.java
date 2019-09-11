@@ -27,19 +27,21 @@ public class Runner extends Application {
 		window.setMinSize(1200, 900);
 		window.setMaxSize(1200, 900);
 		
-		
-		
+				
 		FileManager manager = new FileManager();
 		Player user = new Player("Chris", "Developer");
 		user.getAttacks().getMoveList().add(manager.loadMove("Punch"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Kick"));
-		user.getAttacks().getMoveList().add(manager.loadMove("Spit"));
+		user.getAttacks().getMoveList().add(manager.loadMove("Scratch"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Jab"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Cross Punch"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Double Tiger Strike"));
-		user.getAttacks().getMoveList().add(manager.loadMove("Quick Attack"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Wild Attack"));
 		user.getAttacks().getMoveList().add(manager.loadMove("Raise Defense"));
+		user.getAttacks().getMoveList().add(manager.loadMove("Dev Buff"));
+		user.getAttacks().getMoveList().add(manager.loadMove("Spit"));
+		user.getAttacks().getMoveList().add(manager.loadMove("Bandage"));
+		user.getAttacks().getMoveList().add(manager.loadMove("Custom Attack"));
 		user.setNPC(false);
 		
 		Player enemy = new Player("Slime", "Slime");
@@ -60,9 +62,8 @@ public class Runner extends Application {
 		mainStage.setTitle("Battle Warriors Dev 1.1");
 		mainStage.show();
 		
-		
-
-		System.out.println(user.getAttacks().getMoveList().get(8).toString());
+		System.out.println(user.getAttacks().getMoveList().get(2).toString());
+		//System.out.println(user.getAttacks().getMoveList().get(8).toString());
 	}
 
 	public static void main(String[] args) {

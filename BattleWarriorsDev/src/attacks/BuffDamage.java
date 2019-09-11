@@ -1,7 +1,6 @@
 package attacks;
 
-import java.io.Serializable;
-
+import BattleSystem.BattleBuffHolder;
 import models.Player;
 import utilities.BattleLog;
 
@@ -21,7 +20,7 @@ public class BuffDamage extends BuffEffect {
 		this.keyword = "damage";
 	}
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		if (this.willDoEffect()) {
 			double rawPhysicalDamage = 0.0;
 			double rawMagicDamage = 0.0;
@@ -33,15 +32,16 @@ public class BuffDamage extends BuffEffect {
 			double multiplier = 0.0;
 			
 			if (physicalMod > 0.0) {
-				rawPhysicalDamage = bonusDamage + (physicalMod * self.getBattleStats().getStrength() * self.getBattleStats().getStrengthMod());
+				rawPhysicalDamage = bonusDamage + (physicalMod * bbHolder.getUserStrength());
 				physicalSubtraction = (rawPhysicalDamage * .5) - (target.getBattleStats().getDefense() * target.getBattleStats().getDefenseMod());
 				if (physicalSubtraction < 0.0) {
 					physicalSubtraction = 0.0;
 				}
-				multiplier = (250.0 - (target.getBattleStats().getDefense()* target.getBattleStats().getDefenseMod())) / 250.0;
-				if (multiplier < .05) {
-					multiplier = .05;
+				multiplier = (((2 * self.getBattleStats().getLevel()) + 50.0) - target.getBattleStats().getDefense()) / ((2 * self.getBattleStats().getLevel()) + 50.0);
+				if (multiplier < .1) {
+					multiplier = .1;
 				}
+				
 				totalPhysicalDamage = ((rawPhysicalDamage * .5) * multiplier) + physicalSubtraction;
 				if (target.getBattleStats().getPhysicalShield() > 0.0) {
 					if (target.getBattleStats().getPhysicalShield() > totalPhysicalDamage) {
@@ -65,12 +65,12 @@ public class BuffDamage extends BuffEffect {
 				}
 			}
 			if (magicMod > 0.0) {
-				rawMagicDamage = bonusDamage + (magicMod * self.getBattleStats().getMagic() * self.getBattleStats().getMagicMod());
+				rawMagicDamage = bonusDamage + (magicMod * bbHolder.getUserMagic());
 				magicSubtraction = (rawMagicDamage * .5) - (target.getBattleStats().getResistance() * target.getBattleStats().getResistanceMod());
 				if (magicSubtraction < 0.0) {
 					magicSubtraction = 0.0;
 				}
-				multiplier = (250 - (target.getBattleStats().getResistance()* target.getBattleStats().getResistanceMod())) / 250.0;
+				multiplier = (((2 * self.getBattleStats().getLevel()) + 50.0) - target.getBattleStats().getResistance()) / ((2 * self.getBattleStats().getLevel()) + 50.0);
 				if (multiplier < .05) {
 					multiplier = .05;
 				}
@@ -98,6 +98,7 @@ public class BuffDamage extends BuffEffect {
 			}
 			
 			totalDamage = (int)(totalPhysicalDamage + totalMagicDamage);
+			System.out.println("" + totalDamage);
 			target.getBattleStats().setCurrentHealth(target.getBattleStats().getCurrentHealth() - totalDamage);
 		}
 	}

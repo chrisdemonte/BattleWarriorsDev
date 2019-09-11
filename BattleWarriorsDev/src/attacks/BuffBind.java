@@ -3,6 +3,7 @@ package attacks;
 import java.io.Serializable;
 import java.util.Random;
 
+import BattleSystem.BattleBuffHolder;
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
@@ -17,7 +18,7 @@ public class BuffBind extends BuffEffect{
 	}
 
 	@Override
-	public void doBuffEffect(Player target, Player self, BattleLog log) {
+	public void doBuffEffect(Player target, Player self, BattleBuffHolder bbHolder, BattleLog log) {
 		BattleStats stats = target.getBattleStats();
 		Random rand = new Random();
 		int applicationChance = this.chance 

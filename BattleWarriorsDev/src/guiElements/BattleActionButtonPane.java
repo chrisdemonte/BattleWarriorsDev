@@ -20,17 +20,19 @@ public class BattleActionButtonPane {
 	boolean attackTabsOpen = false;
 	
 	BattleScene scene;
+	Battle battle;
 	Player player;
 	
-	public BattleActionButtonPane ( BattleScene scene, Player player) {
+	public BattleActionButtonPane ( BattleScene scene, Player player, Battle battle) {
 		this.scene = scene;
 		this.player = player;
+		this.battle = battle;
 		this.generateLayout(scene);
 	}
 
 	private void generateLayout(BattleScene scene2) {
 		attackButton.setOnAction(e->{
-			if (!attackTabsOpen) {
+			if (!attackTabsOpen && !scene.isButtonsDisabled()) {
 				scene.attackPane.getChildren().clear();
 				scene.selectionPane = new BattleSelectionPane(scene, player);
 				scene.attackPane.getChildren().add(scene.getSelectionPane().getContainer());
@@ -40,9 +42,10 @@ public class BattleActionButtonPane {
 		this.attackButton.setMinSize(140, 40);	
 
 		skipTurnButton.setOnAction(e->{
-			if (previousSelection == 1) {
+			if (previousSelection == 1 && !scene.isButtonsDisabled()) {
 				Battle battle = scene.getBattle();
 				battle.getPlayerChoice().clear();
+				battle.getPlayerChoice().add(battle.getSkipturn());
 				battle.getPlayerPriorityChoice().clear();
 				scene.getSelectionPane().resetActions();
 				attackTabsOpen = false;
@@ -53,12 +56,10 @@ public class BattleActionButtonPane {
 			previousSelection = 1;
 		});
 		this.runButton.setOnAction(e->{
-			BattleSlidingAnimation animationTest = new BattleSlidingAnimation(player.getAttacks().getMoveList().get(0));
-			animationTest.doBattleAnimation(this.scene, this.scene.getBattle(), player, this.scene.getBattle().getEnemy(), player.getAttacks().getMoveList().get(0));
+			
 		});
 		this.itemButton.setOnAction(e->{
-			BattleSlidingAnimation animationTest2 = new BattleSlidingAnimation(player.getAttacks().getMoveList().get(2));
-			animationTest2.doBattleAnimation(this.scene, this.scene.getBattle(), this.scene.getBattle().getEnemy(), player, player.getAttacks().getMoveList().get(2));
+			
 		});
 		this.skipTurnButton.setMinSize(140, 40);	
 		this.itemButton.setMinSize(140, 40);	

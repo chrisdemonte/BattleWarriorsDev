@@ -66,12 +66,14 @@ public class BattleScene {
 	
 	Battle battle;
 	
+	boolean buttonsDisabled = false;
 	int width = 1200;
 	int height = 800;
 
 	public BattleScene(Player self, Player enemy) {
-		this.generateLayout(1200, 800, self, enemy);
 		this.battle = new Battle(self, enemy, this);
+		this.generateLayout(1200, 800, self, enemy);
+		
 		//this.battle = new Battle(self, enemy);
 	}
 
@@ -82,7 +84,7 @@ public class BattleScene {
 		container.setMinSize(width, height);
 		
 		this.selectionPane = new BattleSelectionPane(this, self);
-		this.actionButtons = new BattleActionButtonPane(this, self);
+		this.actionButtons = new BattleActionButtonPane(this, self, this.battle);
 		this.actionTime = new BattleActionTimeDisplay();
 		battleWindow.setMaxSize(width - 100, height - 300);
 		battleWindow.setMinSize(width - 100, height - 300);
@@ -95,7 +97,6 @@ public class BattleScene {
 		actionPane.setTranslateX((width / 3) + 120);
 		actionPane.setTranslateY(height - 200);
 		actionPane.getChildren().addAll(actionButtons.getContainer());
-		
 		
 		attackPane.setMaxSize((width / 3) + 20, height - 550);
 		attackPane.setMinSize((width / 3) + 20, height - 550);
@@ -172,6 +173,11 @@ public class BattleScene {
 		
 	}
 
+	public void refreshBars () {
+		this.playerBar.changeHealthBar();
+		this.playerEnergy.changeEnergyBar();
+		this.enemyBar.changeHealthBar();
+	}
 	public Pane getContainer() {
 		return container;
 	}
@@ -352,6 +358,14 @@ public class BattleScene {
 
 	public void setHeight(int height) {
 		this.height = height;
+	}
+
+	public boolean isButtonsDisabled() {
+		return buttonsDisabled;
+	}
+
+	public void setButtonsDisabled(boolean buttonsDisabled) {
+		this.buttonsDisabled = buttonsDisabled;
 	}
 	
 	

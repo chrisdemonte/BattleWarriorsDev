@@ -288,7 +288,7 @@ public class FullAttack extends Move{
 				+ Arrays.toString(keywords) + "\nenergyCost=" + energyCost + "\nuses=" + uses + "\ncurrentUses="
 				+ currentUses + "\ncomboPointGain=" + comboPointGain + "\ncomboPointRequirement="
 				+ comboPointRequirement + "\ntime=" + time + "\ncooldown=" + cooldown + "\ncooldownCounter="
-				+ cooldownCounter + "\nself=" + self.toString() + "\ntarget=" + "null"+ "\nrequirements= null"
+				+ cooldownCounter + "\nself=" + self.toString() + "\ntarget=" + target.toString() + "\nrequirements= null"
 				+ "\nanimation=" + animation + "]";
 	}
 

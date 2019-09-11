@@ -9,6 +9,7 @@ import attacks.Move;
 import guiElements.BattleScene;
 import javafx.scene.control.Label;
 import models.Player;
+import utilities.FileManager;
 
 public class Battle {
 	
@@ -35,17 +36,20 @@ public class Battle {
 	boolean slowerSkippingTurn = false;
 	
 	BattleScene arena;
-	
+	Move skipturn = null;
 	int sequenceCounter = 0;
 	int attackCounter = 0;
 	
 	public Battle (Player self, Player enemy, BattleScene arena) {
 		this.self = self;
 		this.enemy = enemy;
-		this.arena = arena;		
+		this.arena = arena;	
+		FileManager manager = new FileManager();
+		this.skipturn = manager.loadMove("Skip Turn");
 	}
 	
 	public void doTurn() {
+		arena.setButtonsDisabled(true);
 		this.randomAI();
 		this.doBuffs();
 	}
@@ -71,14 +75,18 @@ public class Battle {
 		}
 		if (result == 0) {
 			setFaster(getSelf());
+			setFasterPriorityAttacks(getPlayerPriorityChoice());
 			setFasterAttacks(getPlayerChoice());
 			setSlower(getEnemy());
+			setSlowerPriorityAttacks(getEnemyPriorityChoice());
 			setSlowerAttacks(getEnemyChoice());
 		}
 		else {
 			setFaster(getEnemy());
+			setFasterPriorityAttacks(getEnemyPriorityChoice());
 			setFasterAttacks((getEnemyChoice()));
 			setSlower(getSelf());
+			setSlowerPriorityAttacks(getPlayerPriorityChoice());
 			setSlowerAttacks(getPlayerChoice());
 		}
 	}
@@ -91,6 +99,10 @@ public class Battle {
 	public void doMoves() {
 		BattleAnimationManager animation = new BattleAnimationManager();
 		animation.doAttackSequence(this, arena);
+	}
+	public void setUpNextTurn () {
+		arena.setButtonsDisabled(false);
+		arena.getActionButtons().setPreviousSelection(0);
 	}
 	public void randomAI() {
 		Random r = new Random();
@@ -289,6 +301,14 @@ public class Battle {
 
 	public void setAttackCounter(int attackCounter) {
 		this.attackCounter = attackCounter;
+	}
+
+	public Move getSkipturn() {
+		return skipturn;
+	}
+
+	public void setSkipturn(Move skipturn) {
+		this.skipturn = skipturn;
 	}
 
 }

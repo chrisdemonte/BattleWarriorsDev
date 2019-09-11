@@ -86,16 +86,19 @@ public abstract class Move implements Serializable{
 				Random rand = new Random();
 				if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
 					for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
-						attack.getSelf().getInitial().get(index).doBuffEffect(self, self, log);
+						attack.getSelf().getInitial().get(index).doBuffEffect(self, self, new BattleBuffHolder(self), log);
+						
 					}
 				}	
-				
+				System.out.println("Buff Self");
 			}
 			if (attack.getSelf().getPeriodic() != null || attack.getSelf().getEnd() != null) {
 				Random rand = new Random();
 				if (rand.nextInt(100) < attack.getSelf().getPeriodicChance()) {
-					self.getBattleBuffs().add(new BattleBuffHolder(attack.getSelf()));
+					self.getBattleBuffs().add(new BattleBuffHolder(attack.getSelf(), self));
+					
 				}
+				System.out.println("Buff Periodic Self");
 			}
 		}
 		if (attack.getTarget() != null) {
@@ -103,15 +106,17 @@ public abstract class Move implements Serializable{
 				Random rand = new Random();
 				if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
 					for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
-						attack.getTarget().getInitial().get(index).doBuffEffect(target, self, log);
+						attack.getTarget().getInitial().get(index).doBuffEffect(target, self, new BattleBuffHolder(self), log);
 					}
 				}	
+				System.out.println("DeBuff Target");
 			}
 			if (attack.getTarget().getPeriodic() != null || attack.getTarget().getEnd() != null) {
 				Random rand = new Random();
 				if (rand.nextInt(100) < attack.getTarget().getPeriodicChance()) {
-					target.getBattleDebuffs().add(new BattleBuffHolder(attack.getTarget()));
+					target.getBattleDebuffs().add(new BattleBuffHolder(attack.getTarget(), self));
 				}
+				System.out.println("DeBuff Periodic Target");
 			}
 		}
 	}
