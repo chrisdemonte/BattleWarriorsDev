@@ -41,6 +41,7 @@ public class BattleFlippingLeapAnimation extends BattleAnimation {
 				scene.getPlayerBar().changeHealthBar();
 				scene.getPlayerEnergy().changeEnergyBar();
 				scene.getEnemyBar().changeHealthBar();
+				scene.getBattleLogPane().updateLog(scene.getBattleLog());
 			}	
 		};
 	
@@ -49,6 +50,7 @@ public class BattleFlippingLeapAnimation extends BattleAnimation {
 			public void handle(ActionEvent e) {
 				playerContainer.setRotate(0);
 				enemyContainer.setRotate(0);
+				
 				timeline.stop();
 			}	
 		};

@@ -46,6 +46,7 @@ public class BattleFlipAnimation extends BattleAnimation {
 				scene.getPlayerBar().changeHealthBar();
 				scene.getPlayerEnergy().changeEnergyBar();
 				scene.getEnemyBar().changeHealthBar();
+				scene.getBattleLogPane().updateLog(scene.getBattleLog());
 			}	
 		};
 	

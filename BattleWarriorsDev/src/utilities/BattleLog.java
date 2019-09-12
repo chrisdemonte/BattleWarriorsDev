@@ -29,7 +29,9 @@ public class BattleLog {
 	public void setLogLength(int logLength) {
 		this.logLength = logLength;
 	}
-	
+	public void addToLog (String str) {
+		log.add(str);
+	}
 	
 	
 

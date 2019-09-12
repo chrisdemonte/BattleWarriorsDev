@@ -1,5 +1,7 @@
 package attacks;
 
+import java.util.ArrayList;
+
 import BattleSystem.BattleBuffHolder;
 import models.BattleStats;
 import models.Player;
@@ -82,6 +84,110 @@ public class BuffStatus extends BuffEffect {
 			stats.changeSpeedMod(this.speedMod);
 			stats.setSkill(stats.getSkill() +this.skill);
 			stats.changeSkillMod(this.skillMod);
+			
+			String logEntry = target.getName() + "'s ";
+			ArrayList<String> tempArray = new ArrayList<String>();
+			int count = 0;
+			if (this.staminaMod > 0.0) {
+				tempArray.add("stamina");
+				count++;
+			}
+			if (this.strengthMod > 0.0) {
+				tempArray.add("strength");	
+				count++;
+			}
+			if (this.defenseMod > 0.0) {
+				tempArray.add("defense");
+				count++;
+			}
+			if (this.magicMod > 0.0) {
+				tempArray.add("magic");
+				count++;
+			}
+			if (this.resistanceMod > 0.0) {
+				tempArray.add("resistance");
+				count++;
+			}
+			if (this.cunningMod> 0.0) {
+				tempArray.add("cunning");
+				count++;
+			}
+			if (this.intelligenceMod > 0.0) {
+				tempArray.add("intelligence");
+				count++;
+			}
+			if (this.speedMod > 0.0) {
+				tempArray.add("speed");
+				count++;
+			}
+			if (this.skillMod > 0.0) {
+				tempArray.add("skill");
+				count++;
+			}
+			if (count > 1) {
+				tempArray.set(count - 1, " and " + tempArray.get(count - 1) + " were boosted.");
+				logEntry += tempArray.get(0);
+				for (int i = 1; i < tempArray.size(); i++) {
+					logEntry += ", " + tempArray.get(i);
+				}
+				log.addToLog(logEntry);
+			}
+			else if (count == 1){
+				logEntry += tempArray.get(0) + " was boosted.";
+				log.addToLog(logEntry);
+			}
+			logEntry = target.getName() + "'s ";
+			tempArray = new ArrayList<String>();
+			count = 0;
+			if (this.staminaMod < 0.0) {
+				tempArray.add("stamina");
+				count++;
+			}
+			if (this.strengthMod < 0.0) {
+				tempArray.add("strength");	
+				count++;
+			}
+			if (this.defenseMod < 0.0) {
+				tempArray.add("defense");
+				count++;
+			}
+			if (this.magicMod < 0.0) {
+				tempArray.add("magic");
+				count++;
+			}
+			if (this.resistanceMod < 0.0) {
+				tempArray.add("resistance");
+				count++;
+			}
+			if (this.cunningMod< 0.0) {
+				tempArray.add("cunning");
+				count++;
+			}
+			if (this.intelligenceMod < 0.0) {
+				tempArray.add("intelligence");
+				count++;
+			}
+			if (this.speedMod < 0.0) {
+				tempArray.add("speed");
+				count++;
+			}
+			if (this.skillMod < 0.0) {
+				tempArray.add("skill");
+				count++;
+			}
+			if (count > 1) {
+				tempArray.set(count - 1, "and " + tempArray.get(count - 1) + " were lowered");
+				logEntry += tempArray.get(0);
+				for (int i = 1; i < tempArray.size(); i++) {
+					logEntry += ", " + tempArray.get(i);
+				}
+				log.addToLog(logEntry);
+			}
+			else if (count == 1){
+				logEntry += tempArray.get(0) + " was lowered.";
+				log.addToLog(logEntry);
+			}
+			
 		}
 	}
 

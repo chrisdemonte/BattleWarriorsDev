@@ -1,5 +1,11 @@
 package guiElements;
 
+import java.util.Comparator;
+
+import attacks.Move;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -38,9 +45,9 @@ public class CharacterCreator {
 		this.root = root;
 		this.height = height;
 		this.width = width;
-		this.statEditor = new BaseStatEditor(5, width, height);
+		this.statEditor = new BaseStatEditor(5, width, height, this);
 		this.generateLayout();
-		this.setButtonActions();
+		
 	}
 	private void setButtonActions() {
 		this.submitButton.setOnAction(e->{
@@ -77,6 +84,7 @@ public class CharacterCreator {
 			this.root.getChildren().add(battleScene.getContainer());
 		});
 		
+		
 	}
 	private void generateLayout() {
 		container.setMinSize(width, height);
@@ -92,30 +100,40 @@ public class CharacterCreator {
 		statEditorColumn.setMinSize(width/3, height);
 		statEditorColumn.setAlignment(Pos.TOP_CENTER);
 		statEditorColumn.getChildren().add(statEditor.getContainer());
+		statEditorColumn.setPadding(new Insets(height/10, 0,0,0));
 	}
-	private void generateAttackViewColumn() {
+	@SuppressWarnings("unchecked")
+	public void generateAttackViewColumn() {
+		attackViewColumn.getChildren().clear();
 		attackViewColumn.setMinSize(width/3, height);
 		attackViewColumn.setAlignment(Pos.TOP_CENTER);
+		attackViewColumn.setPadding(new Insets(height/10, 0,0,0));
 		
-		TableView<String> table = new TableView<String>();
-		TableColumn<String, String> numbers = new TableColumn<String, String>("#");
-		numbers.setPrefWidth(40);
-		TableColumn<String, String> attacks = new TableColumn<String, String>("Attacks");
-		attacks.setPrefWidth((width/4) - 40);
-		table.getColumns().addAll(numbers, attacks);
+		TableView<Move> table = new TableView<Move>();
+		TableColumn<Move, String> attacks = new TableColumn<Move, String>("Attacks");
+		attacks.setCellValueFactory(
+                new PropertyValueFactory<Move, String>("name"));
+		attacks.setPrefWidth((width/4));
+		table.getColumns().addAll(attacks);
 		table.setMinSize(width/4, height/2);
 		table.setMaxSize(width/4, height/2);
+		
+		
+		ObservableList<Move> list1 = FXCollections.observableArrayList(this.statEditor.getStarterAttacks());
+		table.setItems(list1);
 		
 		this.submitButton = new Button ("Create Character");
 		this.backButton = new Button ("Back");
 		this.battleButton = new Button ("Battle!");
 		this.battleButton.setDisable(true);
+		this.setButtonActions();
 		attackViewColumn.getChildren().addAll(table, submitButton, battleButton, backButton);
 	}
 	private void generateInfoColumn() {
 		infoColumn.setMinSize(width/3, height);
 		infoColumn.setMaxSize(width/3, height);
 		infoColumn.setAlignment(Pos.TOP_CENTER);
+		infoColumn.setPadding(new Insets(height/10, 0,0,0));
 		
 		Label nameLabel = new Label ("Name :");
 		nameLabel.setMinWidth(width/4);
@@ -175,3 +193,4 @@ public class CharacterCreator {
 	}
 
 }
+

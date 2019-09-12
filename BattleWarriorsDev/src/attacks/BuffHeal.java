@@ -99,6 +99,7 @@ public class BuffHeal extends BuffEffect{
 			}
 		}
 		stats.setCurrentHealth((int)(stats.getCurrentHealth() + magicHeal + physicalHeal));
+		log.addToLog(target.getName() + " was healed for " + (int)(magicHeal + physicalHeal) + " health.");
 		if (stats.getCurrentHealth() > stats.getMaxHealth()) {
 			stats.setCurrentHealth(stats.getMaxHealth());
 		}

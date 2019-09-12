@@ -2,12 +2,14 @@ package guiElements;
 
 import java.util.ArrayList;
 
+import attacks.Move;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.BaseStats;
+import utilities.FileManager;
 
 public class BaseStatEditor {
 	
@@ -64,13 +66,15 @@ public class BaseStatEditor {
 	
 	int width;
 	int height;
+	CharacterCreator creator;
 
-	public BaseStatEditor (int points, int width, int height){
+	public BaseStatEditor (int points, int width, int height, CharacterCreator creator){
 		this.stats = new BaseStats();
 		this.points = points;
 		this.width = width;
 		this.height = height;
 		this.generateLayout();
+		this.creator = creator;
 	}
 
 	private void generateLayout() {
@@ -445,74 +449,73 @@ public class BaseStatEditor {
 				skillPlus.setDisable(false);
 			}
 		}
+		creator.generateAttackViewColumn();
 	}
 	public BaseStats getBaseStats() {
 		return this.stats;
 	}
-	public String[] getStarterAttacks () {
-		ArrayList<String> tempList = new ArrayList<String>();
-		tempList.add("Punch");
-		tempList.add("Kick");
+	public ArrayList<Move> getStarterAttacks () {
+		ArrayList<Move> tempList = new ArrayList<Move>();
+		FileManager manager = new FileManager();
+		tempList.add(manager.loadMove("Punch"));
+		tempList.add(manager.loadMove("Kick"));
 		if (stats.getStamina() > 1) {
-			tempList.add("Bandage");
+			tempList.add(manager.loadMove("Bandage"));
 		}
 		if (stats.getStamina() > 3) {
-			tempList.add("Bolster Defenses");
+			tempList.add(manager.loadMove("Bolster Defenses"));
 		}
 		if (stats.getStrength() > 1) {
-			tempList.add("Gather Strength");
+			tempList.add(manager.loadMove("Gather Strength"));
 		}
 		if (stats.getStrength() > 3) {
-			tempList.add("Wild Attack");
+			tempList.add(manager.loadMove("Wild Attack"));
 		}
 		if (stats.getDefense() > 1) {
-			tempList.add("Raise Defense");
+			tempList.add(manager.loadMove("Raise Defense"));
 		}
 		if (stats.getDefense() > 3) {
-			tempList.add("Raise Shield");
+			tempList.add(manager.loadMove("Raise Shield"));
 		}
 		if (stats.getMagic() > 1) {
-			tempList.add("Fireball");
+			tempList.add(manager.loadMove("Fireball"));
 		}
 		if (stats.getMagic() > 3) {
-			tempList.add("Lightning");
+			tempList.add(manager.loadMove("Lightning"));
 		}
 		if (stats.getResistance() > 1) {
-			tempList.add("Magic Strength");
+			tempList.add(manager.loadMove("Magic Strength"));
 		}
 		if (stats.getResistance() > 3) {
-			tempList.add("Magic Power");
+			tempList.add(manager.loadMove("Magic Power"));
 		}
 		if (stats.getCunning() > 1) {
-			tempList.add("Scratch");
+			tempList.add(manager.loadMove("Scratch"));
 		}
 		if (stats.getCunning() > 3) {
-			tempList.add("Nasty Plot");
+			tempList.add(manager.loadMove("Nasty Plot"));
 		}
 		if (stats.getIntelligence() > 1) {
-			tempList.add("Channel");
+			tempList.add(manager.loadMove("Channel"));
 		}
 		if (stats.getIntelligence() > 3) {
-			tempList.add("Magic Shell");
+			tempList.add(manager.loadMove("Magic Shell"));
 		}
 		if (stats.getSpeed() > 1) {
-			tempList.add("Wild Attack");
+			tempList.add(manager.loadMove("Wild Attack"));
 		}
 		if (stats.getSpeed() > 3) {
-			tempList.add("Rev Up Punch");
+			tempList.add(manager.loadMove("Rev Up Punch"));
 		}
 		if (stats.getSkill() > 1) {
-			tempList.add("Jab");
+			tempList.add(manager.loadMove("Jab"));
 		}
 		if (stats.getSkill() > 3) {
-			tempList.add("Cross Punch");
-			tempList.add("Double Tiger Strike");
+			tempList.add(manager.loadMove("Cross Punch"));
+			tempList.add(manager.loadMove("Double Tiger Strike"));
 		}
-		String[] array = new String[tempList.size()];
-		for(int i = 0; i < array.length; i++) {
-			array[i] = tempList.get(i);
-		}
-		return array;
+	
+		return tempList;
 	}
 	public VBox getContainer() {
 		return container;

@@ -45,10 +45,13 @@ public class Battle {
 		this.arena = arena;	
 		FileManager manager = new FileManager();
 		this.skipturn = manager.loadMove("Skip Turn");
+		
 	}
 	
 	public void doTurn() {
 		this.turnCounter++;
+		arena.getBattleLog().addToLog("~~~: Turn " + turnCounter + " :~~~");
+		arena.getBattleLogPane().updateLog(arena.getBattleLog());
 		System.out.println("Turn: " + this.turnCounter);
 		arena.setButtonsDisabled(true);
 		this.randomAI();

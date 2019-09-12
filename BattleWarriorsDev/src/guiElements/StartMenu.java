@@ -13,7 +13,7 @@ import utilities.FileManager;
 public class StartMenu {
 	
 	HBox container = new HBox();
-	VBox menuContainer = new VBox();
+	VBox menuContainer = new VBox(5);
 	
 	Button charCreationButton = new Button("Create Character");
 	Button battleButton = new Button ("Start Battling");

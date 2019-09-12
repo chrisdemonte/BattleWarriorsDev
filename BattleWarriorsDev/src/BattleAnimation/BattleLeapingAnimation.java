@@ -49,12 +49,14 @@ public class BattleLeapingAnimation extends BattleAnimation {
 				scene.getPlayerBar().changeHealthBar();
 				scene.getPlayerEnergy().changeEnergyBar();
 				scene.getEnemyBar().changeHealthBar();
+				scene.getBattleLogPane().updateLog(scene.getBattleLog());
 			}	
 		};
 	
 		EventHandler<ActionEvent> finalHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				
 				timeline.stop();
 			}	
 		};

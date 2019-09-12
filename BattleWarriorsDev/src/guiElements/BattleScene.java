@@ -57,6 +57,7 @@ public class BattleScene {
 	BattleSelectionPane selectionPane;
 	BattleActionButtonPane actionButtons;
 	BattleActionTimeDisplay actionTime;
+	BattleLogPane battleLogPane;
 	
 	Pane battleWindow = new Pane();
 	Pane actionPane = new Pane();
@@ -89,6 +90,7 @@ public class BattleScene {
 		this.selectionPane = new BattleSelectionPane(this, self);
 		this.actionButtons = new BattleActionButtonPane(this, self, this.battle);
 		this.actionTime = new BattleActionTimeDisplay();
+		this.battleLogPane = new BattleLogPane(width, height);
 		battleWindow.setMaxSize(width - 100, height - 300);
 		battleWindow.setMinSize(width - 100, height - 300);
 		battleWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
@@ -114,6 +116,7 @@ public class BattleScene {
 		logPane.setMinSize((width / 3) + 20, height - 550);
 		logPane.setTranslateX((width / 3) + (width/4) + 30);
 		logPane.setTranslateY(height - 200);
+		logPane.getChildren().add(this.battleLogPane.getContainer());
 		
 		playerBar = new HealthBar(self, 400);
 		playerBar.getContainer().setTranslateX(100);
@@ -170,8 +173,11 @@ public class BattleScene {
 		battleWindow.setBorder(new Border(new BorderImage(border, new BorderWidths(10.0), new Insets(0.0), new BorderWidths(10.0),
 				false, BorderRepeat.REPEAT, BorderRepeat.REPEAT)));
 		
-		container.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), enemyBar.getContainer(),attackPane, timeDisplayPane, actionPane, logPane, 
+		container.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), enemyBar.getContainer(),attackPane, timeDisplayPane, actionPane, logPane,
 				playerSpriteContainer, enemySpriteContainer);
+		
+		this.battleLog.addToLog( "!!! " + enemy.getName() + " challenges you to a fight !!!\n" + enemy.getDescription());
+		this.battleLogPane.updateLog(this.battleLog);
 		
 		
 	}
@@ -377,6 +383,14 @@ public class BattleScene {
 
 	public void setRoot(Pane root) {
 		this.root = root;
+	}
+
+	public BattleLogPane getBattleLogPane() {
+		return battleLogPane;
+	}
+
+	public void setBattleLogPane(BattleLogPane battleLogPane) {
+		this.battleLogPane = battleLogPane;
 	}
 	
 	

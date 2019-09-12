@@ -1,5 +1,6 @@
 package attacks;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -61,15 +62,17 @@ public class FullAttack extends Move{
 		BattleStats selfStats = self.getBattleStats();
 		BattleStats targetStats = target.getBattleStats();
 		Random rand = new Random();
-		
+		ArrayList<String> logDetails = new ArrayList<String>();
 		//damage multiplier
 		double mod = 1.0;
 		if (rand.nextInt(100) < (selfStats.getCrit() * selfStats.getCritMod())){
-			mod += .5;
+			mod += .6;
+			logDetails.add("\t!! Critical Hit !!");
 		}
 		if (selfStats.getDamageSpike() > 0) {
-			mod += .25;
+			mod += .3;
 			selfStats.setDamageSpike(selfStats.getDamageSpike() - 1);
+			logDetails.add("\t!! Damage Spike !!");
 		}
 		//energy cost and attack uses
 		
@@ -87,7 +90,7 @@ public class FullAttack extends Move{
 		boolean makeContact = true;
 		if (targetStats.isOutOfReach() && (!selfStats.isReach() && !this.rangedAttack)) {
 			makeContact = false;
-			log.getLog().add(self.getName() + "'s " + this.getName() + " missed.");
+			log.getLog().add(self.getName() + "'s " + this.getName() + " missed. " + target.getName() + " is out of range!");
 			log.setLogLength(log.getLogLength() + 1);
 		}
 		if (makeContact && (rand.nextInt(100) > ((selfStats.getAccuracy() * selfStats.getAccuracyMod() * 100) + this.accuracy))) {
@@ -121,6 +124,7 @@ public class FullAttack extends Move{
 			
 			String logEntry = new String(self.getName() + "'s " + this.getName() + " did ");
 			
+			
 			if (this.physicalPower > 0.0) {
 				physicalDamage += (selfStats.getStrength() * selfStats.getStrengthMod() * mod * this.physicalPower) + this.getBonusDamage();
 				multiplier = (((2 * self.getBattleStats().getLevel()) + 50.0) - targetDef) / ((2 * self.getBattleStats().getLevel()) + 50.0);
@@ -139,6 +143,7 @@ public class FullAttack extends Move{
 					physicalBounceBack += totalPhysical * targetStats.getCountering();
 				}
 				if (!targetStats.isVulnerable() && rand.nextInt(100) < targetStats.getBlocking()) {
+					logDetails.add("\t" + (int)(physicalDamage * targetStats.getBlocking()) + " blocked.");
 					physicalDamage -= physicalDamage * targetStats.getBlocking();
 				}
 			}
@@ -160,45 +165,55 @@ public class FullAttack extends Move{
 				}
 			}
 			if (targetStats.getImmunity() > 0.0) {
+				logDetails.add("\t" + (int)((1.0 - targetStats.getImmunity())* 100) + "% damage resisted.");
 				totalMagic *= (1.0 - targetStats.getImmunity());
 			}
 			if (targetStats.getProtection() > 0.0) {
+				logDetails.add("\t" + (int)((1.0 - targetStats.getProtection())* 100) + "% damage reduced.");
 				totalPhysical *= (1.0 - targetStats.getProtection());
 			}
 			if (totalMagic > 0.0 && targetStats.getMagicShield() > 0.0 && !targetStats.isVulnerable()) {
 				if (totalMagic >= targetStats.getMagicShield()) {
+					logDetails.add("\t" + (int)targetStats.getMagicShield() + " damage absorbed.");
 					totalMagic -= targetStats.getMagicShield();
 					targetStats.setMagicShield(0.0);
 				}
-				if (totalMagic < targetStats.getMagicShield()) {
+				else  {
+					logDetails.add("\t" + (int)totalMagic + " damage absorbed.");
 					targetStats.setMagicShield(targetStats.getMagicShield() - totalMagic);
 					totalMagic = 0.0;
 				}
 			}
 			if (totalPhysical > 0.0 && targetStats.getPhysicalShield() > 0.0 && !targetStats.isVulnerable()) {
 				if (totalPhysical >= targetStats.getPhysicalShield()) {
+					logDetails.add("\t" + (int)targetStats.getPhysicalShield() + " damage shielded.");
 					totalPhysical -= targetStats.getPhysicalShield();
 					targetStats.setPhysicalShield(0.0);
 				}
-				if (totalPhysical < targetStats.getPhysicalShield()) {
+				else {
+					logDetails.add("\t" + (int)totalPhysical + " damage shielded.");
 					targetStats.setPhysicalShield(targetStats.getPhysicalShield() - totalPhysical);
 					totalPhysical = 0.0;
 				}
 			}
 			if (targetStats.getBarrier() > 0.0 && !targetStats.isVulnerable()) {
 				if (totalMagic >= targetStats.getBarrier()) {
+					logDetails.add("\t" + (int)targetStats.getBarrier() + " damage absorbed.");
 					totalMagic -= targetStats.getBarrier();
 					targetStats.setBarrier(0.0);
 				}
 				if (totalMagic < targetStats.getBarrier()) {
+					logDetails.add("\t" + (int)totalMagic + " damage absorbed.");
 					targetStats.setBarrier(targetStats.getBarrier() - totalMagic);
 					totalMagic = 0.0;
 				}
 				if (totalPhysical >= targetStats.getBarrier()) {
+					logDetails.add("\t" + (int)targetStats.getBarrier() + " damage shielded.");
 					totalPhysical -= targetStats.getBarrier();
 					targetStats.setBarrier(0.0);
 				}
 				if (totalPhysical < targetStats.getBarrier()) {
+					logDetails.add("\t" + (int)totalPhysical + " damage shielded.");
 					targetStats.setBarrier(targetStats.getBarrier() - totalPhysical);
 					totalPhysical = 0.0;
 				}
@@ -209,7 +224,7 @@ public class FullAttack extends Move{
 			//*************
 			targetStats.setCurrentHealth(targetStats.getCurrentHealth() - ((int)totalPhysical + (int)totalMagic));
 			if (this.physicalPower > 0.0) {
-				logEntry += (int)physicalDamage + " physical damage";
+				logEntry += (int)totalPhysical  + " physical damage";
 				if (this.bonusDamage <= 0.0 ) {
 					logEntry += ".";
 				}
@@ -218,8 +233,8 @@ public class FullAttack extends Move{
 				if (this.physicalPower > 0.0) {
 					logEntry += " and ";
 				}
-				logEntry += (int)magicDamage + " magic damage.";
-				log.getLog().add(logEntry);
+				logEntry += (int)totalMagic + " magic damage.";
+			
 			}
 			if (physicalBounceBack != 0.0 || magicBounceBack != 0.0) {
 				if (selfStats.getImmunity() > 0.0) {
@@ -267,11 +282,18 @@ public class FullAttack extends Move{
 					}
 					
 				}
+				logDetails.add("\t" + ((int)physicalBounceBack - (int)magicBounceBack) + " damage bounced back at " + self.getName() + ".");
 				selfStats.setCurrentHealth(selfStats.getCurrentHealth() - (int)physicalBounceBack - (int)magicBounceBack);
-				log.getLog().add(self.getName() + " recieved " + (physicalBounceBack + magicBounceBack) + " bounce back damage.");
+				
 			}
-		
+			for (int i = 0; i < logDetails.size(); i++) {
+				log.addToLog(logDetails.get(i));
+			}
+			if (this.physicalPower > 0.0 || this.magicPower > 0.0) {
+				log.addToLog(logEntry);
+			}
 		}
+		
 		
 	}
 

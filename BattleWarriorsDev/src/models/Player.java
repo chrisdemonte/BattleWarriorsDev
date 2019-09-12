@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import BattleSystem.BattleBuffHolder;
 import attacks.Buff;
+import attacks.Move;
 import utilities.AttackList;
 import utilities.BattleLog;
 import utilities.FileManager;
@@ -27,7 +28,7 @@ public class Player extends Entity{
 		this.battleDebuffs = new ArrayList<BattleBuffHolder>();
 		attacks = new AttackList();
 	}
-	public Player(String name, String description, BaseStats baseStats, String[] attackList) {
+	public Player(String name, String description, BaseStats baseStats, ArrayList<Move> attackList) {
 		super(name, description);
 		this.inventory = new Inventory();
 		this.baseStats = baseStats;
@@ -38,10 +39,9 @@ public class Player extends Entity{
 		this.generateAttacks(attackList);
 	}
 	
-	private void generateAttacks(String[] attackList) {
-		FileManager manager = new FileManager();
-		for (int i = 0; i < attackList.length; i++) {
-			this.attacks.getMoveList().add(manager.loadMove(attackList[i]));
+	private void generateAttacks(ArrayList<Move> attackList) {
+		for (int i = 0; i < attackList.size(); i++) {
+			this.attacks.getMoveList().add(attackList.get(i));
 		}
 		
 	}
