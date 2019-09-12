@@ -99,7 +99,8 @@ public class BattleFlippingLeapAnimation extends BattleAnimation {
 			timeline.getKeyFrames().addAll(
 					new KeyFrame(
 							Duration.ZERO,
-							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),
+							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60),
+							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),
 					new KeyFrame(
 							Duration.millis(timerDelay),
 							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60),

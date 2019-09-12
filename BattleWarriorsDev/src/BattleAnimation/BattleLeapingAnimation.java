@@ -23,7 +23,7 @@ public class BattleLeapingAnimation extends BattleAnimation {
 			
 	}
 	public BattleLeapingAnimation(Move attack) {
-		super( 5, 15 , 45, attack.getTime());
+		super( 5, 25 , 55, attack.getTime());
 	}
 	@Override
 	public void doBattleAnimation (BattleScene scene, Battle battle, Player attacker, Player defender, Move attack) {

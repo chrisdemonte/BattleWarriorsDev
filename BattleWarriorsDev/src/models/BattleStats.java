@@ -556,28 +556,64 @@ public class BattleStats {
 		this.addBattleStats(equipment.get("1HMain").getStats());
 		this.addBattleStats(equipment.get("1HOffHand").getStats());
 		
-		this.maxHealth += (int)(stamina + level + (defense * 0.1)) * 10;
-		this.currentHealth += maxHealth;
-		this.maxEnergy += (int)((2.0 * stamina) + level + (magic * 0.5) + (strength * 0.5) + (cunning * 0.5) );
-		this.currentEnergy += maxEnergy;
-		this.maxComboPoints += 3 + (int)((skill + cunning + intelligence)/(level * 6));
-		this.actionTime += 2000;
-		this.haste += (int)((speed + skill + cunning)/(level * 20.0));
-		this.crit += .01 + (((speed * .25) + (skill * 1.5) + (cunning * 1.5) + (intelligence * .75))/ 2150.0);
-		this.critMod += 1.0;
-		this.accuracy += .95 + (((skill * 3.0) + (intelligence) + (cunning)) / 2150.0);
-		this.accuracyMod += 1.0;
-		this.avoidance += .01 + (((skill) + (cunning * 1.5) + (speed * 1.5)) / 2150.0);
-		this.avoidanceMod += 1.0;
-		this.blocking += ((defense * 3.0) / 2150.0);
-		this.blockingMod += 1.0;
-		this.penetration += (cunning)/ 2150.0;
-		this.penetrationMod += 1.0;
-		this.intimidation += (stamina * .1) + (strength * .1) + (magic * .1) + (skill * .1);
+		this.maxHealth = (int)(stamina + level + (defense * 0.1)) * 10;
+		this.currentHealth = maxHealth;
+		this.maxEnergy = (int)((2.0 * stamina) + level + (magic * 0.5) + (strength * 0.5) + (cunning * 0.5) );
+		this.currentEnergy = maxEnergy;
+		this.maxComboPoints = 3 + (int)((skill + cunning + intelligence)/(level * 6));
+		this.actionTime = 2000;
+		this.haste = (int)((speed + skill + cunning)/(level * 20.0));
+		this.crit = .01 + (((speed * .25) + (skill * 1.5) + (cunning * 1.5) + (intelligence * .75))/ 2150.0);
+		this.critMod = 1.0;
+		this.accuracy = .95 + (((skill * 3.0) + (intelligence) + (cunning)) / 2150.0);
+		this.accuracyMod = 1.0;
+		this.avoidance = .01 + (((skill) + (cunning * 1.5) + (speed * 1.5)) / 2150.0);
+		this.avoidanceMod = 1.0;
+		this.blocking = ((defense * 3.0) / 2150.0);
+		this.blockingMod = 1.0;
+		this.penetration = (cunning)/ 2150.0;
+		this.penetrationMod = 1.0;
+		this.intimidation = (stamina * .1) + (strength * .1) + (magic * .1) + (skill * .1);
 	
 	}
 	
-	
+	public void battleTurnUpdate () {
+		
+		this.daze = 0;
+		this.haste =(int)(((speed * speedMod) + (skill * skillMod) + (cunning * cunningMod))/(level * 20.0));
+		this.damageSpike = 0;
+		this.crit = .01 + (((speed * .25 * speedMod) + (skill * 1.5 * skillMod) + (cunning * 1.5 * cunningMod) + (intelligence * .75 * intelligenceMod))/ 2150.0);
+		
+		this.accuracy =.95 + (((skill * skillMod * 3.0) + (intelligence * intelligenceMod) + (cunning * cunningMod)) / 2150.0);
+		this.avoidance = .01 + (((skill * skillMod) + (cunning * cunningMod * 1.5) + (speed * speedMod * 1.5)) / 2150.0);
+		this.blocking = ((defense * defenseMod * 3.0) / 2150.0);
+		this.penetration = (cunning * cunningMod)/ 2150.0;;
+		/**
+		this.barrierCounter--;
+		this.physicalShieldCounter--;
+		this.magicShieldCounter--;
+		this.intimidation = 0.0;
+		this.canAttackCounter--;
+		this.canUseItemsCounter--;
+		this.canSkipTurnCounter--;
+		this.canRunCounter--;
+		this.protectionCounter--;
+		this.counteringCounter--;
+		this.immunityCounter--;
+		this.reflectingCounter--;
+		this.freecastingCounter--;
+		this.exhaustedCounter--;
+		this.lockedCounter--;
+		this.enragedCounter--;
+		this.outOfReachCounter--;
+		this.reachCounter--;
+		this.selfHarmCounter--;
+		this.vulnerableCounter--;
+		this.hiddenCounter--;
+		this.cheatingDeathCounter--;
+		this.weatherProofCounter--;
+		**/
+	}
 	public BattleStats(double level, double stamina, double staminaMod, double strength, double strengthMod,
 			double defense, double defenseMod, double magic, double magicMod, double resistance, double resistanceMod,
 			double cunning, double cunningMod, double intelligence, double intelligenceMod, double speed,

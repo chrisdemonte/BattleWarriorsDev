@@ -1,5 +1,7 @@
 package guiElements;
 
+import java.util.ArrayList;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -59,11 +61,15 @@ public class BaseStatEditor {
 	Button intelligencePlus;
 	Button speedPlus;
 	Button skillPlus;
+	
+	int width;
+	int height;
 
-	public BaseStatEditor (BaseStats stats, int points){
-		this.stats = stats;
+	public BaseStatEditor (int points, int width, int height){
+		this.stats = new BaseStats();
 		this.points = points;
-		
+		this.width = width;
+		this.height = height;
 		this.generateLayout();
 	}
 
@@ -125,30 +131,48 @@ public class BaseStatEditor {
 		submit = new Button("Submit");
 		
 		levelLine.getChildren().addAll(levelLabel);
+		levelLine.setMinWidth(this.width/4);
+		levelLine.setAlignment(Pos.CENTER);
 		pointsLine.getChildren().addAll(pointsLabel);
+		pointsLine.setMinWidth(this.width/4);
+		pointsLine.setAlignment(Pos.CENTER);
 		staminaLine.getChildren().addAll(staminaMinus, staminaLabel, staminaPlus);
+		staminaLine.setMinWidth(this.width/4);
+		staminaLine.setAlignment(Pos.CENTER);
 		strengthLine.getChildren().addAll(strengthMinus, strengthLabel, strengthPlus);
+		strengthLine.setMinWidth(this.width/4);
+		strengthLine.setAlignment(Pos.CENTER);
 		defenseLine.getChildren().addAll(defenseMinus, defenseLabel, defensePlus);
+		defenseLine.setMinWidth(this.width/4);
+		defenseLine.setAlignment(Pos.CENTER);
 		magicLine.getChildren().addAll(magicMinus, magicLabel, magicPlus);
+		magicLine.setMinWidth(this.width/4);
+		magicLine.setAlignment(Pos.CENTER);
 		resistanceLine.getChildren().addAll(resistanceMinus, resistanceLabel, resistancePlus);
+		resistanceLine.setMinWidth(this.width/4);
+		resistanceLine.setAlignment(Pos.CENTER);
 		cunningLine.getChildren().addAll(cunningMinus, cunningLabel, cunningPlus);
+		cunningLine.setMinWidth(this.width/4);
+		cunningLine.setAlignment(Pos.CENTER);
 		intelligenceLine.getChildren().addAll(intelligenceMinus, intelligenceLabel, intelligencePlus);
+		intelligenceLine.setMinWidth(this.width/4);
+		intelligenceLine.setAlignment(Pos.CENTER);
 		speedLine.getChildren().addAll(speedMinus, speedLabel, speedPlus);
+		speedLine.setMinWidth(this.width/4);
+		speedLine.setAlignment(Pos.CENTER);
 		skillLine.getChildren().addAll(skillMinus, skillLabel, skillPlus);
+		skillLine.setMinWidth(this.width/4);
+		skillLine.setAlignment(Pos.CENTER);
 		submitLine.getChildren().addAll(submit);
 		
-		double width = this.staminaLine.getWidth();
-		levelLine.setMinWidth(width);
-		levelLine.setAlignment(Pos.CENTER);
-		pointsLine.setMinWidth(width);
-		pointsLine.setAlignment(Pos.CENTER);
-		submitLine.setMinWidth(width);
+		submitLine.setMinWidth(this.width/4);
 		submitLine.setAlignment(Pos.CENTER);
 		
 		this.setButtons();
-		
+		container.setAlignment(Pos.BASELINE_CENTER);
+		container.setMinSize(this.width/3, this.height/2);
 		container.getChildren().addAll(levelLine,pointsLine,staminaLine,strengthLine,defenseLine,
-				magicLine,resistanceLine,cunningLine,intelligenceLine,speedLine,skillLine,submitLine);
+				magicLine,resistanceLine,cunningLine,intelligenceLine,speedLine,skillLine);
 		}
 	
 	public void setButtons() {
@@ -421,6 +445,74 @@ public class BaseStatEditor {
 				skillPlus.setDisable(false);
 			}
 		}
+	}
+	public BaseStats getBaseStats() {
+		return this.stats;
+	}
+	public String[] getStarterAttacks () {
+		ArrayList<String> tempList = new ArrayList<String>();
+		tempList.add("Punch");
+		tempList.add("Kick");
+		if (stats.getStamina() > 1) {
+			tempList.add("Bandage");
+		}
+		if (stats.getStamina() > 3) {
+			tempList.add("Bolster Defenses");
+		}
+		if (stats.getStrength() > 1) {
+			tempList.add("Gather Strength");
+		}
+		if (stats.getStrength() > 3) {
+			tempList.add("Wild Attack");
+		}
+		if (stats.getDefense() > 1) {
+			tempList.add("Raise Defense");
+		}
+		if (stats.getDefense() > 3) {
+			tempList.add("Raise Shield");
+		}
+		if (stats.getMagic() > 1) {
+			tempList.add("Fireball");
+		}
+		if (stats.getMagic() > 3) {
+			tempList.add("Lightning");
+		}
+		if (stats.getResistance() > 1) {
+			tempList.add("Magic Strength");
+		}
+		if (stats.getResistance() > 3) {
+			tempList.add("Magic Power");
+		}
+		if (stats.getCunning() > 1) {
+			tempList.add("Scratch");
+		}
+		if (stats.getCunning() > 3) {
+			tempList.add("Nasty Plot");
+		}
+		if (stats.getIntelligence() > 1) {
+			tempList.add("Channel");
+		}
+		if (stats.getIntelligence() > 3) {
+			tempList.add("Magic Shell");
+		}
+		if (stats.getSpeed() > 1) {
+			tempList.add("Wild Attack");
+		}
+		if (stats.getSpeed() > 3) {
+			tempList.add("Rev Up Punch");
+		}
+		if (stats.getSkill() > 1) {
+			tempList.add("Jab");
+		}
+		if (stats.getSkill() > 3) {
+			tempList.add("Cross Punch");
+			tempList.add("Double Tiger Strike");
+		}
+		String[] array = new String[tempList.size()];
+		for(int i = 0; i < array.length; i++) {
+			array[i] = tempList.get(i);
+		}
+		return array;
 	}
 	public VBox getContainer() {
 		return container;

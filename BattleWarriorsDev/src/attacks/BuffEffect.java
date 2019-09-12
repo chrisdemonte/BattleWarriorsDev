@@ -24,7 +24,7 @@ public class BuffEffect implements Serializable {
 	public boolean willDoEffect() {
 		Random rand = new Random();
 		boolean willIt = this.chance > rand.nextInt(100);
-		System.out.println(willIt);
+		//System.out.println(willIt);
 		return willIt;
 
 	}

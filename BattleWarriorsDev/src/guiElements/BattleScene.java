@@ -69,12 +69,15 @@ public class BattleScene {
 	boolean buttonsDisabled = false;
 	int width = 1200;
 	int height = 800;
+	Pane root;
 
-	public BattleScene(Player self, Player enemy) {
+	public BattleScene(Player self, Player enemy, int width, int height, Pane root) {
 		this.battle = new Battle(self, enemy, this);
-		this.generateLayout(1200, 800, self, enemy);
+		this.generateLayout(width, height, self, enemy);
+		this.width = width;
+		this.height = height;
+		this.root = root;
 		
-		//this.battle = new Battle(self, enemy);
 	}
 
 	private void generateLayout(int width, int height, Player self, Player enemy) {
@@ -366,6 +369,14 @@ public class BattleScene {
 
 	public void setButtonsDisabled(boolean buttonsDisabled) {
 		this.buttonsDisabled = buttonsDisabled;
+	}
+
+	public Pane getRoot() {
+		return root;
+	}
+
+	public void setRoot(Pane root) {
+		this.root = root;
 	}
 	
 	

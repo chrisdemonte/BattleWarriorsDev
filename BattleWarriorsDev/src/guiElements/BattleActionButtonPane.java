@@ -56,7 +56,9 @@ public class BattleActionButtonPane {
 			previousSelection = 1;
 		});
 		this.runButton.setOnAction(e->{
-			
+			StartMenu menu = new StartMenu(this.scene.getWidth(), this.scene.getHeight(), this.scene.getRoot());
+			this.scene.getRoot().getChildren().clear();
+			this.scene.getRoot().getChildren().add(menu.getContainer());
 		});
 		this.itemButton.setOnAction(e->{
 			

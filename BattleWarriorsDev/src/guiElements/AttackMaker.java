@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import utilities.FileManager;
 
 public class AttackMaker {
@@ -14,6 +16,7 @@ public class AttackMaker {
 	Tab selfBuff = new Tab();
 	Tab targetBuff = new Tab();
 	Tab animationTab = new Tab();
+	Tab optionsTab = new Tab();
 	
 	AttackMakerMovePane moveMaker;
 	BuffMaker selfBuffMaker = new BuffMaker();
@@ -21,13 +24,21 @@ public class AttackMaker {
 	AttackMakerAnimationMaker animationMaker = new AttackMakerAnimationMaker();
 	
 	Button submitButton = new Button ("Create Attack");
+	Button backButton = new Button("Back");
 	
 	FileManager manager = new FileManager();
 	
 	Label debugTester = new Label("");
 	
-	public AttackMaker () {
+	Pane root;
+	int width;
+	int height;
+	
+	public AttackMaker (int width, int height, Pane root) {
 		this.moveMaker = new AttackMakerMovePane(selfBuffMaker, targetBuffMaker, animationMaker);
+		this.root = root;
+		this.width = width;
+		this.height = height;
 		this.generateLayout();
 	}
 
@@ -36,15 +47,21 @@ public class AttackMaker {
 		selfBuff.setText("Self Buff");
 		targetBuff.setText("Target Buff");
 		animationTab.setText("Animations");
+		optionsTab.setText("Options");
+		
+		VBox optionsButtons = new VBox(3);
+		optionsButtons.getChildren().add(this.backButton);
+		
 		
 		attackMain.setContent(moveMaker.getContainer());
 		selfBuff.setContent(this.selfBuffMaker.getContainer());
 		targetBuff.setContent(this.targetBuffMaker.getContainer());
 		animationTab.setContent(this.animationMaker.getContainer());
+		optionsTab.setContent(optionsButtons);
 		container.setMinSize(1200, 800);
 		moveMaker.getContainer().getChildren().addAll(this.submitButton, this.debugTester);
 		this.setButtonAction();
-		container.getTabs().addAll(attackMain, selfBuff, targetBuff, animationTab);
+		container.getTabs().addAll(attackMain, selfBuff, targetBuff, animationTab, optionsTab);
 		
 	}
 	
@@ -57,6 +74,11 @@ public class AttackMaker {
 	public void setButtonAction () {
 		this.submitButton.setOnAction(e->{
 			this.saveMove();
+		});
+		this.backButton.setOnAction(e->{
+			this.root.getChildren().clear();
+			StartMenu menu = new StartMenu(this.width, this.height, this.root);
+			this.root.getChildren().add(menu.getContainer());
 		});
 	}
 	public void useDebugger () {

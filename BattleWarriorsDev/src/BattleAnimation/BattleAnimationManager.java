@@ -21,8 +21,6 @@ public class BattleAnimationManager {
 
 	public void doAttackSequence(Battle battle, BattleScene scene) {
 	
-		battle.setSequenceCounter(0);
-		battle.setAttackCounter(0);
 		this.doPriorityAttacks(battle, scene);
 	}
 	public void doPriorityAttacks (Battle battle, BattleScene scene) {

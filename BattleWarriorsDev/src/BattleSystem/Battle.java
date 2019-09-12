@@ -37,8 +37,7 @@ public class Battle {
 	
 	BattleScene arena;
 	Move skipturn = null;
-	int sequenceCounter = 0;
-	int attackCounter = 0;
+	int turnCounter = 0;
 	
 	public Battle (Player self, Player enemy, BattleScene arena) {
 		this.self = self;
@@ -49,6 +48,8 @@ public class Battle {
 	}
 	
 	public void doTurn() {
+		this.turnCounter++;
+		System.out.println("Turn: " + this.turnCounter);
 		arena.setButtonsDisabled(true);
 		this.randomAI();
 		this.doBuffs();
@@ -103,11 +104,13 @@ public class Battle {
 	public void setUpNextTurn () {
 		arena.setButtonsDisabled(false);
 		arena.getActionButtons().setPreviousSelection(0);
+		self.getBattleStats().battleTurnUpdate();
+		enemy.getBattleStats().battleTurnUpdate();
 	}
 	public void randomAI() {
 		Random r = new Random();
 		int num = 2;
-		if (enemy.getBattleStats().getCurrentEnergy() > 5) {
+	//	if (enemy.getBattleStats().getCurrentEnergy() > 5) {
 			if (num == 0) {
 				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(0));
 				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(1));
@@ -127,10 +130,10 @@ public class Battle {
 			if (num == 4) {
 				this.enemyChoice.add(this.enemy.getAttacks().getMoveList().get(3));
 			}
-		}
-		else {
-			enemy.getBattleStats().setCurrentEnergy(20);
-		}
+	//	}
+//		else {
+	//		enemy.getBattleStats().setCurrentEnergy(20);
+//		}
 		
 	}
 
@@ -287,20 +290,13 @@ public class Battle {
 		this.slower = slower;
 	}
 
-	public int getSequenceCounter() {
-		return sequenceCounter;
+
+	public int getTurnCounter() {
+		return turnCounter;
 	}
 
-	public void setSequenceCounter(int sequenceCounter) {
-		this.sequenceCounter = sequenceCounter;
-	}
-
-	public int getAttackCounter() {
-		return attackCounter;
-	}
-
-	public void setAttackCounter(int attackCounter) {
-		this.attackCounter = attackCounter;
+	public void setAttackCounter(int turnCounter) {
+		this.turnCounter = turnCounter;
 	}
 
 	public Move getSkipturn() {

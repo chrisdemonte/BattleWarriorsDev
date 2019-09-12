@@ -98,7 +98,7 @@ public class BuffDamage extends BuffEffect {
 			}
 			
 			totalDamage = (int)(totalPhysicalDamage + totalMagicDamage);
-			System.out.println("" + totalDamage);
+			//System.out.println("" + totalDamage);
 			target.getBattleStats().setCurrentHealth(target.getBattleStats().getCurrentHealth() - totalDamage);
 		}
 	}
