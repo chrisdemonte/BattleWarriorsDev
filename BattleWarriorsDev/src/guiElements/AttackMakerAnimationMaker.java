@@ -4,8 +4,10 @@ import BattleAnimation.BattleAnimation;
 import BattleAnimation.BattleFlipAnimation;
 import BattleAnimation.BattleFlippingLeapAnimation;
 import BattleAnimation.BattleLeapingAnimation;
+import BattleAnimation.BattleLightningAnimation;
 import BattleAnimation.BattleNoAnimation;
 import BattleAnimation.BattleSlidingAnimation;
+import BattleAnimation.BattleSlowProjectileAnimation;
 import attacks.Move;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -24,7 +26,7 @@ public class AttackMakerAnimationMaker {
 	}
 
 	private void generateLayout() {
-		comboBox.getItems().addAll("None", "Sliding Animation", "Leaping Animation", "Flip Animation", "Flipping Leap Animation");
+		comboBox.getItems().addAll("None", "Sliding Animation", "Leaping Animation", "Flip Animation", "Flipping Leap Animation", "Slow Projectile Animation", "Lighting Animation");
 		comboBox.setValue("None");
 		this.setComboBoxAction();
 		container.getChildren().addAll(comboBoxLabel, comboBox);
@@ -56,6 +58,12 @@ public class AttackMakerAnimationMaker {
 		}
 		else if (comboBox.getValue().contentEquals("Flipping Leap Animation")) {
 			animation = new BattleFlippingLeapAnimation(attack);
+		}
+		else if (comboBox.getValue().contentEquals("Slow Projectile Animation")) {
+			animation = new BattleSlowProjectileAnimation(attack);
+		}
+		else if (comboBox.getValue().contentEquals("Lighting Animation")) {
+			animation = new BattleLightningAnimation(attack);
 		}
 		return animation;
 	}

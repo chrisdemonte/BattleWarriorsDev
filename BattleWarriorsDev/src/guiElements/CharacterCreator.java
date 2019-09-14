@@ -79,7 +79,7 @@ public class CharacterCreator {
 			enemy.getAttacks().getMoveList().add(manager.loadMove("Vegitable Throw"));
 			enemy.getAttacks().getMoveList().add(manager.loadMove("Spit"));
 			
-			BattleScene battleScene = new BattleScene(this.player, enemy, this.width, this.height, this.root);
+			BattleSinglePlayerScene battleScene = new BattleSinglePlayerScene(this.player, enemy, this.width, this.height, this.root);
 			this.root.getChildren().clear();
 			this.root.getChildren().add(battleScene.getContainer());
 		});

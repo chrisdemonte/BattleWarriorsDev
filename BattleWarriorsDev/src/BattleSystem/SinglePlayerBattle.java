@@ -7,48 +7,27 @@ import BattleAnimation.BattleAnimationManager;
 import BattleAnimation.BattleBuffAnimationManager;
 import attacks.Move;
 import guiElements.BattleScene;
-import javafx.scene.control.Label;
 import models.Player;
 import utilities.FileManager;
 
-public class Battle {
+public class SinglePlayerBattle extends Battle {
 	
-	Player self;
-	Player enemy;
-	
-	boolean playerChose = false;
-	ArrayList<Move> playerChoice = new ArrayList<Move>();
-	ArrayList<Move> playerPriorityChoice = new ArrayList<Move>();
-	boolean enemyChose = false;
-	ArrayList<Move> enemyChoice = new ArrayList<Move>();
-	ArrayList<Move> enemyPriorityChoice = new ArrayList<Move>();
-	
-	Player faster = null;
-	ArrayList<Move> fasterPriorityAttacks = new ArrayList<Move>();
-	ArrayList<Move> fasterAttacks = new ArrayList<Move>();
-	int fasterTimeCounter = 2000;
-	boolean fasterTryingToRun = false;
-	boolean fasterSkippingTurn = false;
-	
-	Player slower = null;
-	ArrayList<Move> slowerPriorityAttacks = new ArrayList<Move>();
-	ArrayList<Move> slowerAttacks = new ArrayList<Move>();
-	int slowerTimeCounter = 2000;
-	boolean slowerTryingToRun = false;
-	boolean slowerSkippingTurn = false;
-	
-	BattleScene arena;
-	Move skipturn = null;
-	int turnCounter = 0;
-	
-	public Battle () {
-		FileManager manager = new FileManager();
-		this.skipturn = manager.loadMove("Skip Turn");
+	public SinglePlayerBattle (Player self, Player enemy, BattleScene arena) {
+		super();
+		this.self = self;
+		this.enemy = enemy;
+		this.arena = arena;	
+		
 		
 	}
-	
 	public void doTurn() {
-		
+		this.turnCounter++;
+		arena.getBattleLog().addToLog("~~~: Turn " + turnCounter + " :~~~");
+		arena.getBattleLogPane().updateLog(arena.getBattleLog());
+		System.out.println("Turn: " + this.turnCounter);
+		arena.setButtonsDisabled(true);
+		this.randomAI();
+		this.doBuffs();
 	}
 
 	public void whosFasfter() {
@@ -98,6 +77,7 @@ public class Battle {
 		animation.doAttackSequence(this, arena);
 	}
 	public void setUpNextTurn () {
+		arena.getActionButtons().setPreviousSelection(0);
 		arena.setButtonsDisabled(false);
 		arena.getActionButtons().setPreviousSelection(0);
 		self.getBattleStats().battleTurnUpdate();
@@ -323,24 +303,5 @@ public class Battle {
 		this.skipturn = skipturn;
 	}
 
-	public boolean isPlayerChose() {
-		return playerChose;
-	}
-
-	public void setPlayerChose(boolean playerChose) {
-		this.playerChose = playerChose;
-	}
-
-	public boolean isEnemyChose() {
-		return enemyChose;
-	}
-
-	public void setEnemyChose(boolean enemyChose) {
-		this.enemyChose = enemyChose;
-	}
-
-	public void setTurnCounter(int turnCounter) {
-		this.turnCounter = turnCounter;
-	}
 
 }

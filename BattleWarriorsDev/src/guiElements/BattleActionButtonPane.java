@@ -19,11 +19,11 @@ public class BattleActionButtonPane {
 	int previousSelection = 0;
 	boolean attackTabsOpen = false;
 	
-	BattleScene scene;
+	BattleSinglePlayerScene scene;
 	Battle battle;
 	Player player;
 	
-	public BattleActionButtonPane ( BattleScene scene, Player player, Battle battle) {
+	public BattleActionButtonPane ( BattleSinglePlayerScene scene, Player player, Battle battle) {
 		this.scene = scene;
 		this.player = player;
 		this.battle = battle;
@@ -93,6 +93,62 @@ public class BattleActionButtonPane {
 
 	public void setAttackTabsOpen(boolean attackTabsOpen) {
 		this.attackTabsOpen = attackTabsOpen;
+	}
+
+	public Button getAttackButton() {
+		return attackButton;
+	}
+
+	public void setAttackButton(Button attackButton) {
+		this.attackButton = attackButton;
+	}
+
+	public Button getItemButton() {
+		return itemButton;
+	}
+
+	public void setItemButton(Button itemButton) {
+		this.itemButton = itemButton;
+	}
+
+	public Button getSkipTurnButton() {
+		return skipTurnButton;
+	}
+
+	public void setSkipTurnButton(Button skipTurnButton) {
+		this.skipTurnButton = skipTurnButton;
+	}
+
+	public Button getRunButton() {
+		return runButton;
+	}
+
+	public void setRunButton(Button runButton) {
+		this.runButton = runButton;
+	}
+
+	public BattleScene getScene() {
+		return scene;
+	}
+
+	public void setScene(BattleSinglePlayerScene scene) {
+		this.scene = scene;
+	}
+
+	public Battle getBattle() {
+		return battle;
+	}
+
+	public void setBattle(Battle battle) {
+		this.battle = battle;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 }

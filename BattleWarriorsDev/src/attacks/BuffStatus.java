@@ -89,46 +89,46 @@ public class BuffStatus extends BuffEffect {
 			ArrayList<String> tempArray = new ArrayList<String>();
 			int count = 0;
 			if (this.staminaMod > 0.0) {
-				tempArray.add("stamina");
+				tempArray.add(" stamina ");
 				count++;
 			}
 			if (this.strengthMod > 0.0) {
-				tempArray.add("strength");	
+				tempArray.add(" strength ");	
 				count++;
 			}
 			if (this.defenseMod > 0.0) {
-				tempArray.add("defense");
+				tempArray.add(" defense ");
 				count++;
 			}
 			if (this.magicMod > 0.0) {
-				tempArray.add("magic");
+				tempArray.add(" magic ");
 				count++;
 			}
 			if (this.resistanceMod > 0.0) {
-				tempArray.add("resistance");
+				tempArray.add(" resistance ");
 				count++;
 			}
 			if (this.cunningMod> 0.0) {
-				tempArray.add("cunning");
+				tempArray.add(" cunning ");
 				count++;
 			}
 			if (this.intelligenceMod > 0.0) {
-				tempArray.add("intelligence");
+				tempArray.add(" intelligence ");
 				count++;
 			}
 			if (this.speedMod > 0.0) {
-				tempArray.add("speed");
+				tempArray.add(" speed ");
 				count++;
 			}
 			if (this.skillMod > 0.0) {
-				tempArray.add("skill");
+				tempArray.add(" skill ");
 				count++;
 			}
 			if (count > 1) {
-				tempArray.set(count - 1, " and " + tempArray.get(count - 1) + " were boosted.");
+				tempArray.set(count - 1, " and" + tempArray.get(count - 1) + "were boosted.");
 				logEntry += tempArray.get(0);
 				for (int i = 1; i < tempArray.size(); i++) {
-					logEntry += ", " + tempArray.get(i);
+					logEntry += "," + tempArray.get(i);
 				}
 				log.addToLog(logEntry);
 			}
@@ -140,46 +140,48 @@ public class BuffStatus extends BuffEffect {
 			tempArray = new ArrayList<String>();
 			count = 0;
 			if (this.staminaMod < 0.0) {
-				tempArray.add("stamina");
+				tempArray.add(" stamina ");
 				count++;
 			}
 			if (this.strengthMod < 0.0) {
-				tempArray.add("strength");	
+				tempArray.add(" strength ");	
 				count++;
 			}
 			if (this.defenseMod < 0.0) {
-				tempArray.add("defense");
+				tempArray.add(" defense ");
 				count++;
 			}
 			if (this.magicMod < 0.0) {
-				tempArray.add("magic");
+				tempArray.add(" magic ");
 				count++;
 			}
 			if (this.resistanceMod < 0.0) {
-				tempArray.add("resistance");
+				tempArray.add(" resistance ");
 				count++;
 			}
 			if (this.cunningMod< 0.0) {
-				tempArray.add("cunning");
+				tempArray.add(" cunning ");
 				count++;
 			}
 			if (this.intelligenceMod < 0.0) {
-				tempArray.add("intelligence");
+				tempArray.add(" intelligence ");
 				count++;
 			}
 			if (this.speedMod < 0.0) {
-				tempArray.add("speed");
+				tempArray.add(" speed ");
 				count++;
 			}
 			if (this.skillMod < 0.0) {
-				tempArray.add("skill");
+				tempArray.add(" skill ");
 				count++;
 			}
 			if (count > 1) {
-				tempArray.set(count - 1, "and " + tempArray.get(count - 1) + " were lowered");
+				tempArray.set(count - 1, " and" + tempArray.get(count - 1) + "were lowered");
 				logEntry += tempArray.get(0);
-				for (int i = 1; i < tempArray.size(); i++) {
-					logEntry += ", " + tempArray.get(i);
+				if (count > 2) {
+					for (int i = 1; i < tempArray.size(); i++) {
+						logEntry += "," + tempArray.get(i);
+					}
 				}
 				log.addToLog(logEntry);
 			}

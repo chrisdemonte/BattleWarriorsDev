@@ -1,5 +1,6 @@
 package BattleSystem;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,48 +8,25 @@ import BattleAnimation.BattleAnimationManager;
 import BattleAnimation.BattleBuffAnimationManager;
 import attacks.Move;
 import guiElements.BattleScene;
+import guiElements.BattleSelectionPaneTwoPlayer;
+import guiElements.BattleTwoPlayerScene;
 import javafx.scene.control.Label;
 import models.Player;
 import utilities.FileManager;
 
-public class Battle {
-	
-	Player self;
-	Player enemy;
-	
-	boolean playerChose = false;
-	ArrayList<Move> playerChoice = new ArrayList<Move>();
-	ArrayList<Move> playerPriorityChoice = new ArrayList<Move>();
-	boolean enemyChose = false;
-	ArrayList<Move> enemyChoice = new ArrayList<Move>();
-	ArrayList<Move> enemyPriorityChoice = new ArrayList<Move>();
-	
-	Player faster = null;
-	ArrayList<Move> fasterPriorityAttacks = new ArrayList<Move>();
-	ArrayList<Move> fasterAttacks = new ArrayList<Move>();
-	int fasterTimeCounter = 2000;
-	boolean fasterTryingToRun = false;
-	boolean fasterSkippingTurn = false;
-	
-	Player slower = null;
-	ArrayList<Move> slowerPriorityAttacks = new ArrayList<Move>();
-	ArrayList<Move> slowerAttacks = new ArrayList<Move>();
-	int slowerTimeCounter = 2000;
-	boolean slowerTryingToRun = false;
-	boolean slowerSkippingTurn = false;
-	
-	BattleScene arena;
-	Move skipturn = null;
-	int turnCounter = 0;
-	
-	public Battle () {
-		FileManager manager = new FileManager();
-		this.skipturn = manager.loadMove("Skip Turn");
-		
+public class TwoPlayerBattle extends Battle{
+
+	public TwoPlayerBattle (Player playerOne, Player playerTwo, BattleTwoPlayerScene arena) {
+		super();
+		this.arena = arena;	
+		this.self = playerOne;
+		this.enemy = playerTwo;
 	}
-	
+
 	public void doTurn() {
-		
+		this.turnCounter++;
+		arena.getOutput().setText("Turn : " + turnCounter);
+		this.doBuffs();
 	}
 
 	public void whosFasfter() {
@@ -98,8 +76,16 @@ public class Battle {
 		animation.doAttackSequence(this, arena);
 	}
 	public void setUpNextTurn () {
-		arena.setButtonsDisabled(false);
-		arena.getActionButtons().setPreviousSelection(0);
+		arena.getAttackPane().getChildren().clear();
+		BattleSelectionPaneTwoPlayer pane1 = new BattleSelectionPaneTwoPlayer((BattleTwoPlayerScene)this.arena, self, false);
+		arena.getLogPane().getChildren().clear();
+		BattleSelectionPaneTwoPlayer pane2 = new BattleSelectionPaneTwoPlayer((BattleTwoPlayerScene)this.arena, enemy, true);
+		
+		arena.setPlayerOneSelectionPane(pane1);
+		arena.setPlayerTwoSelectionPane(pane2);
+		arena.getAttackPane().getChildren().add(pane1.getContainer());
+		arena.getLogPane().getChildren().add(pane2.getContainer());
+		
 		self.getBattleStats().battleTurnUpdate();
 		enemy.getBattleStats().battleTurnUpdate();
 		ArrayList<Move> arr = self.getAttacks().getMoveList();
@@ -321,26 +307,6 @@ public class Battle {
 
 	public void setSkipturn(Move skipturn) {
 		this.skipturn = skipturn;
-	}
-
-	public boolean isPlayerChose() {
-		return playerChose;
-	}
-
-	public void setPlayerChose(boolean playerChose) {
-		this.playerChose = playerChose;
-	}
-
-	public boolean isEnemyChose() {
-		return enemyChose;
-	}
-
-	public void setEnemyChose(boolean enemyChose) {
-		this.enemyChose = enemyChose;
-	}
-
-	public void setTurnCounter(int turnCounter) {
-		this.turnCounter = turnCounter;
 	}
 
 }

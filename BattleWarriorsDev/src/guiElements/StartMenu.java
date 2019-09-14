@@ -15,8 +15,9 @@ public class StartMenu {
 	HBox container = new HBox();
 	VBox menuContainer = new VBox(5);
 	
-	Button charCreationButton = new Button("Create Character");
-	Button battleButton = new Button ("Start Battling");
+	Button charCreationButton = new Button("One Player Battle");
+	Button twoPlayerBattle = new Button("Two Player Battle");
+	Button battleButton = new Button ("Quick Batte");
 	Button attackEditorButton = new Button("Attack Maker");
 	
 	Pane root;
@@ -37,7 +38,7 @@ public class StartMenu {
 		this.container.setAlignment(Pos.BASELINE_CENTER);
 		
 		this.setButtonActions();
-		this.menuContainer.getChildren().addAll(this.charCreationButton, this.battleButton, this.attackEditorButton);
+		this.menuContainer.getChildren().addAll(this.charCreationButton, this.twoPlayerBattle, this.battleButton, this.attackEditorButton);
 		this.menuContainer.setPadding(new Insets(height / 3, 0, 0, 0));
 		
 		this.container.getChildren().add(menuContainer);
@@ -50,6 +51,14 @@ public class StartMenu {
 			this.root.getChildren().clear();
 			this.root.getChildren().add(charCreator.getContainer());
 		});
+		charCreationButton.setMinSize(width/10, height/20);
+		
+		twoPlayerBattle.setOnAction(e->{
+			CharacterCreatorTwoPlayer charCreator = new CharacterCreatorTwoPlayer(width, height, root);
+			this.root.getChildren().clear();
+			this.root.getChildren().add(charCreator.getContainer());
+		});
+		twoPlayerBattle.setMinSize(width/10, height/20);
 		charCreationButton.setMinSize(width/10, height/20);
 		
 		attackEditorButton.setOnAction(e->{
@@ -75,7 +84,7 @@ public class StartMenu {
 			user.getAttacks().getMoveList().add(manager.loadMove("Dev Buff"));
 			user.getAttacks().getMoveList().add(manager.loadMove("Spit"));
 			user.getAttacks().getMoveList().add(manager.loadMove("Bandage"));
-			user.getAttacks().getMoveList().add(manager.loadMove("Custom Attack"));
+			user.getAttacks().getMoveList().add(manager.loadMove("Fireball"));
 			user.setNPC(false);
 			
 			Player enemy = new Player("Demon Stawberry", "A stawberry with demonic powers. Is that jelly or blood?");
@@ -84,7 +93,7 @@ public class StartMenu {
 			enemy.getAttacks().getMoveList().add(manager.loadMove("Vegitable Throw"));
 			enemy.getAttacks().getMoveList().add(manager.loadMove("Spit"));
 			
-			BattleScene battleScene = new BattleScene(user, enemy, this.width, this.height, this.root);
+			BattleSinglePlayerScene battleScene = new BattleSinglePlayerScene(user, enemy, this.width, this.height, this.root);
 			this.root.getChildren().clear();
 			this.root.getChildren().add(battleScene.getContainer());
 		});

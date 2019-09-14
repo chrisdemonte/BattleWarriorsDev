@@ -1,5 +1,10 @@
 package BattleAnimation;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Random;
+
 import BattleSystem.Battle;
 import attacks.Move;
 import guiElements.BattleScene;
@@ -8,22 +13,22 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import models.Player;
 
-public class BattleLeapingAnimation extends BattleAnimation {
-
-	private static final long serialVersionUID = 567687115044427700L;
+public class BattleLightningAnimation extends BattleAnimation{
 	
+	private static final long serialVersionUID = 5410439738100957711L;
 	int counter = 0;
+	ImageView imageView1;
+	ImageView imageView2;
 	
-	public BattleLeapingAnimation(int delay, int contact, int recovery, int time) {
-		super(delay, contact, recovery, time);
-			
-	}
-	public BattleLeapingAnimation(Move attack) {
-		super( 5, 25 , 55, attack.getTime());
+	
+	public BattleLightningAnimation(Move attack) {
+		super( 10, 30 , 70, attack.getTime());
 	}
 	@Override
 	public void doBattleAnimation (BattleScene scene, Battle battle, Player attacker, Player defender, Move attack) {
@@ -31,9 +36,10 @@ public class BattleLeapingAnimation extends BattleAnimation {
 		HBox playerContainer = scene.getPlayerSpriteContainer();
 		HBox enemyContainer = scene.getEnemySpriteContainer();
 		
+		this.getImages(attack);
+		
 		int timerDelay = ((time - attacker.getBattleStats().getHaste()) * this.delay)/100;
 		int timerContact = ((time - attacker.getBattleStats().getHaste()) * this.contact)/100;
-		int timerPeakOfJump = timerDelay + ((timerContact - timerDelay)/2);
 		int timerRecovery = ((time - attacker.getBattleStats().getHaste()) * this.recovery)/100;
 		int timerTime = time - attacker.getBattleStats().getHaste();
 		
@@ -48,49 +54,80 @@ public class BattleLeapingAnimation extends BattleAnimation {
 				}
 				scene.refreshBars();
 				scene.getBattleLogPane().updateLog(scene.getBattleLog());
+				scene.getContainer().getChildren().add(imageView1);
+				imageView1.setTranslateX((scene.getWidth()/3) - 90);
+				imageView1.setTranslateY((scene.getHeight()/2) - 155);
+				imageView1.setOpacity(100.0);
+				imageView1.setScaleY(.7);
+				imageView1.setScaleX(.8);
+				if (attacker.isNPC()) {
+					imageView1.setRotate(180);
+					imageView1.setTranslateY((scene.getHeight()/2) - 160);
+				}
 			}	
 		};
 	
+	
+		EventHandler<ActionEvent> secondStrike = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				
+				scene.getContainer().getChildren().add(imageView2);
+				imageView2.setTranslateX((scene.getWidth()/3) - 90);
+				imageView2.setTranslateY((scene.getHeight()/2) - 180);
+				imageView2.setOpacity(100.0);
+				imageView2.setScaleY(.7);
+				imageView2.setScaleX(.8);
+				if (attacker.isNPC()) {
+					imageView2.setRotate(180);
+					imageView2.setTranslateY((scene.getHeight()/2) - 135);
+				}
+				
+			}	
+		};
+		
+			
 		EventHandler<ActionEvent> finalHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				
+				scene.getContainer().getChildren().remove(imageView1);
+				scene.getContainer().getChildren().remove(imageView2);
 				timeline.stop();
 			}	
 		};
 		if (!attacker.isNPC()) {
 			timeline.getKeyFrames().addAll(
 					new KeyFrame(
-							Duration.ZERO,
-							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),
+							Duration.ZERO),
 					new KeyFrame(
 							Duration.millis(timerDelay),
-							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140),
-							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
-					new KeyFrame(
-							Duration.millis(timerPeakOfJump),
-							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 240)),
+							new KeyValue(imageView1.opacityProperty(), 100)),
+					
 					new KeyFrame(
 							Duration.millis(timerContact),
 							contactHandler,
-							new KeyValue(playerContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 160),
-							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+							new KeyValue(imageView1.opacityProperty(), 100)),
 					new KeyFrame(
 							Duration.millis(timerContact + ((timerRecovery - timerContact)/ 4)),
-							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),		
+							secondStrike,
+							new KeyValue(imageView1.opacityProperty(), 0),
+							new KeyValue(imageView2.opacityProperty(), 100),
+							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),
+					
 					new KeyFrame(
 							Duration.millis(timerContact + ((timerRecovery - timerContact)/ 3)),
 							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 30)),
 					new KeyFrame(
+							Duration.millis(timerContact + ((timerRecovery - timerContact)/ 2)),
+							new KeyValue(imageView2.opacityProperty(), 0)),
+					new KeyFrame(
 							Duration.millis(timerRecovery),
-							new KeyValue(playerContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 160),
 							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 30)),
 					new KeyFrame(
 							Duration.millis(timerRecovery + ((timerTime - timerRecovery)/ 2)),
+							
 							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),
-					new KeyFrame(
-							Duration.millis(timerTime),
-							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),
 					new KeyFrame(
 							Duration.millis(timerTime),
 							finalHandler)
@@ -101,42 +138,55 @@ public class BattleLeapingAnimation extends BattleAnimation {
 		else {
 			timeline.getKeyFrames().addAll(
 					new KeyFrame(
-							Duration.ZERO,
-							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),
+							Duration.ZERO),
 					new KeyFrame(
 							Duration.millis(timerDelay),
-							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60),
-							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),	
-					new KeyFrame(
-							Duration.millis(timerPeakOfJump),
-							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 240)),
+							new KeyValue(imageView1.opacityProperty(), 100.0)),
+					
 					new KeyFrame(
 							Duration.millis(timerContact),
 							contactHandler,
-							new KeyValue(enemyContainer.translateXProperty(), (scene.getWidth()/3) - 40),
-							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+							new KeyValue(imageView1.opacityProperty(), 100.0)),
 					new KeyFrame(
 							Duration.millis(timerContact + ((timerRecovery - timerContact)/ 4)),
-							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),	
+							secondStrike,
+							new KeyValue(imageView1.opacityProperty(), 0.0),
+							new KeyValue(imageView2.opacityProperty(), 100.0),
+							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),
+					
 					new KeyFrame(
 							Duration.millis(timerContact + ((timerRecovery - timerContact)/ 3)),
 							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 170)),
 					new KeyFrame(
+							Duration.millis(timerContact + ((timerRecovery - timerContact)/ 2)),
+							new KeyValue(imageView2.opacityProperty(), 0)),
+					new KeyFrame(
 							Duration.millis(timerRecovery),
-							new KeyValue(enemyContainer.translateXProperty(), (scene.getWidth()/3) - 40),
 							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 170)),
 					new KeyFrame(
 							Duration.millis(timerRecovery + ((timerTime - timerRecovery)/ 2)),
 							new KeyValue(playerContainer.translateXProperty(), (scene.getWidth()/3) - 140)),
 					new KeyFrame(
 							Duration.millis(timerTime),
-							new KeyValue(enemyContainer.translateXProperty(), ((scene.getWidth() * 2)/3) - 60)),
-					new KeyFrame(
-							Duration.millis(timerTime),
 							finalHandler)
 					);
+					
 			timeline.play();
 			
 		}
+	}
+	private void getImages(Move attack) {
+		try {
+			
+			File file = new File("resources/images/attackAssets/projectiles/projectile_" + attack.getName() + "_1.PNG");
+			imageView1 = new ImageView( new Image(new FileInputStream(file)));
+			File file2 = new File("resources/images/attackAssets/projectiles/projectile_" + attack.getName() + "_2.PNG");
+			imageView2 = new ImageView( new Image(new FileInputStream(file2)));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			imageView1 = null;
+			imageView2 = null;
+		}
+		
 	}
 }

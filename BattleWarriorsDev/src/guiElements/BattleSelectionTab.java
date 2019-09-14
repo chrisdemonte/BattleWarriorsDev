@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import models.Player;
 
 public class BattleSelectionTab {
 	
@@ -33,6 +34,7 @@ public class BattleSelectionTab {
 	HBox row2 = new HBox(3);
 	Label infoLabel = new Label();
 	Tooltip toolTip = new Tooltip();
+	boolean usable;
 	
 	int index = 0;
 	
@@ -56,10 +58,13 @@ public class BattleSelectionTab {
 		this.setBackground();
 		container.getChildren().addAll(row1, row2);
 	}
-	public BattleSelectionTab(Move attack, BattleScene arena, int index) {
-		container.setMinSize(110, 60);
+	public BattleSelectionTab(Move attack, BattleScene arena, Player player, int index, boolean usable) {
+		container.setMinSize(120, 60);
+		container.setMaxSize(120, 60);
+		
 		this.attack = attack;
 		this.index = index;
+		this.usable = usable;
 		nameLabel.setText(attack.getName());
 		nameLabel.setStyle("-fx-text-fill: BLACK; -fx-font-size: 16;");
 		nameLabel.setTooltip(toolTip);
@@ -67,13 +72,23 @@ public class BattleSelectionTab {
 		nameLabel.setMaxSize(110, 60);
 		nameLabel.setAlignment(Pos.TOP_CENTER);
 		if (attack.getCooldownCounter() > 0) {
-			infoLabel.setText("Cooldown:\t" + attack.getCooldownCounter() + " turns\tUses\t" + attack.getCurrentUses() + "/" + attack.getUses());
+			infoLabel.setText("Cooldown: " + attack.getCooldownCounter() + " turns");
+		}
+		else if (attack.getComboPointRequirement() > player.getBattleStats().getCurrentComboPoints()) {
+			infoLabel.setText("Need "+ attack.getComboPointRequirement()  + " Combo Points");
+		}
+		else if (attack.getCurrentUses() == 0) {
+			infoLabel.setText("Out of Uses");
+		}
+		else if (player.getBattleStats().getCurrentEnergy() < attack.getEnergyCost()) {
+			infoLabel.setText("Not Enough Energy");
 		}
 		else {
 			infoLabel.setText("Time: " + attack.getTime() + "\nUses:" + attack.getCurrentUses() + "/" + attack.getUses());
 		}
 		infoLabel.setTooltip(toolTip);
 		infoLabel.setMinSize(120, 60);
+		infoLabel.setMaxSize(120, 60);
 		infoLabel.setAlignment(Pos.BOTTOM_CENTER);
 		infoLabel.setStyle("-fx-text-fill: BLACK;");
 		row1.getChildren().addAll(nameLabel);
@@ -89,7 +104,13 @@ public class BattleSelectionTab {
 	
 	public void setBackground() {
 		try {
-			File file = new File("resources/images/red_pixel_pattern.PNG");
+			File file;
+			if (this.usable) {
+				file = new File("resources/images/red_pixel_pattern.PNG");
+			}
+			else {
+				file = new File("resources/images/grey_pixel_pattern.PNG");
+			}
 			image = new Image(new FileInputStream(file));		
 			container.setBackground(new Background(new BackgroundImage(image,
 			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,

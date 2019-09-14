@@ -30,7 +30,6 @@ import utilities.BattleLog;
 public class BattleScene {
 	
 	Pane container = new Pane();
-	
 	Image frame;
 	ImageView frameView = new ImageView();	
 	Image border;
@@ -57,6 +56,7 @@ public class BattleScene {
 	BattleSelectionPane selectionPane;
 	BattleActionButtonPane actionButtons;
 	BattleActionTimeDisplay actionTime;
+	BattleActionTimeDisplay actionTime2;
 	BattleLogPane battleLogPane;
 	
 	Pane battleWindow = new Pane();
@@ -64,128 +64,25 @@ public class BattleScene {
 	Pane attackPane = new Pane();
 	Pane logPane = new Pane();
 	Pane timeDisplayPane = new Pane();
+	Pane enemyTimeDisplayPane = new Pane();
 	
 	Battle battle;
+	
+	Label output = new Label("Battle");
+	BattleSelectionPaneTwoPlayer playerTwoSelectionPane;
+	BattleSelectionPaneTwoPlayer playerOneSelectionPane;
 	
 	boolean buttonsDisabled = false;
 	int width = 1200;
 	int height = 800;
 	Pane root;
-
-	public BattleScene(Player self, Player enemy, int width, int height, Pane root) {
-		this.battle = new Battle(self, enemy, this);
-		this.generateLayout(width, height, self, enemy);
-		this.width = width;
-		this.height = height;
-		this.root = root;
+	
+	public BattleScene() {
 		
 	}
 
-	private void generateLayout(int width, int height, Player self, Player enemy) {
-		this.width = width;
-		this.height = height;
-		container.setMaxSize(width, height);
-		container.setMinSize(width, height);
+	public void refreshBars() {
 		
-		this.selectionPane = new BattleSelectionPane(this, self);
-		this.actionButtons = new BattleActionButtonPane(this, self, this.battle);
-		this.actionTime = new BattleActionTimeDisplay();
-		this.battleLogPane = new BattleLogPane(width, height);
-		battleWindow.setMaxSize(width - 100, height - 300);
-		battleWindow.setMinSize(width - 100, height - 300);
-		battleWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
-		battleWindow.setTranslateX(50);
-		battleWindow.setTranslateY(50);
-		
-		actionPane.setMaxSize((width / 4) - 140, height - 550);
-		actionPane.setMinSize((width / 4) - 140, height - 550);
-		actionPane.setTranslateX((width / 3) + 120);
-		actionPane.setTranslateY(height - 200);
-		actionPane.getChildren().addAll(actionButtons.getContainer());
-		
-		attackPane.setMaxSize((width / 3) + 20, height - 550);
-		attackPane.setMinSize((width / 3) + 20, height - 550);
-		attackPane.setTranslateX(50);
-		attackPane.setTranslateY(height - 200);
-		
-		timeDisplayPane.setTranslateX(100);
-		timeDisplayPane.setTranslateY(475);
-		timeDisplayPane.getChildren().addAll(this.actionTime.getContainer());
-		
-		logPane.setMaxSize((width / 3) + 20, height - 550);
-		logPane.setMinSize((width / 3) + 20, height - 550);
-		logPane.setTranslateX((width / 3) + (width/4) + 30);
-		logPane.setTranslateY(height - 200);
-		logPane.getChildren().add(this.battleLogPane.getContainer());
-		
-		playerBar = new HealthBar(self, 400);
-		playerBar.getContainer().setTranslateX(100);
-		playerBar.getContainer().setTranslateY(100);
-		
-		playerEnergy = new EnergyBar(self, 400);
-		playerEnergy.getContainer().setTranslateX(100);
-		playerEnergy.getContainer().setTranslateY(130);
-		
-		enemyBar = new HealthBar(enemy, 400);
-		enemyBar.getContainer().setTranslateX(700);
-		enemyBar.getContainer().setTranslateY(100);
-		
-		playerSpriteContainer.setMinSize(200, 200);
-		playerSpriteContainer.setTranslateX((width/3) - 140);
-		playerSpriteContainer.setTranslateY((height/2) - 180);
-		enemySpriteContainer.setMinSize(200,200);
-		enemySpriteContainer.setTranslateX(((width * 2)/3) - 60);
-		enemySpriteContainer.setTranslateY((height/2) - 180);
-		
-		
-		try {
-			//File file = new File ("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\battle_pane.PNG");
-			File file = new File("resources/images/red_pixel_background.PNG");
-			frame = new  Image(new FileInputStream(file));
-			frameView.setImage(frame);
-
-			File borderFile = new File("resources/images/black_pixel_pattern.PNG");
-			border = new Image(new FileInputStream(borderFile));
-			actionPane.setBackground(new Background(new BackgroundImage(border,
-			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			          BackgroundSize.DEFAULT)));
-			attackPane.setBackground(new Background(new BackgroundImage(border,
-			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			          BackgroundSize.DEFAULT)));
-			logPane.setBackground(new Background(new BackgroundImage(border,
-			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
-			          BackgroundSize.DEFAULT)));
-			File playerFile = new File("resources/images/playerModels/man.PNG");
-			this.playerSprite = new Image(new FileInputStream(playerFile));
-			playerSpriteContainer.setBackground(new Background(new BackgroundImage(playerSprite,
-			        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-			          BackgroundSize.DEFAULT)));
-			File enemyFile = new File("resources/images/playerModels/demonstawberry.PNG");
-			this.enemySprite = new Image(new FileInputStream(enemyFile));
-			enemySpriteContainer.setBackground(new Background(new BackgroundImage(enemySprite,
-			        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-			          BackgroundSize.DEFAULT)));
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		battleWindow.setBorder(new Border(new BorderImage(border, new BorderWidths(10.0), new Insets(0.0), new BorderWidths(10.0),
-				false, BorderRepeat.REPEAT, BorderRepeat.REPEAT)));
-		
-		container.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), enemyBar.getContainer(),attackPane, timeDisplayPane, actionPane, logPane,
-				playerSpriteContainer, enemySpriteContainer);
-		
-		this.battleLog.addToLog( "!!! " + enemy.getName() + " challenges you to a fight !!!\n" + enemy.getDescription());
-		this.battleLogPane.updateLog(this.battleLog);
-		
-		
-	}
-
-	public void refreshBars () {
-		this.playerBar.changeHealthBar();
-		this.playerEnergy.changeEnergyBar();
-		this.enemyBar.changeHealthBar();
 	}
 	public Pane getContainer() {
 		return container;
@@ -194,131 +91,29 @@ public class BattleScene {
 	public void setContainer(Pane container) {
 		this.container = container;
 	}
-	public BattleLog getBattleLog() {
-		return battleLog;
-	}
-	public void setBattleLog(BattleLog battleLog) {
-		this.battleLog = battleLog;
-	}
-	public Battle getBattle() {
-		return battle;
-	}
-	public void setBattle(Battle battle) {
-		this.battle = battle;
-	}
-	public HBox getHealthBarLine() {
-		return healthBarLine;
-	}
-	public void setHealthBarLine(HBox healthBarLine) {
-		this.healthBarLine = healthBarLine;
-	}
-	public VBox getPlayerBuffContainer() {
-		return playerBuffContainer;
-	}
-	public void setPlayerBuffContainer(VBox playerBuffContainer) {
-		this.playerBuffContainer = playerBuffContainer;
-	}
-	public VBox getPlayerHealthBarContainer() {
-		return playerHealthBarContainer;
-	}
-	public void setPlayerHealthBarContainer(VBox playerHealthBarContainer) {
-		this.playerHealthBarContainer = playerHealthBarContainer;
-	}
-	public VBox getHealthBarCenter() {
-		return healthBarCenter;
-	}
-	public void setHealthBarCenter(VBox healthBarCenter) {
-		this.healthBarCenter = healthBarCenter;
-	}
-	public VBox getEnemyHealthContainer() {
-		return enemyHealthContainer;
-	}
-	public void setEnemyHealthContainer(VBox enemyHealthContainer) {
-		this.enemyHealthContainer = enemyHealthContainer;
-	}
-	public VBox getEnemyBuffContainer() {
-		return enemyBuffContainer;
-	}
-	public void setEnemyBuffContainer(VBox enemyBuffContainer) {
-		this.enemyBuffContainer = enemyBuffContainer;
-	}
-	public HealthBar getPlayerBar() {
-		return playerBar;
-	}
-	public void setPlayerBar(HealthBar playerBar) {
-		this.playerBar = playerBar;
-	}
-	public HealthBar getEnemyBar() {
-		return enemyBar;
-	}
-	public void setEnemyBar(HealthBar enemyBar) {
-		this.enemyBar = enemyBar;
-	}
-	public BattleSelectionPane getSelectionPane() {
-		return selectionPane;
-	}
-	public void setSelectionPane(BattleSelectionPane selectionPane) {
-		this.selectionPane = selectionPane;
-	}
-	public Pane getBattleWindow() {
-		return battleWindow;
-	}
-	public void setBattleWindow(Pane battleWindow) {
-		this.battleWindow = battleWindow;
-	}
-	public Pane getActionPane() {
-		return actionPane;
-	}
-	public void setActionPane(Pane actionPane) {
-		this.actionPane = actionPane;
-	}
-	public Pane getAttackPane() {
-		return attackPane;
-	}
-	public void setAttackPane(Pane attackPane) {
-		this.attackPane = attackPane;
-	}
-	public Pane getLogPane() {
-		return logPane;
-	}
-	public void setLogPane(Pane logPane) {
-		this.logPane = logPane;
-	}
-	public BattleActionButtonPane getActionButtons() {
-		return actionButtons;
-	}
-	public void setActionButtons(BattleActionButtonPane actionButtons) {
-		this.actionButtons = actionButtons;
-	}
-	public BattleActionTimeDisplay getActionTime() {
-		return actionTime;
-	}
-	public void setActionTime(BattleActionTimeDisplay actionTime) {
-		this.actionTime = actionTime;
+
+	public Image getFrame() {
+		return frame;
 	}
 
-	public EnergyBar getPlayerEnergy() {
-		return playerEnergy;
+	public void setFrame(Image frame) {
+		this.frame = frame;
 	}
 
-	public void setPlayerEnergy(EnergyBar playerEnergy) {
-		this.playerEnergy = playerEnergy;
+	public ImageView getFrameView() {
+		return frameView;
 	}
 
-	public EnergyBar getEnemyEnergy() {
-		return enemyEnergy;
+	public void setFrameView(ImageView frameView) {
+		this.frameView = frameView;
 	}
 
-	public void setEnemyEnergy(EnergyBar enemyEnergy) {
-		this.enemyEnergy = enemyEnergy;
+	public Image getBorder() {
+		return border;
 	}
 
-	public Pane getTimeDisplayPane() {
-		return timeDisplayPane;
-	}
-
-	public void setTimeDisplayPane(Pane timeDisplayPane) {
-		this.timeDisplayPane = timeDisplayPane;
+	public void setBorder(Image border) {
+		this.border = border;
 	}
 
 	public HBox getPlayerSpriteContainer() {
@@ -353,6 +148,190 @@ public class BattleScene {
 		this.enemySprite = enemySprite;
 	}
 
+	public HBox getHealthBarLine() {
+		return healthBarLine;
+	}
+
+	public void setHealthBarLine(HBox healthBarLine) {
+		this.healthBarLine = healthBarLine;
+	}
+
+	public VBox getPlayerBuffContainer() {
+		return playerBuffContainer;
+	}
+
+	public void setPlayerBuffContainer(VBox playerBuffContainer) {
+		this.playerBuffContainer = playerBuffContainer;
+	}
+
+	public VBox getPlayerHealthBarContainer() {
+		return playerHealthBarContainer;
+	}
+
+	public void setPlayerHealthBarContainer(VBox playerHealthBarContainer) {
+		this.playerHealthBarContainer = playerHealthBarContainer;
+	}
+
+	public VBox getHealthBarCenter() {
+		return healthBarCenter;
+	}
+
+	public void setHealthBarCenter(VBox healthBarCenter) {
+		this.healthBarCenter = healthBarCenter;
+	}
+
+	public VBox getEnemyHealthContainer() {
+		return enemyHealthContainer;
+	}
+
+	public void setEnemyHealthContainer(VBox enemyHealthContainer) {
+		this.enemyHealthContainer = enemyHealthContainer;
+	}
+
+	public VBox getEnemyBuffContainer() {
+		return enemyBuffContainer;
+	}
+
+	public void setEnemyBuffContainer(VBox enemyBuffContainer) {
+		this.enemyBuffContainer = enemyBuffContainer;
+	}
+
+	public HealthBar getPlayerBar() {
+		return playerBar;
+	}
+
+	public void setPlayerBar(HealthBar playerBar) {
+		this.playerBar = playerBar;
+	}
+
+	public HealthBar getEnemyBar() {
+		return enemyBar;
+	}
+
+	public void setEnemyBar(HealthBar enemyBar) {
+		this.enemyBar = enemyBar;
+	}
+
+	public EnergyBar getPlayerEnergy() {
+		return playerEnergy;
+	}
+
+	public void setPlayerEnergy(EnergyBar playerEnergy) {
+		this.playerEnergy = playerEnergy;
+	}
+
+	public EnergyBar getEnemyEnergy() {
+		return enemyEnergy;
+	}
+
+	public void setEnemyEnergy(EnergyBar enemyEnergy) {
+		this.enemyEnergy = enemyEnergy;
+	}
+
+	public BattleLog getBattleLog() {
+		return battleLog;
+	}
+
+	public void setBattleLog(BattleLog battleLog) {
+		this.battleLog = battleLog;
+	}
+
+	public BattleSelectionPane getSelectionPane() {
+		return selectionPane;
+	}
+
+	public void setSelectionPane(BattleSelectionPane selectionPane) {
+		this.selectionPane = selectionPane;
+	}
+
+	public BattleActionButtonPane getActionButtons() {
+		return actionButtons;
+	}
+
+	public void setActionButtons(BattleActionButtonPane actionButtons) {
+		this.actionButtons = actionButtons;
+	}
+
+	public BattleActionTimeDisplay getActionTime() {
+		return actionTime;
+	}
+
+	public void setActionTime(BattleActionTimeDisplay actionTime) {
+		this.actionTime = actionTime;
+	}
+
+	public BattleLogPane getBattleLogPane() {
+		return battleLogPane;
+	}
+
+	public void setBattleLogPane(BattleLogPane battleLogPane) {
+		this.battleLogPane = battleLogPane;
+	}
+
+	public Pane getBattleWindow() {
+		return battleWindow;
+	}
+
+	public void setBattleWindow(Pane battleWindow) {
+		this.battleWindow = battleWindow;
+	}
+
+	public Pane getActionPane() {
+		return actionPane;
+	}
+
+	public void setActionPane(Pane actionPane) {
+		this.actionPane = actionPane;
+	}
+
+	public Pane getAttackPane() {
+		return attackPane;
+	}
+
+	public void setAttackPane(Pane attackPane) {
+		this.attackPane = attackPane;
+	}
+
+	public Pane getLogPane() {
+		return logPane;
+	}
+
+	public void setLogPane(Pane logPane) {
+		this.logPane = logPane;
+	}
+
+	public Pane getTimeDisplayPane() {
+		return timeDisplayPane;
+	}
+
+	public void setTimeDisplayPane(Pane timeDisplayPane) {
+		this.timeDisplayPane = timeDisplayPane;
+	}
+
+	public Pane getEnemyTimeDisplayPane() {
+		return enemyTimeDisplayPane;
+	}
+
+	public void setEnemyTimeDisplayPane(Pane enemyTimeDisplayPane) {
+		this.enemyTimeDisplayPane = enemyTimeDisplayPane;
+	}
+
+	public Battle getBattle() {
+		return battle;
+	}
+
+	public void setBattle(Battle battle) {
+		this.battle = battle;
+	}
+
+	public boolean isButtonsDisabled() {
+		return buttonsDisabled;
+	}
+
+	public void setButtonsDisabled(boolean buttonsDisabled) {
+		this.buttonsDisabled = buttonsDisabled;
+	}
+
 	public int getWidth() {
 		return width;
 	}
@@ -369,14 +348,6 @@ public class BattleScene {
 		this.height = height;
 	}
 
-	public boolean isButtonsDisabled() {
-		return buttonsDisabled;
-	}
-
-	public void setButtonsDisabled(boolean buttonsDisabled) {
-		this.buttonsDisabled = buttonsDisabled;
-	}
-
 	public Pane getRoot() {
 		return root;
 	}
@@ -385,14 +356,37 @@ public class BattleScene {
 		this.root = root;
 	}
 
-	public BattleLogPane getBattleLogPane() {
-		return battleLogPane;
+	public BattleActionTimeDisplay getActionTime2() {
+		return actionTime2;
 	}
 
-	public void setBattleLogPane(BattleLogPane battleLogPane) {
-		this.battleLogPane = battleLogPane;
+	public void setActionTime2(BattleActionTimeDisplay actionTime2) {
+		this.actionTime2 = actionTime2;
+	}
+
+	public Label getOutput() {
+		return output;
+	}
+
+	public void setOutput(Label output) {
+		this.output = output;
+	}
+
+	public BattleSelectionPaneTwoPlayer getPlayerTwoSelectionPane() {
+		return playerTwoSelectionPane;
+	}
+
+	public void setPlayerTwoSelectionPane(BattleSelectionPaneTwoPlayer playerTwoSelectionPane) {
+		this.playerTwoSelectionPane = playerTwoSelectionPane;
+	}
+
+	public BattleSelectionPaneTwoPlayer getPlayerOneSelectionPane() {
+		return playerOneSelectionPane;
+	}
+
+	public void setPlayerOneSelectionPane(BattleSelectionPaneTwoPlayer playerOneSelectionPane) {
+		this.playerOneSelectionPane = playerOneSelectionPane;
 	}
 	
 	
-
 }

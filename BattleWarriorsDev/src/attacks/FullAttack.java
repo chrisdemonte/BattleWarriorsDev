@@ -74,7 +74,7 @@ public class FullAttack extends Move{
 			selfStats.setDamageSpike(selfStats.getDamageSpike() - 1);
 			logDetails.add("\t!! Damage Spike !!");
 		}
-		//energy cost and attack uses
+		//energy cost, cooldown, and attack uses
 		
 		this.currentUses--;
 		int cost = this.energyCost;
@@ -85,6 +85,7 @@ public class FullAttack extends Move{
 			cost*= 0;
 		}
 		selfStats.setCurrentEnergy(selfStats.getCurrentEnergy() - cost);
+		this.cooldownCounter = this.cooldown;
 		//hit, miss, or enemy dodge
 		
 		boolean makeContact = true;
@@ -148,10 +149,10 @@ public class FullAttack extends Move{
 				}
 			}
 			if (this.magicPower > 0.0) {
-				magicDamage += (selfStats.getMagic() * selfStats.getMagicMod() * mod) + this.getBonusDamage();
+				magicDamage += (selfStats.getMagic() * selfStats.getMagicMod() * mod * this.magicPower) + this.getBonusDamage();
 				multiplier = (((2 * self.getBattleStats().getLevel()) + 50.0) - targetResist) / ((2 * self.getBattleStats().getLevel()) + 50.0);
-				if (multiplier < .05) {
-					multiplier = .05;
+				if (multiplier < .1) {
+					multiplier = .1;
 				}
 				double subtraction = (magicDamage * .5) - targetResist ;
 				if (subtraction < 0) {
@@ -222,7 +223,7 @@ public class FullAttack extends Move{
 			//**
 			//targetStats.setCurrentHealth(targetStats.getCurrentHealth() - 5);
 			//*************
-			targetStats.setCurrentHealth(targetStats.getCurrentHealth() - ((int)totalPhysical + (int)totalMagic));
+			targetStats.setCurrentHealth(targetStats.getCurrentHealth() - (int)totalPhysical - (int)totalMagic);
 			if (this.physicalPower > 0.0) {
 				logEntry += (int)totalPhysical  + " physical damage";
 				if (this.bonusDamage <= 0.0 ) {

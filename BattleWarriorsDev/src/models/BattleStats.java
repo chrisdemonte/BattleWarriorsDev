@@ -1221,7 +1221,7 @@ public class BattleStats {
 	}
 	public void changeStaminaMod(double staminaMod) {
 		double mod = 1.0;
-		if (this.staminaMod > 1.0) {
+		if (this.staminaMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.staminaMod += (staminaMod * mod);
@@ -1242,7 +1242,7 @@ public class BattleStats {
 	}
 	public void changeStrengthMod(double strengthMod) {
 		double mod = 1.0;
-		if (this.strengthMod > 1.0) {
+		if (this.strengthMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.strengthMod += (strengthMod * mod);
@@ -1284,7 +1284,7 @@ public class BattleStats {
 	}
 	public void changeMagicMod(double magicMod) {
 		double mod = 1.0;
-		if (this.magicMod > 1.0) {
+		if (this.magicMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.magicMod += (magicMod * mod);
@@ -1305,7 +1305,7 @@ public class BattleStats {
 	}
 	public void changeResistanceMod(double resistanceMod) {
 		double mod = 1.0;
-		if (this.resistanceMod > 1.0) {
+		if (this.resistanceMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.resistanceMod += (resistanceMod * mod);
@@ -1326,7 +1326,7 @@ public class BattleStats {
 	}
 	public void changeCunningMod(double cunningMod) {
 		double mod = 1.0;
-		if (this.cunningMod > 1.0) {
+		if (this.cunningMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.cunningMod += (cunningMod * mod);
@@ -1347,7 +1347,7 @@ public class BattleStats {
 	}
 	public void changeIntelligenceMod(double intelligenceMod) {
 		double mod = 1.0;
-		if (this.intelligenceMod > 1.0) {
+		if (this.intelligenceMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.intelligenceMod += (intelligenceMod * mod);
@@ -1368,7 +1368,7 @@ public class BattleStats {
 	}
 	public void changeSpeedMod(double speedMod) {
 		double mod = 1.0;
-		if (this.speedMod > 1.0) {
+		if (this.speedMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.speedMod += (speedMod * mod);
@@ -1389,7 +1389,7 @@ public class BattleStats {
 	}
 	public void changeSkillMod(double skillMod) {
 		double mod = 1.0;
-		if (this.skillMod > 1.0) {
+		if (this.skillMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.skillMod += (skillMod * mod);
@@ -1410,7 +1410,7 @@ public class BattleStats {
 	}
 	public void changeCritMod(double critMod) {
 		double mod = 1.0;
-		if (this.critMod > 1.0) {
+		if (this.critMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.critMod += (critMod * mod);
@@ -1431,7 +1431,7 @@ public class BattleStats {
 	}
 	public void changeAccuracyMod(double accuracyMod) {
 		double mod = 1.0;
-		if (this.accuracyMod > 1.0) {
+		if (this.accuracyMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.accuracyMod += (accuracyMod * mod);
@@ -1452,7 +1452,7 @@ public class BattleStats {
 	}
 	public void changeAvoidanceMod(double avoidanceMod) {
 		double mod = 1.0;
-		if (this.avoidanceMod > 1.0) {
+		if (this.avoidanceMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.avoidanceMod += (avoidanceMod * mod);
@@ -1473,7 +1473,7 @@ public class BattleStats {
 	}
 	public void changeBlockingMod(double blockingMod) {
 		double mod = 1.0;
-		if (this.blockingMod > 1.0) {
+		if (this.blockingMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.blockingMod += (blockingMod * mod);
@@ -1494,7 +1494,7 @@ public class BattleStats {
 	}
 	public void changePenetrationMod(double penetrationMod) {
 		double mod = 1.0;
-		if (this.penetrationMod > 1.0) {
+		if (this.penetrationMod >= 1.0) {
 			mod = 2.0;
 		}
 		this.penetrationMod += (penetrationMod * mod);

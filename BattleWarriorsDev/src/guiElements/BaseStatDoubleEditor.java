@@ -11,8 +11,7 @@ import javafx.scene.layout.VBox;
 import models.BaseStats;
 import utilities.FileManager;
 
-public class BaseStatEditor {
-	
+public class BaseStatDoubleEditor  {
 	BaseStats stats;
 	int points;
 	
@@ -64,17 +63,20 @@ public class BaseStatEditor {
 	Button speedPlus;
 	Button skillPlus;
 	
+	boolean forEnemy;
 	int width;
 	int height;
-	CharacterCreator creator;
+	CharacterCreatorTwoPlayer creator;
 
-	public BaseStatEditor (int points, int width, int height, CharacterCreator creator){
+	public BaseStatDoubleEditor (int points, int width, int height, CharacterCreatorTwoPlayer creator, boolean forEnemy){
+		
 		this.stats = new BaseStats();
 		this.points = points;
 		this.width = width;
 		this.height = height;
 		this.generateLayout();
 		this.creator = creator;
+		this.forEnemy = forEnemy;
 	}
 
 	private void generateLayout() {
@@ -525,5 +527,4 @@ public class BaseStatEditor {
 		this.container = container;
 	}
 	
-
 }

@@ -3,7 +3,6 @@ package guiElements;
 import java.util.ArrayList;
 
 import BattleSystem.Battle;
-import attacks.FullAttack;
 import attacks.Move;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -14,8 +13,7 @@ import javafx.scene.layout.VBox;
 import models.Player;
 import utilities.FileManager;
 
-public class BattleSelectionPane {
-	
+public class BattleSelectionPaneTwoPlayer {
 	ArrayList<Move> priorityAttacks = new ArrayList<Move>();
 	ArrayList<Move> attacks = new ArrayList<Move>();
 	
@@ -35,32 +33,17 @@ public class BattleSelectionPane {
 	Label timeLeft = new Label();
 	Button clearButton = new Button("Clear"); 
 	Button submitButton = new Button ("Attack!");
+	Button skipTurnButton = new Button ("Skip Turn");
 	
-	BattleSinglePlayerScene arena = null;
+	BattleTwoPlayerScene arena = null;
 	Player player = null;
+	boolean isEnemy;
+	boolean choicesSet = false;
+	int skipCounter = 0;
 	
-	public BattleSelectionPane (){
-		FileManager manager = new FileManager();
-		attackList.add(manager.loadMove("Punch"));
-		attackList.add(manager.loadMove("Kick"));
-		attackList.add(manager.loadMove("Spit"));
-		attackList.add(manager.loadMove("Jab"));
-		attackList.add(manager.loadMove("Cross Punch"));
-		attackList.add(manager.loadMove("Double Tiger Strike"));
-		
-		this.rows = new HBox[(this.attackList.size()/3) + 1];
-		for (int i = 0; i < rows.length; i++) {
-			rows[i] = new HBox(10);
-			rows[i].setPadding(new Insets(0,0,0,10));
-		}
-		player = new Player("Sample", "A Man");
-		player.getBattleStats().setBattleStats(player);
-		this.maxTime = 2000;
-		this.timeCounter = 0;
-		this.resetList();
-		this.setLayout();
-	}
-	public BattleSelectionPane (BattleSinglePlayerScene arena, Player player) {
+
+	public BattleSelectionPaneTwoPlayer (BattleTwoPlayerScene arena, Player player, boolean isEnemy) {
+		this.isEnemy = isEnemy;
 		this.arena = arena;
 		this.player = player;
 		this.attackList = player.getAttacks().getMoveList();
@@ -78,8 +61,9 @@ public class BattleSelectionPane {
 		for (int i = 0; i < rows.length; i++) {
 			attackRows.getChildren().add(rows[i]);
 		}
-		this.submitButton.setMinSize(190, 30);
-		this.clearButton.setMinSize(190, 30);
+		this.submitButton.setMinSize(120, 30);
+		this.clearButton.setMinSize(120, 30);
+		this.skipTurnButton.setMinSize(120, 30);
 		this.rowOne.setPadding(new Insets(10, 0,0,0));
 		scrollPane.setContent(attackRows);
 		scrollPane.setMinSize(400, 172);
@@ -88,7 +72,7 @@ public class BattleSelectionPane {
 		timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 		timeLeft.setStyle("-fx-text-fill: WHITE;");
 		
-		rowOne.getChildren().addAll(submitButton, clearButton);
+		rowOne.getChildren().addAll(submitButton, clearButton, skipTurnButton);
 		container.getChildren().addAll(rowOne, timeLeft, scrollPane);
 		container.setPadding(new Insets(0,0,0,10));
 		
@@ -107,16 +91,35 @@ public class BattleSelectionPane {
 				choices.add(theTab);
 				theTab.getContainer().setOnMouseClicked(e->{
 					if (attack.isPriority()) {
-						this.priorityAttacks.add(attack);
-						BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
-						this.arena.getActionTime().getPriorityTabs().getChildren().add(tab.getContainer());
-						this.applyUse(attack);		
+						if (this.isEnemy) {
+							this.priorityAttacks.add(attack);
+							BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
+							this.arena.getActionTime2().getPriorityTabs().getChildren().add(tab.getContainer());
+							this.applyUse(attack);	
+						}
+						else {
+							this.priorityAttacks.add(attack);
+							BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
+							this.arena.getActionTime().getPriorityTabs().getChildren().add(tab.getContainer());
+							this.applyUse(attack);	
+						}
+							
 					}
 					else {
-						this.attacks.add(attack);
-						BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
-						this.arena.getActionTime().getNormalTabs().getChildren().add(tab.getContainer());
-						this.applyUse(attack);
+						if (this.isEnemy) {
+							this.attacks.add(attack);
+							BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
+							this.arena.getActionTime2().getNormalTabs().getChildren().add(tab.getContainer());
+							this.applyUse(attack);
+						}
+						else {
+							
+							this.attacks.add(attack);
+							BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
+							this.arena.getActionTime().getNormalTabs().getChildren().add(tab.getContainer());
+							this.applyUse(attack);
+						}
+						
 					}
 					timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 					this.resetList();
@@ -201,12 +204,23 @@ public class BattleSelectionPane {
 	}
 	public void submitAction() {
 		Battle battle = this.arena.getBattle();
-		battle.setPlayerPriorityChoice(this.priorityAttacks);
-		battle.setPlayerChoice(this.attacks);
-		arena.getActionButtons().setAttackTabsOpen(false);
+		this.choicesSet = true;
+		if (this.isEnemy) {
+			battle.setEnemyPriorityChoice(this.priorityAttacks);
+			battle.setEnemyChoice(this.attacks);
+			this.arena.getPlayerTwoSelectionPane().getContainer().setVisible(false);
+		}
+		else {
+			battle.setPlayerPriorityChoice(this.priorityAttacks);
+			battle.setPlayerChoice(this.attacks);
+			this.arena.getPlayerOneSelectionPane().getContainer().setVisible(false);
+		}
+		
 		this.resetActions();
-		this.arena.getSelectionPane().getContainer().setVisible(false);
-		battle.doTurn();
+		if (arena.getPlayerOneSelectionPane().isChoicesSet() && arena.getPlayerTwoSelectionPane().isChoicesSet()) {
+			battle.doTurn();
+		}
+		
 		
 	}
 	
@@ -220,11 +234,48 @@ public class BattleSelectionPane {
 			timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 			this.resetList();
 		});
+		this.skipTurnButton.setOnAction(e->{
+			skipCounter++;
+			skipTurnButton.setText("Press Again");
+			if (skipCounter > 1) {
+				this.choicesSet = true;
+				this.resetActions();
+				this.resetAttackChoices();
+					
+				Battle battle = this.arena.getBattle();
+				this.choicesSet = true;
+				if (this.isEnemy) {
+					ArrayList<Move> temp = new ArrayList<Move>();
+					temp.add(battle.getSkipturn());
+					battle.setEnemyChoice(temp);
+					this.arena.getPlayerTwoSelectionPane().getContainer().setVisible(false);
+				}
+				else {
+					ArrayList<Move> temp = new ArrayList<Move>();
+					temp.add(battle.getSkipturn());
+					battle.setPlayerChoice(temp);
+					this.arena.getPlayerOneSelectionPane().getContainer().setVisible(false);
+				}
+				
+				if (arena.getPlayerOneSelectionPane().isChoicesSet() && arena.getPlayerTwoSelectionPane().isChoicesSet()) {
+					battle.doTurn();
+				}
+				
+			}
+			
+		});
 	}
 	public void resetAttackChoices() {
 		this.priorityAttacks.clear();
 		this.attacks.clear();
-		this.arena.getActionTime().clearTabs();
+		if (this.isEnemy) {
+			this.arena.getActionTime2().clearTabs();
+		}
+		else {
+			this.arena.getActionTime().clearTabs();
+		}
+		
+		
 	}
 	public VBox getContainer() {
 		return container;
@@ -279,6 +330,12 @@ public class BattleSelectionPane {
 	}
 	public void setSubmitButton(Button submitButton) {
 		this.submitButton = submitButton;
+	}
+	public boolean isChoicesSet() {
+		return choicesSet;
+	}
+	public void setChoicesSet(boolean choicesSet) {
+		this.choicesSet = choicesSet;
 	}
 	
 }

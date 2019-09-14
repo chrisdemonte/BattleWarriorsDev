@@ -160,9 +160,10 @@ public class BattleAnimationManager {
 
 				@Override
 				public void handle(ActionEvent e) {
-					scene.getActionButtons().setPreviousSelection(0);
+					//scene.getActionButtons().setPreviousSelection(0);
 					scene.getActionTime().clearTabs();
 					scene.getAttackPane().getChildren().clear();
+					scene.getActionTime2().clearTabs();
 					/**
 					for (int i = 0; i < battle.getEnemy().getBattleDebuffs().size(); i++) {
 						System.out.println(battle.getEnemy().getBattleDebuffs().get(i).toString());

@@ -38,9 +38,7 @@ public class BattleFlippingLeapAnimation extends BattleAnimation {
 					attack.makeMove(attacker, defender, scene.getBattleLog());
 					attack.applyBuffs(attacker, defender, attack, scene.getBattleLog());
 				}
-				scene.getPlayerBar().changeHealthBar();
-				scene.getPlayerEnergy().changeEnergyBar();
-				scene.getEnemyBar().changeHealthBar();
+				scene.refreshBars();
 				scene.getBattleLogPane().updateLog(scene.getBattleLog());
 			}	
 		};
