@@ -36,12 +36,11 @@ public class BattleTwoPlayerScene extends BattleScene{
 	public BattleTwoPlayerScene(Player self, Player enemy, int width, int height, Pane root) {
 		super();
 		this.battle = new TwoPlayerBattle(self, enemy, this);
-		this.generateLayout(width, height, self, enemy);
 		this.width = width;
 		this.height = height;
 		this.root = root;
-		
-		
+		this.generateLayout(width, height, self, enemy);
+	
 	}
 
 
@@ -54,74 +53,75 @@ public class BattleTwoPlayerScene extends BattleScene{
 		this.playerOneSelectionPane = new BattleSelectionPaneTwoPlayer(this, self, false);
 		this.playerTwoSelectionPane = new BattleSelectionPaneTwoPlayer(this, enemy, true);
 		
-		this.actionTime = new BattleActionTimeDisplay();
-		this.actionTime2 = new BattleActionTimeDisplay();
+		this.actionTime = new BattleActionTimeDisplay(this);
+		this.actionTime2 = new BattleActionTimeDisplay(this);
 		this.battleLogPane = new BattleLogPane(width, height);
-		battleWindow.setMaxSize(width - 100, height - 300);
-		battleWindow.setMinSize(width - 100, height - 300);
+		battleWindow.setMaxSize(width * .9165, height * .5625);
+		battleWindow.setMinSize(width * .9165, height * .5625);
 		battleWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
-		battleWindow.setTranslateX(50);
-		battleWindow.setTranslateY(50);
+		battleWindow.setTranslateX(width/24);
+		battleWindow.setTranslateY(width/24);
 		
-		actionPane.setMaxSize((width / 4) - 140, height - 550);
-		actionPane.setMinSize((width / 4) - 140, height - 550);
-		actionPane.setTranslateX((width / 3) + 120);
-		actionPane.setTranslateY(height - 200);
+		actionPane.setMaxSize(width * .1335, height *.325);
+		actionPane.setMinSize(width * .1335, height *.325);
+		actionPane.setTranslateX(width * .4335);
+		actionPane.setTranslateY(height * .65);
 		centerButtons = new BattleActionButtonPaneTwoPlayer(this, width, height);
 		actionPane.getChildren().add(centerButtons.getContainer());
 		
-		attackPane.setMaxSize((width / 3) + 20, height - 550);
-		attackPane.setMinSize((width / 3) + 20, height - 550);
-		attackPane.setTranslateX(50);
-		attackPane.setTranslateY(height - 200);
+		attackPane.setMaxSize(width *.3665, height *.325);
+		attackPane.setMinSize(width *.3665, height *.325);
+		attackPane.setTranslateX(width/24);
+		attackPane.setTranslateY(height * .65);
 		attackPane.getChildren().add(playerOneSelectionPane.getContainer());
 		
-		
-		actionTime.getContainer().setTranslateX(100);
-		actionTime.getContainer().setTranslateY(475);
-		
-		actionTime2.getContainer().setTranslateX(800);
-		actionTime2.getContainer().setTranslateY(475);
-		
-		logPane.setMaxSize((width / 3) + 20, height - 550);
-		logPane.setMinSize((width / 3) + 20, height - 550);
-		logPane.setTranslateX((width / 3) + (width/4) + 30);
-		logPane.setTranslateY(height - 200);
+		logPane.setMaxSize(width *.3665, height *.325);
+		logPane.setMinSize(width *.3665, height *.325);
+		logPane.setTranslateX(width * .5915);
+		logPane.setTranslateY(height * .65);
 		logPane.getChildren().add(playerTwoSelectionPane.getContainer());
 		
-		enemyTimeDisplayPane.setTranslateX(800);
-		enemyTimeDisplayPane.setTranslateY(475);
-		enemyTimeDisplayPane.getChildren().addAll(this.actionTime.getContainer());
 		
-		playerBar = new HealthBar(self, 400);
-		playerBar.getContainer().setTranslateX(100);
-		playerBar.getContainer().setTranslateY(100);
+		timeDisplayPane.setMinSize(width*.35, 10);
+		timeDisplayPane.setMaxSize(width*.35, 10);
+		timeDisplayPane.setTranslateX(width * .05);
+		timeDisplayPane.setTranslateY(height * .7375);
+		timeDisplayPane.getChildren().addAll(this.actionTime.getContainer());
 		
-		playerEnergy = new EnergyBar(self, 400);
-		playerEnergy.getContainer().setTranslateX(100);
-		playerEnergy.getContainer().setTranslateY(130);
+		enemyTimeDisplayPane.setMinSize(width*.35, 10);
+		enemyTimeDisplayPane.setMaxSize(width*.35, 10);
+		enemyTimeDisplayPane.setTranslateX(width * .6);
+		enemyTimeDisplayPane.setTranslateY(height * .7375);
+		enemyTimeDisplayPane.getChildren().addAll(this.actionTime2.getContainer());
 		
-		enemyBar = new HealthBar(enemy, 400);
-		enemyBar.getContainer().setTranslateX(700);
-		enemyBar.getContainer().setTranslateY(100);
+		playerBar = new HealthBar(self, width /3);
+		playerEnergy = new EnergyBar(self,  width /3);
+		playerHealthBarContainer.getChildren().addAll(playerBar.getContainer(), playerEnergy.getContainer());
+		playerHealthBarContainer.setTranslateX(width/12);
+		playerHealthBarContainer.setTranslateY(width/12);
 		
-		enemyEnergy = new EnergyBar(enemy, 400);
-		enemyEnergy.getContainer().setTranslateX(700);
-		enemyEnergy.getContainer().setTranslateY(130);
+		enemyBar = new HealthBar(enemy,  width /3);
+		enemyEnergy = new EnergyBar(enemy,  width /3);
+		enemyHealthBarContainer.getChildren().addAll(enemyBar.getContainer(), enemyEnergy.getContainer());
+		enemyHealthBarContainer.setTranslateX((width/12) + width/2 );
+		enemyHealthBarContainer.setTranslateY(width/12);
+
 		
-		playerSpriteContainer.setMinSize(200, 200);
-		playerSpriteContainer.setTranslateX((width/3) - 140);
-		playerSpriteContainer.setTranslateY((height/2) - 180);
-		enemySpriteContainer.setMinSize(200,200);
-		enemySpriteContainer.setTranslateX(((width * 2)/3) - 60);
-		enemySpriteContainer.setTranslateY((height/2) - 180);
+		playerSpriteContainer.setMinSize(width/6, width/6);
+		playerSpriteContainer.setTranslateX(width * .197);
+		playerSpriteContainer.setTranslateY(height * .275);
+		enemySpriteContainer.setMinSize(width/6,width/6);
+		enemySpriteContainer.setTranslateX(width * .6365);
+		enemySpriteContainer.setTranslateY(height * .275);
 		
 		output.setStyle("-fx-text-fill: WHITE; -fx-font-size: 16;");
 		try {
 			//File file = new File ("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\battle_pane.PNG");
-			File file = new File("resources/images/red_pixel_background.PNG");
+			File file = new File("resources/images/red_pixel_pattern.PNG");
 			frame = new  Image(new FileInputStream(file));
-			frameView.setImage(frame);
+			container.setBackground(new Background(new BackgroundImage(frame,
+			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			          BackgroundSize.DEFAULT)));
 
 			File borderFile = new File("resources/images/black_pixel_pattern.PNG");
 			border = new Image(new FileInputStream(borderFile));
@@ -139,6 +139,14 @@ public class BattleTwoPlayerScene extends BattleScene{
 			playerSpriteContainer.setBackground(new Background(new BackgroundImage(playerSprite,
 			        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
 			          BackgroundSize.DEFAULT)));
+			File greyFile = new File("resources/images/grey_pixel_pattern.PNG");
+			Image grey = new Image(new FileInputStream(greyFile));
+			timeDisplayPane.setBackground(new Background(new BackgroundImage(grey,
+			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			          BackgroundSize.DEFAULT)));
+			enemyTimeDisplayPane.setBackground(new Background(new BackgroundImage(grey,
+			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			          BackgroundSize.DEFAULT)));
 			File enemyFile = new File("resources/images/playerModels/man_red.PNG");
 			this.enemySprite = new Image(new FileInputStream(enemyFile));
 			enemySpriteContainer.setBackground(new Background(new BackgroundImage(enemySprite,
@@ -151,9 +159,19 @@ public class BattleTwoPlayerScene extends BattleScene{
 		
 		battleWindow.setBorder(new Border(new BorderImage(border, new BorderWidths(10.0), new Insets(0.0), new BorderWidths(10.0),
 				false, BorderRepeat.REPEAT, BorderRepeat.REPEAT)));
+		VBox debuggLine = new VBox();
+		debuggLine.setMinSize(4, height);
+		debuggLine.setMaxSize(4, height);
+		debuggLine.setBackground(new Background(new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY)));
+		debuggLine.setTranslateX((width/2 )- 2);
 		
-		container.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), enemyBar.getContainer(), enemyEnergy.getContainer(), attackPane, actionTime.getContainer(), actionTime2.getContainer(), actionPane, logPane,
-				playerSpriteContainer, enemySpriteContainer);
+		VBox debuggLine2 = new VBox();
+		debuggLine2.setMinSize(width, 4);
+		debuggLine2.setMaxSize(width, 4);
+		debuggLine2.setBackground(new Background(new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY)));
+		debuggLine2.setTranslateY((height/2 )- 2);
+		container.getChildren().addAll(frameView, battleWindow, playerHealthBarContainer, enemyHealthBarContainer, attackPane, actionPane, logPane,
+				playerSpriteContainer, enemySpriteContainer, timeDisplayPane, enemyTimeDisplayPane);
 		
 		this.battleLog.addToLog( "!!! " + enemy.getName() + " challenges you to a fight !!!\n" + enemy.getDescription());
 		this.battleLogPane.updateLog(this.battleLog);
@@ -166,6 +184,11 @@ public class BattleTwoPlayerScene extends BattleScene{
 		this.playerEnergy.changeEnergyBar();
 		this.enemyBar.changeHealthBar();
 		this.enemyEnergy.changeEnergyBar();
+	}
+	@Override
+	public void clearTimeDisplayTabs() {
+		this.getActionTime().clearTabs();
+		this.getActionTime2().clearTabs();
 	}
 	public Pane getContainer() {
 		return container;
@@ -186,12 +209,7 @@ public class BattleTwoPlayerScene extends BattleScene{
 	public void setBattle(Battle battle) {
 		this.battle = battle;
 	}
-	public HBox getHealthBarLine() {
-		return healthBarLine;
-	}
-	public void setHealthBarLine(HBox healthBarLine) {
-		this.healthBarLine = healthBarLine;
-	}
+
 	public VBox getPlayerBuffContainer() {
 		return playerBuffContainer;
 	}
@@ -210,12 +228,7 @@ public class BattleTwoPlayerScene extends BattleScene{
 	public void setHealthBarCenter(VBox healthBarCenter) {
 		this.healthBarCenter = healthBarCenter;
 	}
-	public VBox getEnemyHealthContainer() {
-		return enemyHealthContainer;
-	}
-	public void setEnemyHealthContainer(VBox enemyHealthContainer) {
-		this.enemyHealthContainer = enemyHealthContainer;
-	}
+
 	public VBox getEnemyBuffContainer() {
 		return enemyBuffContainer;
 	}

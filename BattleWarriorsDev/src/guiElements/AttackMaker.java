@@ -54,8 +54,8 @@ public class AttackMaker {
 		
 		
 		attackMain.setContent(moveMaker.getContainer());
-		selfBuff.setContent(this.selfBuffMaker.getContainer());
-		targetBuff.setContent(this.targetBuffMaker.getContainer());
+		selfBuff.setContent(this.selfBuffMaker.getOuterContainer());
+		targetBuff.setContent(this.targetBuffMaker.getOuterContainer());
 		animationTab.setContent(this.animationMaker.getContainer());
 		optionsTab.setContent(optionsButtons);
 		container.setMinSize(1200, 800);

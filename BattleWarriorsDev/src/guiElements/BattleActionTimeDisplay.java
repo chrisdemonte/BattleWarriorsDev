@@ -5,13 +5,15 @@ import javafx.scene.layout.HBox;
 
 public class BattleActionTimeDisplay {
 
-	HBox container = new HBox(5);
-	HBox priorityTabs = new HBox(5);
-	HBox normalTabs = new HBox(5);
+	HBox container = new HBox();
+	HBox priorityTabs = new HBox(2);
+	HBox normalTabs = new HBox(2);
 	
-	public BattleActionTimeDisplay(){
-		container.setMinSize(300, 25);
-		container.setMaxSize(300, 30);
+	BattleScene arena;
+	
+	public BattleActionTimeDisplay(BattleScene arena){
+		container.setMinSize(arena.getWidth()*.35, 20);
+		container.setMaxSize(arena.getWidth()*.35, 30);
 		container.getChildren().addAll(priorityTabs, normalTabs);
 	}
 

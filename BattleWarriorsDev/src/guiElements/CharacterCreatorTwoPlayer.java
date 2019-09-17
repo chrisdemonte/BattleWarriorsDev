@@ -117,8 +117,8 @@ private void setButtonActions() {
 	
 }
 private void generateLayout() {
-	this.playerOneContainer.setMinSize(width, height/2);
-	this.enemyContainer.setMinSize(width, height/2);
+	this.playerOneContainer.setMinSize(width, height*.4);
+	this.enemyContainer.setMinSize(width, height*.4);
 	this.generateInfoColumn();
 	this.generateStatEditorColumn();
 	this.generateAttackViewColumn();
@@ -130,10 +130,10 @@ private void generateLayout() {
 	
 }
 private void generateStatEditorColumn() {
-	statEditorColumn.setMinSize(width/3, height/2);
+	statEditorColumn.setMinSize(width/3, height*.4);
 	statEditorColumn.setAlignment(Pos.TOP_CENTER);
 	statEditorColumn.getChildren().add(statEditor.getContainer());
-	statEditorColumn2.setMinSize(width/3, height/2);
+	statEditorColumn2.setMinSize(width/3, height*.4);
 	statEditorColumn2.setAlignment(Pos.TOP_CENTER);
 	statEditorColumn2.getChildren().add(statEditor2.getContainer());
 	statEditorColumn2.setPadding(new Insets(height/10, 0,0,0));
@@ -141,10 +141,10 @@ private void generateStatEditorColumn() {
 @SuppressWarnings("unchecked")
 public void generateAttackViewColumn() {
 	this.attackViewColumn.getChildren().clear();
-	this.attackViewColumn.setMinSize(width/3, height/2);
+	this.attackViewColumn.setMinSize(width/3, height*.4);
 	this.attackViewColumn.setAlignment(Pos.TOP_CENTER);
 	attackViewColumn2.getChildren().clear();
-	attackViewColumn2.setMinSize(width/3, height/2);
+	attackViewColumn2.setMinSize(width/3, height*.4);
 	attackViewColumn2.setAlignment(Pos.TOP_CENTER);
 	attackViewColumn2.setPadding(new Insets(height/10, 0,0,0));
 	
@@ -186,8 +186,8 @@ public void generateAttackViewColumn() {
 	this.attackViewColumn2.getChildren().addAll(table2, submitButton2, battleButton2, backButton);
 }
 private void generateInfoColumn() {
-	infoColumn.setMinSize(width/3, height/2);
-	infoColumn.setMaxSize(width/3, height/2);
+	infoColumn.setMinSize(width/3, height*.4);
+	infoColumn.setMaxSize(width/3, height*.4);
 	infoColumn.setAlignment(Pos.TOP_CENTER);
 	
 	Label nameLabel = new Label ("Name :");
@@ -204,8 +204,8 @@ private void generateInfoColumn() {
 	this.backstoryEntry.setWrapText(true);
 	infoColumn.getChildren().addAll(nameLabel, nameEntry, backstoryLabel, backstoryEntry);
 	
-	infoColumn2.setMinSize(width/3, height/2);
-	infoColumn2.setMaxSize(width/3, height/2);
+	infoColumn2.setMinSize(width/3, height*.4);
+	infoColumn2.setMaxSize(width/3, height*.4);
 	infoColumn2.setAlignment(Pos.TOP_CENTER);
 	infoColumn2.setPadding(new Insets(height/10, 0,0,0));
 	

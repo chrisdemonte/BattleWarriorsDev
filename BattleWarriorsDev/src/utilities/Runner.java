@@ -23,14 +23,16 @@ public class Runner extends Application {
 	@Override
 	public void start(Stage mainStage) throws Exception {
 		
+		int width = 1200;
+		int height = 800;
 		Pane root = new Pane();
-		root.setMinSize(1200, 800);
+		root.setMinSize(width, height);
 		
 		HBox window = new HBox(root);
-		window.setMinSize(1200, 900);
-		window.setMaxSize(1200, 900);
+		window.setMinSize(width, height);
+		window.setMaxSize(width, height);
 		
-		StartMenu pane = new StartMenu(1200, 800, root);
+		StartMenu pane = new StartMenu(width, height, root);
 		
 		root.getChildren().add(pane.getContainer());
 		Scene scene = new Scene(window);

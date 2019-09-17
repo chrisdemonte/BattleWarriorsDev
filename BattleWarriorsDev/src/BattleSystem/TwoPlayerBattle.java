@@ -76,15 +76,6 @@ public class TwoPlayerBattle extends Battle{
 		animation.doAttackSequence(this, arena);
 	}
 	public void setUpNextTurn () {
-		arena.getAttackPane().getChildren().clear();
-		BattleSelectionPaneTwoPlayer pane1 = new BattleSelectionPaneTwoPlayer((BattleTwoPlayerScene)this.arena, self, false);
-		arena.getLogPane().getChildren().clear();
-		BattleSelectionPaneTwoPlayer pane2 = new BattleSelectionPaneTwoPlayer((BattleTwoPlayerScene)this.arena, enemy, true);
-		
-		arena.setPlayerOneSelectionPane(pane1);
-		arena.setPlayerTwoSelectionPane(pane2);
-		arena.getAttackPane().getChildren().add(pane1.getContainer());
-		arena.getLogPane().getChildren().add(pane2.getContainer());
 		
 		self.getBattleStats().battleTurnUpdate();
 		enemy.getBattleStats().battleTurnUpdate();
@@ -108,6 +99,18 @@ public class TwoPlayerBattle extends Battle{
 				move.setCooldownCounter(0);
 			}
 		}
+		arena.getAttackPane().getChildren().clear();
+		BattleSelectionPaneTwoPlayer pane1 = new BattleSelectionPaneTwoPlayer((BattleTwoPlayerScene)this.arena, self, false);
+		arena.getLogPane().getChildren().clear();
+		BattleSelectionPaneTwoPlayer pane2 = new BattleSelectionPaneTwoPlayer((BattleTwoPlayerScene)this.arena, enemy, true);
+		
+		arena.setPlayerOneSelectionPane(pane1);
+		arena.setPlayerTwoSelectionPane(pane2);
+		arena.getTimeDisplayPane().setVisible(true);
+		arena.getEnemyTimeDisplayPane().setVisible(true);
+		arena.getAttackPane().getChildren().add(pane1.getContainer());
+		arena.getLogPane().getChildren().add(pane2.getContainer());
+		
 	}
 	public void randomAI() {
 		Random r = new Random();

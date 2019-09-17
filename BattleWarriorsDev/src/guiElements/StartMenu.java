@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import maps.Map;
 import models.Player;
 import utilities.FileManager;
 
@@ -19,6 +20,8 @@ public class StartMenu {
 	Button twoPlayerBattle = new Button("Two Player Battle");
 	Button battleButton = new Button ("Quick Batte");
 	Button attackEditorButton = new Button("Attack Maker");
+	Button mapButton = new Button("Map");
+	Button infoButton = new Button ("Info");
 	
 	Pane root;
 	int width = 0;
@@ -38,7 +41,8 @@ public class StartMenu {
 		this.container.setAlignment(Pos.BASELINE_CENTER);
 		
 		this.setButtonActions();
-		this.menuContainer.getChildren().addAll(this.charCreationButton, this.twoPlayerBattle, this.battleButton, this.attackEditorButton);
+		this.menuContainer.getChildren().addAll(this.charCreationButton, this.twoPlayerBattle, this.battleButton, this.attackEditorButton,
+				this.mapButton, this.infoButton);
 		this.menuContainer.setPadding(new Insets(height / 3, 0, 0, 0));
 		
 		this.container.getChildren().add(menuContainer);
@@ -85,6 +89,8 @@ public class StartMenu {
 			user.getAttacks().getMoveList().add(manager.loadMove("Spit"));
 			user.getAttacks().getMoveList().add(manager.loadMove("Bandage"));
 			user.getAttacks().getMoveList().add(manager.loadMove("Fireball"));
+			user.getAttacks().getMoveList().add(manager.loadMove("Custom Attack"));
+			
 			user.setNPC(false);
 			
 			Player enemy = new Player("Demon Stawberry", "A stawberry with demonic powers. Is that jelly or blood?");
@@ -98,8 +104,21 @@ public class StartMenu {
 			this.root.getChildren().add(battleScene.getContainer());
 		});
 		battleButton.setMinSize(width/10, height/20);
+		infoButton.setOnAction(e->{
+			StatementToTheUser infoPage = new StatementToTheUser(this.width, this.height, root);
+			this.root.getChildren().clear();
+			this.root.getChildren().add(infoPage.getContainer());
+		});
+		infoButton.setMinSize(width/10, height/20);
+		mapButton.setOnAction(e->{
+			Map map = new Map(20, 20, root);
+			this.root.getChildren().clear();
+			this.root.getChildren().add(map.getContainer());
+		});
+		mapButton.setMinSize(width/10, height/20);
 		
 	}
+	
 
 	public HBox getContainer() {
 		return container;

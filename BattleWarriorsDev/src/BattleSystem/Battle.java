@@ -152,7 +152,25 @@ public class Battle {
 //		}
 		
 	}
-
+	public void clearAttackChoices() {
+		this.getPlayerChoice().clear();
+		this.getPlayerPriorityChoice().clear();
+		this.getEnemyChoice().clear();
+		this.getEnemyPriorityChoice().clear();
+		this.getFasterPriorityAttacks().clear();
+		this.getFasterAttacks().clear();
+		this.getSlowerAttacks().clear();
+		this.getSlowerPriorityAttacks().clear();
+	}
+	public boolean deathCheck() {
+		if (self.getBattleStats().getCurrentHealth() <= 0) {
+			self.setDead(true);
+		}
+		if (enemy.getBattleStats().getCurrentHealth() <= 0) {
+			enemy.setDead(true);
+		}
+		return self.isDead() || enemy.isDead();
+	}
 
 	public Player getSelf() {
 		return self;

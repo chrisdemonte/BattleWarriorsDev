@@ -39,18 +39,19 @@ public class BattleScene {
 	HBox enemySpriteContainer = new HBox();
 	Image enemySprite;
 	
-	HBox healthBarLine = new HBox();
-		VBox playerBuffContainer = new VBox(1);
-		VBox playerHealthBarContainer = new VBox(1);
-		VBox healthBarCenter = new VBox(1);
-		VBox enemyHealthContainer = new VBox(1);
-		VBox enemyBuffContainer = new VBox(1);
+	VBox playerHealthBarContainer = new VBox(5);
+	VBox playerBuffContainer = new VBox(5);
+	Label playerName = new Label();
+	HealthBar playerBar;
+	EnergyBar playerEnergy;
 	
-		HealthBar playerBar;
-		HealthBar enemyBar;
-		
-		EnergyBar playerEnergy;
-		EnergyBar enemyEnergy;
+	VBox healthBarCenter = new VBox(1);
+	
+	VBox enemyHealthBarContainer = new VBox(5);
+	VBox enemyBuffContainer = new VBox(1);
+	Label enemyName = new Label();
+	HealthBar enemyBar;
+	EnergyBar enemyEnergy;
 	
 	BattleLog battleLog = new BattleLog();
 	BattleSelectionPane selectionPane;
@@ -82,6 +83,9 @@ public class BattleScene {
 	}
 
 	public void refreshBars() {
+		
+	}
+	public void clearTimeDisplayTabs() {
 		
 	}
 	public Pane getContainer() {
@@ -148,14 +152,6 @@ public class BattleScene {
 		this.enemySprite = enemySprite;
 	}
 
-	public HBox getHealthBarLine() {
-		return healthBarLine;
-	}
-
-	public void setHealthBarLine(HBox healthBarLine) {
-		this.healthBarLine = healthBarLine;
-	}
-
 	public VBox getPlayerBuffContainer() {
 		return playerBuffContainer;
 	}
@@ -178,14 +174,6 @@ public class BattleScene {
 
 	public void setHealthBarCenter(VBox healthBarCenter) {
 		this.healthBarCenter = healthBarCenter;
-	}
-
-	public VBox getEnemyHealthContainer() {
-		return enemyHealthContainer;
-	}
-
-	public void setEnemyHealthContainer(VBox enemyHealthContainer) {
-		this.enemyHealthContainer = enemyHealthContainer;
 	}
 
 	public VBox getEnemyBuffContainer() {
@@ -386,6 +374,30 @@ public class BattleScene {
 
 	public void setPlayerOneSelectionPane(BattleSelectionPaneTwoPlayer playerOneSelectionPane) {
 		this.playerOneSelectionPane = playerOneSelectionPane;
+	}
+
+	public Label getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(Label playerName) {
+		this.playerName = playerName;
+	}
+
+	public VBox getEnemyHealthBarContainer() {
+		return enemyHealthBarContainer;
+	}
+
+	public void setEnemyHealthBarContainer(VBox enemyHealthBarContainer) {
+		this.enemyHealthBarContainer = enemyHealthBarContainer;
+	}
+
+	public Label getEnemyName() {
+		return enemyName;
+	}
+
+	public void setEnemyName(Label enemyName) {
+		this.enemyName = enemyName;
 	}
 	
 	

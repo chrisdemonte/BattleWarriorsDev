@@ -34,20 +34,21 @@ public class BattleSimpleTab {
 		this.width = width;
 		this.generateLayout();
 	}
-	public BattleSimpleTab (Move move, Player player) {
+	public BattleSimpleTab (BattleScene arena, Move move, Player player) {
 		int time = player.getBattleStats().getActionTime();
 		int attackTime = move.getTime() - player.getBattleStats().getHaste();
-		this.width = (300 * attackTime)/time;
-		this.height = 25;
-		this.name.setText(move.getName());
-		this.info.setText("" + attackTime);
-		this.container.setMinSize(this.width, this.height);
-		this.container.setMaxSize(this.width, this.height);
+		this.width = arena.getWidth();
+		this.height = arena.getHeight();
+		//this.name.setText(move.getName());
+		//this.info.setText("" + attackTime);
+		this.container.setMinSize((((width *.35) * attackTime)/time)-1, 10);
+		this.container.setMaxSize(((width*.35 * attackTime)/time)-1, 10);
 		this.generateLayout();
 		
 		
 	}
 	public void generateLayout() {
+		
 		this.nameContainer.getChildren().addAll(name);
 		this.nameContainer.setMinWidth(this.width/2);
 		this.nameContainer.setMaxWidth(this.width/2);
@@ -56,6 +57,7 @@ public class BattleSimpleTab {
 		this.infoContainer.setMinWidth(this.width/2);
 		this.infoContainer.setMaxWidth(this.width/2);
 		this.infoContainer.setAlignment(Pos.BASELINE_RIGHT);
+		
 		this.setBackground();
 		this.container.getChildren().addAll(nameContainer, infoContainer);
 	}

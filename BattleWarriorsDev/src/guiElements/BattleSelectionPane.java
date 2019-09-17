@@ -6,6 +6,7 @@ import BattleSystem.Battle;
 import attacks.FullAttack;
 import attacks.Move;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -39,6 +40,9 @@ public class BattleSelectionPane {
 	BattleSinglePlayerScene arena = null;
 	Player player = null;
 	
+	int width = 0;
+	int height = 0;
+	
 	public BattleSelectionPane (){
 		FileManager manager = new FileManager();
 		attackList.add(manager.loadMove("Punch"));
@@ -63,6 +67,8 @@ public class BattleSelectionPane {
 	public BattleSelectionPane (BattleSinglePlayerScene arena, Player player) {
 		this.arena = arena;
 		this.player = player;
+		this.width = arena.getWidth();
+		this.height = arena.getHeight();
 		this.attackList = player.getAttacks().getMoveList();
 		this.rows = new HBox[(this.attackList.size()/3) + 1];
 		for (int i = 0; i < rows.length; i++) {
@@ -78,15 +84,18 @@ public class BattleSelectionPane {
 		for (int i = 0; i < rows.length; i++) {
 			attackRows.getChildren().add(rows[i]);
 		}
-		this.submitButton.setMinSize(190, 30);
-		this.clearButton.setMinSize(190, 30);
-		this.rowOne.setPadding(new Insets(10, 0,0,0));
+		this.submitButton.setMinSize(width * .166, 30);
+		this.clearButton.setMinSize(width * .166, 30);
+		this.rowOne.setPadding(new Insets(10, 0,0, 0));
 		scrollPane.setContent(attackRows);
-		scrollPane.setMinSize(400, 172);
-		scrollPane.setMaxSize(400, 172);
+		scrollPane.setMinSize(width*.35, height*.215);
+		scrollPane.setMaxSize(width*.35, height*.215);
 		this.setButtons();
 		timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 		timeLeft.setStyle("-fx-text-fill: WHITE;");
+		timeLeft.setMinSize(width *.35, height * .0375);
+		timeLeft.setAlignment(Pos.BASELINE_CENTER);
+		timeLeft.setPadding(new Insets(0,0,13,0));
 		
 		rowOne.getChildren().addAll(submitButton, clearButton);
 		container.getChildren().addAll(rowOne, timeLeft, scrollPane);
@@ -108,13 +117,13 @@ public class BattleSelectionPane {
 				theTab.getContainer().setOnMouseClicked(e->{
 					if (attack.isPriority()) {
 						this.priorityAttacks.add(attack);
-						BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
+						BattleSimpleTab tab = new BattleSimpleTab(this.arena, this.attackList.get(theTab.getIndex()), this.player);
 						this.arena.getActionTime().getPriorityTabs().getChildren().add(tab.getContainer());
 						this.applyUse(attack);		
 					}
 					else {
 						this.attacks.add(attack);
-						BattleSimpleTab tab = new BattleSimpleTab(this.attackList.get(theTab.getIndex()), this.player);
+						BattleSimpleTab tab = new BattleSimpleTab(this.arena,this.attackList.get(theTab.getIndex()), this.player);
 						this.arena.getActionTime().getNormalTabs().getChildren().add(tab.getContainer());
 						this.applyUse(attack);
 					}
@@ -206,13 +215,16 @@ public class BattleSelectionPane {
 		arena.getActionButtons().setAttackTabsOpen(false);
 		this.resetActions();
 		this.arena.getSelectionPane().getContainer().setVisible(false);
+		this.arena.getTimeDisplayPane().setVisible(false);
 		battle.doTurn();
 		
 	}
 	
 	public void setButtons () {
 		this.submitButton.setOnAction(e->{
-			this.submitAction();
+			if (this.attacks.size() >  0 || this.priorityAttacks.size() > 0) {
+				this.submitAction();
+			}
 		});
 		this.clearButton.setOnAction(e->{
 			this.resetActions();

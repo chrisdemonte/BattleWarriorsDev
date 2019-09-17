@@ -14,7 +14,7 @@ import models.Player;
 
 public class BattleAnimationManager {
 	
-	
+	Timeline timer;
 	public BattleAnimationManager() {
 		super();
 	}
@@ -28,7 +28,7 @@ public class BattleAnimationManager {
 		if (battle.getFasterPriorityAttacks().size() + battle.getSlowerPriorityAttacks().size() > 0) {
 			battle.whosFasfter();
 			int delayCounter = 0;
-			Timeline timer = new Timeline();
+			timer = new Timeline();
 			ArrayList<EventHandler<ActionEvent>> eventList = new ArrayList<EventHandler<ActionEvent>>();
 			
 			for (int i = 0; i < battle.getFasterPriorityAttacks().size(); i++) {
@@ -36,14 +36,11 @@ public class BattleAnimationManager {
 				eventList.add(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent e) {
-						attack.getAnimation().doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
-						
-					}
-				});
+						attack.getAnimation().doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);	
+					}});
 					
-				
 				timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), eventList.get(i)));
-				delayCounter += battle.getFasterPriorityAttacks().get(i).getTime() - battle.getFaster().getBattleStats().getHaste();
+				delayCounter += battle.getFasterPriorityAttacks().get(i).getTime();
 			}
 			for (int i = 0; i < battle.getSlowerPriorityAttacks().size(); i++) {
 				Move attack = battle.getSlowerPriorityAttacks().get(i);
@@ -51,12 +48,10 @@ public class BattleAnimationManager {
 					@Override
 					public void handle(ActionEvent t) {
 						attack.getAnimation().doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
-						
 					}});
-					
 				
 				timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), eventList.get(i + battle.getFasterPriorityAttacks().size())));
-				delayCounter += battle.getSlowerPriorityAttacks().get(i).getTime() - battle.getSlower().getBattleStats().getHaste();
+				delayCounter += battle.getSlowerPriorityAttacks().get(i).getTime();
 			}
 			EventHandler<ActionEvent> nextHandler = new EventHandler<ActionEvent>() {
 
@@ -64,7 +59,7 @@ public class BattleAnimationManager {
 				public void handle(ActionEvent e) {	
 					battle.whosFasfter();
 						int delayCounter = 0;
-						Timeline timer = new Timeline();
+						timer = new Timeline();
 						ArrayList<EventHandler<ActionEvent>> eventList = new ArrayList<EventHandler<ActionEvent>>();
 						
 						for (int i = 0; i < battle.getFasterAttacks().size(); i++) {
@@ -73,12 +68,10 @@ public class BattleAnimationManager {
 								@Override
 								public void handle(ActionEvent e) {
 									attack.getAnimation().doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
-									
 								}});
 								
-							
 							timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), eventList.get(i)));
-							delayCounter += battle.getFasterAttacks().get(i).getTime() - battle.getFaster().getBattleStats().getHaste();
+							delayCounter += battle.getFasterAttacks().get(i).getTime();
 						}
 						for (int i = 0; i < battle.getSlowerAttacks().size(); i++) {
 							Move attack = battle.getSlowerAttacks().get(i);
@@ -86,34 +79,25 @@ public class BattleAnimationManager {
 								@Override
 								public void handle(ActionEvent e) {
 									attack.getAnimation().doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
-									
 								}});
-								
 							
 							timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), eventList.get(i + battle.getFasterAttacks().size())));
-							delayCounter += battle.getSlowerAttacks().get(i).getTime() - battle.getSlower().getBattleStats().getHaste();
+							delayCounter += battle.getSlowerAttacks().get(i).getTime();
 						}
 						EventHandler<ActionEvent> finalHandler = new EventHandler<ActionEvent>() {
 
 							@Override
 							public void handle(ActionEvent e) {
-								scene.getActionButtons().setPreviousSelection(0);
-								scene.getActionTime().clearTabs();
+								scene.clearTimeDisplayTabs();
+								scene.refreshBars();
 								scene.getAttackPane().getChildren().clear();
-								battle.getPlayerChoice().clear();
-								battle.getPlayerPriorityChoice().clear();
-								battle.getEnemyChoice().clear();
-								battle.getEnemyPriorityChoice().clear();
-								scene.getPlayerBar().changeHealthBar();
-								scene.getPlayerEnergy().changeEnergyBar();
-								scene.getEnemyBar().changeHealthBar();
+								battle.clearAttackChoices();
+								battle.setUpNextTurn();
+								timer.stop();
 							}};
 						timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), finalHandler));
 						timer.play();
 					}
-					
-
-				
 			};
 			timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), nextHandler));
 			timer.play();
@@ -127,7 +111,7 @@ public class BattleAnimationManager {
 		 battle.whosFasfter();
 	
 			int delayCounter = 0;
-			Timeline timer = new Timeline();
+			timer = new Timeline();
 			ArrayList<EventHandler<ActionEvent>> eventList = new ArrayList<EventHandler<ActionEvent>>();
 			
 			for (int i = 0; i < battle.getFasterAttacks().size(); i++) {
@@ -135,51 +119,32 @@ public class BattleAnimationManager {
 				eventList.add(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent e) {
-						attack.getAnimation().doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);
-						
+						attack.getAnimation().doBattleAnimation(scene, battle, battle.getFaster(), battle.getSlower(), attack);	
 					}});
-					
-				
+			
 				timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), eventList.get(i)));
-				delayCounter += battle.getFasterAttacks().get(i).getTime() - battle.getFaster().getBattleStats().getHaste();
+				delayCounter += battle.getFasterAttacks().get(i).getTime();
 			}
 			for (int i = 0; i < battle.getSlowerAttacks().size(); i++) {
 				Move attack = battle.getSlowerAttacks().get(i);
 				eventList.add(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent e) {
-						attack.getAnimation().doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);
-						
-					}});
-					
+						attack.getAnimation().doBattleAnimation(scene, battle, battle.getSlower(), battle.getFaster(), attack);	
+					}});	
 				
 				timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), eventList.get(i + battle.getFasterAttacks().size())));
-				delayCounter += battle.getSlowerAttacks().get(i).getTime() - battle.getSlower().getBattleStats().getHaste();
+				delayCounter += battle.getSlowerAttacks().get(i).getTime() ;
 			}
 			EventHandler<ActionEvent> finalHandler = new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent e) {
 					//scene.getActionButtons().setPreviousSelection(0);
-					scene.getActionTime().clearTabs();
+					scene.clearTimeDisplayTabs();
+					scene.refreshBars();
 					scene.getAttackPane().getChildren().clear();
-					scene.getActionTime2().clearTabs();
-					/**
-					for (int i = 0; i < battle.getEnemy().getBattleDebuffs().size(); i++) {
-						System.out.println(battle.getEnemy().getBattleDebuffs().get(i).toString());
-					}
-					**/
-					battle.getPlayerChoice().clear();
-					battle.getPlayerPriorityChoice().clear();
-					battle.getEnemyChoice().clear();
-					battle.getEnemyPriorityChoice().clear();
-					battle.getFasterPriorityAttacks().clear();
-					battle.getFasterAttacks().clear();
-					battle.getSlowerAttacks().clear();
-					battle.getSlowerPriorityAttacks().clear();
-					scene.getPlayerBar().changeHealthBar();
-					scene.getPlayerEnergy().changeEnergyBar();
-					scene.getEnemyBar().changeHealthBar();
+					battle.clearAttackChoices();
 					battle.setUpNextTurn();
 					timer.stop();
 				}};

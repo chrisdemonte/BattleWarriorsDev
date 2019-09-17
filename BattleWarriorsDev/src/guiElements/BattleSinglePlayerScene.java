@@ -33,75 +33,77 @@ public class BattleSinglePlayerScene extends BattleScene{
 
 	public BattleSinglePlayerScene(Player self, Player enemy, int width, int height, Pane root) {
 		this.battle = new SinglePlayerBattle(self, enemy, this);
-		this.generateLayout(width, height, self, enemy);
 		this.width = width;
 		this.height = height;
 		this.root = root;
-		
+		this.generateLayout(width, height, self, enemy);
 	}
 
 	private void generateLayout(int width, int height, Player self, Player enemy) {
-		this.width = width;
-		this.height = height;
+		
 		container.setMaxSize(width, height);
 		container.setMinSize(width, height);
 		
 		this.selectionPane = new BattleSelectionPane(this, self);
 		this.actionButtons = new BattleActionButtonPane(this, self, this.battle);
-		this.actionTime = new BattleActionTimeDisplay();
+		this.actionTime = new BattleActionTimeDisplay(this);
 		this.battleLogPane = new BattleLogPane(width, height);
-		battleWindow.setMaxSize(width - 100, height - 300);
-		battleWindow.setMinSize(width - 100, height - 300);
+		battleWindow.setMaxSize(width * .9165, height * .5625);
+		battleWindow.setMinSize(width * .9165, height * .5625);
 		battleWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
-		battleWindow.setTranslateX(50);
-		battleWindow.setTranslateY(50);
+		battleWindow.setTranslateX(width/24);
+		battleWindow.setTranslateY(width/24);
 		
-		actionPane.setMaxSize((width / 4) - 140, height - 550);
-		actionPane.setMinSize((width / 4) - 140, height - 550);
-		actionPane.setTranslateX((width / 3) + 120);
-		actionPane.setTranslateY(height - 200);
+		actionPane.setMaxSize(width * .1335, height *.325);
+		actionPane.setMinSize(width * .1335, height *.325);
+		actionPane.setTranslateX(width * .4335);
+		actionPane.setTranslateY(height * .65);
 		actionPane.getChildren().addAll(actionButtons.getContainer());
 		
-		attackPane.setMaxSize((width / 3) + 20, height - 550);
-		attackPane.setMinSize((width / 3) + 20, height - 550);
-		attackPane.setTranslateX(50);
-		attackPane.setTranslateY(height - 200);
+		attackPane.setMaxSize(width *.3665, height *.325);
+		attackPane.setMinSize(width *.3665, height *.325);
+		attackPane.setTranslateX(width/24);
+		attackPane.setTranslateY(height * .65);
 		
-		timeDisplayPane.setTranslateX(100);
-		timeDisplayPane.setTranslateY(475);
+		timeDisplayPane.setMinSize(width*.35, 10);
+		timeDisplayPane.setMaxSize(width*.35, 10);
+		timeDisplayPane.setTranslateX(width * .05);
+		timeDisplayPane.setTranslateY(height * .7375);
 		timeDisplayPane.getChildren().addAll(this.actionTime.getContainer());
+		timeDisplayPane.setVisible(false);
 		
-		logPane.setMaxSize((width / 3) + 20, height - 550);
-		logPane.setMinSize((width / 3) + 20, height - 550);
-		logPane.setTranslateX((width / 3) + (width/4) + 30);
-		logPane.setTranslateY(height - 200);
+		logPane.setMaxSize(width *.3665, height *.325);
+		logPane.setMinSize(width *.3665, height *.325);
+		logPane.setTranslateX(width * .5915);
+		logPane.setTranslateY(height * .65);
 		logPane.getChildren().add(this.battleLogPane.getContainer());
 		
-		playerBar = new HealthBar(self, 400);
-		playerBar.getContainer().setTranslateX(100);
-		playerBar.getContainer().setTranslateY(100);
+		playerBar = new HealthBar(self, width /3);
+		playerEnergy = new EnergyBar(self,  width /3);
+		playerHealthBarContainer.getChildren().addAll(playerBar.getContainer(), playerEnergy.getContainer());
+		playerHealthBarContainer.setTranslateX(width/12);
+		playerHealthBarContainer.setTranslateY(width/12);
 		
-		playerEnergy = new EnergyBar(self, 400);
-		playerEnergy.getContainer().setTranslateX(100);
-		playerEnergy.getContainer().setTranslateY(130);
+		enemyBar = new HealthBar(enemy,  width /3);
+		enemyHealthBarContainer.getChildren().addAll(enemyBar.getContainer());
+		enemyHealthBarContainer.setTranslateX((width/12) + width/2 );
+		enemyHealthBarContainer.setTranslateY(width/12);
 		
-		enemyBar = new HealthBar(enemy, 400);
-		enemyBar.getContainer().setTranslateX(700);
-		enemyBar.getContainer().setTranslateY(100);
-		
-		playerSpriteContainer.setMinSize(200, 200);
-		playerSpriteContainer.setTranslateX((width/3) - 140);
-		playerSpriteContainer.setTranslateY((height/2) - 180);
-		enemySpriteContainer.setMinSize(200,200);
-		enemySpriteContainer.setTranslateX(((width * 2)/3) - 60);
-		enemySpriteContainer.setTranslateY((height/2) - 180);
+		playerSpriteContainer.setMinSize(width/6, width/6);
+		playerSpriteContainer.setTranslateX(width * .197);
+		playerSpriteContainer.setTranslateY(height * .275);
+		enemySpriteContainer.setMinSize(width/6,width/6);
+		enemySpriteContainer.setTranslateX(width * .6365);
+		enemySpriteContainer.setTranslateY(height * .275);
 		
 		
 		try {
 			//File file = new File ("C:\\Users\\chris\\git\\BattleWarriorsDev\\BattleWarriorsDev\\resources\\images\\battle_pane.PNG");
-			File file = new File("resources/images/red_pixel_background.PNG");
+			File file = new File("resources/images/red_pixel_pattern.PNG");
 			frame = new  Image(new FileInputStream(file));
-			frameView.setImage(frame);
+			container.setBackground(new Background(new BackgroundImage(frame,
+			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			          BackgroundSize.DEFAULT)));
 
 			File borderFile = new File("resources/images/black_pixel_pattern.PNG");
 			border = new Image(new FileInputStream(borderFile));
@@ -112,6 +114,11 @@ public class BattleSinglePlayerScene extends BattleScene{
 			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			          BackgroundSize.DEFAULT)));
 			logPane.setBackground(new Background(new BackgroundImage(border,
+			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
+			          BackgroundSize.DEFAULT)));
+			File greyFile = new File("resources/images/grey_pixel_pattern.PNG");
+			Image grey = new Image(new FileInputStream(greyFile));
+			timeDisplayPane.setBackground(new Background(new BackgroundImage(grey,
 			        BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,
 			          BackgroundSize.DEFAULT)));
 			File playerFile = new File("resources/images/playerModels/man.PNG");
@@ -131,9 +138,21 @@ public class BattleSinglePlayerScene extends BattleScene{
 		
 		battleWindow.setBorder(new Border(new BorderImage(border, new BorderWidths(10.0), new Insets(0.0), new BorderWidths(10.0),
 				false, BorderRepeat.REPEAT, BorderRepeat.REPEAT)));
+		/**
+		VBox debuggLine = new VBox();
+		debuggLine.setMinSize(4, height);
+		debuggLine.setMaxSize(4, height);
+		debuggLine.setBackground(new Background(new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY)));
+		debuggLine.setTranslateX((width/2 )- 2);
 		
-		container.getChildren().addAll(frameView, battleWindow, playerBar.getContainer(), playerEnergy.getContainer(), enemyBar.getContainer(),attackPane, timeDisplayPane, actionPane, logPane,
-				playerSpriteContainer, enemySpriteContainer);
+		VBox debuggLine2 = new VBox();
+		debuggLine2.setMinSize(width, 4);
+		debuggLine2.setMaxSize(width, 4);
+		debuggLine2.setBackground(new Background(new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY)));
+		debuggLine2.setTranslateY((height/2 )- 2);
+		**/
+		container.getChildren().addAll(frameView, battleWindow, playerHealthBarContainer, enemyHealthBarContainer, attackPane, actionPane, logPane,
+				playerSpriteContainer, enemySpriteContainer, timeDisplayPane);
 		
 		this.battleLog.addToLog( "!!! " + enemy.getName() + " challenges you to a fight !!!\n" + enemy.getDescription());
 		this.battleLogPane.updateLog(this.battleLog);
@@ -146,6 +165,12 @@ public class BattleSinglePlayerScene extends BattleScene{
 		this.playerEnergy.changeEnergyBar();
 		this.enemyBar.changeHealthBar();
 	}
+	
+	@Override
+	public void clearTimeDisplayTabs() {
+		this.getActionTime().clearTabs();
+	}
+
 	public Pane getContainer() {
 		return container;
 	}
@@ -165,12 +190,7 @@ public class BattleSinglePlayerScene extends BattleScene{
 	public void setBattle(Battle battle) {
 		this.battle = battle;
 	}
-	public HBox getHealthBarLine() {
-		return healthBarLine;
-	}
-	public void setHealthBarLine(HBox healthBarLine) {
-		this.healthBarLine = healthBarLine;
-	}
+
 	public VBox getPlayerBuffContainer() {
 		return playerBuffContainer;
 	}
@@ -189,12 +209,7 @@ public class BattleSinglePlayerScene extends BattleScene{
 	public void setHealthBarCenter(VBox healthBarCenter) {
 		this.healthBarCenter = healthBarCenter;
 	}
-	public VBox getEnemyHealthContainer() {
-		return enemyHealthContainer;
-	}
-	public void setEnemyHealthContainer(VBox enemyHealthContainer) {
-		this.enemyHealthContainer = enemyHealthContainer;
-	}
+
 	public VBox getEnemyBuffContainer() {
 		return enemyBuffContainer;
 	}

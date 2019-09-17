@@ -36,6 +36,7 @@ public class BattleActionButtonPane {
 				scene.attackPane.getChildren().clear();
 				scene.selectionPane = new BattleSelectionPane(scene, player);
 				scene.attackPane.getChildren().add(scene.getSelectionPane().getContainer());
+				scene.getTimeDisplayPane().setVisible(true);
 				attackTabsOpen = true;
 			}
 		});

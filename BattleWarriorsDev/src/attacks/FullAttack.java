@@ -120,8 +120,8 @@ public class FullAttack extends Move{
 			double physicalBounceBack = 0.0;
 			double magicBounceBack = 0.0;
 			
-			double targetResist = (targetStats.getResistance() * targetStats.getResistanceMod()) * (1.0 - (self.getBattleStats().getPenetration() * self.getBattleStats().getPenetrationMod()));
-			double targetDef = (targetStats.getDefense() * targetStats.getDefenseMod())*(1.0 - (self.getBattleStats().getPenetration() * self.getBattleStats().getPenetrationMod()));
+			double targetResist = (targetStats.getResistance() * targetStats.getResistanceMod()) * (1.0 - ((this.penetration + self.getBattleStats().getPenetration()) * (self.getBattleStats().getPenetrationMod())));
+			double targetDef = (targetStats.getDefense() * targetStats.getDefenseMod())*(1.0 - ((this.penetration + self.getBattleStats().getPenetration()) * (self.getBattleStats().getPenetrationMod())));
 			
 			String logEntry = new String(self.getName() + "'s " + this.getName() + " did ");
 			
@@ -293,6 +293,7 @@ public class FullAttack extends Move{
 			if (this.physicalPower > 0.0 || this.magicPower > 0.0) {
 				log.addToLog(logEntry);
 			}
+			
 		}
 		
 		

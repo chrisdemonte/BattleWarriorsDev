@@ -14,22 +14,33 @@ import javafx.util.Duration;
 
 public class BattleBuffAnimationManager {
 
+	Timeline timer;
 	public BattleBuffAnimationManager() {
 		
 	}
 	
 	public void doBuffAnimations (Battle battle, BattleScene scene) {
 		battle.whosFasfter();
-		Timeline timer = new Timeline();
+		timer = new Timeline();
 		ArrayList<EventHandler<ActionEvent>> eventList = new ArrayList<EventHandler<ActionEvent>>();
 		for (int i = 0; i < battle.getSlower().getBattleBuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getSlower().getBattleBuffs().get(i);
 			eventList.add(e->{
-				if (buff.getCooldownCounter() > 0) {
+				if (buff.getCooldownCounter() > 1) {
 					buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
 				}
 				else {
-					buff.getBuff().doEndBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
+					if (buff.getBuff().getEnd() != null) {
+						buff.getBuff().doEndBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
+					}
+					else {
+						buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
+					}
+				}
+				if(battle.deathCheck()) {
+					battle.doMoves();
+					timer.stop();
+					
 				}
 				scene.refreshBars();
 			});
@@ -37,11 +48,20 @@ public class BattleBuffAnimationManager {
 		for (int i = 0; i < battle.getSlower().getBattleDebuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getSlower().getBattleDebuffs().get(i);
 			eventList.add(e->{
-				if (buff.getCooldownCounter() > 0) {
+				if (buff.getCooldownCounter() > 1) {
 					buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
 				}
 				else {
-					buff.getBuff().doEndBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
+					if (buff.getBuff().getEnd() !=null) {
+						buff.getBuff().doEndBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
+					}
+					else {
+						buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
+					}
+				}
+				if(battle.deathCheck()) {
+					battle.doMoves();
+					timer.stop();
 				}
 				scene.refreshBars();
 			});
@@ -49,11 +69,21 @@ public class BattleBuffAnimationManager {
 		for (int i = 0; i < battle.getFaster().getBattleBuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getFaster().getBattleBuffs().get(i);
 			eventList.add(e->{
-				if (buff.getCooldownCounter() > 0) {
+				if (buff.getCooldownCounter() > 1) {
 					buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
 				}
 				else {
-					buff.getBuff().doEndBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
+					if (buff.getBuff().getEnd() != null) {
+						buff.getBuff().doEndBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
+					}
+					else {
+						buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
+					}
+				}
+				if(battle.deathCheck()) {
+					battle.doMoves();
+					timer.stop();
+					
 				}
 				scene.refreshBars();
 			});
@@ -61,11 +91,21 @@ public class BattleBuffAnimationManager {
 		for (int i = 0; i < battle.getFaster().getBattleDebuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getFaster().getBattleDebuffs().get(i);
 			eventList.add(e->{
-				if (buff.getCooldownCounter() > 0) {
+				if (buff.getCooldownCounter() > 1) {
 					buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
 				}
 				else {
-					buff.getBuff().doEndBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
+					if (buff.getBuff().getEnd() !=null) {
+						buff.getBuff().doEndBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
+					}
+					else {
+						buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
+					}
+				}
+				if(battle.deathCheck()) {
+					battle.doMoves();
+					timer.stop();
+					
 				}
 				scene.refreshBars();
 			});

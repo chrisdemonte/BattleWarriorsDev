@@ -18,6 +18,7 @@ public class Player extends Entity{
 	ArrayList<BattleBuffHolder> battleDebuffs;
 	AttackList attacks;
 	boolean isNPC = true;
+	boolean isDead = false;
 
 	public Player(String name, String description) {
 		super(name, description);
@@ -97,6 +98,12 @@ public class Player extends Entity{
 
 	public void setBattleDebuffs(ArrayList<BattleBuffHolder> battleDebuffs) {
 		this.battleDebuffs = battleDebuffs;
+	}
+	public boolean isDead() {
+		return isDead;
+	}
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
 	}
 	
 }

@@ -2,6 +2,7 @@ package guiElements;
 
 import attacks.Buff;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -10,6 +11,7 @@ public class BuffMaker {
 	
 
 	VBox container = new VBox(1);
+	ScrollPane outerContainer = new ScrollPane();
 	
 	HBox nameLine = new HBox(3);
 	Label nameLabel = new Label("Buff Name : ");
@@ -62,8 +64,10 @@ public class BuffMaker {
 		
 		buffEffectMakerContainer.getChildren().addAll(intialContainer, periodicContainer, endContainer);
 		
+		
 		container.getChildren().addAll(nameLine, descriptionLine, durationLine, intialChanceLine, periodicChanceLine,
 				buffEffectMakerContainer);
+		outerContainer.setContent(container);
 		
 	}
 	
@@ -98,4 +102,13 @@ public class BuffMaker {
 		this.container = container;
 	}
 
+	public ScrollPane getOuterContainer() {
+		return outerContainer;
+	}
+
+	public void setOuterContainer(ScrollPane outerContainer) {
+		this.outerContainer = outerContainer;
+	}
+
+	
 }

@@ -25,90 +25,92 @@ public class BattleFlipAnimation extends BattleAnimation {
 	}
 	@Override
 	public void doBattleAnimation (BattleScene scene, Battle battle, Player attacker, Player defender, Move attack) {
-
-		HBox playerContainer = scene.getPlayerSpriteContainer();
-		HBox enemyContainer = scene.getEnemySpriteContainer();
-		
-		int timerDelay = ((time - attacker.getBattleStats().getHaste()) * this.delay)/100;
-		int timePeak = ((time - attacker.getBattleStats().getHaste()) * this.contact)/200;
-		int timerContact = ((time - attacker.getBattleStats().getHaste()) * this.contact)/100;
-		int timerTime = time - attacker.getBattleStats().getHaste();
-		
-		Timeline timeline = new Timeline();
-		
-		EventHandler<ActionEvent> contactHandler = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				if (attack.makeContact(attacker, defender, scene.getBattleLog())) {
-					attack.makeMove(attacker, defender, scene.getBattleLog());
-					attack.applyBuffs(attacker, defender, attack, scene.getBattleLog());
-				}
-				scene.refreshBars();
-				scene.getBattleLogPane().updateLog(scene.getBattleLog());
-			}	
-		};
-	
-		EventHandler<ActionEvent> finalHandler = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				playerContainer.setRotate(0);
-				enemyContainer.setRotate(0);
-				timeline.stop();
-			}	
-		};
-		if (!attacker.isNPC()) {
-			timeline.getKeyFrames().addAll(
-					new KeyFrame(
-							Duration.ZERO,
-							new KeyValue(playerContainer.rotateProperty(), 0),
-							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
-					new KeyFrame(
-							Duration.millis(timerDelay),
-							new KeyValue(playerContainer.rotateProperty(), 0),
-							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
-					new KeyFrame(
-							Duration.millis(timePeak),
-							contactHandler,
-							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 240)),
-					new KeyFrame(
-							Duration.millis(timerContact),
-							new KeyValue(playerContainer.rotateProperty(), 360),
-							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
-								
-					new KeyFrame(
-							Duration.millis(timerTime),
-							finalHandler,
-							new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180))
-					);
-			timeline.play();
+		if (!attacker.isDead() && !defender.isDead()) {
+			HBox playerContainer = scene.getPlayerSpriteContainer();
+			HBox enemyContainer = scene.getEnemySpriteContainer();
 			
-		}
-		else {
-			timeline.getKeyFrames().addAll(
-					new KeyFrame(
-							Duration.ZERO,
-							new KeyValue(enemyContainer.rotateProperty(), 0),
-							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
-					new KeyFrame(
-							Duration.millis(timerDelay),
-							new KeyValue(enemyContainer.rotateProperty(), 0),
-							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
-					new KeyFrame(
-							Duration.millis(timePeak),
-							contactHandler,
-							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 240)),
-					new KeyFrame(
-							Duration.millis(timerContact),
-							new KeyValue(enemyContainer.rotateProperty(), -360),
-							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
-								
-					new KeyFrame(
-							Duration.millis(timerTime),
-							finalHandler,
-							new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180))
-					);
-			timeline.play();
+			int timerDelay = ((time - attacker.getBattleStats().getHaste()) * this.delay)/100;
+			int timePeak = ((time - attacker.getBattleStats().getHaste()) * this.contact)/200;
+			int timerContact = ((time - attacker.getBattleStats().getHaste()) * this.contact)/100;
+			int timerTime = time - attacker.getBattleStats().getHaste();
 			
+			Timeline timeline = new Timeline();
+			
+			EventHandler<ActionEvent> contactHandler = new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					if (attack.makeContact(attacker, defender, scene.getBattleLog())) {
+						attack.makeMove(attacker, defender, scene.getBattleLog());
+						attack.applyBuffs(attacker, defender, attack, scene.getBattleLog());
+					}
+					scene.refreshBars();
+					scene.getBattleLogPane().updateLog(scene.getBattleLog());
+					battle.deathCheck();
+				}	
+			};
+		
+			EventHandler<ActionEvent> finalHandler = new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					playerContainer.setRotate(0);
+					enemyContainer.setRotate(0);
+					
+					timeline.stop();
+				}	
+			};
+			if (!attacker.isNPC()) {
+				timeline.getKeyFrames().addAll(
+						new KeyFrame(
+								Duration.ZERO,
+								new KeyValue(playerContainer.rotateProperty(), 0),
+								new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+						new KeyFrame(
+								Duration.millis(timerDelay),
+								new KeyValue(playerContainer.rotateProperty(), 0),
+								new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+						new KeyFrame(
+								Duration.millis(timePeak),
+								contactHandler,
+								new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 240)),
+						new KeyFrame(
+								Duration.millis(timerContact),
+								new KeyValue(playerContainer.rotateProperty(), 360),
+								new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+									
+						new KeyFrame(
+								Duration.millis(timerTime),
+								finalHandler,
+								new KeyValue(playerContainer.translateYProperty(), (scene.getHeight()/2) - 180))
+						);
+				timeline.play();
+				
+			}
+			else {
+				timeline.getKeyFrames().addAll(
+						new KeyFrame(
+								Duration.ZERO,
+								new KeyValue(enemyContainer.rotateProperty(), 0),
+								new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+						new KeyFrame(
+								Duration.millis(timerDelay),
+								new KeyValue(enemyContainer.rotateProperty(), 0),
+								new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+						new KeyFrame(
+								Duration.millis(timePeak),
+								contactHandler,
+								new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 240)),
+						new KeyFrame(
+								Duration.millis(timerContact),
+								new KeyValue(enemyContainer.rotateProperty(), -360),
+								new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180)),
+									
+						new KeyFrame(
+								Duration.millis(timerTime),
+								finalHandler,
+								new KeyValue(enemyContainer.translateYProperty(), (scene.getHeight()/2) - 180))
+						);
+				timeline.play();
+			}	
 		}
 	}
 }

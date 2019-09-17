@@ -587,7 +587,11 @@ public class BattleStats {
 		this.accuracy =.95 + (((skill * skillMod * 3.0) + (intelligence * intelligenceMod) + (cunning * cunningMod)) / 2150.0);
 		this.avoidance = .01 + (((skill * skillMod) + (cunning * cunningMod * 1.5) + (speed * speedMod * 1.5)) / 2150.0);
 		this.blocking = ((defense * defenseMod * 3.0) / 2150.0);
-		this.penetration = (cunning * cunningMod)/ 2150.0;;
+		this.penetration = (cunning * cunningMod)/ 2150.0;
+		this.changeCounteringCounter(-1);
+		this.changeReflectingCounter(-1);
+		this.changeImmunityCounter(-1);
+		this.changeProtectionCounter(-1);
 		/**
 		this.barrierCounter--;
 		this.physicalShieldCounter--;
@@ -597,10 +601,6 @@ public class BattleStats {
 		this.canUseItemsCounter--;
 		this.canSkipTurnCounter--;
 		this.canRunCounter--;
-		this.protectionCounter--;
-		this.counteringCounter--;
-		this.immunityCounter--;
-		this.reflectingCounter--;
 		this.freecastingCounter--;
 		this.exhaustedCounter--;
 		this.lockedCounter--;
@@ -845,6 +845,15 @@ public class BattleStats {
 
 	public void setCurrentHealth(int currentHealth) {
 		this.currentHealth = currentHealth;
+		this.checkCurrentHealth();
+	}
+	public void checkCurrentHealth() {
+		if (currentHealth > maxHealth) {
+			currentHealth = maxHealth;
+		}
+		if (currentHealth < 0) {
+			currentHealth = 0;
+		}
 	}
 
 	public int getMaxEnergy() {
@@ -861,6 +870,12 @@ public class BattleStats {
 
 	public void setCurrentEnergy(int currentEnergy) {
 		this.currentEnergy = currentEnergy;
+		if (this.currentEnergy > this.maxEnergy) {
+			this.currentEnergy = this.maxEnergy;
+		}
+		if (this.currentEnergy < 0) {
+			this.currentEnergy = 0;
+		}
 	}
 
 	public int getMaxComboPoints() {
@@ -1088,6 +1103,13 @@ public class BattleStats {
 	public void setProtectionCounter(int protectionCounter) {
 		this.protectionCounter = protectionCounter;
 	}
+	public void changeProtectionCounter(int counter) {
+		this.protectionCounter += counter;
+		if (protectionCounter <= 0) {
+			protectionCounter = 0;
+			protection = 0.0;
+		}
+	}
 
 	public double getCountering() {
 		return countering;
@@ -1112,6 +1134,13 @@ public class BattleStats {
 
 	public void setCounteringCounter(int counteringCounter) {
 		this.counteringCounter = counteringCounter;
+	}
+	public void changeCounteringCounter(int counter) {
+		this.counteringCounter += counter;
+		if (counteringCounter <= 0) {
+			counteringCounter = 0;
+			countering = 0.0;
+		}
 	}
 
 	public double getImmunity() {
@@ -1139,9 +1168,17 @@ public class BattleStats {
 		this.immunityCounter = immunityCounter;
 	}
 
+	public void changeImmunityCounter(int counter) {
+		this.immunityCounter += counter;
+		if (immunityCounter <= 0) {
+			immunityCounter = 0;
+			immunity = 0.0;
+		}
+	}
 	public double getReflecting() {
 		return reflecting;
 	}
+	
 
 	public void setReflecting(double reflecting) {
 		this.reflecting = reflecting;
@@ -1162,6 +1199,13 @@ public class BattleStats {
 
 	public void setReflectingCounter(int reflectingCounter) {
 		this.reflectingCounter = reflectingCounter;
+	}
+	public void changeReflectingCounter(int counter) {
+		this.reflectingCounter += counter;
+		if (reflectingCounter <= 0) {
+			reflectingCounter = 0;
+			reflecting = 0.0;
+		}
 	}
 
 	public boolean isFreecasting() {

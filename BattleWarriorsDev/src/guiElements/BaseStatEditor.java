@@ -469,7 +469,7 @@ public class BaseStatEditor {
 			tempList.add(manager.loadMove("Gather Strength"));
 		}
 		if (stats.getStrength() > 3) {
-			tempList.add(manager.loadMove("Wild Attack"));
+			tempList.add(manager.loadMove("Power-Up Punch"));
 		}
 		if (stats.getDefense() > 1) {
 			tempList.add(manager.loadMove("Raise Defense"));
@@ -487,25 +487,25 @@ public class BaseStatEditor {
 			tempList.add(manager.loadMove("Magic Strength"));
 		}
 		if (stats.getResistance() > 3) {
-			tempList.add(manager.loadMove("Magic Power"));
+			tempList.add(manager.loadMove("Bounce Back"));
 		}
 		if (stats.getCunning() > 1) {
 			tempList.add(manager.loadMove("Scratch"));
 		}
 		if (stats.getCunning() > 3) {
-			tempList.add(manager.loadMove("Reveal Opening"));
+			tempList.add(manager.loadMove("Slice"));
 		}
 		if (stats.getIntelligence() > 1) {
-			tempList.add(manager.loadMove("Channel"));
+			tempList.add(manager.loadMove("Reveal Opening"));
 		}
 		if (stats.getIntelligence() > 3) {
-			tempList.add(manager.loadMove("Magic Shell"));
+			tempList.add(manager.loadMove("Channel"));
 		}
 		if (stats.getSpeed() > 1) {
 			tempList.add(manager.loadMove("Wild Attack"));
 		}
 		if (stats.getSpeed() > 3) {
-			tempList.add(manager.loadMove("Rev Up Punch"));
+			tempList.add(manager.loadMove("Snap Punch"));
 		}
 		if (stats.getSkill() > 1) {
 			tempList.add(manager.loadMove("Jab"));

@@ -176,7 +176,8 @@ public class BaseStatDoubleEditor  {
 		
 		this.setButtons();
 		container.setAlignment(Pos.BASELINE_CENTER);
-		container.setMinSize(this.width/3, this.height/2);
+		container.setMinSize(this.width/3, this.height * .4);
+		container.setMaxSize(this.width/3, this.height * .4);
 		container.getChildren().addAll(levelLine,pointsLine,staminaLine,strengthLine,defenseLine,
 				magicLine,resistanceLine,cunningLine,intelligenceLine,speedLine,skillLine);
 		}
@@ -471,13 +472,13 @@ public class BaseStatDoubleEditor  {
 			tempList.add(manager.loadMove("Gather Strength"));
 		}
 		if (stats.getStrength() > 3) {
-			tempList.add(manager.loadMove("Wild Attack"));
+			tempList.add(manager.loadMove("Power-Up Punch"));
 		}
 		if (stats.getDefense() > 1) {
-			tempList.add(manager.loadMove("Raise Defense"));
+			tempList.add(manager.loadMove("Raise Shield"));
 		}
 		if (stats.getDefense() > 3) {
-			tempList.add(manager.loadMove("Raise Shield"));
+			tempList.add(manager.loadMove("Chip Away"));
 		}
 		if (stats.getMagic() > 1) {
 			tempList.add(manager.loadMove("Fireball"));
@@ -489,25 +490,25 @@ public class BaseStatDoubleEditor  {
 			tempList.add(manager.loadMove("Magic Strength"));
 		}
 		if (stats.getResistance() > 3) {
-			tempList.add(manager.loadMove("Magic Power"));
+			tempList.add(manager.loadMove("Bounce Back"));
 		}
 		if (stats.getCunning() > 1) {
 			tempList.add(manager.loadMove("Scratch"));
 		}
 		if (stats.getCunning() > 3) {
-			tempList.add(manager.loadMove("Reveal Opening"));
+			tempList.add(manager.loadMove("Slice"));
 		}
 		if (stats.getIntelligence() > 1) {
-			tempList.add(manager.loadMove("Channel"));
+			tempList.add(manager.loadMove("Reveal Opening"));
 		}
 		if (stats.getIntelligence() > 3) {
-			tempList.add(manager.loadMove("Magic Shell"));
+			tempList.add(manager.loadMove("Channel"));
 		}
 		if (stats.getSpeed() > 1) {
 			tempList.add(manager.loadMove("Wild Attack"));
 		}
 		if (stats.getSpeed() > 3) {
-			tempList.add(manager.loadMove("Rev Up Punch"));
+			tempList.add(manager.loadMove("Snap Punch"));
 		}
 		if (stats.getSkill() > 1) {
 			tempList.add(manager.loadMove("Jab"));
