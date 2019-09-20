@@ -66,11 +66,12 @@ public class BattleSelectionTab {
 		this.index = index;
 		this.usable = usable;
 		nameLabel.setText(attack.getName());
-		nameLabel.setStyle("-fx-text-fill: BLACK; -fx-font-size: 16;");
+		nameLabel.setFont(arena.getRoot().getSettings().getSmallFont());
 		nameLabel.setTooltip(toolTip);
-		nameLabel.setMinSize(110, 60);
-		nameLabel.setMaxSize(110, 60);
-		nameLabel.setAlignment(Pos.TOP_CENTER);
+		nameLabel.setMinSize(110, 40);
+		nameLabel.setMaxSize(110, 40);
+		nameLabel.setAlignment(Pos.CENTER);
+		nameLabel.setStyle("-fx-text-fill: BLACK;");
 		if (attack.getCooldownCounter() > 0) {
 			infoLabel.setText("Cooldown: " + attack.getCooldownCounter() + " turns");
 		}
@@ -90,6 +91,7 @@ public class BattleSelectionTab {
 		infoLabel.setMinSize(120, 60);
 		infoLabel.setMaxSize(120, 60);
 		infoLabel.setAlignment(Pos.BOTTOM_CENTER);
+		infoLabel.setFont(arena.getRoot().getSettings().getTinyFont());
 		infoLabel.setStyle("-fx-text-fill: BLACK;");
 		row1.getChildren().addAll(nameLabel);
 		row2.getChildren().addAll(infoLabel);

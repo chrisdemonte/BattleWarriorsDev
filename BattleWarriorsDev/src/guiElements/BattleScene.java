@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 
 import BattleSystem.Battle;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -76,10 +77,11 @@ public class BattleScene {
 	boolean buttonsDisabled = false;
 	int width = 1200;
 	int height = 800;
-	Pane root;
+	Window root;
+	Scene scene;
 	
-	public BattleScene() {
-		
+	public BattleScene(Scene scene) {
+	this.scene = scene;
 	}
 
 	public void refreshBars() {
@@ -336,11 +338,11 @@ public class BattleScene {
 		this.height = height;
 	}
 
-	public Pane getRoot() {
+	public Window getRoot() {
 		return root;
 	}
 
-	public void setRoot(Pane root) {
+	public void setRoot(Window root) {
 		this.root = root;
 	}
 

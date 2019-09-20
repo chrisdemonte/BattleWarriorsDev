@@ -26,11 +26,13 @@ public class EnergyBar {
 	int width; 
 	
 	Player player;
+	BattleScene arena;
 
-	public EnergyBar(Player player, int width ) {
+	public EnergyBar(Player player, int width, BattleScene arena ) {
 		super();
 		this.player = player;
 		this.width = width;
+		this.arena = arena;
 		this.generateLayout();
 	}
 	private void generateLayout() {
@@ -41,7 +43,8 @@ public class EnergyBar {
 		text.setMinSize(width, 20);
 		text.setMaxSize(width, 20);
 		text.setAlignment(Pos.BASELINE_CENTER);
-		text.setStyle("-fx-text-fill: BLACK; -fx-font-size: 14;");
+		text.setFont(arena.getRoot().getSettings().getSmallFont());
+		text.setStyle("-fx-text-fill: WHITE;");
 		this.changeEnergyBar();
 		
 	}

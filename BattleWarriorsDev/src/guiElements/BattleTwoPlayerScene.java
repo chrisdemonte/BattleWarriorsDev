@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import BattleSystem.Battle;
 import BattleSystem.TwoPlayerBattle;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -33,8 +34,8 @@ public class BattleTwoPlayerScene extends BattleScene{
 	BattleActionButtonPaneTwoPlayer centerButtons;
 
 
-	public BattleTwoPlayerScene(Player self, Player enemy, int width, int height, Pane root) {
-		super();
+	public BattleTwoPlayerScene(Player self, Player enemy, int width, int height, Window root, Scene scene) {
+		super(scene);
 		this.battle = new TwoPlayerBattle(self, enemy, this);
 		this.width = width;
 		this.height = height;
@@ -55,7 +56,7 @@ public class BattleTwoPlayerScene extends BattleScene{
 		
 		this.actionTime = new BattleActionTimeDisplay(this);
 		this.actionTime2 = new BattleActionTimeDisplay(this);
-		this.battleLogPane = new BattleLogPane(width, height);
+		this.battleLogPane = new BattleLogPane(width, height, this);
 		battleWindow.setMaxSize(width * .9165, height * .5625);
 		battleWindow.setMinSize(width * .9165, height * .5625);
 		battleWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
@@ -66,7 +67,7 @@ public class BattleTwoPlayerScene extends BattleScene{
 		actionPane.setMinSize(width * .1335, height *.325);
 		actionPane.setTranslateX(width * .4335);
 		actionPane.setTranslateY(height * .65);
-		centerButtons = new BattleActionButtonPaneTwoPlayer(this, width, height);
+		centerButtons = new BattleActionButtonPaneTwoPlayer(this, width, height, scene);
 		actionPane.getChildren().add(centerButtons.getContainer());
 		
 		attackPane.setMaxSize(width *.3665, height *.325);
@@ -94,14 +95,14 @@ public class BattleTwoPlayerScene extends BattleScene{
 		enemyTimeDisplayPane.setTranslateY(height * .7375);
 		enemyTimeDisplayPane.getChildren().addAll(this.actionTime2.getContainer());
 		
-		playerBar = new HealthBar(self, width /3);
-		playerEnergy = new EnergyBar(self,  width /3);
+		playerBar = new HealthBar(self, width /3, this);
+		playerEnergy = new EnergyBar(self,  width /3, this);
 		playerHealthBarContainer.getChildren().addAll(playerBar.getContainer(), playerEnergy.getContainer());
 		playerHealthBarContainer.setTranslateX(width/12);
 		playerHealthBarContainer.setTranslateY(width/12);
 		
-		enemyBar = new HealthBar(enemy,  width /3);
-		enemyEnergy = new EnergyBar(enemy,  width /3);
+		enemyBar = new HealthBar(enemy,  width /3, this);
+		enemyEnergy = new EnergyBar(enemy,  width /3, this);
 		enemyHealthBarContainer.getChildren().addAll(enemyBar.getContainer(), enemyEnergy.getContainer());
 		enemyHealthBarContainer.setTranslateX((width/12) + width/2 );
 		enemyHealthBarContainer.setTranslateY(width/12);
@@ -370,11 +371,11 @@ public class BattleTwoPlayerScene extends BattleScene{
 		this.buttonsDisabled = buttonsDisabled;
 	}
 
-	public Pane getRoot() {
+	public Window getRoot() {
 		return root;
 	}
 
-	public void setRoot(Pane root) {
+	public void setRoot(Window root) {
 		this.root = root;
 	}
 

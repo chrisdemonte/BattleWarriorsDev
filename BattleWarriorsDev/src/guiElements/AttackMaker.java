@@ -1,6 +1,7 @@
 package guiElements;
 
 import attacks.Move;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -30,16 +31,18 @@ public class AttackMaker {
 	
 	Label debugTester = new Label("");
 	
-	Pane root;
+	Scene scene;
+	Window root;
 	int width;
 	int height;
 	
-	public AttackMaker (int width, int height, Pane root) {
+	public AttackMaker (int width, int height, Window root, Scene scene) {
 		this.moveMaker = new AttackMakerMovePane(selfBuffMaker, targetBuffMaker, animationMaker);
 		this.root = root;
 		this.width = width;
 		this.height = height;
 		this.generateLayout();
+		this.scene = scene;
 	}
 
 	private void generateLayout() {
@@ -76,9 +79,9 @@ public class AttackMaker {
 			this.saveMove();
 		});
 		this.backButton.setOnAction(e->{
-			this.root.getChildren().clear();
-			StartMenu menu = new StartMenu(this.width, this.height, this.root);
-			this.root.getChildren().add(menu.getContainer());
+			this.root.getContainer().getChildren().clear();
+			StartMenu menu = new StartMenu(this.width, this.height, this.root, scene);
+			this.root.getContainer().getChildren().add(menu.getContainer());
 		});
 	}
 	public void useDebugger () {

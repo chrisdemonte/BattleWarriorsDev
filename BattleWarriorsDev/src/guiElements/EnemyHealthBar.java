@@ -26,11 +26,13 @@ public class EnemyHealthBar {
 	int width; 
 	
 	Player player;
+	private BattleScene arena;
 
-	public EnemyHealthBar(Player player, int width ) {
+	public EnemyHealthBar(Player player, int width, BattleScene arena ) {
 		super();
 		this.player = player;
 		this.width = width;
+		this.arena = arena;
 		this.generateLayout();
 	}
 	private void generateLayout() {
@@ -40,7 +42,8 @@ public class EnemyHealthBar {
 		emptyBar.setMaxSize(width, 20);
 		text.setMinSize(width, 20);
 		text.setMaxSize(width, 20);
-		text.setStyle("-fx-text-fill: WHITE; -fx-font-size: 14;");
+		text.setFont(arena.getRoot().getSettings().getSmallFont());
+		text.setStyle("-fx-text-fill: WHITE;");
 		text.setAlignment(Pos.BASELINE_CENTER);
 		int temp = (player.getBattleStats().getCurrentHealth()  * this.width)/ player.getBattleStats().getMaxHealth();
 		fullBar.setMaxSize(temp, 20);
@@ -59,7 +62,8 @@ public class EnemyHealthBar {
 		emptyBar.setMaxSize(width, 20);
 		text.setMinSize(width, 20);
 		text.setMaxSize(width, 20);
-		text.setStyle("-fx-text-fill: WHITE; -fx-font-size: 14;");
+		text.setFont(arena.getRoot().getSettings().getSmallFont());
+		text.setStyle("-fx-text-fill: WHITE;");
 		text.setAlignment(Pos.BASELINE_CENTER);
 		int temp = (player.getBattleStats().getCurrentHealth()  * this.width)/ player.getBattleStats().getMaxHealth();
 		if (temp < 0) {

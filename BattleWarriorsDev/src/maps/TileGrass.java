@@ -4,23 +4,29 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 
 public class TileGrass extends Tile{
 
-	public TileGrass () {
+	public TileGrass (int x, int y, int width, int height, Map map) {
+		super( x, y,width, height, map);
 		this.generateLayout();
 	}
 
 	private void generateLayout() {
 		this.loadImages();
-		this.imageView.prefWidth(50);
-		this.imageView.prefHeight(50);
-		this.imageView.setFitHeight(50);
-		this.imageView.setFitWidth(50);
+		this.imageView.setFitHeight(this.tileHeight);
+		this.imageView.setFitWidth(this.tileWidth);
+		this.container.setClip(new Rectangle(0,0,this.tileWidth,this.tileHeight));
+		this.container.setMaxSize(this.tileWidth, this.tileHeight);
+		this.container.setMinSize(this.tileWidth, this.tileHeight);
+		
 		this.container.getChildren().add(imageView);
+		
 		container.setOnMouseClicked(e->{
 			this.switchToPath();
 		});
@@ -29,23 +35,17 @@ public class TileGrass extends Tile{
 	}
 
 	private void loadImages() {
-		try {
-			File file = new File("resources/images/mapAssets/tile_grass_1.PNG");
-			this.imageView = new ImageView(new Image(new FileInputStream(file)));
-		}
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
+		this.image = map.getImageFactory().getImage("tile_grass_1");
+		this.imageView = new ImageView(image);
 	}
 	private void switchToPath () {
-		try {
-			File file = new File("resources/images/mapAssets/tile_path_1.PNG");
-			this.imageView.setImage(new Image(new FileInputStream(file)));
-		}
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		/**
+		TilePath path = new TilePath(this.getxCoord(), this.getyCoord(),this.tileWidth, this.tileHeight, this.map);
+		path.setxCoord(this.getxCoord());
+		path.setyCoord(this.getyCoord());
+		map.changeTile(path);
+		**/
+		this.addEntity(new EntityData(this.getxCoord(), this.getyCoord(), "demonstawberry"));
 	}
 	
 }

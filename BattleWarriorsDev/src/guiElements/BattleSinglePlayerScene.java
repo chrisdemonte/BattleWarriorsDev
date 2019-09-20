@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import BattleSystem.Battle;
 import BattleSystem.SinglePlayerBattle;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -31,7 +32,8 @@ public class BattleSinglePlayerScene extends BattleScene{
 
 	
 
-	public BattleSinglePlayerScene(Player self, Player enemy, int width, int height, Pane root) {
+	public BattleSinglePlayerScene(Player self, Player enemy, int width, int height, Window root, Scene scene) {
+		super(scene);
 		this.battle = new SinglePlayerBattle(self, enemy, this);
 		this.width = width;
 		this.height = height;
@@ -45,9 +47,9 @@ public class BattleSinglePlayerScene extends BattleScene{
 		container.setMinSize(width, height);
 		
 		this.selectionPane = new BattleSelectionPane(this, self);
-		this.actionButtons = new BattleActionButtonPane(this, self, this.battle);
+		this.actionButtons = new BattleActionButtonPane(this, self, this.battle, this.scene);
 		this.actionTime = new BattleActionTimeDisplay(this);
-		this.battleLogPane = new BattleLogPane(width, height);
+		this.battleLogPane = new BattleLogPane(width, height, this);
 		battleWindow.setMaxSize(width * .9165, height * .5625);
 		battleWindow.setMinSize(width * .9165, height * .5625);
 		battleWindow.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY, Insets.EMPTY)));
@@ -78,13 +80,13 @@ public class BattleSinglePlayerScene extends BattleScene{
 		logPane.setTranslateY(height * .65);
 		logPane.getChildren().add(this.battleLogPane.getContainer());
 		
-		playerBar = new HealthBar(self, width /3);
-		playerEnergy = new EnergyBar(self,  width /3);
+		playerBar = new HealthBar(self, width /3, this);
+		playerEnergy = new EnergyBar(self,  width /3, this);
 		playerHealthBarContainer.getChildren().addAll(playerBar.getContainer(), playerEnergy.getContainer());
 		playerHealthBarContainer.setTranslateX(width/12);
 		playerHealthBarContainer.setTranslateY(width/12);
 		
-		enemyBar = new HealthBar(enemy,  width /3);
+		enemyBar = new HealthBar(enemy,  width /3, this);
 		enemyHealthBarContainer.getChildren().addAll(enemyBar.getContainer());
 		enemyHealthBarContainer.setTranslateX((width/12) + width/2 );
 		enemyHealthBarContainer.setTranslateY(width/12);
@@ -351,11 +353,11 @@ public class BattleSinglePlayerScene extends BattleScene{
 		this.buttonsDisabled = buttonsDisabled;
 	}
 
-	public Pane getRoot() {
+	public Window getRoot() {
 		return root;
 	}
 
-	public void setRoot(Pane root) {
+	public void setRoot(Window root) {
 		this.root = root;
 	}
 

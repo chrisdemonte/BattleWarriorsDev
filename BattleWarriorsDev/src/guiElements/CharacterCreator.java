@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -36,16 +37,18 @@ public class CharacterCreator {
 	Button backButton;
 	Button battleButton;
 	
-	Pane root;
+	Scene scene;
+	Window root;
 	int height;
 	int width;
 	
-	public CharacterCreator(int width, int height, Pane root ) {
+	public CharacterCreator(int width, int height, Window root, Scene scene ) {
 		super();
 		this.root = root;
 		this.height = height;
 		this.width = width;
 		this.statEditor = new BaseStatEditor(5, width, height, this);
+		this.scene = scene;
 		this.generateLayout();
 		
 	}
@@ -65,9 +68,9 @@ public class CharacterCreator {
 			}
 		});
 		this.backButton.setOnAction(e->{
-			this.root.getChildren().clear();
-			StartMenu menu = new StartMenu(this.width, this.height, this.root);
-			this.root.getChildren().add(menu.getContainer());
+			this.root.getContainer().getChildren().clear();
+			StartMenu menu = new StartMenu(this.width, this.height, this.root, scene);
+			this.root.getContainer().getChildren().add(menu.getContainer());
 		});
 		this.battleButton.setOnAction(e->{
 			
@@ -79,9 +82,9 @@ public class CharacterCreator {
 			enemy.getAttacks().getMoveList().add(manager.loadMove("Vegitable Throw"));
 			enemy.getAttacks().getMoveList().add(manager.loadMove("Spit"));
 			
-			BattleSinglePlayerScene battleScene = new BattleSinglePlayerScene(this.player, enemy, this.width, this.height, this.root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(battleScene.getContainer());
+			BattleSinglePlayerScene battleScene = new BattleSinglePlayerScene(this.player, enemy, this.width, this.height, this.root,this.scene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(battleScene.getContainer());
 		});
 		
 		
@@ -173,10 +176,10 @@ public class CharacterCreator {
 	public void setAttackViewColumn(VBox attackViewColumn) {
 		this.attackViewColumn = attackViewColumn;
 	}
-	public Pane getRoot() {
+	public Window getRoot() {
 		return root;
 	}
-	public void setRoot(Pane root) {
+	public void setRoot(Window root) {
 		this.root = root;
 	}
 	public int getHeight() {

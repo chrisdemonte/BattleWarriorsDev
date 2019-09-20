@@ -3,6 +3,7 @@ package guiElements;
 import BattleAnimation.BattleSlidingAnimation;
 import BattleSystem.Battle;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import models.Player;
@@ -19,12 +20,14 @@ public class BattleActionButtonPane {
 	int previousSelection = 0;
 	boolean attackTabsOpen = false;
 	
+	Scene mainScene;
 	BattleSinglePlayerScene scene;
 	Battle battle;
 	Player player;
 	
-	public BattleActionButtonPane ( BattleSinglePlayerScene scene, Player player, Battle battle) {
+	public BattleActionButtonPane ( BattleSinglePlayerScene scene, Player player, Battle battle, Scene mainScene) {
 		this.scene = scene;
+		this.mainScene = mainScene;
 		this.player = player;
 		this.battle = battle;
 		this.generateLayout(scene);
@@ -40,6 +43,7 @@ public class BattleActionButtonPane {
 				attackTabsOpen = true;
 			}
 		});
+		attackButton.setFont(scene.getRoot().getSettings().getLargeFont());
 		this.attackButton.setMinSize(140, 40);	
 
 		skipTurnButton.setOnAction(e->{
@@ -56,14 +60,17 @@ public class BattleActionButtonPane {
 			}
 			previousSelection = 1;
 		});
+		skipTurnButton.setFont(scene.getRoot().getSettings().getLargeFont());
 		this.runButton.setOnAction(e->{
-			StartMenu menu = new StartMenu(this.scene.getWidth(), this.scene.getHeight(), this.scene.getRoot());
-			this.scene.getRoot().getChildren().clear();
-			this.scene.getRoot().getChildren().add(menu.getContainer());
+			StartMenu menu = new StartMenu(this.scene.getWidth(), this.scene.getHeight(), this.scene.getRoot(), this.mainScene);
+			this.scene.getRoot().getContainer().getChildren().clear();
+			this.scene.getRoot().getContainer().getChildren().add(menu.getContainer());
 		});
+		runButton.setFont(scene.getRoot().getSettings().getLargeFont());
 		this.itemButton.setOnAction(e->{
 			
 		});
+		itemButton.setFont(scene.getRoot().getSettings().getLargeFont());
 		this.skipTurnButton.setMinSize(140, 40);	
 		this.itemButton.setMinSize(140, 40);	
 		this.runButton.setMinSize(140, 40);	

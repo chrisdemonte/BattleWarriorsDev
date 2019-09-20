@@ -12,10 +12,12 @@ public class BattleLogPane {
 	
 	int width;
 	int height;
+	BattleScene arena;
 	
-	public BattleLogPane (int width, int height ){
+	public BattleLogPane (int width, int height, BattleScene arena ){
 		this.width = width;
 		this.height = height;
+		this.arena = arena;
 		this.generateLayout();
 	}
 
@@ -27,6 +29,7 @@ public class BattleLogPane {
 		display.setMaxSize((width / 3), height - 573);
 		display.setMinSize((width / 3), height - 573);	
 		display.setWrapText(true);
+		display.setFont(arena.getRoot().getSettings().getSmallFont());
 		
 		container.getChildren().addAll(display);
 	}

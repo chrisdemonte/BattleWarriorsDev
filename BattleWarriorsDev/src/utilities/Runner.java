@@ -9,6 +9,7 @@ import guiElements.BattleStatCreator;
 import guiElements.BuffEffectListMaker;
 import guiElements.BuffMaker;
 import guiElements.StartMenu;
+import guiElements.Window;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -25,17 +26,13 @@ public class Runner extends Application {
 		
 		int width = 1200;
 		int height = 800;
-		Pane root = new Pane();
-		root.setMinSize(width, height);
 		
-		HBox window = new HBox(root);
-		window.setMinSize(width, height);
-		window.setMaxSize(width, height);
+		Window window = new Window(width, height);
+		Scene scene = new Scene(window.getContainer());
+		window.setScene(scene);
+		StartMenu pane = new StartMenu(width, height, window, scene);
+		window.getContainer().getChildren().add(pane.getContainer());
 		
-		StartMenu pane = new StartMenu(width, height, root);
-		
-		root.getChildren().add(pane.getContainer());
-		Scene scene = new Scene(window);
 		
 		mainStage.setScene(scene);
 		mainStage.setTitle("Battle Warriors Dev 1.1");

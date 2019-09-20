@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -51,11 +52,12 @@ Button battleButton2;
 boolean firstClick = false;
 boolean secondClick = false;
 
-Pane root;
+Scene scene;
+Window root;
 int height;
 int width;
 
-public CharacterCreatorTwoPlayer(int width, int height, Pane root ) {
+public CharacterCreatorTwoPlayer(int width, int height, Window root, Scene scene ) {
 	
 	this.root = root;
 	this.height = height;
@@ -63,6 +65,7 @@ public CharacterCreatorTwoPlayer(int width, int height, Pane root ) {
 	this.statEditor = new BaseStatDoubleEditor(5, width, height, this, false);
 	this.statEditor2 = new BaseStatDoubleEditor(5, width, height, this, true);
 	this.generateLayout();
+	this.scene = scene;
 	
 }
 private void setButtonActions() {
@@ -94,24 +97,24 @@ private void setButtonActions() {
 		}
 	});
 	this.backButton.setOnAction(e->{
-		this.root.getChildren().clear();
-		StartMenu menu = new StartMenu(this.width, this.height, this.root);
-		this.root.getChildren().add(menu.getContainer());
+		this.root.getContainer().getChildren().clear();
+		StartMenu menu = new StartMenu(this.width, this.height, this.root, this.scene);
+		this.root.getContainer().getChildren().add(menu.getContainer());
 	});
 	this.battleButton.setOnAction(e->{
 		this.firstClick = true;
 		if (this.firstClick && this.secondClick) {
-			BattleTwoPlayerScene battleScene = new BattleTwoPlayerScene(this.player, this.enemy, this.width, this.height, this.root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(battleScene.getContainer());
+			BattleTwoPlayerScene battleScene = new BattleTwoPlayerScene(this.player, this.enemy, this.width, this.height, this.root, this.scene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(battleScene.getContainer());
 		}
 	});
 	this.battleButton2.setOnAction(e->{
 		this.secondClick = true;
 		if (this.firstClick && this.secondClick) {
-			BattleTwoPlayerScene battleScene = new BattleTwoPlayerScene(this.player, this.enemy, this.width, this.height, this.root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(battleScene.getContainer());
+			BattleTwoPlayerScene battleScene = new BattleTwoPlayerScene(this.player, this.enemy, this.width, this.height, this.root, this.scene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(battleScene.getContainer());
 		}
 	});
 	
@@ -247,10 +250,10 @@ public VBox getAttackViewColumn() {
 public void setAttackViewColumn(VBox attackViewColumn) {
 	this.attackViewColumn = attackViewColumn;
 }
-public Pane getRoot() {
+public Window getRoot() {
 	return root;
 }
-public void setRoot(Pane root) {
+public void setRoot(Window root) {
 	this.root = root;
 }
 public int getHeight() {

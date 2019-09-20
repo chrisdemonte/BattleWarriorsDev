@@ -31,11 +31,13 @@ public class HealthBar {
 	int width; 
 	
 	Player player;
+	BattleScene arena;
 
-	public HealthBar(Player player, int width ) {
+	public HealthBar(Player player, int width, BattleScene arena ) {
 		super();
 		this.player = player;
 		this.width = width;
+		this.arena = arena;
 		this.generateLayout();
 	}
 	private void generateLayout() {
@@ -46,7 +48,8 @@ public class HealthBar {
 		emptyBar.setMaxSize(width, 20);
 		text.setMinSize(width, 20);
 		text.setMaxSize(width, 20);
-		text.setStyle("-fx-text-fill: WHITE; -fx-font-size: 14;");
+		text.setFont(arena.getRoot().getSettings().getSmallFont());
+		text.setStyle("-fx-text-fill: WHITE;");
 		text.setAlignment(Pos.BASELINE_CENTER);
 		text.setTooltip(tooltip);
 		int temp = (player.getBattleStats().getCurrentHealth()  * this.width)/ player.getBattleStats().getMaxHealth();
@@ -66,7 +69,8 @@ public class HealthBar {
 		emptyBar.setMaxSize(width, 20);
 		text.setMinSize(width, 20);
 		text.setMaxSize(width, 20);
-		text.setStyle("-fx-text-fill: WHITE; -fx-font-size: 14;");
+		text.setFont(arena.getRoot().getSettings().getSmallFont());
+		text.setStyle("-fx-text-fill: WHITE;");
 		text.setAlignment(Pos.BASELINE_CENTER);
 		tooltip.setText(player.getBattleStats().toString());
 		text.setTooltip(tooltip);

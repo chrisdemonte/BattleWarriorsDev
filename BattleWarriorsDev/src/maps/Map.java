@@ -16,11 +16,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import utilities.ImageFactory;
 
 public class Map {
 
+	String name;
 	int xSize;
 	int ySize;
+	int tileWidth;
+	int tileHeight;
 	
 	Pane container = new Pane();
 	Tile[][] mapTiles;
@@ -29,17 +33,24 @@ public class Map {
 	
 	Image playerAvatar;
 	ImageView avatarHolder;
+	Pane avatarPane = new Pane();
+	ImageFactory imageFactory;
 	
 	int counter = 0;
 	
-	public Map(int xSize, int ySize, Pane root) {
+	public Map(int xSize, int ySize, String name, int tileWidth, int tileHeight, Pane root) {
 		super();
+		this.name = name;
 		this.xSize = xSize;
 		this.ySize = ySize;
+		this.tileWidth = tileWidth;
+		this.tileHeight = tileHeight;
+		this.imageFactory = new ImageFactory();
 		this.generateMap();
 	}
 
 	private void generateMap() {
+	
 		eastWestContainer = new HBox();
 		mapTiles = new Tile[xSize][ySize];
 		northSouthContainer = new VBox[xSize];
@@ -47,7 +58,9 @@ public class Map {
 			northSouthContainer[i] = new VBox();
 			eastWestContainer.getChildren().add(northSouthContainer[i]);
 			for (int j = 0; j < ySize; j++) {
-				mapTiles[i][j] = new TileGrass();
+				mapTiles[i][j] = new TileGrass(i,j,tileWidth, tileHeight, this);
+				mapTiles[i][j].setxCoord(i);
+				mapTiles[i][j].setyCoord(j);
 				northSouthContainer[i].getChildren().add(mapTiles[i][j].getContainer());
 				
 			}
@@ -56,10 +69,18 @@ public class Map {
 		this.loadImages();
 		avatarHolder.setFitHeight(50);
 		avatarHolder.setFitWidth(50);
-		avatarHolder.setTranslateX(200);
-		avatarHolder.setTranslateY(180);
-		container.getChildren().addAll(eastWestContainer, avatarHolder);
+		avatarPane.setTranslateX(200);
+		avatarPane.setTranslateY(180);
+		avatarPane.getChildren().add(avatarHolder);
+		avatarPane.setMinSize(50,50);
+		avatarPane.setMaxSize(50, 50);
+		container.getChildren().addAll(eastWestContainer, avatarPane);
 		this.dreamAnimation();
+		//
+		avatarPane.setOnMouseClicked(e->{
+			avatarPane.setTranslateZ(10);
+		});
+		//
 		
 	}
 	public void dreamAnimation() {
@@ -148,6 +169,70 @@ public class Map {
 
 	public void setNorthSouthContainer(VBox[] northSouthContainer) {
 		this.northSouthContainer = northSouthContainer;
+	}
+
+	public void changeTile(Tile newTile) {
+		VBox column = this.northSouthContainer[newTile.getxCoord()];
+		column.getChildren().remove(newTile.getyCoord());
+		column.getChildren().add(newTile.getyCoord(), newTile.getContainer());
+		this.mapTiles[newTile.getxCoord()][newTile.getyCoord()] = newTile;
+		
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getTileWidth() {
+		return tileWidth;
+	}
+
+	public void setTileWidth(int tileWidth) {
+		this.tileWidth = tileWidth;
+	}
+
+	public int getTileHeight() {
+		return tileHeight;
+	}
+
+	public void setTileHeight(int tileHeight) {
+		this.tileHeight = tileHeight;
+	}
+
+	public Image getPlayerAvatar() {
+		return playerAvatar;
+	}
+
+	public void setPlayerAvatar(Image playerAvatar) {
+		this.playerAvatar = playerAvatar;
+	}
+
+	public ImageView getAvatarHolder() {
+		return avatarHolder;
+	}
+
+	public void setAvatarHolder(ImageView avatarHolder) {
+		this.avatarHolder = avatarHolder;
+	}
+
+	public ImageFactory getImageFactory() {
+		return imageFactory;
+	}
+
+	public void setImageFactory(ImageFactory imageFactory) {
+		this.imageFactory = imageFactory;
+	}
+
+	public int getCounter() {
+		return counter;
+	}
+
+	public void setCounter(int counter) {
+		this.counter = counter;
 	}
 	
 	

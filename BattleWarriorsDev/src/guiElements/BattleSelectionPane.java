@@ -85,12 +85,15 @@ public class BattleSelectionPane {
 			attackRows.getChildren().add(rows[i]);
 		}
 		this.submitButton.setMinSize(width * .166, 30);
+		this.submitButton.setFont(arena.getRoot().getSettings().getSmallFont());
 		this.clearButton.setMinSize(width * .166, 30);
+		this.clearButton.setFont(arena.getRoot().getSettings().getSmallFont());
 		this.rowOne.setPadding(new Insets(10, 0,0, 0));
 		scrollPane.setContent(attackRows);
 		scrollPane.setMinSize(width*.35, height*.215);
 		scrollPane.setMaxSize(width*.35, height*.215);
 		this.setButtons();
+		timeLeft.setFont(arena.getRoot().getSettings().getTinyFont());
 		timeLeft.setText("Time: " + timeCounter + "/" + player.getBattleStats().getActionTime() + "\t Energy: " + player.getBattleStats().getCurrentEnergy());
 		timeLeft.setStyle("-fx-text-fill: WHITE;");
 		timeLeft.setMinSize(width *.35, height * .0375);

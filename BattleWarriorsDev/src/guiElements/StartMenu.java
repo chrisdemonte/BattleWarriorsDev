@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import maps.Map;
+import maps.MapMaker;
 import models.Player;
 import utilities.FileManager;
 
@@ -23,11 +24,12 @@ public class StartMenu {
 	Button mapButton = new Button("Map");
 	Button infoButton = new Button ("Info");
 	
-	Pane root;
+	Scene mainScene;
+	Window root;
 	int width = 0;
 	int height = 0;
 	
-	public StartMenu (int width, int height, Pane root) {
+	public StartMenu (int width, int height, Window root, Scene scene) {
 		this.width = width;
 		this.height = height;
 		this.generateLayout();
@@ -46,30 +48,31 @@ public class StartMenu {
 		this.menuContainer.setPadding(new Insets(height / 3, 0, 0, 0));
 		
 		this.container.getChildren().add(menuContainer);
+	
 	}
 
 	private void setButtonActions() {
 		
 		charCreationButton.setOnAction(e->{
-			CharacterCreator charCreator = new CharacterCreator(width, height, root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(charCreator.getContainer());
+			CharacterCreator charCreator = new CharacterCreator(width, height, root, this.mainScene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(charCreator.getContainer());
 		});
 		charCreationButton.setMinSize(width/10, height/20);
 		
 		twoPlayerBattle.setOnAction(e->{
-			CharacterCreatorTwoPlayer charCreator = new CharacterCreatorTwoPlayer(width, height, root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(charCreator.getContainer());
+			CharacterCreatorTwoPlayer charCreator = new CharacterCreatorTwoPlayer(width, height, root, this.mainScene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(charCreator.getContainer());
 		});
 		twoPlayerBattle.setMinSize(width/10, height/20);
 		charCreationButton.setMinSize(width/10, height/20);
 		
 		attackEditorButton.setOnAction(e->{
 			
-			AttackMaker attackMaker = new AttackMaker(this.width, this.height, this.root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(attackMaker.getContainer());
+			AttackMaker attackMaker = new AttackMaker(this.width, this.height, this.root, this.mainScene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(attackMaker.getContainer());
 		});
 		attackEditorButton.setMinSize(width/10, height/20);
 		battleButton.setOnAction(e->{
@@ -99,21 +102,21 @@ public class StartMenu {
 			enemy.getAttacks().getMoveList().add(manager.loadMove("Vegitable Throw"));
 			enemy.getAttacks().getMoveList().add(manager.loadMove("Spit"));
 			
-			BattleSinglePlayerScene battleScene = new BattleSinglePlayerScene(user, enemy, this.width, this.height, this.root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(battleScene.getContainer());
+			BattleSinglePlayerScene battleScene = new BattleSinglePlayerScene(user, enemy, this.width, this.height, this.root, mainScene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(battleScene.getContainer());
 		});
 		battleButton.setMinSize(width/10, height/20);
 		infoButton.setOnAction(e->{
-			StatementToTheUser infoPage = new StatementToTheUser(this.width, this.height, root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(infoPage.getContainer());
+			StatementToTheUser infoPage = new StatementToTheUser(this.width, this.height, root, mainScene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(infoPage.getContainer());
 		});
 		infoButton.setMinSize(width/10, height/20);
 		mapButton.setOnAction(e->{
-			Map map = new Map(20, 20, root);
-			this.root.getChildren().clear();
-			this.root.getChildren().add(map.getContainer());
+			MapMaker mapMaker = new MapMaker(width, height, root, mainScene);
+			this.root.getContainer().getChildren().clear();
+			this.root.getContainer().getChildren().add(mapMaker.getContainer());
 		});
 		mapButton.setMinSize(width/10, height/20);
 		
@@ -160,11 +163,11 @@ public class StartMenu {
 		this.attackEditorButton = attackEditorButton;
 	}
 
-	public Pane getRoot() {
+	public Window getRoot() {
 		return root;
 	}
 
-	public void setRoot(HBox root) {
+	public void setRoot(Window root) {
 		this.root = root;
 	}
 
