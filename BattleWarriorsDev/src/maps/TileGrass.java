@@ -25,7 +25,7 @@ public class TileGrass extends Tile{
 		this.container.setMaxSize(this.tileWidth, this.tileHeight);
 		this.container.setMinSize(this.tileWidth, this.tileHeight);
 		
-		this.container.getChildren().add(imageView);
+		this.container.getChildren().addAll(imageView);
 		
 		container.setOnMouseClicked(e->{
 			this.switchToPath();

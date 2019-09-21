@@ -154,7 +154,7 @@ public class BattleSinglePlayerScene extends BattleScene{
 		debuggLine2.setTranslateY((height/2 )- 2);
 		**/
 		container.getChildren().addAll(frameView, battleWindow, playerHealthBarContainer, enemyHealthBarContainer, attackPane, actionPane, logPane,
-				playerSpriteContainer, enemySpriteContainer, timeDisplayPane);
+				playerSpriteContainer, enemySpriteContainer);
 		
 		this.battleLog.addToLog( "!!! " + enemy.getName() + " challenges you to a fight !!!\n" + enemy.getDescription());
 		this.battleLogPane.updateLog(this.battleLog);

@@ -27,6 +27,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import models.Player;
 import utilities.BattleLog;
+import utilities.ImageFactory;
 
 public class BattleScene {
 	
@@ -69,6 +70,7 @@ public class BattleScene {
 	Pane enemyTimeDisplayPane = new Pane();
 	
 	Battle battle;
+	ImageFactory imageFactory;
 	
 	Label output = new Label("Battle");
 	BattleSelectionPaneTwoPlayer playerTwoSelectionPane;
@@ -82,6 +84,7 @@ public class BattleScene {
 	
 	public BattleScene(Scene scene) {
 	this.scene = scene;
+	this.imageFactory = new ImageFactory();
 	}
 
 	public void refreshBars() {
@@ -400,6 +403,22 @@ public class BattleScene {
 
 	public void setEnemyName(Label enemyName) {
 		this.enemyName = enemyName;
+	}
+
+	public ImageFactory getImageFactory() {
+		return imageFactory;
+	}
+
+	public void setImageFactory(ImageFactory imageFactory) {
+		this.imageFactory = imageFactory;
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
 	}
 	
 	

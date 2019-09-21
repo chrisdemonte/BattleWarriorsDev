@@ -113,7 +113,9 @@ public class BattleAnimationManager {
 			int delayCounter = 0;
 			timer = new Timeline();
 			ArrayList<EventHandler<ActionEvent>> eventList = new ArrayList<EventHandler<ActionEvent>>();
-			
+			if (battle.confusionCheck(battle.getFaster())){
+				battle.rollOnConfusion(battle.getFaster());
+			}
 			for (int i = 0; i < battle.getFasterAttacks().size(); i++) {
 				Move attack = battle.getFasterAttacks().get(i);
 				eventList.add(new EventHandler<ActionEvent>() {
@@ -124,6 +126,9 @@ public class BattleAnimationManager {
 			
 				timer.getKeyFrames().add(new KeyFrame(Duration.millis(delayCounter), eventList.get(i)));
 				delayCounter += battle.getFasterAttacks().get(i).getTime();
+			}
+			if (battle.confusionCheck(battle.getSlower())){
+				battle.rollOnConfusion(battle.getSlower());
 			}
 			for (int i = 0; i < battle.getSlowerAttacks().size(); i++) {
 				Move attack = battle.getSlowerAttacks().get(i);
@@ -141,7 +146,6 @@ public class BattleAnimationManager {
 				@Override
 				public void handle(ActionEvent e) {
 					//scene.getActionButtons().setPreviousSelection(0);
-					scene.clearTimeDisplayTabs();
 					scene.refreshBars();
 					scene.getAttackPane().getChildren().clear();
 					battle.clearAttackChoices();

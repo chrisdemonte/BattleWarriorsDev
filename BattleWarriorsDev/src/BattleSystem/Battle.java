@@ -39,12 +39,13 @@ public class Battle {
 	
 	BattleScene arena;
 	Move skipturn = null;
+	Move confusion = null;
 	int turnCounter = 0;
 	
 	public Battle () {
 		FileManager manager = new FileManager();
 		this.skipturn = manager.loadMove("Skip Turn");
-		
+		this.confusion = manager.loadMove("Confusion Hit");
 	}
 	
 	public void doTurn() {
@@ -81,7 +82,7 @@ public class Battle {
 		else {
 			setFaster(getEnemy());
 			setFasterPriorityAttacks(getEnemyPriorityChoice());
-			setFasterAttacks((getEnemyChoice()));
+			setFasterAttacks(getEnemyChoice());
 			setSlower(getSelf());
 			setSlowerPriorityAttacks(getPlayerPriorityChoice());
 			setSlowerAttacks(getPlayerChoice());
@@ -170,6 +171,45 @@ public class Battle {
 			enemy.setDead(true);
 		}
 		return self.isDead() || enemy.isDead();
+	}
+	public boolean confusionCheck (Player player) {
+		boolean confused = false;
+		for (int i = 0; i < player.getBattleBuffs().size(); i++) {
+			if (player.getBattleBuffs().get(i).getBuff().getName().contentEquals("Confused")) {
+				confused = true;
+			};
+		}
+		for (int i = 0; i < player.getBattleDebuffs().size(); i++) {
+			if (player.getBattleDebuffs().get(i).getBuff().getName().contentEquals("Confused")) {
+				confused = true;
+			};
+		}
+		if (player.getBattleStats().isEnraged()) {
+			confused = false;
+		}
+		return confused; 
+	}
+	public void rollOnConfusion(Player player) {
+		Random rand = new Random();
+		int roll = rand.nextInt(100);
+		if (roll <= 33) {
+			
+		}
+		else if (roll <=66) {
+			player.getBattleStats().setSelfHarm(true);
+		}
+		else {
+			if (player == self) {
+				this.playerChoice.clear();
+				this.playerPriorityChoice.clear();
+				this.playerChoice.add(confusion);
+			}
+			if (player == enemy) {
+				this.enemyChoice.clear();
+				this.enemyPriorityChoice.clear();
+				this.enemyChoice.add(confusion);
+			}
+		}
 	}
 
 	public Player getSelf() {

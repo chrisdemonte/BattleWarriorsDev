@@ -26,14 +26,18 @@ public class BattleBuffAnimationManager {
 		for (int i = 0; i < battle.getSlower().getBattleBuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getSlower().getBattleBuffs().get(i);
 			eventList.add(e->{
+				
 				if (buff.getCooldownCounter() > 1) {
+					buff.getBuff().runAnimation(battle, scene, battle.getSlower(), 1);
 					buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
 				}
 				else {
 					if (buff.getBuff().getEnd() != null) {
+						buff.getBuff().runAnimation(battle, scene, battle.getSlower(), 2);
 						buff.getBuff().doEndBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
 					}
 					else {
+						buff.getBuff().runAnimation(battle, scene, battle.getSlower(), 1);
 						buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getSlower(), buff, scene.getBattleLog());
 					}
 				}
@@ -48,14 +52,18 @@ public class BattleBuffAnimationManager {
 		for (int i = 0; i < battle.getSlower().getBattleDebuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getSlower().getBattleDebuffs().get(i);
 			eventList.add(e->{
+				
 				if (buff.getCooldownCounter() > 1) {
+					buff.getBuff().runAnimation(battle, scene, battle.getSlower(), 1);
 					buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
 				}
 				else {
 					if (buff.getBuff().getEnd() !=null) {
+						buff.getBuff().runAnimation(battle, scene, battle.getSlower(), 2);
 						buff.getBuff().doEndBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
 					}
 					else {
+						buff.getBuff().runAnimation(battle, scene, battle.getSlower(), 1);
 						buff.getBuff().doPeriodicBuff(battle.getSlower(), battle.getFaster(), buff, scene.getBattleLog());
 					}
 				}
@@ -69,14 +77,18 @@ public class BattleBuffAnimationManager {
 		for (int i = 0; i < battle.getFaster().getBattleBuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getFaster().getBattleBuffs().get(i);
 			eventList.add(e->{
+				
 				if (buff.getCooldownCounter() > 1) {
+					buff.getBuff().runAnimation(battle, scene, battle.getFaster(), 1);
 					buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
 				}
 				else {
 					if (buff.getBuff().getEnd() != null) {
+						buff.getBuff().runAnimation(battle, scene, battle.getFaster(), 2);
 						buff.getBuff().doEndBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
 					}
 					else {
+						buff.getBuff().runAnimation(battle, scene, battle.getFaster(), 1);
 						buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getFaster(), buff, scene.getBattleLog());
 					}
 				}
@@ -91,14 +103,18 @@ public class BattleBuffAnimationManager {
 		for (int i = 0; i < battle.getFaster().getBattleDebuffs().size(); i++) {
 			BattleBuffHolder buff = battle.getFaster().getBattleDebuffs().get(i);
 			eventList.add(e->{
+				
 				if (buff.getCooldownCounter() > 1) {
+					buff.getBuff().runAnimation(battle, scene, battle.getFaster(), 1);
 					buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
 				}
 				else {
 					if (buff.getBuff().getEnd() !=null) {
+						buff.getBuff().runAnimation(battle, scene, battle.getFaster(), 2);
 						buff.getBuff().doEndBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
 					}
 					else {
+						buff.getBuff().runAnimation(battle, scene, battle.getFaster(), 1);
 						buff.getBuff().doPeriodicBuff(battle.getFaster(), battle.getSlower(), buff, scene.getBattleLog());
 					}
 				}

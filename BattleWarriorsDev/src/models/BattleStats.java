@@ -32,6 +32,7 @@ public class BattleStats {
 	int currentComboPoints;
 	
 	int actionTime;
+	int actionTimeCounter;
 	int daze;
 	int haste;
 	
@@ -139,6 +140,7 @@ public class BattleStats {
 		this.maxComboPoints = 0;
 		this.currentComboPoints = 0;
 		this.actionTime = 0;
+		this.actionTimeCounter = 0;
 		this.daze = 0;
 		this.haste = 0;
 		this.damageSpike = 0;
@@ -578,12 +580,12 @@ public class BattleStats {
 	}
 	
 	public void battleTurnUpdate () {
-		
+		this.actionTimeCounter = 0;
 		this.daze = 0;
 		this.haste =(int)(((speed * speedMod) + (skill * skillMod) + (cunning * cunningMod))/(level * 20.0));
 		this.damageSpike = 0;
 		this.crit = .01 + (((speed * .25 * speedMod) + (skill * 1.5 * skillMod) + (cunning * 1.5 * cunningMod) + (intelligence * .75 * intelligenceMod))/ 2150.0);
-		
+		this.currentComboPoints = 0;
 		this.accuracy =.95 + (((skill * skillMod * 3.0) + (intelligence * intelligenceMod) + (cunning * cunningMod)) / 2150.0);
 		this.avoidance = .01 + (((skill * skillMod) + (cunning * cunningMod * 1.5) + (speed * speedMod * 1.5)) / 2150.0);
 		this.blocking = ((defense * defenseMod * 3.0) / 2150.0);
@@ -592,25 +594,26 @@ public class BattleStats {
 		this.changeReflectingCounter(-1);
 		this.changeImmunityCounter(-1);
 		this.changeProtectionCounter(-1);
+		this.changeFreecastingCounter(-1);
+		this.changeCanAttackCounter(-1);
+		this.changeCanSkipTurnCounter(-1);
+		this.changeCanUseItemsCounter(-1);
+		this.changeCanRunCounter(-1);
+		this.changelockedCounter(-1);
+		this.changeExhaustedCounter(-1);
+		this.changeFreecastingCounter(-1);
+		this.changeEnragedCounter(-1);
+		this.changeCheatingDeathCounter(-1);
+		this.changeVulnerableCounter(-1);
+		this.changeReachCounter(-1);
+		this.changeOutOfReachCounter(-1);
+		this.changeSelfHarmCounter(-1);
+		this.changeHiddenCounter(-1);
 		/**
 		this.barrierCounter--;
 		this.physicalShieldCounter--;
 		this.magicShieldCounter--;
 		this.intimidation = 0.0;
-		this.canAttackCounter--;
-		this.canUseItemsCounter--;
-		this.canSkipTurnCounter--;
-		this.canRunCounter--;
-		this.freecastingCounter--;
-		this.exhaustedCounter--;
-		this.lockedCounter--;
-		this.enragedCounter--;
-		this.outOfReachCounter--;
-		this.reachCounter--;
-		this.selfHarmCounter--;
-		this.vulnerableCounter--;
-		this.hiddenCounter--;
-		this.cheatingDeathCounter--;
 		this.weatherProofCounter--;
 		**/
 	}
@@ -893,6 +896,15 @@ public class BattleStats {
 	public void setCurrentComboPoints(int currentComboPoints) {
 		this.currentComboPoints = currentComboPoints;
 	}
+	public void changeCurrentComboPoints(int change) {
+		currentComboPoints+= change;
+		if(currentComboPoints > maxComboPoints) {
+			currentComboPoints = maxComboPoints;
+		}
+		if(currentComboPoints < 0) {
+			currentComboPoints = 0;
+		}
+	}
 
 	public int getActionTime() {
 		return actionTime;
@@ -1030,6 +1042,13 @@ public class BattleStats {
 	public void setCanAttackCounter(int canAttackCounter) {
 		this.canAttackCounter = canAttackCounter;
 	}
+	public void changeCanAttackCounter(int change) {
+		canAttackCounter += change;
+		if (canAttackCounter <= 0) {
+			canAttackCounter = 0;
+			canAttack = true;
+		}
+	}
 
 	public boolean isCanUseItems() {
 		return canUseItems;
@@ -1045,6 +1064,13 @@ public class BattleStats {
 
 	public void setCanUseItemsCounter(int canUseItemsCounter) {
 		this.canUseItemsCounter = canUseItemsCounter;
+	}
+	public void changeCanUseItemsCounter(int change) {
+		canUseItemsCounter += change;
+		if (canUseItemsCounter <= 0) {
+			canUseItemsCounter = 0;
+			canUseItems = true;
+		}
 	}
 
 	public boolean isCanSkipTurn() {
@@ -1062,6 +1088,13 @@ public class BattleStats {
 	public void setCanSkipTurnCounter(int canSkipTurnCounter) {
 		this.canSkipTurnCounter = canSkipTurnCounter;
 	}
+	public void changeCanSkipTurnCounter(int change) {
+		canSkipTurnCounter += change;
+		if (canSkipTurnCounter <= 0) {
+			canSkipTurnCounter = 0;
+			canSkipTurn = true;
+		}
+	}
 
 	public boolean isCanRun() {
 		return canRun;
@@ -1077,6 +1110,13 @@ public class BattleStats {
 
 	public void setCanRunCounter(int canRunCounter) {
 		this.canRunCounter = canRunCounter;
+	}
+	public void changeCanRunCounter(int change) {
+		canRunCounter+= change;
+		if (canRunCounter <= 0) {
+			canRunCounter = 0;
+			canRun = true;
+		}
 	}
 
 	public double getProtection() {
@@ -1219,6 +1259,13 @@ public class BattleStats {
 	public int getFreecastingCounter() {
 		return freecastingCounter;
 	}
+	public void changeFreecastingCounter(int change) {
+		freecastingCounter += change;
+		if (freecastingCounter <= 0) {
+			freecastingCounter = 0;
+			freecasting = false;
+		}
+	}
 
 	public void setFreecastingCounter(int freecastingCounter) {
 		this.freecastingCounter = freecastingCounter;
@@ -1239,6 +1286,13 @@ public class BattleStats {
 	public void setExhaustedCounter(int exhaustedCounter) {
 		this.exhaustedCounter = exhaustedCounter;
 	}
+	public void changeExhaustedCounter(int change) {
+		exhaustedCounter += change;
+		if (exhaustedCounter <= 0) {
+			exhaustedCounter = 0;
+			exhausted = false;
+		}
+	}
 
 	public boolean isLocked() {
 		return locked;
@@ -1254,6 +1308,13 @@ public class BattleStats {
 
 	public void setLockedCounter(int lockedCounter) {
 		this.lockedCounter = lockedCounter;
+	}
+	public void changelockedCounter(int change) {
+		lockedCounter += change;
+		if (lockedCounter <= 0) {
+			lockedCounter = 0;
+			locked = false;
+		}
 	}
 
 	public double getStaminaMod() {
@@ -1589,6 +1650,13 @@ public class BattleStats {
 	public void setEnragedCounter(int enragedCounter) {
 		this.enragedCounter = enragedCounter;
 	}
+	public void changeEnragedCounter(int change) {
+		enragedCounter += change;
+		if (enragedCounter <= 0) {
+			enragedCounter = 0;
+			enraged = false;
+		}
+	}
 
 	public boolean isOutOfReach() {
 		return outOfReach;
@@ -1605,6 +1673,13 @@ public class BattleStats {
 	public void setOutOfReachCounter(int outOfReachCounter) {
 		this.outOfReachCounter = outOfReachCounter;
 	}
+	public void changeOutOfReachCounter(int change) {
+		outOfReachCounter += change;
+		if (outOfReachCounter <= 0) {
+			outOfReachCounter = 0;
+			outOfReach = false;
+		}
+	}
 
 	public boolean isReach() {
 		return reach;
@@ -1620,6 +1695,13 @@ public class BattleStats {
 
 	public void setReachCounter(int reachCounter) {
 		this.reachCounter = reachCounter;
+	}
+	public void changeReachCounter(int change) {
+		reachCounter += change;
+		if (reachCounter <= 0) {
+			reachCounter = 0;
+			reach = false;
+		}
 	}
 
 	public double getAdjuster() {
@@ -1645,6 +1727,13 @@ public class BattleStats {
 	public void setSelfHarmCounter(int selfHarmCounter) {
 		this.selfHarmCounter = selfHarmCounter;
 	}
+	public void changeSelfHarmCounter(int change) {
+		selfHarmCounter += change;
+		if (selfHarmCounter <= 0) {
+			selfHarmCounter = 0;
+			selfHarm = false;
+		}
+	}
 
 	public boolean isVulnerable() {
 		return vulnerable;
@@ -1662,6 +1751,14 @@ public class BattleStats {
 		this.vulnerableCounter = vulnerableCounter;
 	}
 
+	public void changeVulnerableCounter(int change) {
+		vulnerableCounter += change;
+		if (vulnerableCounter <= 0) {
+			vulnerableCounter = 0;
+			vulnerable = false;
+		}
+	}
+
 	public boolean isHidden() {
 		return hidden;
 	}
@@ -1677,7 +1774,13 @@ public class BattleStats {
 	public void setHiddenCounter(int hiddenCounter) {
 		this.hiddenCounter = hiddenCounter;
 	}
-
+		public void changeHiddenCounter(int change) {
+		hiddenCounter += change;
+		if (hiddenCounter <= 0) {
+			hiddenCounter = 0;
+			hidden = false;
+		}
+	}
 	public boolean isCheatingDeath() {
 		return cheatingDeath;
 	}
@@ -1692,6 +1795,13 @@ public class BattleStats {
 
 	public void setCheatingDeathCounter(int cheatingDeathCounter) {
 		this.cheatingDeathCounter = cheatingDeathCounter;
+	}
+	public void changeCheatingDeathCounter(int change) {
+		cheatingDeathCounter += change;
+		if (cheatingDeathCounter <= 0) {
+			cheatingDeathCounter = 0;
+			cheatingDeath = false;
+		}
 	}
 
 	public boolean isWeatherProof() {
@@ -1708,6 +1818,14 @@ public class BattleStats {
 
 	public void setWeatherProofCounter(int weatherProofCounter) {
 		this.weatherProofCounter = weatherProofCounter;
+	}
+
+	public int getActionTimeCounter() {
+		return actionTimeCounter;
+	}
+
+	public void setActionTimeCounter(int actionTimeCounter) {
+		this.actionTimeCounter = actionTimeCounter;
 	}
 	
 

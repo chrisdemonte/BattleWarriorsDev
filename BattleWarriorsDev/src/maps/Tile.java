@@ -51,6 +51,18 @@ public class Tile {
 			entityView.setFitWidth(tileHeight);
 		}
 	}
+	public void addPlayer(EntityData entData) {
+		if (!data.hasEntity) {
+			data.setEntity(entData);
+			entityImage = map.getImageFactory().getImage("man_red");
+			entityView = new ImageView(entityImage);
+			map.getContainer().getChildren().add(entityView);
+			entityView.setTranslateX(getxCoord()*tileWidth);
+			entityView.setTranslateY(getyCoord()*tileHeight);
+			entityView.setFitHeight(tileWidth);
+			entityView.setFitWidth(tileHeight);
+		}
+	}
 
 	public void dreamAnimation() {
 		Timeline timeline = new Timeline();

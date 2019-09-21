@@ -4,7 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import BattleAnimation.BuffAnimation;
+import BattleAnimation.BuffBoostAnimation;
+import BattleAnimation.BuffLowerAnimation;
+import BattleAnimation.BuffSpinningAnimation;
+import BattleSystem.Battle;
 import BattleSystem.BattleBuffHolder;
+import guiElements.BattleScene;
 import models.BattleStats;
 import models.Player;
 import utilities.BattleLog;
@@ -91,6 +97,50 @@ public class Buff implements Serializable{
 				+ initialChance + "\nperiodicChance=" + periodicChance + "\nkeywords=" + Arrays.toString(keywords)
 				+ "\ncustom=" + custom + "]";
 		return temp;
+	}
+	public void runAnimation (Battle battle, BattleScene scene, Player target, int option) {
+		//option 0 is initial, option 1 is periodic, option 2 is end
+		String animationKey;
+		String iconKey;
+		if (option == 0) {
+			animationKey = this.keywords[0];
+			iconKey = this.keywords[1];
+		}
+		else if (option == 1) {
+			animationKey = this.keywords[2];
+			iconKey = this.keywords[3];
+		}
+		else if (option == 2) {
+			animationKey = this.keywords[4];
+			iconKey = this.keywords[5];
+		}
+		else {
+			animationKey = null;
+			iconKey = null;
+			
+		}
+		if (animationKey == null) {
+			BuffAnimation animation = new BuffAnimation("heal_icon");
+			animation.doAnimation(scene, battle, target);
+		}
+		else if (animationKey.contentEquals("boost")) {
+			BuffBoostAnimation animation = new BuffBoostAnimation(iconKey);
+			animation.doAnimation(scene, battle, target);
+		}
+		else if (animationKey.contentEquals("lower")) {
+			BuffLowerAnimation animation = new BuffLowerAnimation(iconKey);
+			animation.doAnimation(scene, battle, target);
+		}
+		else if (animationKey.contentEquals("spin")) {
+			BuffSpinningAnimation animation = new BuffSpinningAnimation(iconKey);
+			animation.doAnimation(scene, battle, target);
+		}
+		else {
+			BuffAnimation animation = new BuffAnimation("combopoint_icon");
+			animation.doAnimation(scene, battle, target);
+		}
+		
+		
 	}
 	public String getName() {
 		return name;

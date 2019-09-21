@@ -1,5 +1,7 @@
 package BattleSystem;
 
+import BattleAnimation.BattleAnimation;
+import BattleAnimation.BuffAnimation;
 import attacks.Buff;
 import models.Player;
 
@@ -19,8 +21,13 @@ public class BattleBuffHolder {
 	double userSkill = 0.0;
 	double userSpeed = 0.0;
 	
+	String key;
+	BuffAnimation animation;
+	
 	public BattleBuffHolder (Buff buff, Player user) {
 		this.buff = buff;
+		//this.key = buff.getKeywords()[0];
+		//animation = new BuffAnimation("heal_icon");
 		cooldownCounter = buff.getDuration();
 		cooldown = buff.getDuration();
 		this.userStamina = user.getBattleStats().getStamina() * user.getBattleStats().getStaminaMod();
@@ -129,6 +136,18 @@ public class BattleBuffHolder {
 	}
 	public void setUserSpeed(double userSpeed) {
 		this.userSpeed = userSpeed;
+	}
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public BuffAnimation getAnimation() {
+		return animation;
+	}
+	public void setAnimation(BuffAnimation animation) {
+		this.animation = animation;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import BattleAnimation.BattleAnimation;
 import BattleSystem.BattleBuffHolder;
+import guiElements.BattleScene;
 import models.BaseStats;
 import models.Player;
 import utilities.BattleLog;
@@ -55,8 +56,60 @@ public abstract class Move implements Serializable{
 		this.requirements = requirements;
 		this.animation = null;
 	}
-	public void makeMove(Player self, Player target, BattleLog log) {
+	public void makeMove(Player self, Player target, BattleScene scene) {
 		
+	}
+	public boolean isAttackUsable(Player self, Player target, BattleLog log) {
+		boolean useable = true;
+		if (!self.getBattleStats().isCanAttack() && !this.name.contentEquals("Skip Turn") && !this.name.contentEquals("Use Item")) {
+			useable = false;
+		}
+		if (!self.getBattleStats().isCanSkipTurn() && this.name.contentEquals("Skip Turn")) {
+			useable = false;
+		}
+		if (!self.getBattleStats().isCanUseItems() && this.name.contentEquals("Use Item")) {
+			useable = false;
+		}
+		if (target.getBattleStats().isOutOfReach() && !self.getBattleStats().isReach()) {
+			useable = false;
+		}
+		if (target.getBattleStats().isHidden()) {
+			useable = false;
+		}
+		int cost = this.energyCost;
+		if (self.getBattleStats().isExhausted()) {
+			cost *= 2;
+		}
+		if (self.getBattleStats().isFreecasting()) {
+			cost*= 0;
+		}
+		if (cost > self.getBattleStats().getCurrentEnergy()) {
+			useable = false;
+		}
+		if (this.comboPointRequirement > self.getBattleStats().getCurrentComboPoints()) {
+			useable = false;
+		}
+		if ((this.time - self.getBattleStats().getHaste() + self.getBattleStats().getActionTimeCounter()) 
+				> (self.getBattleStats().getActionTime() - self.getBattleStats().getDaze())) {
+			useable = false;
+		}
+		
+		return useable;
+		
+	}
+	public void useResources(Player self, Player target, BattleLog log){
+		this.currentUses--;
+		int cost = this.energyCost;
+		if (self.getBattleStats().isExhausted()) {
+			cost *= 2;
+		}
+		if (self.getBattleStats().isFreecasting()) {
+			cost*= 0;
+		}
+		self.getBattleStats().setCurrentEnergy(self.getBattleStats().getCurrentEnergy() - cost);
+		this.cooldownCounter = this.cooldown;
+		self.getBattleStats().changeCurrentComboPoints(this.comboPointGain);
+		self.getBattleStats().setActionTimeCounter(self.getBattleStats().getActionTimeCounter() + this.time - self.getBattleStats().getHaste());
 	}
 
 	public boolean makeContact (Player self, Player target, BattleLog log ) {
@@ -80,13 +133,14 @@ public abstract class Move implements Serializable{
 		**/
 		return makesContact;
 	}
-	public void applyBuffs (Player self, Player target, Move attack, BattleLog log) {
+	public void applyBuffs (Player self, Player target, Move attack, BattleScene scene) {
 		if (attack.getSelf() != null) {
 			if (attack.getSelf().getInitial() != null) {
 				Random rand = new Random();
+				attack.getSelf().runAnimation(scene.getBattle(), scene, self, 0);
 				if (rand.nextInt(100) < attack.getSelf().getInitialChance()) {
 					for (int index = 0; index < attack.getSelf().getInitial().size(); index++) {
-						attack.getSelf().getInitial().get(index).doBuffEffect(self, self, new BattleBuffHolder(self), log);
+						attack.getSelf().getInitial().get(index).doBuffEffect(self, self, new BattleBuffHolder(self), scene.getBattleLog());
 						
 					}
 				}	
@@ -104,9 +158,10 @@ public abstract class Move implements Serializable{
 		if (attack.getTarget() != null) {
 			if (attack.getTarget().getInitial() != null) {
 				Random rand = new Random();
+				attack.getTarget().runAnimation(scene.getBattle(), scene, target, 0);
 				if (rand.nextInt(100) < attack.getTarget().getInitialChance()) {
 					for (int index = 0; index < attack.getTarget().getInitial().size(); index++) {
-						attack.getTarget().getInitial().get(index).doBuffEffect(target, self, new BattleBuffHolder(self), log);
+						attack.getTarget().getInitial().get(index).doBuffEffect(target, self, new BattleBuffHolder(self), scene.getBattleLog());
 					}
 				}	
 			//	System.out.println("DeBuff Target");

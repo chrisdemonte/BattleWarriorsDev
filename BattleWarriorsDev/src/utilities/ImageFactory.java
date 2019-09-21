@@ -48,6 +48,29 @@ public class ImageFactory {
 			file = new File("resources/images/playerModels/demonstawberry.PNG");
 			images.put("demonstawberry",new Image(new FileInputStream(file)));
 			
+			file = new File("resources/images/attackAssets/buff_icon.PNG");
+			images.put("buff_icon",new  Image(new FileInputStream(file)));
+	
+			file = new File("resources/images/attackAssets/debuff_icon.PNG");
+			images.put("debuff_icon",new Image(new FileInputStream(file)));
+			
+			file = new File("resources/images/attackAssets/heal_icon.PNG");
+			images.put("heal_icon",new Image(new FileInputStream(file)));
+			
+			file = new File("resources/images/attackAssets/damage_icon.PNG");
+			images.put("damage_icon",new Image(new FileInputStream(file)));
+			
+			file = new File("resources/images/attackAssets/shield_icon.PNG");
+			images.put("shield_icon",new Image(new FileInputStream(file)));
+			
+			file = new File("resources/images/attackAssets/sword_icon.PNG");
+			images.put("sword_icon",new Image(new FileInputStream(file)));
+			
+			file = new File("resources/images/attackAssets/magic_icon.PNG");
+			images.put("magic_icon",new Image(new FileInputStream(file)));
+			
+			file = new File("resources/images/attackAssets/combopoint_icon.PNG");
+			images.put("combopoint_icon",new Image(new FileInputStream(file)));
 		}
 		catch (FileNotFoundException e) {
 			e.printStackTrace();

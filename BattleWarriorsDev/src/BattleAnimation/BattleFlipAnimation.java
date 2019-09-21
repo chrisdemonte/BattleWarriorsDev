@@ -40,8 +40,8 @@ public class BattleFlipAnimation extends BattleAnimation {
 				@Override
 				public void handle(ActionEvent e) {
 					if (attack.makeContact(attacker, defender, scene.getBattleLog())) {
-						attack.makeMove(attacker, defender, scene.getBattleLog());
-						attack.applyBuffs(attacker, defender, attack, scene.getBattleLog());
+						attack.makeMove(attacker, defender, scene);
+						
 					}
 					scene.refreshBars();
 					scene.getBattleLogPane().updateLog(scene.getBattleLog());

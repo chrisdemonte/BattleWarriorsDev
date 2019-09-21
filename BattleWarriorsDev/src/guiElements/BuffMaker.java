@@ -65,7 +65,7 @@ public class BuffMaker {
 		buffEffectMakerContainer.getChildren().addAll(intialContainer, periodicContainer, endContainer);
 		
 		
-		container.getChildren().addAll(nameLine, descriptionLine, durationLine, intialChanceLine, periodicChanceLine,
+		container.getChildren().addAll(nameLine, descriptionLine, durationLine, keywordsLine, intialChanceLine, periodicChanceLine,
 				buffEffectMakerContainer);
 		outerContainer.setContent(container);
 		

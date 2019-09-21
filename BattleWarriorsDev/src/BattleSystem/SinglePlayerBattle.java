@@ -22,7 +22,7 @@ public class SinglePlayerBattle extends Battle {
 	}
 	public void doTurn() {
 		this.turnCounter++;
-		arena.getBattleLog().addToLog("~~~: Turn " + turnCounter + " :~~~");
+		arena.getBattleLog().addToLog(":;:;: Turn " + turnCounter + " :;:;:");
 		arena.getBattleLogPane().updateLog(arena.getBattleLog());
 		System.out.println("Turn: " + this.turnCounter);
 		arena.setButtonsDisabled(true);
@@ -74,12 +74,11 @@ public class SinglePlayerBattle extends Battle {
 	}
 	public void doMoves() {
 		BattleAnimationManager animation = new BattleAnimationManager();
-		animation.doAttackSequence(this, arena);
+		animation.doAttackSequence(this, this.arena);
 	}
 	public void setUpNextTurn () {
 		arena.getActionButtons().setPreviousSelection(0);
 		arena.setButtonsDisabled(false);
-		arena.getActionButtons().setPreviousSelection(0);
 		self.getBattleStats().battleTurnUpdate();
 		enemy.getBattleStats().battleTurnUpdate();
 		ArrayList<Move> arr = self.getAttacks().getMoveList();

@@ -34,7 +34,10 @@ public class Map {
 	Image playerAvatar;
 	ImageView avatarHolder;
 	Pane avatarPane = new Pane();
+	int avatarX = 1;
+	int avatarY = 1;
 	ImageFactory imageFactory;
+	
 	
 	int counter = 0;
 	
@@ -69,12 +72,12 @@ public class Map {
 		this.loadImages();
 		avatarHolder.setFitHeight(50);
 		avatarHolder.setFitWidth(50);
-		avatarPane.setTranslateX(200);
-		avatarPane.setTranslateY(180);
 		avatarPane.getChildren().add(avatarHolder);
 		avatarPane.setMinSize(50,50);
 		avatarPane.setMaxSize(50, 50);
-		container.getChildren().addAll(eastWestContainer, avatarPane);
+		
+		container.getChildren().addAll(eastWestContainer);
+		mapTiles[this.avatarX][this.avatarY].addPlayer(new EntityData(this.avatarX, this.avatarY, "man_red"));
 		this.dreamAnimation();
 		//
 		avatarPane.setOnMouseClicked(e->{
@@ -96,7 +99,7 @@ public class Map {
 				
 				for(int i = counter; i < xSize; i+=10 ) {
 					for (int j = 0; j < ySize; j++) {
-						mapTiles[j][i].dreamAnimation();
+						mapTiles[i][j].dreamAnimation();
 					}
 				}
 				counter++;
