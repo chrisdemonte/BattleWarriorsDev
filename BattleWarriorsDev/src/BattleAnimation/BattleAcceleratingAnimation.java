@@ -22,7 +22,7 @@ public class BattleAcceleratingAnimation extends BattleAnimation {
 	}
 
 	public BattleAcceleratingAnimation(Move attack) {
-		super( 5, 15 , 45, attack.getTime());
+		super( 5, 35 , 55, attack.getTime());
 	}
 	@Override
 	public void doBattleAnimation (BattleScene scene, Battle battle, Player attacker, Player defender, Move attack) {
@@ -69,16 +69,26 @@ public class BattleAcceleratingAnimation extends BattleAnimation {
 			};
 			
 			if (!attacker.isNPC()) {
-				int counter = 0;
+				
 				timeline.getKeyFrames().addAll(
-						new KeyFrame(Duration.ZERO, new KeyValue(playerContainer.translateXProperty(), playerStartPosition[0])));	
-				while (timerDelay + counter < timerContact) {
-					timeline.getKeyFrames().addAll(
-							new KeyFrame(Duration.millis(timerDelay + counter), new KeyValue(playerContainer.translateXProperty(), playerStartPosition[0] + velocity)));
-					velocity += acceleration;
-					counter += 15;	
-				}
+						new KeyFrame(Duration.ZERO, new KeyValue(playerContainer.translateXProperty(), playerStartPosition[0])),
+						new KeyFrame(Duration.ZERO, new KeyValue(enemyContainer.translateXProperty(), enemyStartPosition[0])));	
+					
+				
 				timeline.getKeyFrames().addAll(
+						
+						new KeyFrame(
+								Duration.millis(timerDelay), 
+								new KeyValue(playerContainer.translateXProperty(), playerStartPosition[0])),
+						new KeyFrame(
+								Duration.millis(timerDelay + (timerContact - timerDelay) * .30), 
+								new KeyValue(playerContainer.translateXProperty(), playerStartPosition[0] + (enemyStartPosition[0] - playerStartPosition[0])*.01)),
+						new KeyFrame(
+								Duration.millis(timerDelay + (timerContact - timerDelay) * .60), 
+								new KeyValue(playerContainer.translateXProperty(), playerStartPosition[0] + (enemyStartPosition[0] - playerStartPosition[0])*.1)),	
+						new KeyFrame(
+								Duration.millis(timerDelay + (timerContact - timerDelay) * .90), 
+								new KeyValue(playerContainer.translateXProperty(), playerStartPosition[0] + (enemyStartPosition[0] - playerStartPosition[0])*.75)),
 						new KeyFrame(
 								Duration.millis(timerContact),
 								contactHandler,
@@ -95,6 +105,7 @@ public class BattleAcceleratingAnimation extends BattleAnimation {
 								new KeyValue(enemyContainer.translateXProperty(),  enemyStartPosition[0] + (scene.getWidth()* .025))),
 						new KeyFrame(
 								Duration.millis(timerRecovery + ((timerTime - timerRecovery)/ 2)),
+								new KeyValue(playerContainer.translateXProperty(), playerStartPosition[0]),
 								new KeyValue(enemyContainer.translateXProperty(), enemyStartPosition[0])),
 						new KeyFrame(
 								Duration.millis(timerTime),
@@ -105,8 +116,9 @@ public class BattleAcceleratingAnimation extends BattleAnimation {
 								finalHandler)
 						);
 				timeline.play();
-				
 			}
+				
+		
 			else {
 				int counter = 0;
 				timeline.getKeyFrames().addAll(

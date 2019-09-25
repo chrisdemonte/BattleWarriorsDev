@@ -1,4 +1,4 @@
-package Quest;
+package quest;
 
 public class QuestLog {
 

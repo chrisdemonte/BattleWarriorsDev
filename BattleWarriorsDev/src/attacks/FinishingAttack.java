@@ -15,7 +15,9 @@ public class FinishingAttack extends Move{
 	double penetration; 
 	boolean rangedAttack;
 	boolean priority;
-	
+	/*
+	 * Michael was here
+	 */
 	public FinishingAttack(String name, String description, String[] keywords, int energyCost, int uses, int currentUses,
 			int comboPointGain, int comboPointRequirement, int time, int cooldown, int cooldownCounter, Buff self,
 			Buff target, BaseStats requirements, double physicalPower, double magicPower, double bonusDamage,

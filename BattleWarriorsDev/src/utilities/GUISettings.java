@@ -23,16 +23,17 @@ public class GUISettings {
 	
 	public void loadFonts() {
 		try {
-			File file = new File("resources/fonts/mainFont.ttf");
+			File file = new File("resources/fonts/Battlewarriors_8x5_font.ttf");
+			//File file = new File("resources/fonts/mainFont.ttf");
 			//File file = new File("resources/fonts/joystix.ttf");
 			FileInputStream fis = new FileInputStream(file);
-			largeFont = Font.loadFont(fis, 20);
+			largeFont = Font.loadFont(fis, 30);
 			fis.close();
 			FileInputStream fis2 = new FileInputStream(file);
-			smallFont = Font.loadFont(fis2, 16);
+			smallFont = Font.loadFont(fis2, 20);
 			fis2.close();
 			FileInputStream fis3 = new FileInputStream(file);
-			tinyFont = Font.loadFont(fis3, 12);
+			tinyFont = Font.loadFont(fis3, 16);
 			fis3.close();
 		}
 		catch(FileNotFoundException ex) {

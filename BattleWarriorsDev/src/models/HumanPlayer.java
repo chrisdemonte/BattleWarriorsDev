@@ -1,6 +1,6 @@
 package models;
 
-import Quest.QuestLog;
+import quest.QuestLog;
 
 public class HumanPlayer extends Player{
 	
